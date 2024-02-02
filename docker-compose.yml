@@ -1,0 +1,120 @@
+version: '3.7'
+services:
+  app:
+    build: &app-build
+      context: .
+      dockerfile: deploy/components/app/workspace.Dockerfile
+    container_name: app
+    restart: unless-stopped
+    tty: true
+    volumes: &app-volumes
+      - ./:/code
+      - ./deploy/components/app/php.ini:/usr/local/etc/php/conf.d/php.ini
+    networks:
+      - backend
+    depends_on:
+      - db
+      - worker
+      - redis
+
+  server:
+    image: nginx:alpine
+    container_name: server
+    restart: unless-stopped
+    tty: true
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./:/code:delegated
+      - ./docker/nginx/conf.d/:/etc/nginx/conf.d/:delegated
+    networks:
+      - backend
+    depends_on:
+      - app
+
+  db:
+    image: &db-image mysql:8.0
+    container_name: db
+    command: &db-command  
+      - "--default-authentication-plugin=mysql_native_password"
+    restart: unless-stopped
+    tty: true
+    ports:
+      - 3306:3306
+    environment: &db-environment
+      MYSQL_DATABASE: sport-na-school
+      MYSQL_ROOT_PASSWORD: sport-na-school
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - backend
+
+  db-testing:
+    image: *db-image
+    container_name: db-testing
+    command: *db-command
+    restart: unless-stopped
+    tty: true
+    ports:
+      - 3307:3306
+    environment: *db-environment
+    networks:
+      - backend
+
+  db-testing-migrations:
+    build: *app-build
+    container_name: db-testing-migrations
+    command:
+      - sh
+      - -c
+      - |
+        echo "💡 Waiting for db-testing container to be ready to handle connection..."
+        php -r "sleep(10);"
+        php artisan migrate:fresh --env=testing --ansi --seed  --no-interaction
+    environment:
+      DB_HOST: db-testing
+    volumes: *app-volumes
+    networks:
+      - backend
+    depends_on:
+      - db-testing
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: mailhog
+    restart: unless-stopped
+    ports:
+      - 1025:1025
+      - 8025:8025
+    networks:
+      - backend
+
+  redis:
+    image: redis:5.0.7-alpine
+    container_name: redis
+    ports:
+      - 6382:6379
+    networks:
+      - backend
+
+  worker:
+    build: *app-build
+    container_name: worker
+    entrypoint: php artisan queue:work
+    restart: unless-stopped
+    tty: true
+    volumes: *app-volumes
+    networks:
+      - backend
+    depends_on:
+      - db
+      - redis
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  dbdata:
+    driver: local
