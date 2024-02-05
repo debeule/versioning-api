@@ -42,6 +42,7 @@
             "App\\": "app/",
             "Http\\": "http/",
             "Console\\": "console/",
+            "ValueObjects\\": "app/Models/ValueObjects/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         }
@@ -60,6 +61,11 @@
             "composer install --prefer-dist --no-ansi --no-interaction --no-progress",
             "@php artisan key:generate --ansi",
             "@php artisan migrate:fresh --seed"
-        ]
+        ],
+        "cs:check": "vendor/bin/phpcs --ignore=*/Tests/* --standard=PSR12 app",
+        "cs:fix": "vendor/bin/php-cs-fixer fix --verbose",
+        "larastan": "@phpstan",
+        "phpstan": "vendor/bin/phpstan analyse --memory-limit=2G",
+        "phpunit": "vendor/bin/phpunit --colors=always --testsuite='Unit','Feature','Integration'"
     }
 }
