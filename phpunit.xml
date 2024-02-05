@@ -4,12 +4,15 @@
     bootstrap="vendor/autoload.php"
     colors="true"
 >
-    <testsuites>
-        <testsuite name="Feature">
-            <directory suffix="Test.php">./app/testing/Feature</directory>
+      <testsuites>
+        <testsuite name="app">
+            <directory>./app</directory>
         </testsuite>
-        <testsuite name="Unit">
-            <directory suffix="Test.php">./app/testing/Unit</directory>
+        <testsuite name="console">
+            <directory>./console</directory>
+        </testsuite>
+        <testsuite name="http">
+            <directory>./http</directory>
         </testsuite>
     </testsuites>
     <source>
@@ -29,4 +32,11 @@
         <env name="SESSION_DRIVER" value="array"/>
         <env name="TELESCOPE_ENABLED" value="false"/>
     </php>
+    <source>
+    <include>
+      <directory suffix=".php">./app</directory>
+      <directory suffix=".php">./console</directory>
+      <directory suffix=".php">./http</directory>
+    </include>
+  </source>
 </phpunit>
