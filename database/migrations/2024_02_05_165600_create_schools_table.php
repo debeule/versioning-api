@@ -19,8 +19,17 @@ return new class extends Migration
             $table->string('school_id');
             $table->date('deleted_at')->nullable();
             $table->unsignedBigInteger('institution_id');
+            
+            $table->unsignedBigInteger('address_id');
+            $table->unsignedBigInteger('contact_id');
+        });
+
+        Schema::table('addresses', function (Blueprint $table) {
             $table->foreign('address_id')->references('id')->on('addresses');
-            $table->foreign('contact_id')->references('id')->on('contact');
+        });
+
+        Schema::table('addresses', function (Blueprint $table) {
+            $table->foreign('contact_id')->references('id')->on('contacts');
         });
     }
 
