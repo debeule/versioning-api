@@ -42,7 +42,16 @@
             "App\\": "app/",
             "Http\\": "http/",
             "Console\\": "console/",
-            "ValueObjects\\": "app/Models/ValueObjects/",
+            "ValueObjects\\": "app/ValueObjects/",
+
+            "Sports\\": "app/Sports/",
+            "Sports/Queries\\": "app/Sports/Queries",
+            "Sports/Commands\\": "app/Sports/Commands",
+
+            "Schools\\": "app/Schools/",
+            "Schools/Queries\\": "app/Schools/Queries",
+            "Schools/Commands\\": "app/Schools/Commands",
+
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         }
