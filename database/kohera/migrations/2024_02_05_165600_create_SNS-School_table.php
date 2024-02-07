@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('SNS-School', function (Blueprint $table) {
             $table->id();
+            $table->integer('place_id');
             $table->string('Name');
             $table->string('Gangmaker_mail');
             $table->string('School_mail');
@@ -30,7 +31,6 @@ return new class extends Migration
             $table->string('Facturatie_Gemeente');
             $table->string('BTWNummer');
             $table->string('Facturatie_Email');
-            $table->unsignedBigInteger('institution_id');
         });
     }
 

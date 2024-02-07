@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('SNS-Regio', function (Blueprint $table) {
             $table->id();
-            $table->string('RegioNaam');
+            $table->string('RegionNaam');
             $table->string('Provincie');
             $table->string('Postcode');
             $table->integer('RegioDetailId');
