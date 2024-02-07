@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\ValueObjects;
+namespace App\Objects;
 
 use DateTimeImmutable;
 
@@ -28,7 +28,7 @@ class Version
     public function __invoke(): Builder
     {
         return $query
-            ->orderBy('version', 'desc')
+            ->orderBy('updated_at', 'desc')
             ->first();
     }
 
