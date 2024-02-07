@@ -5,7 +5,7 @@ namespace App\Schools;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class School extends Model
+class Municipality extends Model
 {
     use SoftDeletes;
 
