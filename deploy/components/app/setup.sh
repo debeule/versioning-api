@@ -6,6 +6,8 @@ RUN apk --no-cache add \
     sqlite \
     libgomp
 
+docker-php-ext-install pdo_mysql
+
 RUN apk --no-cache add pcre-dev magemagick-dev \
       && pecl install redis \
       && docker-php-ext-enable redis \
