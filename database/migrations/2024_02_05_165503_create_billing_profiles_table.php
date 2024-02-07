@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email');
-            $table->foreign('address_id')->references('id')->on('addresses');
-            $table->foreign('school_id')->references('id')->on('schools');
+            $table->foreignId('address_id')->references('id')->on('addresses');
+            $table->foreignId('school_id')->references('id')->on('schools');
         });
     }
 

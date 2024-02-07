@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
 
-            $table->foreign('province_id')->references('id')->on('provinces');            
+            $table->foreignId('province_id')->references('id')->on('provinces');            
         });
     }
 
