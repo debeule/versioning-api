@@ -17,19 +17,12 @@ return new class extends Migration
             $table->string('email');
             $table->enum('type', ['KO','LO', 'SO']);
             $table->string('school_id');
-            $table->date('deleted_at')->nullable();
             $table->unsignedBigInteger('institution_id');
-            
-            $table->unsignedBigInteger('address_id');
-            $table->unsignedBigInteger('contact_id');
-        });
 
-        Schema::table('addresses', function (Blueprint $table) {
             $table->foreign('address_id')->references('id')->on('addresses');
-        });
-
-        Schema::table('addresses', function (Blueprint $table) {
             $table->foreign('contact_id')->references('id')->on('contacts');
+
+            $table->timestamps();
         });
     }
 

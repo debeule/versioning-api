@@ -16,15 +16,7 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email');
-            $table->unsignedBigInteger('address_id');
-            $table->unsignedBigInteger('school_id');
-        });
-
-        Schema::table('addresses', function (Blueprint $table) {
             $table->foreign('address_id')->references('id')->on('addresses');
-        });
-        
-        Schema::table('schools', function (Blueprint $table) {
             $table->foreign('school_id')->references('id')->on('schools');
         });
     }

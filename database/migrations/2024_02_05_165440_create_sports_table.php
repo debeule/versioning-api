@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('sports', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->date('created_at');
-            $table->date('deleted_at')->nullable();
+            $table->date('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->softDeletes();
         });
     }
 

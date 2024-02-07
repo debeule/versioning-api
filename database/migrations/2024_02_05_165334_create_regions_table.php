@@ -14,12 +14,8 @@ return new class extends Migration
         Schema::create('regions', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('region_id');
-            $table->unsignedBigInteger('province_id');
-        });
 
-        Schema::table('regions', function (Blueprint $table) {
-            $table->foreign('province_id')->references('id')->on('provinces');
+            $table->foreign('province_id')->references('id')->on('provinces');            
         });
     }
 
