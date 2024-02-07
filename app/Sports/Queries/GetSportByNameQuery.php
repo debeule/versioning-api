@@ -2,28 +2,18 @@
 
 namespace App\Sports\Queries;
 
-use App\Models\Sport;
+use App\Sports\Sport;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Objects\Version;
 
 class GetSportByNameQuery
 {
-    public string $name;
-
-    public function __construct(string $name)
+    public function __invoke(string $name): ?Sport
     {
-        $this->name = $name;
-    }
+        $version = new Version('2024', '01', '01');
 
-    public function __invoke(): ?Sport
-    {
-        try 
-        {
-            return Sport::where('name', $this->name)->firstOrFail();
-        } 
-
-        catch (\Throwable $th) 
-        {
-            return null;
-        }
+        return Sport::where('name', $name)
+        ->where('updated_at', '>=', (string)$version)
+        ->first();
     }
 }

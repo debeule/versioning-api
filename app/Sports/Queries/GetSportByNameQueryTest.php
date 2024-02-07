@@ -1,36 +1,43 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Sports\Queries;
 
-use Testing\TestCase;
-use App\Sports\GetSportByNameQuery;
+use App\Testing\TestCase;
+use App\Sports\Queries\GetSportByNameQuery;
 use App\Sports\Sport;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Database\Factories\SportFactory;
+
 
 class GetSportByNameQueryTest extends TestCase
 {
-    use RefreshDatabase;
+
+    // use RefreshDatabase;
 
     /** @test */
-    public function it_can_get_a_sport_by_name()
+    public function ItCanGetASportByName()
     {
-        $sport = Sport::factory()->create(['name' => 'Football']);
+        $sportName = 'Football';
 
-        $query = new GetSportByNameQuery('Football');
+        $sport = SportFactory::new()->withName($sportName)->create();
+        
+        $GetSportByNameQuery = new GetSportByNameQuery;
+        $result = $GetSportByNameQuery($sportName);
 
-        $result = $query->handle();
+        $sport->delete();
 
-        $this->assertInstanceOf(Sport::class, $result);
+        $this->assertInstanceOf(Sport::class, $sport);
         $this->assertEquals($sport->name, $result->name);
+        $this->assertSoftDeleted($sport);
     }
 
     /** @test */
-    public function it_returns_null_if_sport_not_found()
+    public function ItReturnsNullIfSportNotFound()
     {
-        $query = new GetSportByNameQuery('Non-existing Sport');
+        $GetSportByNameQuery = new GetSportByNameQuery();
 
-        $result = $query->handle();
-
-        $this->assertNull($result);
+        $this->assertNull($GetSportByNameQuery('Non-existing Sport'));
     }
 }
