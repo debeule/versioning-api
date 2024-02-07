@@ -10,6 +10,7 @@ class Sport extends Model
 {
     use SoftDeletes, HasFactory;
     
+    public $timestamps = false;
     /**
      * The attributes that are mass assignable.
      *
