@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('street_name');
             $table->string('street_identifier');
-            $table->string('email');
             $table->foreignId('municipality_id')->references('id')->on('municipalities');      
         });
     }

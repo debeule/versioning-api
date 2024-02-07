@@ -15,14 +15,16 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email');
+            $table->string('contact_email');
             $table->enum('type', ['KO','LO', 'SO']);
             $table->string('school_id');
             $table->unsignedBigInteger('institution_id');
+            $table->integer('student_count');
 
             $table->foreignId('address_id')->references('id')->on('addresses');
-            $table->foreignId('contact_id')->references('id')->on('contacts');
 
-            $table->timestamps();
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+            $table->softDeletes();
         });
     }
 
