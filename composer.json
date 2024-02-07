@@ -67,7 +67,8 @@
         "larastan": "@phpstan",
         "phpstan": "vendor/bin/phpstan analyse --memory-limit=2G",
         "phpunit": "vendor/bin/phpunit --colors=always,'Feature','Integration'",
-        "sqlite:migrate": "php artisan migrate --path=database/kohera/migrations/ --database=sqlite",
-        "seed": "php artisan db:seed --database=sqlite"
+        "sqlite:migrate": "php artisan migrate:fresh --path=database/kohera/migrations/ --database=sqlite",
+        "seed:sqlite": "php artisan db:seed --database=sqlite",
+        "seed:mysql": "php artisan db:seed --database=mysql"
     }
 }
