@@ -20,7 +20,7 @@
         "nunomaduro/collision": "^7.0",
         "nunomaduro/larastan": "^2.8",
         "phpstan/phpstan": "^1.10",
-        "phpunit/phpunit": "^10.1",
+        "phpunit/phpunit": "^10.5",
         "spatie/laravel-ignition": "^2.0"
     },
     "extra": {
@@ -42,16 +42,7 @@
             "App\\": "app/",
             "Http\\": "http/",
             "Console\\": "console/",
-            "ValueObjects\\": "app/ValueObjects/",
-
-            "Sports\\": "app/Sports/",
-            "Sports/Queries\\": "app/Sports/Queries",
-            "Sports/Commands\\": "app/Sports/Commands",
-
-            "Schools\\": "app/Schools/",
-            "Schools/Queries\\": "app/Schools/Queries",
-            "Schools/Commands\\": "app/Schools/Commands",
-
+                     
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         }
@@ -71,10 +62,10 @@
             "@php artisan key:generate --ansi",
             "@php artisan migrate:fresh --seed"
         ],
-        "cs:check": "vendor/bin/phpcs --ignore=*/Tests/* --standard=PSR12 app",
+        "cs:check": "vendor/bin/phpcs --standard=PSR12 app",
         "cs:fix": "vendor/bin/php-cs-fixer fix --verbose",
         "larastan": "@phpstan",
         "phpstan": "vendor/bin/phpstan analyse --memory-limit=2G",
-        "phpunit": "vendor/bin/phpunit --colors=always --testsuite='Unit','Feature','Integration'"
+        "phpunit": "vendor/bin/phpunit --colors=always,'Feature','Integration'"
     }
 }
