@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Database\Seeders\SportSeeder;
+use Database\Seeders\RegioSeeder;
+use Database\Seeders\SchoolSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +15,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\User\User::factory(10)->create();
-
-        // \App\User\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $this->call([
+            SportSeeder::class,
+            RegioSeeder::class,
+            SchoolSeeder::class,
+        ]);
     }
 }
