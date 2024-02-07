@@ -1,20 +1,6 @@
 # install composer
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# # install dependencies necessary for php extensions
-# apk upgrade \
-# && apk --update --no-cache add \
-#     libzip-dev \
-#     oniguruma-dev \
-#     libpng-dev \
-#     freetype-dev \
-#     libjpeg-turbo-dev \
-#     gmp-dev
-
-# # configure php extensions
-# docker-php-ext-configure gd \
-#     && docker-php-ext-install gd zip pdo_mysql mbstring gmp bcmath
-
 RUN apk --no-cache add \
     mysql-client \
     sqlite \
