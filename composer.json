@@ -66,6 +66,8 @@
         "cs:fix": "vendor/bin/php-cs-fixer fix --verbose",
         "larastan": "@phpstan",
         "phpstan": "vendor/bin/phpstan analyse --memory-limit=2G",
-        "phpunit": "vendor/bin/phpunit --colors=always,'Feature','Integration'"
+        "phpunit": "vendor/bin/phpunit --colors=always,'Feature','Integration'",
+        "sqlite:migrate": "php artisan migrate --path=database/kohera/migrations/ --database=sqlite",
+        "sqlite:migrate --seed": "php artisan migrate --path=database/kohera/migrations/ --database=sqlite --seed"
     }
 }
