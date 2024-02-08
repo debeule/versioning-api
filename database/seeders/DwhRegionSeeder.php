@@ -4,12 +4,17 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Kohera\DwhRegion;
 
-class RegioSeeder extends Seeder
+class DwhRegionSeeder extends Seeder
 {
     public function run()
     {
-        DB::connection('sqlite')->table('SNS-Regio')->insert([
+        DwhRegion::factory()
+            ->count(50)
+            ->create();
+
+        DB::connection('sqlite')->table('dwh_regions')->insert([
             [
                 'RegionNaam' => "Haspengouw",
                 'Provincie' => "Limburg",

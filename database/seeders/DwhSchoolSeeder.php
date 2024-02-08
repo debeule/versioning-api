@@ -4,12 +4,17 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Kohera\DwhSchool;
 
-class SchoolSeeder extends Seeder
+class DwhSchoolSeeder extends Seeder
 {
     public function run()
     {
-        DB::connection('sqlite')->table('SNS-School')->insert([
+        DwhSchool::factory()
+            ->count(50)
+            ->create();
+
+        DB::connection('sqlite')->table('dwh_schools')->insert([
             [
                 "Place_id" => "-1",
                 "Name" => "Sint-Norbertusinstituut 1",
