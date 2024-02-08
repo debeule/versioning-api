@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Schools\Commands;
+namespace App\Sports\Commands;
 
 use App\Kohera\Commands\SyncSportsTableCommand;
 
-class SyncSchoolsDomainJob implements ShouldQueue
+class SyncSportsDomainCommand
 {
     public function __invoke(): void
     {

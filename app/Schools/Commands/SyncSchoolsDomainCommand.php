@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Schools\Commands;
 
-use App\Kohera\Commands\SyncSchoolsTableCommand;
 use App\Kohera\Commands\SyncRegionsTableCommand;
+use App\Kohera\Commands\SyncSchoolsTableCommand;
 
 class SyncSchoolsDomainCommand
 {

@@ -1,17 +1,18 @@
 <?php 
 
-namespace App\Schools\Commands;
+namespace App\Sports\Commands;
 
-use App\Schools\School;
+use App\Kohera\DwhSport;
+use App\Sports\Sport;
 
 
-final class CreateNewProvinceCommand
+final class CreateNewSportCommand
 {
     public function __invoke(DwhSport $dwhSport): bool
     {
         $newSport = new Sport();
 
-        $newSport->name = $dwhSport->Sport;
+        $newSport->name = $dwhSport->Sportkeuze;
 
         return $newSport->save();
     }

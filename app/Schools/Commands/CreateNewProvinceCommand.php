@@ -3,17 +3,35 @@
 namespace App\Schools\Commands;
 
 use App\Schools\Province;
-use App\Kohera\DwhRegio;
+use App\Kohera\DwhRegion;
 
 
 final class CreateNewProvinceCommand
 {
-    public function __invoke(DwhRegio $dwhRegion): bool
+    public function __invoke(DwhRegion $dwhRegion): bool
     {
-        $newProvince = new Province();
+        if (!$this->recordExists($dwhRegion)) 
+        {
+            return $this->buildRecord($dwhRegion);
+        }
 
-        $newProvince->name = $dwhRegion->Provincie;
+        return true;
+    }
 
-        return $newProvince->save();
+    private function recordExists(DwhRegion $dwhRegion): bool
+    {
+        return Province::where('name', $dwhRegion->Provincie)->exists();
+    }
+
+
+    public function buildRecord(DwhRegion $dwhRegion): bool
+    {
+        {
+            $newProvince = new Province();
+    
+            $newProvince->name = $dwhRegion->Provincie;
+    
+            return $newProvince->save();
+        }
     }
 }
