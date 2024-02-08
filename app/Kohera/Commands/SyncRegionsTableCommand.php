@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Jobs;
+namespace App\Kohera\Commands;
 
 use App\Schools\Province;
 use App\Schools\Region;
 use App\Kohera\DwhRegion;
 use App\Kohera\Queries\GetAllDwhRegionsQuery;
+use App\Kohera\Purifier\Purifier;
 
 use App\Schools\Commands\CreateNewRegionCommand;
 use App\Schools\Commands\CreateNewProvinceCommand;
@@ -17,32 +18,41 @@ class SyncRegionsTableCommand
     public function __invoke(): void
     {
         $existingRegions = Region::all();
+        $processedSports = [];
         
-        foreach (DwhRegion::all() as $key => $DwhRegion) 
-        {
-            $regionExists = $existingRegions->where('name', $DwhRegion->RegionNaam)->isNotEmpty();
-            
-            if ($regionExists)
-            {
-                $existingRegions = $existingRegions->where('name', "!=", $DwhRegion->RegionNaam);
+        $getAllDwhRegionsQuery = new GetAllDwhRegionsQuery();
 
+        foreach ($getAllDwhRegionsQuery() as $key => $dwhRegion) 
+        {
+            if (in_array($dwhRegion->RegionNaam, $processedSports)) 
+            {
                 continue;
             }
 
-            if (!$regionExists) 
+            $regionExists = $existingRegions->where('name', $dwhRegion->RegionNaam)->isNotEmpty();
+            
+            if ($regionExists)
             {
-                $purifier = new Purifier();
-                $dwhRegion = $purifier->cleanAllFields($DwhRegion);
+                $existingRegions = $existingRegions->where('name', "!=", $dwhRegion->RegionNaam);
 
-                if (!Province::where('name', $DwhRegion->RegionNaam)->first())
-                {
-                    $createNewProvinceCommand = new CreateNewProvinceCommand();
-                    $createNewProvinceCommand($DwhRegion);
-                }
+                array_push($processedSports, $dwhRegion->RegionNaam);
                 
-                $createNewRegionCommand = new CreateNewRegionCommand();
-                $createNewRegionCommand($DwhRegion);
+                continue;
             }
+            
+            $purifier = new Purifier();
+            $dwhRegion = $purifier->cleanAllFields($dwhRegion);
+
+            if (!Province::where('name', $dwhRegion->Provincie)->first())
+            {
+                $createNewProvinceCommand = new CreateNewProvinceCommand();
+                $createNewProvinceCommand($dwhRegion);
+            }
+            
+            $createNewRegionCommand = new CreateNewRegionCommand();
+            $createNewRegionCommand($dwhRegion);
+
+            array_push($processedSports, $dwhRegion->RegionNaam);
         }
     }
 }

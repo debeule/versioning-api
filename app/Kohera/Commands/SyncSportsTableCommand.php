@@ -2,40 +2,51 @@
 
 declare(strict_types=1);
 
-namespace App\Jobs;
+namespace App\Kohera\Commands;
 
 use App\Kohera\Queries\GetAllDwhSportsQuery;
 use App\Sports\Sport;
-use App\Kohera\DwhSports;
-use App\Schools\Commands\CreateNewSportCommand;
+use App\Kohera\DwhSport;
+use App\Kohera\Purifier\Purifier;
+use App\Sports\Commands\CreateNewSportCommand;
 
 class SyncSportsTableCommand
 {
     public function __invoke(): void
     {
         $existingSports = Sport::all();
+        $processedSports = [];
 
-        foreach (DwhSports::all() as $key => $dwhSport) 
+        $getAllDwhSportsQuery = new GetAllDwhSportsQuery();
+
+        foreach ($getAllDwhSportsQuery() as $key => $dwhSport) 
         {
-            $sportExists = $existingSports->where('name', $dwhSport->Sport)->isNotEmpty();
+            if (in_array($dwhSport->Sportkeuze, $processedSports)) 
+            {
+                continue;
+            }
+
+            $sportExists = $existingSports->where('name', $dwhSport->Sportkeuze)->isNotEmpty();
 
             if ($sportExists)
             {
-                $existingSports = $existingSports->where('name', "!=", $dwhSport->Sport);
+                $existingSports = $existingSports->where('name', "!=", $dwhSport->Sportkeuze);
+
+                array_push($processedSports, $dwhSport->Sportkeuze);
 
                 continue;
             }
 
-            if (!$sportExists) 
-            {
-                $purifier = new Purifier();
-                $dwhSport = $purifier->cleanAllFields($dwhSport);
+            $purifier = new Purifier();
+            $dwhSport = $purifier->cleanAllFields($dwhSport);
 
-                $createNewSportCommand = new CreateNewSportCommand();
-                $createNewSportCommand($dwhSport);
-            }
+            $createNewSportCommand = new CreateNewSportCommand();
+            $createNewSportCommand($dwhSport);
+
+            array_push($processedSports, $dwhSport->Sportkeuze);
         }
 
+        //sport found in sports table but not in DwhSports
         foreach ($existingSports as $existingSport) 
         {
             $existingSport->delete();

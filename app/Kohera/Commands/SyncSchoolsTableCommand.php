@@ -2,14 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Jobs;
+namespace App\Kohera\Commands;
 
 use App\Schools\School;
 use App\Schools\Province;
 use App\Schools\Region;
 use App\Schools\Municipality;
 use App\Schools\Address;
-use App\Kohera\dwhSchools;
+use App\Kohera\DwhSchool;
+use App\Kohera\Purifier\Purifier;
+use App\Kohera\Queries\GetAllDwhSchoolsQuery;
 
 use App\Schools\Commands\CreateNewRegionCommand;
 use App\Schools\Commands\CreateNewProvinceCommand;
@@ -17,37 +19,38 @@ use App\Schools\Commands\CreateNewMunicipalityCommand;
 use App\Schools\Commands\CreateNewAddressCommand;
 use App\Schools\Commands\CreateNewSchoolCommand;
 
-class SyncSchoolsTable
+class SyncSchoolsTableCommand
 {
     public function __invoke(): void
     {
         $existingSchools = School::all();
+        $processedSports = [];
+
+        $getAllDwhSchoolsQuery = new GetAllDwhSchoolsQuery();
         
-        foreach (dwhSchools::all() as $key => $dwhSchool) 
+        foreach ($getAllDwhSchoolsQuery() as $key => $dwhSchool) 
         {
-            $schoolExists = $existingSchools->where('school_id', $dwhSchool->School_Id)->isNotEmpty();
-
-            if ($schoolExists)
+            if (in_array($dwhSchool->School_Id, $processedSports)) 
             {
-                $existingSchools = $existingSchools->where('name', "!=", $dwhSchool->School_Id);
-
                 continue;
             }
 
-            if (!$schoolExists) 
-            {
-                $purifier = new Purifier();
-                $dwhSchool = $purifier->cleanAllFields($dwhSchool);
+            $existingSchool = $existingSchools->where('school_id', $dwhSchool->School_Id)->first();
 
-                $createNewMunicipalityCommand = new CreateNewMunicipalityCommand();
-                $createNewMunicipalityCommand($dwhSchool);
+            $purifier = new Purifier();
+            $dwhSchool = $purifier->cleanAllFields($dwhSchool);
 
-                $createNewAddressCommand = new CreateNewAddressCommand();
-                $createNewAddressCommand($dwhSchool);
+            $createNewMunicipalityCommand = new CreateNewMunicipalityCommand();
+            $createNewMunicipalityCommand($dwhSchool);
 
-                $createNewSchoolCommand = new CreateNewSchoolCommand();
-                $createNewSchoolCommand($dwhSchool);
-            }
+            $createNewAddressCommand = new CreateNewAddressCommand();
+            $createNewAddressCommand($dwhSchool);
+
+            $createNewSchoolCommand = new CreateNewSchoolCommand();
+            $createNewSchoolCommand($dwhSchool);
+
+            $existingSchools = $existingSchools->where('school_id', "!=", $dwhSchool->School_Id);
+            array_push($processedSports, $dwhSchool->School_Id);
         }
 
         foreach ($existingSchools as $existingSchool) 
