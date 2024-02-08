@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class DwhSchool extends Model
 {
     public $timestamps = false;
-    
+
+    protected $connection = 'sqlite';
+
     use HasFactory;
 
     protected $fillable = [

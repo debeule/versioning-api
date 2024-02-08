@@ -9,6 +9,8 @@ class DwhSport extends Model
 {
     public $timestamps = false;
 
+    protected $connection = 'sqlite';
+
     use HasFactory;
 
     protected $fillable = [
