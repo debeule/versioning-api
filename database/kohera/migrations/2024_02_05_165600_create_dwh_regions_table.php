@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('SNS-Regio', function (Blueprint $table) {
+        Schema::create('dwh_regions', function (Blueprint $table) {
             $table->id();
             $table->string('RegionNaam');
             $table->string('Provincie');
