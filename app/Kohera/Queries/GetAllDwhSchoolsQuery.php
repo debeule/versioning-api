@@ -8,7 +8,7 @@ final class GetAllDwhSchoolsQuery
 {
     public function __invoke(): Object
     {
-        # TODO : api call to get schools
+        # TODO : api call to get dwhschools
         return DwhSchool::all();
     }
 }

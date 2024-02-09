@@ -8,7 +8,7 @@ final class GetAllDwhSportsQuery
 {
     public function __invoke(): Object
     {
-        # TODO : api call to get sports
+        # TODO : api call to get dwhsports
         return DwhSport::all();
     }
 }

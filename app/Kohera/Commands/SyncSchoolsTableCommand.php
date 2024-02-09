@@ -53,6 +53,7 @@ class SyncSchoolsTableCommand
             array_push($processedSports, $dwhSchool->School_Id);
         }
 
+        //school found in sports table but not in dwhschools
         foreach ($existingSchools as $existingSchool) 
         {
             $existingSchool->delete();
