@@ -24,6 +24,9 @@ class SyncRegionsTableCommand
 
         foreach ($getAllDwhRegionsQuery() as $key => $dwhRegion) 
         {
+            $purifier = new Purifier();
+            $dwhSchool = $purifier->cleanAllFields($dwhSchool);
+            
             if (in_array($dwhRegion->RegionNaam, $processedSports)) 
             {
                 continue;

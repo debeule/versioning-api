@@ -30,6 +30,9 @@ class SyncSchoolsTableCommand
         
         foreach ($getAllDwhSchoolsQuery() as $key => $dwhSchool) 
         {
+            $purifier = new Purifier();
+            $dwhSchool = $purifier->cleanAllFields($dwhSchool);
+            
             if (in_array($dwhSchool->School_Id, $processedSports)) 
             {
                 continue;
@@ -37,8 +40,6 @@ class SyncSchoolsTableCommand
 
             $existingSchool = $existingSchools->where('school_id', $dwhSchool->School_Id)->first();
 
-            $purifier = new Purifier();
-            $dwhSchool = $purifier->cleanAllFields($dwhSchool);
 
             $createNewMunicipalityCommand = new CreateNewMunicipalityCommand();
             $createNewMunicipalityCommand($dwhSchool);

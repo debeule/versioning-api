@@ -21,6 +21,9 @@ class SyncSportsTableCommand
 
         foreach ($getAllDwhSportsQuery() as $key => $dwhSport) 
         {
+            $purifier = new Purifier();
+            $dwhSport = $purifier->cleanAllFields($dwhSport);
+
             if (in_array($dwhSport->Sportkeuze, $processedSports)) 
             {
                 continue;
@@ -37,16 +40,13 @@ class SyncSportsTableCommand
                 continue;
             }
 
-            $purifier = new Purifier();
-            $dwhSport = $purifier->cleanAllFields($dwhSport);
-
             $createNewSportCommand = new CreateNewSportCommand();
             $createNewSportCommand($dwhSport);
 
             array_push($processedSports, $dwhSport->Sportkeuze);
         }
 
-        //sport found in sports table but not in DwhSports
+        //sport found in sports table but not in dwhSports
         foreach ($existingSports as $existingSport) 
         {
             $existingSport->delete();
