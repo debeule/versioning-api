@@ -8,8 +8,8 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-use App\Schools\SyncSchoolsDomainCommand;
-use App\Sports\SyncSportsDomainCommand;
+use App\Schools\Commands\SyncSchoolsDomainCommand;
+use App\Sports\Commands\SyncSportsDomainCommand;
 
 class SyncAllDomainsJob implements ShouldQueue
 {
