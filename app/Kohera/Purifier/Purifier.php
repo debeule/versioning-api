@@ -6,13 +6,20 @@ final class Purifier
 {
     public object $subject;
 
-    public function cleanAllFields(object $object): Object
+    public function cleanAllFields(object $object): object
     {
+        foreach ($object->getAttributes() as $key => $value) 
+        {
+            $object->{$key} = $this->cleanAttribute($value);
+        }
+
         return $object;
     }
 
-    private function trimString(string $input): string
+    private function cleanAttribute(string $input): string
     {
-        return trim($input);
+        $intput = trim($input);
+
+        return $input;
     }
 }
