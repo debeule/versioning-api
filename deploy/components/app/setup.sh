@@ -5,11 +5,12 @@ apk --no-cache add \
     sqlite \
     libgomp \
     pcre-dev \
+    pcntl \
     redis \
     imagemagick-dev
 
 # Install PHP extensions
-RUN docker-php-ext-install pdo_mysql pcntl \
+docker-php-ext-install pdo_mysql pcntl \
     && pecl install redis \
     && docker-php-ext-enable redis
 
