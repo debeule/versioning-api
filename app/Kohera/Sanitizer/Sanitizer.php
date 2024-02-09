@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Kohera\Purifier;
 
-final class Purifier
+final class Sanitizer
 {
     public object $subject;
 
