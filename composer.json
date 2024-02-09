@@ -59,15 +59,19 @@
     "prefer-stable": true,
     "scripts": {
         "start": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
 
             "composer install --prefer-dist --no-ansi --no-interaction --no-progress",
-            "@php artisan key:generate --ansi",
-            "@php artisan migrate:fresh --seed"
+            "php artisan key:generate --ansi",
+            "php artisan migrate:fresh"
+        ],
+        "testing": [
+            "php artisan migrate:fresh",
+            "php artisan migrate:fresh --path=database/kohera/migrations/ --database=sqlite",
+            "php artisan db:seed --database=sqlite"
         ],
         "cs:check": "vendor/bin/phpcs --standard=PSR12 app",
         "cs:fix": "vendor/bin/php-cs-fixer fix --verbose",
-        "larastan": "@phpstan",
         "phpstan": "vendor/bin/phpstan analyse --memory-limit=2G",
         "phpunit": "vendor/bin/phpunit --colors=always,'Feature','Integration'",
         "sqlite:migrate": "php artisan migrate:fresh --path=database/kohera/migrations/ --database=sqlite",
