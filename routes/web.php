@@ -14,7 +14,3 @@ use Http\Controllers\TestController;
 |
 */
 Route::get('/', TestController::class);
-
-Route::get('/', function () {
-    return view('welcome');
-});
