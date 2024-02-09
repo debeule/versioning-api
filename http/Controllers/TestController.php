@@ -2,16 +2,25 @@
 
 namespace Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Bus;
 use App\Jobs\SyncAllDomainsJob;
-use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Routing\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
+
+use App\Schools\Commands\SyncSchoolsDomainCommand;
+use App\Sports\Commands\SyncSportsDomainCommand;
+use App\Kohera\DwhSchool;
 
 class TestController extends Controller
 {
     public function __invoke()
     {
         dispatch(new SyncAllDomainsJob());
+        
+        // $syncSchools = new SyncSchoolsDomainCommand();
+        // $syncSchools();
+
+        // $syncSports = new SyncSportsDomainCommand();
+        // $syncSports();
     }
 }
