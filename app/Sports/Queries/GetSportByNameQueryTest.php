@@ -14,7 +14,7 @@ use Database\Factories\SportFactory;
 class GetSportByNameQueryTest extends TestCase
 {
 
-    // use RefreshDatabase;
+    use RefreshDatabase;
 
     /** @test */
     public function ItCanGetASportByName()

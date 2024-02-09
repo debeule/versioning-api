@@ -23,9 +23,4 @@ final class DwhSportFactory extends Factory
             'Hoofdsport' => $this->faker->name(),
         ];
     }
-
-    public function withName(string $name): self
-    {
-        return $this->state(['name' => $name]);
-    }
 }

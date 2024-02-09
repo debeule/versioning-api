@@ -23,7 +23,6 @@ final class CreateNewProvinceCommand
         return Province::where('name', $dwhRegion->Provincie)->exists();
     }
 
-
     public function buildRecord(DwhRegion $dwhRegion): bool
     {
         {

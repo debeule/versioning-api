@@ -24,7 +24,6 @@ final class CreateNewRegionCommand
         return Region::where('region_id', $dwhRegion->RegioDetailId)->exists();
     }
 
-
     public function buildRecord(DwhRegion $dwhRegion): bool
     {
         $newRegion = new Region();

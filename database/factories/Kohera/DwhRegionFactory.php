@@ -23,9 +23,4 @@ final class DwhRegionFactory extends Factory
             'RegioDetailId' => $this->faker->randomNumber(5)
         ];
     }
-
-    public function withName(string $name): self
-    {
-        return $this->state(['name' => $name]);
-    }
 }

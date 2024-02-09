@@ -37,9 +37,4 @@ final class DwhSchoolFactory extends Factory
             'Facturatie_Email' => $this->faker->email(),
         ];
     }
-
-    public function withName(string $name): self
-    {
-        return $this->state(['name' => $name]);
-    }
 }
