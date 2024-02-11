@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Schools;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BillingProfile extends Model
+final class BillingProfile extends Model
 {
     /**
      * The attributes that are mass assignable.

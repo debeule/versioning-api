@@ -11,7 +11,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Database\Factories\SportFactory;
 
 
-class GetSportByNameQueryTest extends TestCase
+final class GetSportByNameQueryTest extends TestCase
 {
 
     use RefreshDatabase;

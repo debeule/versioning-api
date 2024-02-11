@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Sports\Queries;
 
 use App\Sports\Sport;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Objects\Version;
 
-class GetSportByNameQuery
+final class GetSportByNameQuery
 {
     public function __invoke(string $name): ?Sport
     {

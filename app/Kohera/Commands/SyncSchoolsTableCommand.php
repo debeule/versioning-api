@@ -19,7 +19,7 @@ use App\Schools\Commands\CreateNewMunicipalityCommand;
 use App\Schools\Commands\CreateNewAddressCommand;
 use App\Schools\Commands\CreateNewSchoolCommand;
 
-class SyncSchoolsTableCommand
+final class SyncSchoolsTableCommand
 {
     public function __invoke(): void
     {

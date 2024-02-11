@@ -6,7 +6,7 @@ namespace App\Sports\Commands;
 
 use App\Kohera\Commands\SyncSportsTableCommand;
 
-class SyncSportsDomainCommand
+final class SyncSportsDomainCommand
 {
     public function __invoke(): void
     {

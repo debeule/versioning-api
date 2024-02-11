@@ -10,7 +10,7 @@ use App\Kohera\DwhSport;
 use App\Kohera\Purifier\Purifier;
 use App\Sports\Commands\CreateNewSportCommand;
 
-class SyncSportsTableCommand
+final class SyncSportsTableCommand
 {
     public function __invoke(): void
     {

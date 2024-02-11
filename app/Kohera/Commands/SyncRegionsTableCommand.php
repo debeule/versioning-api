@@ -13,9 +13,9 @@ use App\Kohera\Purifier\Purifier;
 use App\Schools\Commands\CreateNewRegionCommand;
 use App\Schools\Commands\CreateNewProvinceCommand;
 
-class SyncRegionsTableCommand
+final class SyncRegionsTableCommand
 {
-    public function __invoke(): void
+    public function __invoke(Purifier $purifier): void
     {
         $existingRegions = Region::all();
         $processedSports = [];
@@ -42,9 +42,6 @@ class SyncRegionsTableCommand
                 
                 continue;
             }
-            
-            $purifier = new Purifier();
-            $dwhRegion = $purifier->cleanAllFields($dwhRegion);
 
             if (!Province::where('name', $dwhRegion->Provincie)->first())
             {

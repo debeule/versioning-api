@@ -7,7 +7,7 @@ namespace App\Schools\Commands;
 use App\Kohera\Commands\SyncRegionsTableCommand;
 use App\Kohera\Commands\SyncSchoolsTableCommand;
 
-class SyncSchoolsDomainCommand
+final class SyncSchoolsDomainCommand
 {
     public function __invoke(): void
     {

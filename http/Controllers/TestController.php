@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Http\Controllers;
 
 use App\Jobs\SyncAllDomainsJob;
@@ -11,7 +13,7 @@ use App\Schools\Commands\SyncSchoolsDomainCommand;
 use App\Sports\Commands\SyncSportsDomainCommand;
 use App\Kohera\DwhSchool;
 
-class TestController extends Controller
+final class TestController extends Controller
 {
     public function __invoke()
     {

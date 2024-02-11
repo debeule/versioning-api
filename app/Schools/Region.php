@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Schools;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Region extends Model
+final class Region extends Model
 {
     public $timestamps = false;
 
