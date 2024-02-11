@@ -1,16 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Http\Controllers\RetrieveDataController;
 use Http\Controllers\TestController;
+use Illuminate\Routing\Router;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 Route::get('/', TestController::class);
+
+// localhost/v1/Sports/?name=foodball&version=2024-01-01T10:00:00+00:00
+// api/v1/Sports/?name=foodball&version=2024-01-01T10:00:00+00:00
+
+
+Route::prefix('v1')->group(function () {
+    Route::get('/{domain}', RetrieveDataController::class);
+});
