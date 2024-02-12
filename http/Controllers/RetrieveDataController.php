@@ -19,8 +19,6 @@ class RetrieveDataController extends Controller
         $response = $client->get('endpoint_X');
         $data = $response->getBody()->getContents();
         
-        Process the data
-        
         return $data;
     }
 }
