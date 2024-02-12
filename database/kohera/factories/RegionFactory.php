@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Database\Factories\Kohera;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Kohera\DwhRegion;
+use App\Kohera\Region;
 
-final class DwhRegionFactory extends Factory
+final class RegionFactory extends Factory
 {
-    protected $model = DwhRegion::class;
+    protected $model = Region::class;
 
     /**
      * Define the model's default state.

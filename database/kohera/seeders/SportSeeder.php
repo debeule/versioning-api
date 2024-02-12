@@ -1,20 +1,22 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Kohera\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Kohera\DwhSport;
+use App\Kohera\Sport;
 
-class DwhSportSeeder extends Seeder
+class SportSeeder extends Seeder
 {
+    protected $connection = 'sqlite';
+
     public function run()
     {
-        DwhSport::factory()
+        Sport::factory()
             ->count(50)
             ->create();
 
-        DB::connection('sqlite')->table('dwh_sports')->insert([
+        DB::connection('sqlite')->table('sports')->insert([
             [
                 "Sportkeuze" => "Atletiek",
                 "BK_SportTakSportOrganisatie" => "00000000-0000-0000-0000-000000020000",

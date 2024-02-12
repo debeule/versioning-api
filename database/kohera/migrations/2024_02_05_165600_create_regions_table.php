@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dwh_sports', function (Blueprint $table) {
+        Schema::create('regions', function (Blueprint $table) {
             $table->id();
-            $table->string('Sportkeuze');
-            $table->string('BK_SportTakSportOrganisatie');
-            $table->string('Sport');
-            $table->string('Hoofdsport');
+            $table->string('RegionNaam');
+            $table->string('Provincie');
+            $table->string('Postcode');
+            $table->integer('RegioDetailId');
         });
     }
 
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sports');
+        Schema::dropIfExists('regions');
     }
 };

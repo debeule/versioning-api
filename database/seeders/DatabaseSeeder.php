@@ -4,18 +4,19 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Database\Seeders\DwhSportSeeder;
-use Database\Seeders\DwhRegionSeeder;
-use Database\Seeders\DwhSchoolSeeder;
+
+use Database\Kohera\seeders\SportSeeder as KoheraSportSeeder;
+use Database\Kohera\seeders\RegionSeeder as KoheraRegionSeeder;
+use Database\Kohera\seeders\SchoolSeeder as KoheraSchoolSeeder;
 
 class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
         $this->call([
-            DwhSportSeeder::class,
-            DwhRegionSeeder::class,
-            DwhSchoolSeeder::class,
+            KoheraSportSeeder::class,
+            KoheraRegionSeeder::class,
+            KoheraSchoolSeeder::class,
         ]);
     }
 }

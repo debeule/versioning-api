@@ -1,20 +1,22 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Kohera\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Kohera\DwhRegion;
+use App\Kohera\Region;
 
-class DwhRegionSeeder extends Seeder
+class RegionSeeder extends Seeder
 {
+    protected $connection = 'sqlite';
+
     public function run()
     {
-        DwhRegion::factory()
+        Region::factory()
             ->count(50)
             ->create();
 
-        DB::connection('sqlite')->table('dwh_regions')->insert([
+        DB::connection('sqlite')->table('regions')->insert([
             [
                 'RegionNaam' => "Haspengouw",
                 'Provincie' => "Limburg",

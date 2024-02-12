@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Database\Factories\Kohera;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Kohera\DwhSchool;
+use App\Kohera\School;
 
-final class DwhSchoolFactory extends Factory
+final class SchoolFactory extends Factory
 {
-    protected $model = DwhSchool::class;
+    protected $model = School::class;
 
     /**
      * Define the model's default state.

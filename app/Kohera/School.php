@@ -7,7 +7,7 @@ namespace App\Kohera;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-final class DwhSchool extends Model
+final class School extends Model
 {
     public $timestamps = false;
 
