@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Kohera\Queries;
 
-use App\Kohera\DwhSchool;
+use App\Kohera\School;
 
-final class GetAllDwhSchoolsQuery
+final class AllSchools
 {
     public function __invoke(): Object
     {
         # TODO : api call to get dwhschools
-        return DwhSchool::all();
+        return School::all();
     }
 }

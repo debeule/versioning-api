@@ -8,7 +8,7 @@ use App\Sports\Sport;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Objects\Version;
 
-final class GetSportByNameQuery
+final class SportByName
 {
     public function __invoke(string $name): ?Sport
     {

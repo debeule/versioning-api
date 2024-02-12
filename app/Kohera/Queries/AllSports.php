@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Kohera\Queries;
 
-use App\Kohera\DwhSport;
+use App\Kohera\Sport;
 
-final class GetAllDwhSportsQuery
+final class AllSports
 {
     public function __invoke(): Object
     {
