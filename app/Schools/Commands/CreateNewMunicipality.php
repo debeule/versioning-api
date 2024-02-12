@@ -16,11 +16,8 @@ final class CreateNewMunicipality
         {
             return $this->buildRecord($dwhSchool);
         }
-        
-        if ($this->recordExists($dwhSchool)) 
-        {
-            return $this->updateRecord($dwhSchool);
-        }
+
+        return true;
     }
 
     private function recordExists(DwhSchool $dwhSchool): bool
@@ -36,14 +33,5 @@ final class CreateNewMunicipality
         $newMunicipality->postal_code = $dwhSchool->Postcode;
 
         return $newMunicipality->save();
-    }
-
-    public function updateRecord(DwhSchool $dwhSchool): bool
-    {
-        $municipality = Municipality::where('postal_code', $dwhSchool->Postcode)->first();
-
-        $municipality->name = $dwhSchool->Gemeente;
-
-        return $municipality->save();
     }
 }

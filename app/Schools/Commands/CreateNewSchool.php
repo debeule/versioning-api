@@ -17,15 +17,33 @@ final class CreateNewSchool
             return $this->buildRecord($dwhSchool);
         }
         
-        if ($this->recordExists($dwhSchool)) 
+        if ($this->recordExists($dwhSchool) && $this->recordHasChanged($dwhSchool)) 
         {
-            return $this->updateRecord($dwhSchool);
+            return $this->createNewRecordVersion($dwhSchool);
         }
     }
 
     private function recordExists(DwhSchool $dwhSchool): bool
     {
         return School::where('school_id', $dwhSchool->School_Id)->exists();
+    }
+
+    private function recordHasChanged(DwhSchool $dwhSchool): bool
+    {
+        $school = School::where('school_id', $dwhSchool->School_Id)->first();
+
+        $recordhasChanged = false;
+        while (!$recordhasChanged)
+        {
+            $recordhasChanged = $school->name !== $dwhSchool->Name;
+            $recordhasChanged = $school->email !== $dwhSchool->School_mail;
+            $recordhasChanged = $school->contact_email !== $dwhSchool->Gangmaker_mail;
+            $recordhasChanged = $school->type !== $dwhSchool->type;
+            $recordhasChanged = $school->student_count !== $dwhSchool->Student_Count;
+            $recordhasChanged = $school->institution_id !== $dwhSchool->Instellingsnummer;
+        }
+
+        return $recordhasChanged;
     }
 
     private function buildRecord(DwhSchool $dwhSchool): bool
@@ -42,23 +60,14 @@ final class CreateNewSchool
         
         $addressId = Address::where('street_name', explode(' ', $dwhSchool->address)[0])->first()->id;
         $newSchool->address_id = $addressId;
+        
         return $newSchool->save();
     }
 
-    public function updateRecord(DwhSchool $dwhSchool): bool
+    public function createNewRecordVersion(DwhSchool $dwhSchool): bool
     {
-        $school = School::where('school_id', $dwhSchool->School_Id)->first();
+        $school = School::where('school_id', $dwhSchool->School_Id)->delete();
 
-        $school->name = $dwhSchool->Name;
-        $school->email = $dwhSchool->School_mail;
-        $school->contact_email = $dwhSchool->Gangmaker_mail;
-        $school->type = $dwhSchool->type;
-        $school->student_count = $dwhSchool->Student_Count;
-        $school->institution_id = $dwhSchool->Instellingsnummer;
-        
-        $addressId = Address::where('street_name', explode(' ', $dwhSchool->address)[0])->first()->id;
-        $school->address_id = $addressId;
-
-        return $school->save();
+        return $this->buildRecord($dwhSchool);
     }
 }

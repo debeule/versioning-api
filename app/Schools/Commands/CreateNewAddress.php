@@ -18,15 +18,24 @@ final class CreateNewAddress
             return $this->buildRecord($dwhSchool);
         }
         
-        if ($this->recordExists($dwhSchool)) 
+        if ($this->recordExists($dwhSchool) && $this->recordHasChanged($dwhSchool)) 
         {
-            return $this->updateRecord($dwhSchool);
+            return $this->createNewRecordVersion($dwhSchool);
         }
     }
 
     private function recordExists(DwhSchool $dwhSchool): bool
     {
         return Address::where('street_name', explode(' ', $dwhSchool->address)[0])->exists();
+    }
+
+    private function recordHasChanged(DwhSchool $dwhSchool): bool
+    {
+        $address = Address::where('street_name', explode(' ', $dwhSchool->address)[0])->first();
+
+        $recordhasChanged = $address->street_identifier !== explode(' ', $dwhSchool->address)[1];
+
+        return $recordhasChanged;
     }
 
     private function buildRecord(DwhSchool $dwhSchool): bool
@@ -40,12 +49,10 @@ final class CreateNewAddress
         return $newAdress->save();
     }
 
-    public function updateRecord(DwhSchool $dwhSchool): bool
+    public function createNewRecordVersion(DwhSchool $dwhSchool): bool
     {
-        $address = Address::where('street_name', explode(' ', $dwhSchool->address)[0])->first();
+        $address = Address::where('street_name', explode(' ', $dwhSchool->address)[0])->delete();
 
-        $address->street_identifier = explode(' ', $dwhSchool->address)[1];
-
-        return $address->save();
+        return $this->buildRecord($dwhSchool);
     }
 }
