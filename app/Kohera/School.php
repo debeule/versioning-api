@@ -15,6 +15,11 @@ final class School extends Model
 
     use HasFactory;
 
+    protected static function newFactory()
+    {
+        return \Database\Kohera\Factories\SchoolFactory::new();
+    }
+
     protected $fillable = [
         'place_id',
         'Name',

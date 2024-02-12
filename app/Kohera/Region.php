@@ -14,6 +14,11 @@ final class Region extends Model
     protected $connection = 'sqlite';
 
     use HasFactory;
+    
+    protected static function newFactory()
+    {
+        return \Database\Kohera\Factories\RegionFactory::new();
+    }
 
     protected $fillable = [
         'RegionNaam',
