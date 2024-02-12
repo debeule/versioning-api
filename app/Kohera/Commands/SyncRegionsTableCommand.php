@@ -6,9 +6,9 @@ namespace App\Kohera\Commands;
 
 use App\Schools\Province;
 use App\Schools\Region;
-use App\Kohera\DwhRegion;
+use App\Kohera\Region as KoheraRegion;
 use App\Kohera\Queries\AllRegions as AllKoheraRegions;
-use App\Kohera\Purifier\Purifier;
+use App\Kohera\Sanitizer\Sanitizer;
 
 use App\Schools\Commands\CreateNewRegionCommand;
 use App\Schools\Commands\CreateNewProvinceCommand;
@@ -20,39 +20,39 @@ final class SyncRegionsTableCommand
         $existingRegions = Region::all();
         $processedSports = [];
         
-        $getAllDwhRegionsQuery = new AllKoheraRegions();
+        $allKoheraRegions = new AllKoheraRegions();
 
-        foreach ($getAllDwhRegionsQuery() as $key => $dwhRegion) 
+        foreach ($allKoheraRegions() as $key => $koheraRegion) 
         {
-            $purifier = new Purifier();
-            $dwhRegion = $purifier->cleanAllFields($dwhRegion);
+            $sanitizer = new Sanitizer();
+            $koheraRegion = $sanitizer->cleanAllFields($koheraRegion);
 
-            if (in_array($dwhRegion->RegionNaam, $processedSports)) 
+            if (in_array($koheraRegion->RegionNaam, $processedSports)) 
             {
                 continue;
             }
 
-            $regionExists = $existingRegions->where('name', $dwhRegion->RegionNaam)->isNotEmpty();
+            $regionExists = $existingRegions->where('name', $koheraRegion->RegionNaam)->isNotEmpty();
             
             if ($regionExists)
             {
-                $existingRegions = $existingRegions->where('name', "!=", $dwhRegion->RegionNaam);
+                $existingRegions = $existingRegions->where('name', "!=", $koheraRegion->RegionNaam);
 
-                array_push($processedSports, $dwhRegion->RegionNaam);
+                array_push($processedSports, $koheraRegion->RegionNaam);
                 
                 continue;
             }
 
-            if (!Province::where('name', $dwhRegion->Provincie)->first())
+            if (!Province::where('name', $koheraRegion->Provincie)->first())
             {
                 $createNewProvinceCommand = new CreateNewProvinceCommand();
-                $createNewProvinceCommand($dwhRegion);
+                $createNewProvinceCommand($koheraRegion);
             }
             
             $createNewRegionCommand = new CreateNewRegionCommand();
-            $createNewRegionCommand($dwhRegion);
+            $createNewRegionCommand($koheraRegion);
 
-            array_push($processedSports, $dwhRegion->RegionNaam);
+            array_push($processedSports, $koheraRegion->RegionNaam);
         }
     }
 }

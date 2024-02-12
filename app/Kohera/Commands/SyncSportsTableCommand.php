@@ -7,7 +7,7 @@ namespace App\Kohera\Commands;
 use App\Kohera\Queries\AllSports as AllKoheraSports;
 use App\Sports\Sport;
 use App\Kohera\Sport as koheraSport;
-use App\Kohera\Purifier\Purifier;
+use App\Kohera\Sanitizer\Sanitizer;
 use App\Sports\Commands\CreateNewSportCommand;
 
 final class SyncSportsTableCommand
@@ -21,8 +21,8 @@ final class SyncSportsTableCommand
 
         foreach ($getAllkoheraSportsQuery() as $key => $koheraSport) 
         {
-            $purifier = new Purifier();
-            $koheraSport = $purifier->cleanAllFields($koheraSport);
+            $sanitizer = new Sanitizer();
+            $koheraSport = $sanitizer->cleanAllFields($koheraSport);
 
             if (in_array($koheraSport->Sportkeuze, $processedSports)) 
             {

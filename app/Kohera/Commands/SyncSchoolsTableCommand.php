@@ -10,7 +10,7 @@ use App\Schools\Region;
 use App\Schools\Municipality;
 use App\Schools\Address;
 use App\Kohera\School as KoheraSchool;
-use App\Kohera\Purifier\Purifier;
+use App\Kohera\Sanitizer\Sanitizer;
 use App\Kohera\Queries\AllSchools as AllKoheraSchools;
 
 use App\Schools\Commands\CreateNewRegionCommand;
@@ -30,8 +30,8 @@ final class SyncSchoolsTableCommand
         
         foreach ($AllkoheraSchools() as $key => $koheraSchool) 
         {
-            $purifier = new Purifier();
-            $koheraSchool = $purifier->cleanAllFields($koheraSchool);
+            $sanitizer = new Sanitizer();
+            $koheraSchool = $sanitizer->cleanAllFields($koheraSchool);
             
             if (in_array($koheraSchool->School_Id, $processedSports)) 
             {
