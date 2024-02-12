@@ -16,11 +16,6 @@ final class Region extends Model
         'province_id',
     ];
 
-    public function province()
-    {
-        return $this->belongsTo(Province::class);
-    }
-
     public function subregions()
     {
         return $this->hasMany(Region::class, 'region_id');

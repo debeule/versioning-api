@@ -25,4 +25,9 @@ final class Address extends Model
     {
         return $this->belongsTo(Municipality::class);
     }
+
+    public function school()
+    {
+        return $this->hasOne(School::class);
+    }
 }

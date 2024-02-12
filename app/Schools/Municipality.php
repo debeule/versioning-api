@@ -32,11 +32,11 @@ final class Municipality extends Model
 
     public function address()
     {
-        return $this->belongsTo(Address::class);
+        return $this->hasMany(Address::class);
     }
 
-    public function contact()
+    public function region()
     {
-        return $this->belongsTo(Contact::class);
+        return $this->belongsTo(Region::class);
     }
 }
