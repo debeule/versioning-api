@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Objects;
+namespace App\Imports;
 
 use DateTimeImmutable;
 
