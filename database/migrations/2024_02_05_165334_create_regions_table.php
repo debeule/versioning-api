@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('region_id');
-
-            $table->foreignId('province_id')->references('id')->on('provinces');            
+            $table->enum('type', ['Antwerpen', 'Limburg', 'Oost-Vlaanderen', 'Vlaams-Brabant', 'West-Vlaanderen']);         
         });
     }
 
