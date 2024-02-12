@@ -6,6 +6,9 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Kohera\Sport;
 
+use App\Database\Kohera\Factories\SportFactory;
+
+
 class SportSeeder extends Seeder
 {
     protected $connection = 'sqlite';
