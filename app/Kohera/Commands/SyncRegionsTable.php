@@ -42,12 +42,6 @@ final class SyncRegionsTable
                 
                 continue;
             }
-
-            if (!Province::where('name', $koheraRegion->Provincie)->first())
-            {
-                $createNewProvince = new CreateNewProvince();
-                $createNewProvince($koheraRegion);
-            }
             
             $createNewRegion = new CreateNewRegion();
             $createNewRegion($koheraRegion);

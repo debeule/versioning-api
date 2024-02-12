@@ -32,6 +32,7 @@ final class CreateNewRegion
 
         $newRegion->name = $dwhRegion->RegionNaam;
         $newRegion->region_id = $dwhRegion->RegioDetailId;
+        $newRegion->province = $dwhRegion->Provincie;
         $newRegion->province_id = Province::where('name', $dwhRegion->Provincie)->first()->id;
         
         return $newRegion->save();
