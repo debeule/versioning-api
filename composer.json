@@ -6,22 +6,24 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "ext-pcntl": "*",
+        "ext-pdo_mysql": "*",
+        "ext-redis": "*",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/horizon": "^5.22",
         "laravel/sanctum": "^3.3",
-        "laravel/tinker": "^2.8",
-        "ext-pcntl": "*"
+        "laravel/tinker": "^2.8"
     },
     "require-dev": {
         "brianium/paratest": "^7.4",
         "fakerphp/faker": "^1.9.1",
         "friendsofphp/php-cs-fixer": "^3.48",
+        "larastan/larastan": "^2.8",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.18",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^7.0",
-        "nunomaduro/larastan": "^2.8",
         "phpstan/phpstan": "^1.10",
         "phpunit/phpunit": "^10.5",
         "spatie/laravel-ignition": "^2.0"
@@ -45,9 +47,15 @@
             "App\\": "app/",
             "Http\\": "http/",
             "Console\\": "console/",
+
+            "Database\\Seeders\\": "database/seeders/",
+            
+            
+            "Database\\Kohera\\Factories\\": "database/kohera/factories/",
+            "Database\\Kohera\\Seeders\\": "database/kohera/seeders/",
                      
-            "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
+            "Database\\Main\\Factories\\": "database/main/factories/",
+            "Database\\Main\\Seeders\\": "database/main/seeders/"
         }
     },
     "autoload-dev": {
@@ -63,19 +71,21 @@
 
             "composer install --prefer-dist --no-ansi --no-interaction --no-progress",
             "php artisan key:generate --ansi",
-            "php artisan migrate:fresh"
+            "php artisan migrate:fresh --path=database/main/migrations/ --database=mysql"
         ],
         "testing": [
-            "php artisan migrate:fresh",
+            "php artisan migrate:fresh --path=database/main/migrations/ --database=mysql",
             "php artisan migrate:fresh --path=database/kohera/migrations/ --database=sqlite",
             "php artisan db:seed --database=sqlite"
         ],
+        "mysql:migrate": "php artisan migrate:fresh --path=database/main/migrations/ --database=mysql",
+        "sqlite:migrate": "php artisan migrate:fresh --path=database/kohera/migrations/ --database=sqlite",
+
+        "sqlite:seed": "php artisan db:seed --database=sqlite",
+
         "cs:check": "vendor/bin/phpcs --standard=PSR12 app",
         "cs:fix": "vendor/bin/php-cs-fixer fix --verbose",
         "phpstan": "vendor/bin/phpstan analyse --memory-limit=2G",
-        "phpunit": "vendor/bin/phpunit --colors=always,'Feature','Integration'",
-        "sqlite:migrate": "php artisan migrate:fresh --path=database/kohera/migrations/ --database=sqlite",
-        "seed:sqlite": "php artisan db:seed --database=sqlite",
-        "seed:mysql": "php artisan db:seed --database=mysql"
+        "phpunit": "vendor/bin/phpunit --colors=always,'Feature','Integration'"
     }
 }
