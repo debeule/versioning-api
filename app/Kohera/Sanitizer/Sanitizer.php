@@ -12,7 +12,10 @@ final class Sanitizer
     {
         foreach ($object->getAttributes() as $key => $value) 
         {
-            $object->{$key} = $this->cleanAttribute($value);
+            if (is_string($value)) 
+            {
+                $object->{$key} = $this->cleanAttribute($value);
+            }
         }
 
         return $object;
