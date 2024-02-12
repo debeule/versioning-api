@@ -11,6 +11,6 @@ final class AllSports
     public function __invoke(): Object
     {
         # TODO : api call to get dwhsports
-        return DwhSport::all();
+        return Sport::all();
     }
 }

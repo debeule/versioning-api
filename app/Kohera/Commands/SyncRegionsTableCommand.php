@@ -7,7 +7,7 @@ namespace App\Kohera\Commands;
 use App\Schools\Province;
 use App\Schools\Region;
 use App\Kohera\DwhRegion;
-use App\Kohera\Queries\GetAllDwhRegionsQuery;
+use App\Kohera\Queries\AllRegions as AllKoheraRegions;
 use App\Kohera\Purifier\Purifier;
 
 use App\Schools\Commands\CreateNewRegionCommand;
@@ -15,12 +15,12 @@ use App\Schools\Commands\CreateNewProvinceCommand;
 
 final class SyncRegionsTableCommand
 {
-    public function __invoke(Purifier $purifier): void
+    public function __invoke(): void
     {
         $existingRegions = Region::all();
         $processedSports = [];
         
-        $getAllDwhRegionsQuery = new GetAllDwhRegionsQuery();
+        $getAllDwhRegionsQuery = new AllKoheraRegions();
 
         foreach ($getAllDwhRegionsQuery() as $key => $dwhRegion) 
         {

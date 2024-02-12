@@ -9,9 +9,9 @@ use App\Schools\Province;
 use App\Schools\Region;
 use App\Schools\Municipality;
 use App\Schools\Address;
-use App\Kohera\DwhSchool;
+use App\Kohera\School as KoheraSchool;
 use App\Kohera\Purifier\Purifier;
-use App\Kohera\Queries\GetAllDwhSchoolsQuery;
+use App\Kohera\Queries\AllSchools as AllKoheraSchools;
 
 use App\Schools\Commands\CreateNewRegionCommand;
 use App\Schools\Commands\CreateNewProvinceCommand;
@@ -26,35 +26,35 @@ final class SyncSchoolsTableCommand
         $existingSchools = School::all();
         $processedSports = [];
 
-        $getAllDwhSchoolsQuery = new GetAllDwhSchoolsQuery();
+        $AllkoheraSchools = new AllKoheraSchools();
         
-        foreach ($getAllDwhSchoolsQuery() as $key => $dwhSchool) 
+        foreach ($AllkoheraSchools() as $key => $koheraSchool) 
         {
             $purifier = new Purifier();
-            $dwhSchool = $purifier->cleanAllFields($dwhSchool);
+            $koheraSchool = $purifier->cleanAllFields($koheraSchool);
             
-            if (in_array($dwhSchool->School_Id, $processedSports)) 
+            if (in_array($koheraSchool->School_Id, $processedSports)) 
             {
                 continue;
             }
 
-            $existingSchool = $existingSchools->where('school_id', $dwhSchool->School_Id)->first();
+            $existingSchool = $existingSchools->where('school_id', $koheraSchool->School_Id)->first();
 
 
             $createNewMunicipalityCommand = new CreateNewMunicipalityCommand();
-            $createNewMunicipalityCommand($dwhSchool);
+            $createNewMunicipalityCommand($koheraSchool);
 
             $createNewAddressCommand = new CreateNewAddressCommand();
-            $createNewAddressCommand($dwhSchool);
+            $createNewAddressCommand($koheraSchool);
 
             $createNewSchoolCommand = new CreateNewSchoolCommand();
-            $createNewSchoolCommand($dwhSchool);
+            $createNewSchoolCommand($koheraSchool);
 
-            $existingSchools = $existingSchools->where('school_id', "!=", $dwhSchool->School_Id);
-            array_push($processedSports, $dwhSchool->School_Id);
+            $existingSchools = $existingSchools->where('school_id', "!=", $koheraSchool->School_Id);
+            array_push($processedSports, $koheraSchool->School_Id);
         }
 
-        //school found in sports table but not in dwhschools
+        //school found in sports table but not in koheraschools
         foreach ($existingSchools as $existingSchool) 
         {
             $existingSchool->delete();

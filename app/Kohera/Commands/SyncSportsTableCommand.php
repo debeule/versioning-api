@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Kohera\Commands;
 
-use App\Kohera\Queries\GetAllDwhSportsQuery;
+use App\Kohera\Queries\AllSports as AllKoheraSports;
 use App\Sports\Sport;
-use App\Kohera\DwhSport;
+use App\Kohera\Sport as koheraSport;
 use App\Kohera\Purifier\Purifier;
 use App\Sports\Commands\CreateNewSportCommand;
 
@@ -17,36 +17,36 @@ final class SyncSportsTableCommand
         $existingSports = Sport::all();
         $processedSports = [];
 
-        $getAllDwhSportsQuery = new GetAllDwhSportsQuery();
+        $getAllkoheraSportsQuery = new AllKoheraSports();
 
-        foreach ($getAllDwhSportsQuery() as $key => $dwhSport) 
+        foreach ($getAllkoheraSportsQuery() as $key => $koheraSport) 
         {
             $purifier = new Purifier();
-            $dwhSport = $purifier->cleanAllFields($dwhSport);
+            $koheraSport = $purifier->cleanAllFields($koheraSport);
 
-            if (in_array($dwhSport->Sportkeuze, $processedSports)) 
+            if (in_array($koheraSport->Sportkeuze, $processedSports)) 
             {
                 continue;
             }
 
-            $sportExists = $existingSports->where('name', $dwhSport->Sportkeuze)->isNotEmpty();
+            $sportExists = $existingSports->where('name', $koheraSport->Sportkeuze)->isNotEmpty();
 
             if ($sportExists)
             {
-                $existingSports = $existingSports->where('name', "!=", $dwhSport->Sportkeuze);
+                $existingSports = $existingSports->where('name', "!=", $koheraSport->Sportkeuze);
 
-                array_push($processedSports, $dwhSport->Sportkeuze);
+                array_push($processedSports, $koheraSport->Sportkeuze);
 
                 continue;
             }
 
             $createNewSportCommand = new CreateNewSportCommand();
-            $createNewSportCommand($dwhSport);
+            $createNewSportCommand($koheraSport);
 
-            array_push($processedSports, $dwhSport->Sportkeuze);
+            array_push($processedSports, $koheraSport->Sportkeuze);
         }
 
-        //sport found in sports table but not in dwhSports
+        //sport found in sports table but not in koheraSports
         foreach ($existingSports as $existingSport) 
         {
             $existingSport->delete();
