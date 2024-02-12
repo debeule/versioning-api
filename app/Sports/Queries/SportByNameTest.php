@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace App\Sports\Queries;
 
 use App\Testing\TestCase;
-use App\Sports\Queries\GetSportByNameQuery;
+use App\Sports\Queries\SportByName;
 use App\Sports\Sport;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Database\Factories\SportFactory;
 
 
-final class SportByNameQueryTest extends TestCase
+final class SportByNameTest extends TestCase
 {
+    $connection = 'sqlite';
 
     use RefreshDatabase;
 
@@ -23,8 +24,8 @@ final class SportByNameQueryTest extends TestCase
 
         $sport = SportFactory::new()->withName($sportName)->create();
         
-        $GetSportByNameQuery = new GetSportByNameQuery;
-        $result = $GetSportByNameQuery($sportName);
+        $SportByName = new SportByName;
+        $result = $SportByName($sportName);
 
         $sport->delete();
 
@@ -36,8 +37,8 @@ final class SportByNameQueryTest extends TestCase
     /** @test */
     public function ItReturnsNullIfSportNotFound()
     {
-        $GetSportByNameQuery = new GetSportByNameQuery();
+        $SportByName = new SportByName();
 
-        $this->assertNull($GetSportByNameQuery('Non-existing Sport'));
+        $this->assertNull($SportByName('Non-existing Sport'));
     }
 }

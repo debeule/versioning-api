@@ -5,30 +5,27 @@ declare(strict_types=1);
 namespace App\Sports\Commands;
 
 use App\Testing\TestCase;
-use App\Sports\Queries\CreateNewSportCommand;
+use App\Sports\Commands\CreateNewSportCommand;
 use App\Sports\Sport;
-use App\Kohera\DwhSport;
+use App\Kohera\Sport as KoheraSport;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Database\Factories\SportFactory;
+use Database\Kohera\Factories\SportFactory as KoheraSportFactory;
 
 
-final class GetSportByNameQueryTest extends TestCase
+final class CreateNewSportCommandTest extends TestCase
 {
-
-    use RefreshDatabase;
-
     /** @test */
-    public function itCanCreateASportFromDwhSport()
+    public function itCanCreateASportFromkoheraSport()
     {
-        $dwhSport = DwhSportFactory::create();
+        $koheraSport = KoheraSport::factory()->create();
 
         $createNewSportCommand = new CreateNewSportCommand;
 
-        $sportCreated = $createNewSportCommand($dwhSport);
+        $sportCreated = $createNewSportCommand($koheraSport);
 
-        $sport = Sport::where('name', $dwhSport->Sportkeuze)->first();
+        $sport = Sport::where('name', $koheraSport->Sportkeuze)->first();
 
-        $this->assertInstanceOf(DwhSport::class, $dwhSport);
+        $this->assertInstanceOf(koheraSport::class, $koheraSport);
         $this->assertInstanceOf(Sport::class, $sport);
         $this->assertTrue($sportCreated);
     }
