@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Kohera\Commands;
+namespace App\Kohera\s;
 
 use App\Schools\Province;
 use App\Schools\Region;
@@ -10,10 +10,10 @@ use App\Kohera\Region as KoheraRegion;
 use App\Kohera\Queries\AllRegions as AllKoheraRegions;
 use App\Kohera\Sanitizer\Sanitizer;
 
-use App\Schools\Commands\CreateNewRegionCommand;
-use App\Schools\Commands\CreateNewProvinceCommand;
+use App\Schools\commands\CreateNewRegion;
+use App\Schools\commands\CreateNewProvince;
 
-final class SyncRegionsTableCommand
+final class SyncRegionsTable
 {
     public function __invoke(): void
     {
@@ -45,12 +45,12 @@ final class SyncRegionsTableCommand
 
             if (!Province::where('name', $koheraRegion->Provincie)->first())
             {
-                $createNewProvinceCommand = new CreateNewProvinceCommand();
-                $createNewProvinceCommand($koheraRegion);
+                $createNewProvince = new CreateNewProvince();
+                $createNewProvince($koheraRegion);
             }
             
-            $createNewRegionCommand = new CreateNewRegionCommand();
-            $createNewRegionCommand($koheraRegion);
+            $createNewRegion = new CreateNewRegion();
+            $createNewRegion($koheraRegion);
 
             array_push($processedSports, $koheraRegion->RegionNaam);
         }

@@ -10,8 +10,8 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-use App\Schools\Commands\SyncSchoolsDomainCommand;
-use App\Sports\Commands\SyncSportsDomainCommand;
+use App\Schools\Commands\SyncSchoolsDomain;
+use App\Sports\Commands\SyncSportsDomain;
 
 final class SyncAllDomainsJob implements ShouldQueue
 {
@@ -19,10 +19,10 @@ final class SyncAllDomainsJob implements ShouldQueue
 
     public function handle(): void
     {
-        $syncSchools = new SyncSchoolsDomainCommand();
+        $syncSchools = new SyncSchoolsDomain();
         $syncSchools();
 
-        $syncSports = new SyncSportsDomainCommand();
+        $syncSports = new SyncSportsDomain();
         $syncSports();
     }
 }

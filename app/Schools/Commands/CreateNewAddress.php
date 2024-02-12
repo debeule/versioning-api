@@ -9,7 +9,7 @@ use App\Kohera\DwhSchool;
 use App\Schools\Municipality;
 
 
-final class CreateNewAddressCommand
+final class CreateNewAddress
 {    
     public function __invoke(DwhSchool $dwhSchool): bool
     {

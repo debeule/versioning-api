@@ -8,7 +8,7 @@ use App\Schools\Municipality;
 use App\Kohera\DwhSchool;
 
 
-final class CreateNewMunicipalityCommand
+final class CreateNewMunicipality
 {
     public function __invoke(DwhSchool $dwhSchool): bool
     {

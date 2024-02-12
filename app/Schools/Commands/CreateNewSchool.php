@@ -8,7 +8,7 @@ use App\Schools\School;
 use App\Kohera\DwhSchool;
 use App\Schools\Address;
 
-final class CreateNewSchoolCommand
+final class CreateNewSchool
 {
     public function __invoke(DwhSchool $dwhSchool): bool
     {

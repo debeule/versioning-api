@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Schools\Commands;
 
-use App\Schools\Province;
+use App\Schools\Region;
 use App\Kohera\DwhRegion;
+use App\Schools\Province;
 
 
-final class CreateNewProvinceCommand
+final class CreateNewRegion
 {
     public function __invoke(DwhRegion $dwhRegion): bool
     {
@@ -22,17 +23,17 @@ final class CreateNewProvinceCommand
 
     private function recordExists(DwhRegion $dwhRegion): bool
     {
-        return Province::where('name', $dwhRegion->Provincie)->exists();
+        return Region::where('region_id', $dwhRegion->RegioDetailId)->exists();
     }
 
     public function buildRecord(DwhRegion $dwhRegion): bool
     {
-        {
-            $newProvince = new Province();
-    
-            $newProvince->name = $dwhRegion->Provincie;
-    
-            return $newProvince->save();
-        }
+        $newRegion = new Region();
+
+        $newRegion->name = $dwhRegion->RegionNaam;
+        $newRegion->region_id = $dwhRegion->RegioDetailId;
+        $newRegion->province_id = Province::where('name', $dwhRegion->Provincie)->first()->id;
+        
+        return $newRegion->save();
     }
 }

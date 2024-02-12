@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Kohera\Commands;
+namespace App\Kohera\commands;
 
 use App\Schools\School;
 use App\Schools\Province;
@@ -13,13 +13,13 @@ use App\Kohera\School as KoheraSchool;
 use App\Kohera\Sanitizer\Sanitizer;
 use App\Kohera\Queries\AllSchools as AllKoheraSchools;
 
-use App\Schools\Commands\CreateNewRegionCommand;
-use App\Schools\Commands\CreateNewProvinceCommand;
-use App\Schools\Commands\CreateNewMunicipalityCommand;
-use App\Schools\Commands\CreateNewAddressCommand;
-use App\Schools\Commands\CreateNewSchoolCommand;
+use App\Schools\commands\CreateNewRegion;
+use App\Schools\commands\CreateNewProvince;
+use App\Schools\commands\CreateNewMunicipality;
+use App\Schools\commands\CreateNewAddress;
+use App\Schools\commands\CreateNewSchool;
 
-final class SyncSchoolsTableCommand
+final class SyncSchoolsTable
 {
     public function __invoke(): void
     {
@@ -41,14 +41,14 @@ final class SyncSchoolsTableCommand
             $existingSchool = $existingSchools->where('school_id', $koheraSchool->School_Id)->first();
 
 
-            $createNewMunicipalityCommand = new CreateNewMunicipalityCommand();
-            $createNewMunicipalityCommand($koheraSchool);
+            $createNewMunicipality = new CreateNewMunicipality();
+            $createNewMunicipality($koheraSchool);
 
-            $createNewAddressCommand = new CreateNewAddressCommand();
-            $createNewAddressCommand($koheraSchool);
+            $createNewAddress = new CreateNewAddress();
+            $createNewAddress($koheraSchool);
 
-            $createNewSchoolCommand = new CreateNewSchoolCommand();
-            $createNewSchoolCommand($koheraSchool);
+            $createNewSchool = new CreateNewSchool();
+            $createNewSchool($koheraSchool);
 
             $existingSchools = $existingSchools->where('school_id', "!=", $koheraSchool->School_Id);
             array_push($processedSports, $koheraSchool->School_Id);
