@@ -20,7 +20,7 @@ final class RegionFactory extends Factory
     {
         return [
             'RegionNaam' => $this->faker->city(),
-            'Provincie' => $this->faker->state(),
+            'Provincie' => $this->faker->randomElement(['Antwerpen', 'Limburg', 'Oost-Vlaanderen', 'Vlaams-Brabant', 'West-Vlaanderen']),
             'Postcode' => $this->faker->postcode(),
             'RegioDetailId' => $this->faker->randomNumber(5)
         ];

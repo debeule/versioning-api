@@ -12,8 +12,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->job(new \App\Imports\SyncSportsDomainJob())->Daily();
-        $schedule->job(new \App\Imports\SyncSchoolsDomainJob())->Daily();
+        $schedule->job(new \App\Imports\SyncSportDomainJob())->Daily();
+        $schedule->job(new \App\Imports\SyncSchoolDomainJob())->Daily();
     }
 
     /**
