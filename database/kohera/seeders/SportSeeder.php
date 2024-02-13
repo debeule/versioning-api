@@ -11,7 +11,7 @@ use App\Database\Kohera\Factories\SportFactory;
 
 class SportSeeder extends Seeder
 {
-    protected $connection = 'sqlite';
+    protected $connection = 'kohera-testing';
 
     public function run()
     {
@@ -19,7 +19,7 @@ class SportSeeder extends Seeder
             ->count(50)
             ->create();
 
-        DB::connection('sqlite')->table('sports')->insert([
+        DB::connection('kohera-testing')->table('sports')->insert([
             [
                 "Sportkeuze" => "Atletiek",
                 "BK_SportTakSportOrganisatie" => "00000000-0000-0000-0000-000000020000",

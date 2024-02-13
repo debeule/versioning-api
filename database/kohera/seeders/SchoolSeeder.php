@@ -8,7 +8,7 @@ use App\Kohera\School;
 
 class SchoolSeeder extends Seeder
 {
-    protected $connection = 'sqlite';
+    protected $connection = 'kohera-testing';
     
     public function run()
     {
@@ -16,7 +16,7 @@ class SchoolSeeder extends Seeder
             ->count(50)
             ->create();
 
-        DB::connection('sqlite')->table('schools')->insert([
+        DB::connection('kohera-testing')->table('schools')->insert([
             [
                 "Place_id" => "-1",
                 "Name" => "Sint-Norbertusinstituut 1",

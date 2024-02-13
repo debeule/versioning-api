@@ -11,7 +11,7 @@ final class Region extends Model
 {
     public $timestamps = false;
 
-    protected $connection = 'sqlite';
+    protected $connection = 'kohera-testing';
 
     use HasFactory;
     

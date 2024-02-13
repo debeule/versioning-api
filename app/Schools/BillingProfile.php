@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 final class BillingProfile extends Model
 {
+    public $timestamps = false;
     /**
      * The attributes that are mass assignable.
      *

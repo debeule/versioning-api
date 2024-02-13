@@ -11,7 +11,7 @@ final class Sport extends Model
 {
     public $timestamps = false;
 
-    protected $connection = 'sqlite';
+    protected $connection = 'kohera-testing';
 
     use HasFactory;
     

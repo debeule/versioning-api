@@ -8,7 +8,7 @@ use App\Kohera\Region;
 
 class RegionSeeder extends Seeder
 {
-    protected $connection = 'sqlite';
+    protected $connection = 'kohera-testing';
 
     public function run()
     {
@@ -16,7 +16,7 @@ class RegionSeeder extends Seeder
             ->count(50)
             ->create();
 
-        DB::connection('sqlite')->table('regions')->insert([
+        DB::connection('kohera-testing')->table('regions')->insert([
             [
                 'RegionNaam' => "Haspengouw",
                 'Provincie' => "Limburg",
