@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Database\Main\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Sports\Sport;
+use App\Sport\Sport;
 
 final class SportFactory extends Factory
 {
