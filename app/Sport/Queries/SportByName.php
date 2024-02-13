@@ -6,16 +6,28 @@ namespace App\Sport\Queries;
 
 use App\Sport\Sport;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use App\Imports\Version;
 
 final class SportByName
 {
-    public function __invoke(string $name): ?Sport
-    {
-        $version = new Version(20240101);
+    public function __construct(
+        private ?FromVersion $fromVersion = null,
+    ) {}
 
-        return Sport::where('name', $name)
-        ->where('updated_at', '>=', (string)$version)
-        ->first();
+    public function query(string $name): Builder
+    {
+        return Sport::query()
+            ->where('name', '=', $name)
+            ->when($this->fromVersion, $this->fromVersion)
+            ->orderBy('created_at', 'desc');
+    }
+
+    public function get(string $name): Sport
+    {
+        return $this->query($name)->firstOrFail();
+    }
+
+    public function find(string $name): ?Sport
+    {
+        return $this->query($name)->first();
     }
 }
