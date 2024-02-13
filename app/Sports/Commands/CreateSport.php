@@ -8,7 +8,7 @@ use App\Kohera\Sport as KoheraSport;
 use App\Sports\Sport;
 
 
-final class CreateNewSport
+final class CreateSport
 {
     public function __invoke(KoheraSport $koheraSport): bool
     {

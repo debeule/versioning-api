@@ -5,15 +5,17 @@ declare(strict_types=1);
 namespace App\Sports\Commands;
 
 use App\Testing\TestCase;
-use App\Sports\Commands\CreateNewSport;
+use App\Sports\Commands\CreateSport;
 use App\Sports\Sport;
 use App\Kohera\Sport as KoheraSport;
-use App\Testing\RecursiveRefreshDatabase as RefreshDatabase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Database\Kohera\Factories\SportFactory as KoheraSportFactory;
 
 
-final class CreateNewSportTest extends TestCase
+final class CreateSportTest extends TestCase
 {
+    protected $connectionsToTransact = ['main-testing'];
+
     use RefreshDatabase;
     
     /** @test */
@@ -21,9 +23,9 @@ final class CreateNewSportTest extends TestCase
     {
         $koheraSport = KoheraSport::factory()->create();
 
-        $createNewSport = new CreateNewSport;
+        $createSport = new CreateSport;
 
-        $sportCreated = $createNewSport($koheraSport);
+        $sportCreated = $createSport($koheraSport);
 
         $sport = Sport::where('name', $koheraSport->Sportkeuze)->first();
 
