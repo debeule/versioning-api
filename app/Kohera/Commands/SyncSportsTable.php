@@ -9,9 +9,12 @@ use App\Sport\Sport;
 use App\Kohera\Sport as koheraSport;
 use App\Kohera\Sanitizer\Sanitizer;
 use App\Sport\Commands\CreateSport;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 final class SyncSportsTable
 {
+    use DispatchesJobs;
+
     public function __invoke(): void
     {
         $existingSports = Sport::all();

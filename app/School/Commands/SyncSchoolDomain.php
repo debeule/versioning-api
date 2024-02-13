@@ -13,7 +13,6 @@ final class SyncSchoolDomain
     {
         $syncRegionsTable = new SyncRegionsTable();
         $syncRegionsTable();
-
         $syncSchoolsTable = new SyncSchoolsTable();
         $syncSchoolsTable();
     }

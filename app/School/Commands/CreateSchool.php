@@ -60,7 +60,6 @@ final class CreateSchool
     {
         $this->dispatchSync(new CreateMunicipality($koheraSchool));
         $this->dispatchSync(new CreateAddress($koheraSchool));
-
         $newSchool = new School();
 
         $newSchool->name = $koheraSchool->Name;

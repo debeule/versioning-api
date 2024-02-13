@@ -21,7 +21,6 @@ final class TestController extends Controller
         
         $syncSchool = new SyncSchoolDomain();
         $syncSchool();
-
         $syncSport = new SyncSportDomain();
         $syncSport();
     }

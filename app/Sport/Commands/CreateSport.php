@@ -20,7 +20,7 @@ final class CreateSport
     {
         $newSport = new Sport();
 
-        $newSport->name = $koheraSport->Sportkeuze;
+        $newSport->name = $this->koheraSport->Sportkeuze;
 
         return $newSport->save();
     }
