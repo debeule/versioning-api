@@ -9,8 +9,8 @@ use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 
-use App\Schools\Commands\SyncSchoolsDomain;
-use App\Sports\Commands\SyncSportsDomain;
+use App\School\Commands\SyncSchoolDomain;
+use App\Sport\Commands\SyncSportDomain;
 use App\Kohera\DwhSchool;
 
 final class TestController extends Controller
@@ -19,10 +19,10 @@ final class TestController extends Controller
     {
         // dispatch(new SyncAllDomainsJob());
         
-        $syncSchools = new SyncSchoolsDomain();
-        $syncSchools();
+        $syncSchool = new SyncSchoolDomain();
+        $syncSchool();
 
-        $syncSports = new SyncSportsDomain();
-        $syncSports();
+        $syncSport = new SyncSportDomain();
+        $syncSport();
     }
 }

@@ -2,20 +2,25 @@
 
 declare(strict_types=1);
 
-namespace App\Schools\Commands;
+namespace App\School\Commands;
 
-use App\Schools\Region;
+use App\School\Region;
 use App\Kohera\Region as KoheraRegion;
-use App\Schools\Province;
-
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 final class CreateRegion
 {
-    public function __invoke(KoheraRegion $koheraRegion): bool
+    use DispatchesJobs;
+
+    public function __construct(
+        public KoheraRegion $koheraRegion
+    ) {}
+
+    public function handle(): bool
     {
-        if (!$this->recordExists($koheraRegion)) 
+        if (!$this->recordExists($this->koheraRegion)) 
         {
-            return $this->buildRecord($koheraRegion);
+            return $this->buildRecord($this->koheraRegion);
         }
 
         return true;
@@ -29,7 +34,6 @@ final class CreateRegion
     public function buildRecord(KoheraRegion $koheraRegion): bool
     {
         $newRegion = new Region();
-
         $newRegion->name = $koheraRegion->RegionNaam;
         $newRegion->province = $koheraRegion->Provincie;
         $newRegion->region_id = $koheraRegion->RegioDetailId;

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Schools\Commands;
+namespace App\School\Commands;
 
 use App\Kohera\Commands\SyncRegionsTable;
 use App\Kohera\Commands\SyncSchoolsTable;
 
-final class SyncSchoolsDomain
+final class SyncSchoolDomain
 {
     public function __invoke(): void
     {

@@ -2,19 +2,25 @@
 
 declare(strict_types=1);
 
-namespace App\Schools\Commands;
+namespace App\School\Commands;
 
-use App\Schools\Municipality;
+use App\School\Municipality;
 use App\Kohera\School as KoheraSchool;
-
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 final class CreateMunicipality
 {
-    public function __invoke(KoheraSchool $koheraSchool): bool
+    use DispatchesJobs;
+
+    public function __construct(
+        public KoheraSchool $koheraSchool
+    ) {}
+
+    public function handle(KoheraSchool $koheraSchool): bool
     {
-        if (!$this->recordExists($koheraSchool)) 
+        if (!$this->recordExists($this->koheraSchool)) 
         {
-            return $this->buildRecord($koheraSchool);
+            return $this->buildRecord($this->koheraSchool);
         }
 
         return true;

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Sports\Queries;
+namespace App\Sport\Queries;
 
 use App\Testing\TestCase;
-use App\Sports\Queries\SportByName;
-use App\Sports\Sport;
+use App\Sport\Queries\SportByName;
+use App\Sport\Sport;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Database\Main\Factories\SportFactory;
 

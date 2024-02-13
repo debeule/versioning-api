@@ -4,16 +4,19 @@ declare(strict_types=1);
 
 namespace App\Kohera\commands;
 
-use App\Schools\Province;
-use App\Schools\Region;
+use App\School\Province;
+use App\School\Region;
 use App\Kohera\Region as KoheraRegion;
 use App\Kohera\Queries\AllRegions as AllKoheraRegions;
 use App\Kohera\Sanitizer\Sanitizer;
 
-use App\Schools\Commands\CreateRegion;
+use App\School\Commands\CreateRegion;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 final class SyncRegionsTable
 {
+    use DispatchesJobs;
+
     public function __invoke(): void
     {
         $existingRegions = Region::all();
@@ -41,9 +44,8 @@ final class SyncRegionsTable
                 
                 continue;
             }
-            
-            $createRegion = new CreateRegion();
-            $createRegion($koheraRegion);
+
+            $this->dispatchSync(new CreateRegion($koheraRegion));
 
             array_push($processedSports, $koheraRegion->RegionNaam);
         }

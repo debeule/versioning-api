@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Schools;
+namespace App\School;
 
 use Illuminate\Database\Eloquent\Model;
 
-final class BillingProfile extends Model
+final class Address extends Model
 {
     public $timestamps = false;
     /**
@@ -15,20 +15,19 @@ final class BillingProfile extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'first_name',
-        'last_name',
+        'street_name',
+        'street_identifier',
         'email',
-        'address_id',
-        'school_id',
+        'municipality_id',
     ];
 
-    public function address()
+    public function municipality()
     {
-        return $this->belongsTo(Address::class);
+        return $this->belongsTo(Municipality::class);
     }
 
     public function school()
     {
-        return $this->belongsTo(School::class);
+        return $this->hasOne(School::class);
     }
 }

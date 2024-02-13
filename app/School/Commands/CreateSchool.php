@@ -2,24 +2,34 @@
 
 declare(strict_types=1);
 
-namespace App\Schools\Commands;
+namespace App\School\Commands;
 
-use App\Schools\School;
-use App\Kohera\KoheraSchool;
-use App\Schools\Address;
+use App\School\School;
+use App\Kohera\School as KoheraSchool;
+use App\School\Address;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+
 
 final class CreateSchool
 {
-    public function __invoke(KoheraSchool $koheraSchool): bool
+    use DispatchesJobs;
+
+    public function __construct(
+        public KoheraSchool $koheraSchool
+    ) {}
+
+    public function handle(): bool
     {
-        if (!$this->recordExists($koheraSchool)) 
+        if (!$this->recordExists($this->koheraSchool)) 
         {
-            return $this->buildRecord($koheraSchool);
+            return $this->buildRecord($this->koheraSchool);
         }
         
-        if ($this->recordExists($koheraSchool) && $this->recordHasChanged($koheraSchool)) 
+        if ($this->recordExists($this->koheraSchool) && $this->recordHasChanged($this->koheraSchool)) 
         {
-            return $this->createNewRecordVersion($koheraSchool);
+            $this->createNewRecordVersion($this->koheraSchool);
+
+            return true;
         }
     }
 
@@ -48,6 +58,9 @@ final class CreateSchool
 
     private function buildRecord(KoheraSchool $koheraSchool): bool
     {
+        $this->dispatchSync(new CreateMunicipality($koheraSchool));
+        $this->dispatchSync(new CreateAddress($koheraSchool));
+
         $newSchool = new School();
 
         $newSchool->name = $koheraSchool->Name;

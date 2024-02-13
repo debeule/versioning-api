@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Sports\Commands;
+namespace App\Sport\Commands;
 
 use App\Testing\TestCase;
-use App\Sports\Commands\CreateSport;
-use App\Sports\Sport;
+use App\Sport\Commands\CreateSport;
+use App\Sport\Sport;
 use App\Kohera\Sport as KoheraSport;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Database\Kohera\Factories\SportFactory as KoheraSportFactory;

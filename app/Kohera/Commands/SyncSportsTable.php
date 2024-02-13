@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Kohera\Commands;
 
 use App\Kohera\Queries\AllSports as AllKoheraSports;
-use App\Sports\Sport;
+use App\Sport\Sport;
 use App\Kohera\Sport as koheraSport;
 use App\Kohera\Sanitizer\Sanitizer;
-use App\Sports\Commands\CreateSport;
+use App\Sport\Commands\CreateSport;
 
 final class SyncSportsTable
 {
@@ -40,8 +40,7 @@ final class SyncSportsTable
                 continue;
             }
 
-            $createSport = new CreateSport();
-            $createNewSport($koheraSport);
+            $this->dispatchSync(new CreateSport($koheraSport));
 
             array_push($processedSports, $koheraSport->Sportkeuze);
         }
