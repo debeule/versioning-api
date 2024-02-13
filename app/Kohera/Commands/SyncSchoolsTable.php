@@ -14,7 +14,6 @@ use App\Kohera\Sanitizer\Sanitizer;
 use App\Kohera\Queries\AllSchools as AllKoheraSchools;
 
 use App\Schools\commands\CreateNewRegion;
-use App\Schools\commands\CreateNewProvince;
 use App\Schools\commands\CreateNewMunicipality;
 use App\Schools\commands\CreateNewAddress;
 use App\Schools\commands\CreateNewSchool;

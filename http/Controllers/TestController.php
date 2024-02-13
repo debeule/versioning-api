@@ -4,25 +4,25 @@ declare(strict_types=1);
 
 namespace Http\Controllers;
 
-use App\Jobs\SyncAllDomainsJob;
+use App\Imports\SyncAllDomainsJob;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 
-use App\Schools\Commands\SyncSchoolsDomainCommand;
-use App\Sports\Commands\SyncSportsDomainCommand;
+use App\Schools\Commands\SyncSchoolsDomain;
+use App\Sports\Commands\SyncSportsDomain;
 use App\Kohera\DwhSchool;
 
 final class TestController extends Controller
 {
     public function __invoke()
     {
-        dispatch(new SyncAllDomainsJob());
+        // dispatch(new SyncAllDomainsJob());
         
-        // $syncSchools = new SyncSchoolsDomainCommand();
-        // $syncSchools();
+        $syncSchools = new SyncSchoolsDomain();
+        $syncSchools();
 
-        // $syncSports = new SyncSportsDomainCommand();
-        // $syncSports();
+        $syncSports = new SyncSportsDomain();
+        $syncSports();
     }
 }

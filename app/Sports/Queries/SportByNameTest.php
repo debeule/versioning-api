@@ -8,12 +8,13 @@ use App\Testing\TestCase;
 use App\Sports\Queries\SportByName;
 use App\Sports\Sport;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Database\Factories\SportFactory;
+use Database\Main\Factories\SportFactory;
 
 
 final class SportByNameTest extends TestCase
 {
-    $connection = 'sqlite';
+    protected $connectionsToTransact = ['main-testing'];
+    
 
     use RefreshDatabase;
 

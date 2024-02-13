@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Kohera\s;
+namespace App\Kohera\commands;
 
 use App\Schools\Province;
 use App\Schools\Region;
@@ -10,8 +10,7 @@ use App\Kohera\Region as KoheraRegion;
 use App\Kohera\Queries\AllRegions as AllKoheraRegions;
 use App\Kohera\Sanitizer\Sanitizer;
 
-use App\Schools\commands\CreateNewRegion;
-use App\Schools\commands\CreateNewProvince;
+use App\Schools\Commands\CreateNewRegion;
 
 final class SyncRegionsTable
 {
