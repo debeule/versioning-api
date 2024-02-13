@@ -8,7 +8,7 @@ use App\Kohera\Queries\AllSports as AllKoheraSports;
 use App\Sports\Sport;
 use App\Kohera\Sport as koheraSport;
 use App\Kohera\Sanitizer\Sanitizer;
-use App\Sports\Commands\CreateNewSport;
+use App\Sports\Commands\CreateSport;
 
 final class SyncSportsTable
 {
@@ -40,7 +40,7 @@ final class SyncSportsTable
                 continue;
             }
 
-            $createNewSport = new CreateNewSport();
+            $createSport = new CreateSport();
             $createNewSport($koheraSport);
 
             array_push($processedSports, $koheraSport->Sportkeuze);

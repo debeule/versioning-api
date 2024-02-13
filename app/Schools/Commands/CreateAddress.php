@@ -9,7 +9,7 @@ use App\Kohera\KoheraSchool;
 use App\Schools\Municipality;
 
 
-final class CreateNewAddress
+final class CreateAddress
 {    
     public function handle(koheraSchool $koheraSchool): bool
     {

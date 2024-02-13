@@ -10,7 +10,7 @@ use App\Kohera\Region as KoheraRegion;
 use App\Kohera\Queries\AllRegions as AllKoheraRegions;
 use App\Kohera\Sanitizer\Sanitizer;
 
-use App\Schools\Commands\CreateNewRegion;
+use App\Schools\Commands\CreateRegion;
 
 final class SyncRegionsTable
 {
@@ -42,8 +42,8 @@ final class SyncRegionsTable
                 continue;
             }
             
-            $createNewRegion = new CreateNewRegion();
-            $createNewRegion($koheraRegion);
+            $createRegion = new CreateRegion();
+            $createRegion($koheraRegion);
 
             array_push($processedSports, $koheraRegion->RegionNaam);
         }

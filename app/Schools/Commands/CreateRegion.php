@@ -9,7 +9,7 @@ use App\Kohera\Region as KoheraRegion;
 use App\Schools\Province;
 
 
-final class CreateNewRegion
+final class CreateRegion
 {
     public function __invoke(KoheraRegion $koheraRegion): bool
     {

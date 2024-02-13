@@ -8,7 +8,7 @@ use App\Schools\School;
 use App\Kohera\KoheraSchool;
 use App\Schools\Address;
 
-final class CreateNewSchool
+final class CreateSchool
 {
     public function __invoke(KoheraSchool $koheraSchool): bool
     {

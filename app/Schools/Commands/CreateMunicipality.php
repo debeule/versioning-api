@@ -8,7 +8,7 @@ use App\Schools\Municipality;
 use App\Kohera\School as KoheraSchool;
 
 
-final class CreateNewMunicipality
+final class CreateMunicipality
 {
     public function __invoke(KoheraSchool $koheraSchool): bool
     {

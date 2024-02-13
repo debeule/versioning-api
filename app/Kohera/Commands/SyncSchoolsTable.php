@@ -13,10 +13,10 @@ use App\Kohera\School as KoheraSchool;
 use App\Kohera\Sanitizer\Sanitizer;
 use App\Kohera\Queries\AllSchools as AllKoheraSchools;
 
-use App\Schools\commands\CreateNewRegion;
-use App\Schools\commands\CreateNewMunicipality;
-use App\Schools\commands\CreateNewAddress;
-use App\Schools\commands\CreateNewSchool;
+use App\Schools\commands\CreateRegion;
+use App\Schools\commands\CreateMunicipality;
+use App\Schools\commands\CreateAddress;
+use App\Schools\commands\CreateSchool;
 
 final class SyncSchoolsTable
 {
@@ -40,14 +40,14 @@ final class SyncSchoolsTable
             $existingSchool = $existingSchools->where('school_id', $koheraSchool->School_Id)->first();
 
 
-            $createNewMunicipality = new CreateNewMunicipality();
-            $createNewMunicipality($koheraSchool);
+            $createMunicipality = new CreateMunicipality();
+            $createMunicipality($koheraSchool);
 
-            $createNewAddress = new CreateNewAddress();
-            $createNewAddress($koheraSchool);
+            $createAddress = new CreateAddress();
+            $createAddress($koheraSchool);
 
-            $createNewSchool = new CreateNewSchool();
-            $createNewSchool($koheraSchool);
+            $createSchool = new CreateSchool();
+            $createSchool($koheraSchool);
 
             $existingSchools = $existingSchools->where('school_id', "!=", $koheraSchool->School_Id);
             array_push($processedSports, $koheraSchool->School_Id);
