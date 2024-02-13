@@ -12,8 +12,8 @@ final class Region extends Model
 
     protected $fillable = [
         'name',
-        'region_id',
-        'province_id',
+        'province',
+        'region_id'
     ];
 
     public function subregions()
