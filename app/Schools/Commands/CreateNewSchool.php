@@ -5,69 +5,69 @@ declare(strict_types=1);
 namespace App\Schools\Commands;
 
 use App\Schools\School;
-use App\Kohera\DwhSchool;
+use App\Kohera\KoheraSchool;
 use App\Schools\Address;
 
 final class CreateNewSchool
 {
-    public function __invoke(DwhSchool $dwhSchool): bool
+    public function __invoke(KoheraSchool $koheraSchool): bool
     {
-        if (!$this->recordExists($dwhSchool)) 
+        if (!$this->recordExists($koheraSchool)) 
         {
-            return $this->buildRecord($dwhSchool);
+            return $this->buildRecord($koheraSchool);
         }
         
-        if ($this->recordExists($dwhSchool) && $this->recordHasChanged($dwhSchool)) 
+        if ($this->recordExists($koheraSchool) && $this->recordHasChanged($koheraSchool)) 
         {
-            return $this->createNewRecordVersion($dwhSchool);
+            return $this->createNewRecordVersion($koheraSchool);
         }
     }
 
-    private function recordExists(DwhSchool $dwhSchool): bool
+    private function recordExists(KoheraSchool $koheraSchool): bool
     {
-        return School::where('school_id', $dwhSchool->School_Id)->exists();
+        return School::where('school_id', $koheraSchool->School_Id)->exists();
     }
 
-    private function recordHasChanged(DwhSchool $dwhSchool): bool
+    private function recordHasChanged(KoheraSchool $koheraSchool): bool
     {
-        $school = School::where('school_id', $dwhSchool->School_Id)->first();
+        $school = School::where('school_id', $koheraSchool->School_Id)->first();
 
         $recordhasChanged = false;
         while (!$recordhasChanged)
         {
-            $recordhasChanged = $school->name !== $dwhSchool->Name;
-            $recordhasChanged = $school->email !== $dwhSchool->School_mail;
-            $recordhasChanged = $school->contact_email !== $dwhSchool->Gangmaker_mail;
-            $recordhasChanged = $school->type !== $dwhSchool->type;
-            $recordhasChanged = $school->student_count !== $dwhSchool->Student_Count;
-            $recordhasChanged = $school->institution_id !== $dwhSchool->Instellingsnummer;
+            $recordhasChanged = $school->name !== $koheraSchool->Name;
+            $recordhasChanged = $school->email !== $koheraSchool->School_mail;
+            $recordhasChanged = $school->contact_email !== $koheraSchool->Gangmaker_mail;
+            $recordhasChanged = $school->type !== $koheraSchool->type;
+            $recordhasChanged = $school->student_count !== $koheraSchool->Student_Count;
+            $recordhasChanged = $school->institution_id !== $koheraSchool->Instellingsnummer;
         }
 
         return $recordhasChanged;
     }
 
-    private function buildRecord(DwhSchool $dwhSchool): bool
+    private function buildRecord(KoheraSchool $koheraSchool): bool
     {
         $newSchool = new School();
 
-        $newSchool->name = $dwhSchool->Name;
-        $newSchool->email = $dwhSchool->School_mail;
-        $newSchool->contact_email = $dwhSchool->Gangmaker_mail;
-        $newSchool->type = $dwhSchool->type;
-        $newSchool->school_id = $dwhSchool->School_Id;
-        $newSchool->student_count = $dwhSchool->Student_Count;
-        $newSchool->institution_id = $dwhSchool->Instellingsnummer;
+        $newSchool->name = $koheraSchool->Name;
+        $newSchool->email = $koheraSchool->School_mail;
+        $newSchool->contact_email = $koheraSchool->Gangmaker_mail;
+        $newSchool->type = $koheraSchool->type;
+        $newSchool->school_id = $koheraSchool->School_Id;
+        $newSchool->student_count = $koheraSchool->Student_Count;
+        $newSchool->institution_id = $koheraSchool->Instellingsnummer;
         
-        $addressId = Address::where('street_name', explode(' ', $dwhSchool->address)[0])->first()->id;
+        $addressId = Address::where('street_name', explode(' ', $koheraSchool->address)[0])->first()->id;
         $newSchool->address_id = $addressId;
         
         return $newSchool->save();
     }
 
-    public function createNewRecordVersion(DwhSchool $dwhSchool): bool
+    public function createNewRecordVersion(KoheraSchool $koheraSchool): bool
     {
-        $school = School::where('school_id', $dwhSchool->School_Id)->delete();
+        $school = School::where('school_id', $koheraSchool->School_Id)->delete();
 
-        return $this->buildRecord($dwhSchool);
+        return $this->buildRecord($koheraSchool);
     }
 }
