@@ -47,12 +47,12 @@ final class CreateSchool
         $recordhasChanged = false;
         while (!$recordhasChanged)
         {
-            $recordhasChanged = $school->name !== $koheraSchool->Name;
-            $recordhasChanged = $school->email !== $koheraSchool->School_mail;
-            $recordhasChanged = $school->contact_email !== $koheraSchool->Gangmaker_mail;
+            $recordhasChanged = $school->name !== $koheraSchool->name;
+            $recordhasChanged = $school->email !== $koheraSchool->email;
+            $recordhasChanged = $school->contact_email !== $koheraSchool->contact_email;
             $recordhasChanged = $school->type !== $koheraSchool->type;
-            $recordhasChanged = $school->student_count !== $koheraSchool->Student_Count;
-            $recordhasChanged = $school->institution_id !== $koheraSchool->Instellingsnummer;
+            $recordhasChanged = $school->student_count !== $koheraSchool->student_count;
+            $recordhasChanged = $school->institution_id !== $koheraSchool->institution_id;
         }
 
         return $recordhasChanged;
