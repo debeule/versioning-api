@@ -23,18 +23,7 @@ final class AllSchools
                 'Instellingsnummer AS institution_id',
                 'type AS type',
 
-                'Gemeente AS municipalityname',
                 'Postcode AS postal_code',
-
-                'Facturatie_Naam AS billing_profiles.name',
-                'Facturatie_Tav AS billing_profiles.tav',
-                'BTWNummer AS billing_profiles.vat_number',
-                'Facturatie_Email AS billing_profiles.email',
-                
-                'Facturatie_Adres AS billing_profiles.address',
-
-                'Facturatie_Postcode AS billing_profiles.municipality.postal_code',
-                'Facturatie_Gemeente AS billing_profiles.municipalityname',
             ]);
     }
 
