@@ -31,6 +31,8 @@ final class CreateSchool
 
             return true;
         }
+
+        return true;
     }
 
     private function recordExists(KoheraSchool $koheraSchool): bool
@@ -57,18 +59,16 @@ final class CreateSchool
     }
 
     private function buildRecord(KoheraSchool $koheraSchool): bool
-    {
-        $this->dispatchSync(new CreateMunicipality($koheraSchool));
-        $this->dispatchSync(new CreateAddress($koheraSchool));
+    {        
         $newSchool = new School();
 
-        $newSchool->name = $koheraSchool->Name;
-        $newSchool->email = $koheraSchool->School_mail;
-        $newSchool->contact_email = $koheraSchool->Gangmaker_mail;
+        $newSchool->name = $koheraSchool->name;
+        $newSchool->email = $koheraSchool->email;
+        $newSchool->contact_email = $koheraSchool->contact_email;
         $newSchool->type = $koheraSchool->type;
-        $newSchool->school_id = $koheraSchool->School_Id;
-        $newSchool->student_count = $koheraSchool->Student_Count;
-        $newSchool->institution_id = $koheraSchool->Instellingsnummer;
+        $newSchool->school_id = $koheraSchool->school_id;
+        $newSchool->student_count = $koheraSchool->student_count;
+        $newSchool->institution_id = $koheraSchool->institution_id;
         
         $addressId = Address::where('street_name', explode(' ', $koheraSchool->address)[0])->first()->id;
         $newSchool->address_id = $addressId;

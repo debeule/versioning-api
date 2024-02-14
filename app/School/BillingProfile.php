@@ -18,6 +18,8 @@ final class BillingProfile extends Model
         'first_name',
         'last_name',
         'email',
+        'vat_number',
+        'tav',
         'address_id',
         'school_id',
     ];

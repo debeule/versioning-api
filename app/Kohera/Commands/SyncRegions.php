@@ -13,7 +13,7 @@ use App\Imports\Sanitizer\Sanitizer;
 use App\School\Commands\CreateRegion;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
-final class SyncRegionsTable
+final class SyncRegions
 {
     use DispatchesJobs;
 
@@ -24,7 +24,7 @@ final class SyncRegionsTable
         
         $allKoheraRegions = new AllKoheraRegions();
 
-        foreach ($allKoheraRegions() as $key => $koheraRegion) 
+        foreach ($allKoheraRegions->get() as $key => $koheraRegion) 
         {
             $sanitizer = new Sanitizer();
             $koheraRegion = $sanitizer->cleanAllFields($koheraRegion);

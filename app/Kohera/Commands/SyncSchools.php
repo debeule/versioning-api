@@ -7,19 +7,17 @@ namespace App\Kohera\commands;
 use App\School\School;
 use App\School\Province;
 use App\School\Region;
-use App\School\Municipality;
 use App\School\Address;
 use App\Kohera\School as KoheraSchool;
 use App\Imports\Sanitizer\Sanitizer;
 use App\Kohera\Queries\AllSchools as AllKoheraSchools;
 use App\School\Commands\CreateRegion;
-use App\School\Commands\CreateMunicipality;
 use App\School\Commands\CreateAddress;
 use App\School\Commands\CreateSchool;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 
-final class SyncSchoolsTable
+final class SyncSchools
 {
     use DispatchesJobs;
 
@@ -30,20 +28,21 @@ final class SyncSchoolsTable
 
         $AllkoheraSchools = new AllKoheraSchools();
         
-        foreach ($AllkoheraSchools() as $key => $koheraSchool) 
+        foreach ($AllkoheraSchools->get() as $key => $koheraSchool) 
         {
             $sanitizer = new Sanitizer();
             $koheraSchool = $sanitizer->cleanAllFields($koheraSchool);
             
-            if (in_array($koheraSchool->School_Id, $processedSchools)) 
+            if (in_array($koheraSchool->school_id, $processedSchools)) 
             {
                 continue;
             }
 
             $this->dispatchSync(new CreateSchool($koheraSchool));
 
-            $existingSchools = $existingSchools->where('school_id', "!=", $koheraSchool->School_Id);
-            array_push($processedSchools, $koheraSchool->School_Id);
+            $existingSchools = $existingSchools->where('school_id', "!=", $koheraSchool->school_id);
+
+            array_push($processedSchools, $koheraSchool->school_id);
         }
 
         //school found in sports table but not in koheraschools

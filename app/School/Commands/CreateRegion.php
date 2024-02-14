@@ -7,6 +7,7 @@ namespace App\School\Commands;
 use App\School\Region;
 use App\Kohera\Region as KoheraRegion;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use App\School\Municipality;
 
 final class CreateRegion
 {
@@ -34,10 +35,22 @@ final class CreateRegion
     public function buildRecord(KoheraRegion $koheraRegion): bool
     {
         $newRegion = new Region();
-        $newRegion->name = $koheraRegion->RegionNaam;
-        $newRegion->province = $koheraRegion->Provincie;
-        $newRegion->region_id = $koheraRegion->RegioDetailId;
+
+        $newRegion->name = $koheraRegion->name;
+        $newRegion->province = $koheraRegion->province;
+        $newRegion->region_id = $koheraRegion->region_id;
         
-        return $newRegion->save();
+        $newRegion->save();
+
+        //link municipalities to region
+        $municipalities = Municipality::where('postal_code', $koheraRegion->postal_code)->get();
+
+        foreach ($municipalities as $municipality) 
+        {
+            $municipality->region_id = $newRegion->id;
+            $municipality->save();
+        }
+        
+        return true;
     }
 }

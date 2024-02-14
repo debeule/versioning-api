@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace App\Kohera\Queries;
 
 use Illuminate\Database\Eloquent\Builder;
-use App\Kohera\Region;
+use Illuminate\Support\Facades\DB;
+use App\Kohera\School;
 
-final class AllRegions
+final class AllAddresses
 {
     public function query(): Builder
     {
-        return Region::query()
+        return School::query()
             ->select([
-                'RegionNaam AS name',
-                'Provincie AS province',
+                DB::raw("SUBSTR(address, INSTR(address, ' ') + 1) AS street_identifier"),
+                DB::raw("SUBSTR(address, 1, INSTR(address, ' ') - 1) AS street_name"),
                 'Postcode AS postal_code',
-                'RegioDetailId AS region_id'
             ]);
     }
 

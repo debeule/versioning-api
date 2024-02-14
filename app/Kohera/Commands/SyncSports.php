@@ -11,7 +11,7 @@ use App\Imports\Sanitizer\Sanitizer;
 use App\Sport\Commands\CreateSport;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
-final class SyncSportsTable
+final class SyncSports
 {
     use DispatchesJobs;
 
@@ -20,32 +20,32 @@ final class SyncSportsTable
         $existingSports = Sport::all();
         $processedSports = [];
 
-        $getAllkoheraSportsQuery = new AllKoheraSports();
+        $AllkoheraSports = new AllKoheraSports();
 
-        foreach ($getAllkoheraSportsQuery() as $key => $koheraSport) 
+        foreach ($AllkoheraSports->get() as $key => $koheraSport) 
         {
             $sanitizer = new Sanitizer();
             $koheraSport = $sanitizer->cleanAllFields($koheraSport);
 
-            if (in_array($koheraSport->Sportkeuze, $processedSports)) 
+            if (in_array($koheraSport->name, $processedSports)) 
             {
                 continue;
             }
 
-            $sportExists = $existingSports->where('name', $koheraSport->Sportkeuze)->isNotEmpty();
+            $sportExists = $existingSports->where('name', $koheraSport->name)->isNotEmpty();
 
             if ($sportExists)
             {
-                $existingSports = $existingSports->where('name', "!=", $koheraSport->Sportkeuze);
+                $existingSports = $existingSports->where('name', "!=", $koheraSport->name);
 
-                array_push($processedSports, $koheraSport->Sportkeuze);
+                array_push($processedSports, $koheraSport->name);
 
                 continue;
             }
 
             $this->dispatchSync(new CreateSport($koheraSport));
 
-            array_push($processedSports, $koheraSport->Sportkeuze);
+            array_push($processedSports, $koheraSport->name);
         }
 
         //sport found in sports table but not in koheraSports

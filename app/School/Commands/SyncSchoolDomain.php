@@ -4,16 +4,25 @@ declare(strict_types=1);
 
 namespace App\School\Commands;
 
-use App\Kohera\Commands\SyncRegionsTable;
-use App\Kohera\Commands\SyncSchoolsTable;
+use App\Kohera\Commands\SyncRegions;
+use App\Kohera\Commands\SyncSchools;
+use App\Kohera\Commands\SyncMunicipalities;
+use App\Kohera\Commands\SyncAddresses;
 
 final class SyncSchoolDomain
 {
     public function __invoke(): void
     {
-        $syncRegionsTable = new SyncRegionsTable();
-        $syncRegionsTable();
-        $syncSchoolsTable = new SyncSchoolsTable();
-        $syncSchoolsTable();
+        $syncMunicipalities = new SyncMunicipalities();
+        $syncMunicipalities();
+        
+        $syncRegions = new SyncRegions();
+        $syncRegions();
+
+        $syncaddresses = new SyncAddresses();
+        $syncaddresses();
+        
+        $syncSchools = new SyncSchools();
+        $syncSchools();
     }
 }

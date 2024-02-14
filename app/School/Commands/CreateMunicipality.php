@@ -32,12 +32,12 @@ final class CreateMunicipality
     }
 
     private function buildRecord(KoheraSchool $koheraSchool): bool
-    {
+    {        
         $newMunicipality = new Municipality();
 
-        $newMunicipality->name = $koheraSchool->Gemeente;
-        $newMunicipality->postal_code = $koheraSchool->Postcode;
-
+        $newMunicipality->name = $koheraSchool->name;
+        $newMunicipality->postal_code = $koheraSchool->postal_code;
+        
         return $newMunicipality->save();
     }
 }

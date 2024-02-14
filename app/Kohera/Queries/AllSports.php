@@ -4,13 +4,19 @@ declare(strict_types=1);
 
 namespace App\Kohera\Queries;
 
+use Illuminate\Database\Eloquent\Builder;
 use App\Kohera\Sport;
 
 final class AllSports
 {
-    public function __invoke(): Object
+    public function query(): Builder
     {
-        # TODO : api call to get dwhsports
-        return Sport::all();
+        return Sport::select('Sportkeuze AS name')
+        ->orderBy('created_at', 'desc');
+    }
+
+    public function get(): Object
+    {
+        return $this->query()->get();
     }
 }
