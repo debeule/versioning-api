@@ -17,7 +17,7 @@ final class AllSchools
                 'Name AS name',
                 'Gangmaker_mail AS contact_email',
                 'School_mail AS email',
-                'address',
+                DB::raw("SUBSTR(address, 1, INSTR(address, ' ') - 1) AS street_name"),
                 'Student_Count AS student_count',
                 'School_Id AS school_id',
                 'Instellingsnummer AS institution_id',
