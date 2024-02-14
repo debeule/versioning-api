@@ -35,14 +35,7 @@ return [
 
     'connections' => [
 
-        'sqlite' => [
-            'driver' => 'sqlite',
-            'database' =>  database_path('kohera/database.sqlite'),
-            'prefix' => '',
-            'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
-        ],
-
-        'mysql' => [
+        'main' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', 'db'),
@@ -60,6 +53,46 @@ return [
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
+        ],
+
+        'main-testing' => [
+            'driver' => 'mysql',
+            'url' => env('DATABASE_URL'),
+            'host' => env('DB_HOST', 'db-testing'),
+            'port' => env('DB_PORT', '3307'),
+            'database' => env('DB_DATABASE', 'sport-na-school'),
+            'username' => env('DB_USERNAME', 'root'),
+            'password' => env('DB_PASSWORD', 'sport-na-school'),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+
+        'kohera-testing' => [
+            'driver' => 'sqlite',
+            'database' =>  database_path('kohera/database.sqlite'),
+            'prefix' => '',
+            'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
+        ],
+
+        'kohera' => [
+            'driver' => 'sqlsrv',
+            'host' => env('KOHERA_DB_HOST', '127.0.0.1'),
+            'port' => env('KOHERA_DB_PORT', '1433'),
+            'database' => env('KOHERA_DB_DATABASE', 'forge'),
+            'username' => env('KOHERA_DB_USERNAME', 'forge'),
+            'password' => env('KOHERA_DB_PASSWORD', ''),
+            'unix_socket' => env('KOHERA_DB_SOCKET', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
         ],
 
         'pgsql' => [
@@ -146,18 +179,4 @@ return [
         ],
 
     ],
-
-    'kohera' => [
-        'driver' => 'sqlsrv',
-        'host' => env('KOHERA_DB_HOST', '127.0.0.1'),
-        'port' => env('KOHERA_DB_PORT', '1433'),
-        'database' => env('KOHERA_DB_DATABASE', 'forge'),
-        'username' => env('KOHERA_DB_USERNAME', 'forge'),
-        'password' => env('KOHERA_DB_PASSWORD', ''),
-        'unix_socket' => env('KOHERA_DB_SOCKET', ''),
-        'charset' => 'utf8',
-        'prefix' => '',
-        'prefix_indexes' => true,
-    ],
-
 ];

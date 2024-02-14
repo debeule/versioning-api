@@ -16,6 +16,10 @@ trait CreatesApplication
 
         $app->make(Kernel::class)->bootstrap();
 
+        $this->afterApplicationCreated(function () {
+            $this->artisan('migrate', ['--path' => 'database/kohera/migrations']);
+        });
+
         return $app;
     }
 }
