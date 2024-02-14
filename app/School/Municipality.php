@@ -20,10 +20,6 @@ final class Municipality extends Model
      */
     protected $fillable = [
         'name',
-        'email',
-        'type',
-        'school_id',
-        'institution_id',
     ];
 
     protected $casts = [
