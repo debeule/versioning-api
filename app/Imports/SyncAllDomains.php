@@ -13,7 +13,7 @@ use Illuminate\Queue\SerializesModels;
 use App\School\Commands\SyncSchoolDomain;
 use App\Sport\Commands\SyncSportDomain;
 
-final class SyncAllDomainsJob implements ShouldQueue
+final class SyncAllDomains implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
