@@ -10,7 +10,7 @@ use App\School\Region;
 use App\School\Municipality;
 use App\School\Address;
 use App\Kohera\School as KoheraSchool;
-use App\Kohera\Sanitizer\Sanitizer;
+use App\Imports\Sanitizer\Sanitizer;
 use App\Kohera\Queries\AllSchools as AllKoheraSchools;
 use App\School\Commands\CreateRegion;
 use App\School\Commands\CreateMunicipality;

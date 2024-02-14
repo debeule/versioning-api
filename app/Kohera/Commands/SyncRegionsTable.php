@@ -8,7 +8,7 @@ use App\School\Province;
 use App\School\Region;
 use App\Kohera\Region as KoheraRegion;
 use App\Kohera\Queries\AllRegions as AllKoheraRegions;
-use App\Kohera\Sanitizer\Sanitizer;
+use App\Imports\Sanitizer\Sanitizer;
 
 use App\School\Commands\CreateRegion;
 use Illuminate\Foundation\Bus\DispatchesJobs;

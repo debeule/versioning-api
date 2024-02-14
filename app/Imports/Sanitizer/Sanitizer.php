@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Kohera\Sanitizer;
+namespace App\Imports\Sanitizer;
 
 final class Sanitizer
 {

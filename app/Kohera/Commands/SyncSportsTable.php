@@ -7,7 +7,7 @@ namespace App\Kohera\Commands;
 use App\Kohera\Queries\AllSports as AllKoheraSports;
 use App\Sport\Sport;
 use App\Kohera\Sport as koheraSport;
-use App\Kohera\Sanitizer\Sanitizer;
+use App\Imports\Sanitizer\Sanitizer;
 use App\Sport\Commands\CreateSport;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
