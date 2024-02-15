@@ -20,9 +20,9 @@ final class SyncAddresses
         $existingAddresses = Address::all();
         $processedAddresses = [];
 
-        $AllkoheraAddresses = new AllKoheraAddresses();
+        $allkoheraAddresses = new AllKoheraAddresses();
         
-        foreach ($AllkoheraAddresses->get() as $koheraAddress) 
+        foreach ($allkoheraAddresses->get() as $koheraAddress) 
         {
             if (in_array($koheraAddress->streetName(), $processedAddresses)) 
             {
