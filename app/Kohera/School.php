@@ -70,7 +70,7 @@ final class School extends Model implements SchoolContract
         return $this->type;
     }
 
-    public function schoolId(): string
+    public function schoolNumber(): string
     {
         return (string) $this->School_Id;
     }

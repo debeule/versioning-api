@@ -36,7 +36,7 @@ final class SyncAddresses
             array_push($processedAddresses, $koheraAddress->streetName());
         }
 
-        //Address found in sports table but not in koheraAddresses
+        //Address found in addresses but not in koheraAddresses
         foreach ($existingAddresses as $existingAddress) 
         {
             $existingAddress->delete();

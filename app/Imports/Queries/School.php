@@ -13,7 +13,7 @@ interface School
     public function email(): ?string;
     public function contactEmail(): ?string;
     public function type(): string;
-    public function schoolId(): string;
+    public function schoolNumber(): string;
     public function institutionId(): int;
     public function studentCount(): int;
 

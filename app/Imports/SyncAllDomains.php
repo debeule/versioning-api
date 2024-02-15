@@ -21,7 +21,6 @@ final class SyncAllDomains implements ShouldQueue
     {
         $syncSchools = new SyncSchoolDomain();
         $syncSchools();
-
         $syncSports = new SyncSportDomain();
         $syncSports();
     }

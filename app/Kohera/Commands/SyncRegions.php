@@ -46,5 +46,11 @@ final class SyncRegions
 
             array_push($processedSports, $koheraRegion->name());
         }
+
+        //region found in regions but not in koheraregions
+        foreach ($existingRegions as $existingRegion) 
+        {
+            $existingRegion->delete();
+        }
     }
 }

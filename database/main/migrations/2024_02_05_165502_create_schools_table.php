@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('contact_email');
             $table->enum('type', ['KO', 'LO', 'SO']);
-            $table->string('school_id');
+            $table->string('schoolNumber');
             $table->unsignedBigInteger('institution_id');
             $table->integer('student_count');
 
