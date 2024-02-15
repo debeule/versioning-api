@@ -9,7 +9,9 @@ use App\School\Region;
 interface Municipality
 {
     public function name(): string;
-    public function postalCode(): string;
+    public function province(): string;
+    public function postalCode(): int;
+    public function headMunicipality(): ?string;
 
     public function region(): Region;
 }
