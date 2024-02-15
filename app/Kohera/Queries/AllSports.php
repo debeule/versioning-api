@@ -11,8 +11,7 @@ final class AllSports
 {
     public function query(): Builder
     {
-        return Sport::select('Sportkeuze AS name')
-        ->orderBy('created_at', 'desc');
+        return Sport::query();
     }
 
     public function get(): Object

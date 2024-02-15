@@ -28,21 +28,18 @@ final class SyncSchools
 
         $AllkoheraSchools = new AllKoheraSchools();
         
-        foreach ($AllkoheraSchools->get() as $key => $koheraSchool) 
-        {
-            $sanitizer = new Sanitizer();
-            $koheraSchool = $sanitizer->cleanAllFields($koheraSchool);
-            
-            if (in_array($koheraSchool->school_id, $processedSchools)) 
+        foreach ($AllkoheraSchools->get() as $koheraSchool) 
+        {            
+            if (in_array($koheraSchool->schoolId(), $processedSchools)) 
             {
                 continue;
             }
 
             $this->dispatchSync(new CreateSchool($koheraSchool));
 
-            $existingSchools = $existingSchools->where('school_id', "!=", $koheraSchool->school_id);
+            $existingSchools = $existingSchools->where('school_id', "!=", $koheraSchool->schoolId());
 
-            array_push($processedSchools, $koheraSchool->school_id);
+            array_push($processedSchools, $koheraSchool->schoolId());
         }
 
         //school found in sports table but not in koheraschools

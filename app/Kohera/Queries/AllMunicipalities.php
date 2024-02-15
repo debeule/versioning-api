@@ -7,20 +7,27 @@ namespace App\Kohera\Queries;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use App\Kohera\School;
+use App\Kohera\Municipality;
 
 final class AllMunicipalities
 {
     public function query(): Builder
     {
-        return School::query()
-            ->select([
-                'Gemeente AS name',
-                'Postcode AS postal_code',
-            ]);
+        return School::query();
     }
 
     public function get(): Object
     {
-        return $this->query()->get();
+        $schools = $this->query()->get();
+
+        $municipalities = collect();
+
+        foreach ($schools as $school) 
+        {
+            $municipality = new Municipality($school);
+            $municipalities ->push($municipality);
+        }
+
+        return $municipalities;
     }
 }

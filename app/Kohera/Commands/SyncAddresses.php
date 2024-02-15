@@ -22,21 +22,18 @@ final class SyncAddresses
 
         $AllkoheraAddresses = new AllKoheraAddresses();
         
-        foreach ($AllkoheraAddresses->get() as $key => $koheraAddress) 
+        foreach ($AllkoheraAddresses->get() as $koheraAddress) 
         {
-            $sanitizer = new Sanitizer();
-            $koheraAddress = $sanitizer->cleanAllFields($koheraAddress);
-
-            if (in_array($koheraAddress->name, $processedAddresses)) 
+            if (in_array($koheraAddress->streetName(), $processedAddresses)) 
             {
                 continue;
             }
-
+            
             $this->dispatchSync(new CreateAddress($koheraAddress));
+            
+            $existingAddresses = $existingAddresses->where('street_name', "!=", $koheraAddress->streetName());
 
-            $existingAddresses = $existingAddresses->where('street_name', "!=", $koheraAddress->street_name);
-
-            array_push($processedAddresses, $koheraAddress->street_name);
+            array_push($processedAddresses, $koheraAddress->streetName());
         }
 
         //Address found in sports table but not in koheraAddresses

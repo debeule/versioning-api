@@ -24,30 +24,27 @@ final class SyncRegions
         
         $allKoheraRegions = new AllKoheraRegions();
 
-        foreach ($allKoheraRegions->get() as $key => $koheraRegion) 
+        foreach ($allKoheraRegions->get() as $koheraRegion) 
         {
-            $sanitizer = new Sanitizer();
-            $koheraRegion = $sanitizer->cleanAllFields($koheraRegion);
-
-            if (in_array($koheraRegion->RegionNaam, $processedSports)) 
+            if (in_array($koheraRegion->name(), $processedSports)) 
             {
                 continue;
             }
 
-            $regionExists = $existingRegions->where('name', $koheraRegion->RegionNaam)->isNotEmpty();
+            $regionExists = $existingRegions->where('name', $koheraRegion->name())->isNotEmpty();
             
             if ($regionExists)
             {
-                $existingRegions = $existingRegions->where('name', "!=", $koheraRegion->RegionNaam);
+                $existingRegions = $existingRegions->where('name', "!=", $koheraRegion->name());
 
-                array_push($processedSports, $koheraRegion->RegionNaam);
+                array_push($processedSports, $koheraRegion->name());
                 
                 continue;
             }
 
             $this->dispatchSync(new CreateRegion($koheraRegion));
 
-            array_push($processedSports, $koheraRegion->RegionNaam);
+            array_push($processedSports, $koheraRegion->name());
         }
     }
 }

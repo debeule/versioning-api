@@ -26,4 +26,19 @@ final class Region extends Model
         'Postcode',
         'RegioDetailId',
     ];
+
+    public function name(): string
+    {
+        return $this->RegionNaam;
+    }
+
+    public function regionId(): int
+    {
+        return $this->RegioDetailId;
+    }
+
+    public function province(): string
+    {
+        return $this->Provincie;
+    }
 }

@@ -22,30 +22,27 @@ final class SyncSports
 
         $AllkoheraSports = new AllKoheraSports();
 
-        foreach ($AllkoheraSports->get() as $key => $koheraSport) 
+        foreach ($AllkoheraSports->get() as $koheraSport) 
         {
-            $sanitizer = new Sanitizer();
-            $koheraSport = $sanitizer->cleanAllFields($koheraSport);
-
-            if (in_array($koheraSport->name, $processedSports)) 
+            if (in_array($koheraSport->name(), $processedSports)) 
             {
                 continue;
             }
 
-            $sportExists = $existingSports->where('name', $koheraSport->name)->isNotEmpty();
+            $sportExists = $existingSports->where('name', $koheraSport->name())->isNotEmpty();
 
             if ($sportExists)
             {
-                $existingSports = $existingSports->where('name', "!=", $koheraSport->name);
+                $existingSports = $existingSports->where('name', "!=", $koheraSport->name());
 
-                array_push($processedSports, $koheraSport->name);
+                array_push($processedSports, $koheraSport->name());
 
                 continue;
             }
 
             $this->dispatchSync(new CreateSport($koheraSport));
 
-            array_push($processedSports, $koheraSport->name);
+            array_push($processedSports, $koheraSport->name());
         }
 
         //sport found in sports table but not in koheraSports

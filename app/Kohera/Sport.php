@@ -21,13 +21,14 @@ final class Sport extends Model
     }
 
     protected $fillable = [
-        'name'
+        'Sportkeuze',
+        'BK_SportTakSportOrganisatie',
+        'Sport',
+        'Hoofdsport',
     ];
 
-    // protected $fillable = [
-    //     'Sportkeuze',
-    //     'BK_SportTakSportOrganisatie',
-    //     'Sport',
-    //     'Hoofdsport',
-    // ];
+    public function name(): string
+    {
+        return $this->Sportkeuze;
+    }
 }

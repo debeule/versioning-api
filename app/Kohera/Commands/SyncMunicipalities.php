@@ -22,21 +22,18 @@ final class SyncMunicipalities
 
         $AllkoheraMunicipalities = new AllKoheraMunicipalities();
         
-        foreach ($AllkoheraMunicipalities->get() as $key => $koheraMunicipality) 
+        foreach ($AllkoheraMunicipalities->get() as $koheraMunicipality) 
         {
-            $sanitizer = new Sanitizer();
-            $koheraMunicipality = $sanitizer->cleanAllFields($koheraMunicipality);
-            
-            if (in_array($koheraMunicipality->name, $processedMunicipalities)) 
+            if (in_array($koheraMunicipality->name(), $processedMunicipalities)) 
             {
                 continue;
             }
 
             $this->dispatchSync(new CreateMunicipality($koheraMunicipality));
 
-            $existingMunicipalities = $existingMunicipalities->where('name', "!=", $koheraMunicipality->name);
-            
-            array_push($processedMunicipalities, $koheraMunicipality->name);
+            $existingMunicipalities = $existingMunicipalities->where('name', "!=", $koheraMunicipality->name());
+
+            array_push($processedMunicipalities, $koheraMunicipality->name());
         }
 
         //Municipality found in sports table but not in koheraMunicipalities

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\School\Commands;
 
 use App\School\Address;
-use App\Kohera\School as KoheraSchool;
+use App\Kohera\Address as KoheraAddress;
 use App\School\Municipality;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
@@ -15,7 +15,7 @@ final class CreateAddress
     use DispatchesJobs;
 
     public function __construct(
-        public KoheraSchool $koheraAddress
+        public KoheraAddress $koheraAddress
     ) {}
 
     public function handle(): bool
@@ -33,35 +33,36 @@ final class CreateAddress
         return true;
     }
 
-    private function recordExists(KoheraSchool $koheraAddress): bool
+    private function recordExists(KoheraAddress $koheraAddress): bool
     {
-        return Address::where('street_name', $koheraAddress->street_name)->exists();
+        return Address::where('street_name', $koheraAddress->streetName())->exists();
     }
 
-    private function recordHasChanged(KoheraSchool $koheraAddress): bool
+    private function recordHasChanged(KoheraAddress $koheraAddress): bool
     {
-        $address = Address::where('street_name', $koheraAddress->street_name)->first();
+        $address = Address::where('street_name', $koheraAddress->streetName())->first();
 
-        $recordhasChanged = $address->street_identifier !== $koheraAddress->street_identifier;
+        $recordhasChanged = $address->street_identifier !== $koheraAddress->streetIdentifier();
 
         return $recordhasChanged;
     }
 
-    private function buildRecord(KoheraSchool $koheraAddress): bool
+    private function buildRecord(KoheraAddress $koheraAddress): bool
     {
         $newAdress = new Address();
 
-        $newAdress->street_name = $koheraAddress->street_name;
-        $newAdress->street_identifier = $koheraAddress->street_identifier;
+        $newAdress->street_name = $koheraAddress->streetName();
+        $newAdress->street_identifier = $koheraAddress->streetIdentifier();
         
-        $newAdress->municipality_id = Municipality::where('postal_code', $koheraAddress->postal_code)->first()->id;
+        // $newAdress->municipality_id = Municipality::where('postal_code', $koheraAddress->municipality()->postalCode())->first()->id;
 
-        return $newAdress->save();
+        // return $newAdress->save();
+        return true;
     }
 
-    private function createNewRecordVersion(KoheraSchool $koheraAddress): bool
+    private function createNewRecordVersion(KoheraAddress $koheraAddress): bool
     {
-        $address = Address::where('street_name', $koheraAddress->street_name)->delete();
+        $address = Address::where('street_name', $koheraAddress->streetName())->delete();
 
         return $this->buildRecord($koheraAddress);
     }

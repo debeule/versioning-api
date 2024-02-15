@@ -7,21 +7,27 @@ namespace App\Kohera\Queries;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use App\Kohera\School;
+use App\Kohera\Address;
 
 final class AllAddresses
 {
     public function query(): Builder
     {
-        return School::query()
-            ->select([
-                DB::raw("SUBSTR(address, INSTR(address, ' ') + 1) AS street_identifier"),
-                DB::raw("SUBSTR(address, 1, INSTR(address, ' ') - 1) AS street_name"),
-                'Postcode AS postal_code',
-            ]);
+        return School::query();
     }
 
     public function get(): Object
     {
-        return $this->query()->get();
+        $schools = $this->query()->get();
+        
+        $addresses = collect();
+
+        foreach ($schools as $school) 
+        {
+            $address = new Address($school);
+            $addresses ->push($address);
+        }
+
+        return $addresses;
     }
 }

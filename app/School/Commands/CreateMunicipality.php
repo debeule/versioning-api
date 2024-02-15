@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\School\Commands;
 
 use App\School\Municipality;
-use App\Kohera\School as KoheraSchool;
+use App\Kohera\Municipality as KoheraMunicipality;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 final class CreateMunicipality
@@ -13,30 +13,31 @@ final class CreateMunicipality
     use DispatchesJobs;
 
     public function __construct(
-        public KoheraSchool $koheraSchool
+        public KoheraMunicipality $koheraMunicipality
     ) {}
 
-    public function handle(KoheraSchool $koheraSchool): bool
+    public function handle(KoheraMunicipality $koheraMunicipality): bool
     {
-        if (!$this->recordExists($this->koheraSchool)) 
+        if (!$this->recordExists($this->koheraMunicipality)) 
         {
-            return $this->buildRecord($this->koheraSchool);
+            return $this->buildRecord($this->koheraMunicipality);
         }
 
         return true;
     }
 
-    private function recordExists(KoheraSchool $koheraSchool): bool
+    private function recordExists(KoheraMunicipality $koheraMunicipality): bool
     {
-        return Municipality::where('postal_code', $koheraSchool->Postcode)->exists();
+        // return Municipality::where('name', $koheraMunicipality->Postalcode())->exists();
+        return false;
     }
 
-    private function buildRecord(KoheraSchool $koheraSchool): bool
+    private function buildRecord(KoheraMunicipality $koheraMunicipality): bool
     {        
         $newMunicipality = new Municipality();
 
-        $newMunicipality->name = $koheraSchool->name;
-        $newMunicipality->postal_code = $koheraSchool->postal_code;
+        $newMunicipality->name = $koheraMunicipality->name();
+        $newMunicipality->postal_code = $koheraMunicipality->postalCode();
         
         return $newMunicipality->save();
     }
