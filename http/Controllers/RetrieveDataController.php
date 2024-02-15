@@ -6,14 +6,14 @@ namespace Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Objects\Version;
+use App\Imports\Version;
 use DateTimeImmutable;
 
 final class RetrieveDataController extends Controller
 {
     protected Version $version;
 
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): void
     {
         $client = new Client(
             [

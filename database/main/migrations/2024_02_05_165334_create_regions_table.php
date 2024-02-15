@@ -13,10 +13,13 @@ return new class extends Migration
     {
         Schema::create('regions', function (Blueprint $table) {
             $table->id();
-            $table->int('region_id');   
-            
+            $table->integer('region_id');   
+
             $table->string('name');
             $table->integer('region_number');
+
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+            $table->softDeletes();
         });
     }
 

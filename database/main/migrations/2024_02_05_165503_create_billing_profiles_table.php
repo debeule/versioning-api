@@ -13,13 +13,16 @@ return new class extends Migration
     {
         Schema::create('billing_profiles', function (Blueprint $table) {
             $table->id();
-            $table->int('billing_profiles_id');
-            
+            $table->integer('billing_profiles_id');
+
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email');
             $table->string('tav');
             $table->string('vat_number');
+
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+            $table->softDeletes();
 
             $table->foreignId('address_id')->references('id')->on('addresses');
             $table->foreignId('school_id')->references('id')->on('schools');

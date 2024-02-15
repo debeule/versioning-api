@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('sports', function (Blueprint $table) {
             $table->id();
-            $table->int('sport_id');
-            
+            $table->integer('sport_id');
+
             $table->string('name');
 
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
