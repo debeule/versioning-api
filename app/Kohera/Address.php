@@ -6,8 +6,9 @@ namespace App\Kohera;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Imports\Queries\Address as AddressContract;
 
-final class Address extends Model
+final class Address extends Model implements AddressContract
 {
     public function __construct(
         private School $school

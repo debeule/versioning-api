@@ -6,7 +6,7 @@ namespace App\Kohera\commands;
 
 use App\School\Municipality;
 use App\Imports\Sanitizer\Sanitizer;
-use App\Kohera\Queries\AllMunicipalities as AllKoheraMunicipalities;
+use App\bpost\Queries\AllMunicipalities as bpostMunicipalities;
 use App\School\Commands\CreateMunicipality;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
@@ -20,20 +20,20 @@ final class SyncMunicipalities
         $existingMunicipalities = Municipality::all();
         $processedMunicipalities = [];
 
-        $AllkoheraMunicipalities = new AllKoheraMunicipalities();
+        $bpostMunicipalities = new BpostMunicipalities();
         
-        foreach ($AllkoheraMunicipalities->get() as $koheraMunicipality) 
+        foreach ($bpostMunicipalities->get() as $bpostMunicipality) 
         {
-            if (in_array($koheraMunicipality->name(), $processedMunicipalities)) 
+            if (in_array($bpostMunicipality->name(), $processedMunicipalities)) 
             {
                 continue;
             }
 
-            $this->dispatchSync(new CreateMunicipality($koheraMunicipality));
+            $this->dispatchSync(new CreateMunicipality($bpostMunicipality));
 
-            $existingMunicipalities = $existingMunicipalities->where('name', "!=", $koheraMunicipality->name());
+            $existingMunicipalities = $existingMunicipalities->where('name', "!=", $bpostMunicipality->name());
 
-            array_push($processedMunicipalities, $koheraMunicipality->name());
+            array_push($processedMunicipalities, $bpostMunicipality->name());
         }
 
         //Municipality found in sports table but not in koheraMunicipalities

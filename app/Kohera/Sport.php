@@ -6,8 +6,9 @@ namespace App\Kohera;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Imports\Queries\Sport as SportContract;
 
-final class Sport extends Model
+final class Sport extends Model implements SportContract
 {
     public $timestamps = false;
 

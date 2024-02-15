@@ -6,8 +6,9 @@ namespace App\Kohera;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Imports\Queries\Region as RegionContract;
 
-final class Region extends Model
+final class Region extends Model implements RegionContract
 {
     public $timestamps = false;
 
