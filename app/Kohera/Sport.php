@@ -28,6 +28,11 @@ final class Sport extends Model implements SportContract
         'Hoofdsport',
     ];
 
+    public function sportId(): int
+    {
+        return $this->id;
+    }
+
     public function name(): string
     {
         return $this->Sportkeuze;

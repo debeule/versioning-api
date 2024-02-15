@@ -6,6 +6,7 @@ namespace App\Imports\Queries;
 
 interface Region
 {
+    public function regionId(): int;
     public function name(): string;
     public function regionId(): int;
     public function province(): string;

@@ -8,6 +8,7 @@ use App\School\Municipality;
 
 interface Address
 {
+    public function addressId(): int;
     public function streetName(): string;
     public function streetIdentifier(): string;
 

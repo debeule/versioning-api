@@ -15,6 +15,11 @@ final class Address extends Model implements AddressContract
         private School $school
     ) {}
 
+    public function addressId(): int
+    {
+        return $this->id;
+    }
+
     public function streetName(): string
     {
         return explode(' ', $this->school->address)[0];

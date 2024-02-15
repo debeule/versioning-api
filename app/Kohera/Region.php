@@ -28,6 +28,11 @@ final class Region extends Model implements RegionContract
         'RegioDetailId',
     ];
 
+    public function regionId(): int
+    {
+        return $this->id;
+    }
+
     public function name(): string
     {
         return $this->RegionNaam;

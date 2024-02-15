@@ -46,6 +46,11 @@ final class School extends Model implements SchoolContract
     protected $casts = [
         'type' => 'string',
     ];
+
+    public function schoolId(): int
+    {
+        return $this->id;
+    }
     
     public function sourceId(): string
     {
