@@ -59,12 +59,12 @@ final class CreateRegion
 
         $recordhasChanged = false;
 
-        $recordhasChanged = $school->name !== $koheraSchool->name();
-        $recordhasChanged = $school->email !== $koheraSchool->email();
-        $recordhasChanged = $school->contact_email !== $koheraSchool->contactEmail();
-        $recordhasChanged = $school->type !== $koheraSchool->type();
-        $recordhasChanged = $school->student_count !== $koheraSchool->studentCount();
-        $recordhasChanged = $school->institution_id !== $koheraSchool->institutionId();
+        $recordhasChanged = $region->name !== $koheraRegion->name();
+        $recordhasChanged = $region->email !== $koheraRegion->email();
+        $recordhasChanged = $region->contact_email !== $koheraRegion->contactEmail();
+        $recordhasChanged = $region->type !== $koheraRegion->type();
+        $recordhasChanged = $region->student_count !== $koheraRegion->studentCount();
+        $recordhasChanged = $region->institution_id !== $koheraRegion->institutionId();
 
         return $recordhasChanged;
     }
