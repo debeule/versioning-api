@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Kohera\commands;
+namespace App\Bpost\commands;
 
 use App\School\Municipality;
 use App\Imports\Sanitizer\Sanitizer;
-use App\bpost\Queries\AllMunicipalities as bpostMunicipalities;
+use App\Bpost\Queries\AllMunicipalities as allBpostMunicipalities;
 use App\School\Commands\CreateMunicipality;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
@@ -19,8 +19,8 @@ final class SyncMunicipalities
     {
         $existingMunicipalities = Municipality::all();
         $processedMunicipalities = [];
-
-        $bpostMunicipalities = new BpostMunicipalities();
+        
+        $bpostMunicipalities = new allBpostMunicipalities();
         
         foreach ($bpostMunicipalities->get() as $bpostMunicipality) 
         {
