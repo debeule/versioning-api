@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Bpost\commands;
+namespace App\Bpost\Commands;
 
 use App\School\Municipality;
 use App\Imports\Sanitizer\Sanitizer;

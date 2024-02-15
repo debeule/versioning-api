@@ -21,12 +21,12 @@ final class Address extends Model
         'municipality_id',
     ];
 
-    public function municipality()
+    public function municipality(): BelongsTo
     {
         return $this->belongsTo(Municipality::class);
     }
 
-    public function school()
+    public function school(): HasOne
     {
         return $this->hasOne(School::class);
     }

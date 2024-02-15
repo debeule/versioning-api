@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Kohera\commands;
+namespace App\Kohera\Commands;
 
 use App\School\Address;
 use App\Imports\Sanitizer\Sanitizer;

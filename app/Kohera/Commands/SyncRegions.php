@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Kohera\commands;
+namespace App\Kohera\Commands;
 
 use App\School\Province;
 use App\School\Region;

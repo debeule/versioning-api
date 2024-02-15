@@ -16,7 +16,7 @@ final class Region extends Model
         'region_id'
     ];
 
-    public function subregions()
+    public function subregions() : HasMany
     {
         return $this->hasMany(Region::class, 'region_id');
     }

@@ -26,12 +26,12 @@ final class Municipality extends Model
         'type' => 'string',
     ];
 
-    public function address()
+    public function address(): HasMany
     {
         return $this->hasMany(Address::class);
     }
 
-    public function region()
+    public function region() : BelongsTo
     {
         return $this->belongsTo(Region::class);
     }

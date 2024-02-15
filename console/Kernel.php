@@ -6,6 +6,7 @@ namespace Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Imports\SyncAllDomains;
 
 class Kernel extends ConsoleKernel
 {
@@ -14,8 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->job(new \App\Imports\SyncSportDomainJob())->Daily();
-        $schedule->job(new \App\Imports\SyncSchoolDomainJob())->Daily();
+        $schedule->job(new SyncAllDomains)->Daily();
     }
 
     /**

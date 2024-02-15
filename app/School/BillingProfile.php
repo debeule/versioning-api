@@ -24,12 +24,12 @@ final class BillingProfile extends Model
         'school_id',
     ];
 
-    public function address()
+    public function address(): BelongsTo
     {
         return $this->belongsTo(Address::class);
     }
 
-    public function school()
+    public function school(): BelongsTo
     {
         return $this->belongsTo(School::class);
     }

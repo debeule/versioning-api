@@ -30,7 +30,7 @@ final class School extends Model
         'type' => 'string',
     ];
 
-    public function address()
+    public function address() : HasOne
     {
         return $this->hasOne(Address::class);
     }
