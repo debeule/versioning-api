@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('schools', function (Blueprint $table) {
             $table->id();
+            $table->int('school_id');
+            
             $table->string('name');
             $table->string('email');
             $table->string('contact_email');
@@ -21,7 +23,6 @@ return new class extends Migration
             $table->unsignedBigInteger('institution_id');
             $table->integer('student_count');
 
-            $table->foreignId('school_id')->references('id')->on('schools');
             $table->foreignId('address_id')->references('id')->on('addresses');
 
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));

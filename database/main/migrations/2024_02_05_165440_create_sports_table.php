@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('sports', function (Blueprint $table) {
             $table->id();
+            $table->int('sport_id');
+            
             $table->string('name');
 
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             $table->softDeletes();
-            
-            $table->foreignId('sport_id')->references('id')->on('sports');
         });
     }
 

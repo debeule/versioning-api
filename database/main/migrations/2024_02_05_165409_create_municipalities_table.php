@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('municipalities', function (Blueprint $table) {
             $table->id();
+            $table->int('municipality_id');
+            
             $table->string('name');
             $table->integer('postal_code');
             $table->enum('province', ['antwerpen', 'limburg', 'oost-vlaanderen', 'vlaams-brabant', 'west-vlaanderen']); 
@@ -20,7 +22,6 @@ return new class extends Migration
 
             $table->date('deleted_at')->nullable();
 
-            $table->foreignId('municipality_id')->references('id')->on('municipalities');
             $table->unsignedBigInteger('region_id')->nullable();
             $table->foreign('region_id')->references('id')->on('regions');
         });

@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
+            $table->int('address_id');
+
             $table->string('street_name');
             $table->string('street_identifier');
 
             $table->foreignId('address_id')->references('id')->on('addresses');
-            $table->foreignId('municipality_id')->references('id')->on('municipalities');      
         });
     }
 
