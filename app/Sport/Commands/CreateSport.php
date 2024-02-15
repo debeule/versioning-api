@@ -33,7 +33,7 @@ final class CreateSport
 
     public function recordExists(KoheraSport $koheraSport): bool
     {
-        return Sport::where('sport_id', $koheraSport->id())->exists();
+        return Sport::where('sport_id', $koheraSport->sportId())->exists();
     }
 
     public function buildRecord(): bool
@@ -43,5 +43,15 @@ final class CreateSport
         $newSport->name = $this->koheraSport->name();
 
         return $newSport->save();
+    }
+
+    public function recordHasChanged(KoheraSport $koheraSport): bool
+    {
+        return true;
+    }
+
+    public function createNewRecordVersion(KoheraSport $koheraSport): bool
+    {
+        return true;
     }
 }
