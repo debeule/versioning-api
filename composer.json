@@ -6,14 +6,21 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "ext-iconv": "*",
         "ext-pcntl": "*",
         "ext-pdo_mysql": "*",
         "ext-redis": "*",
+        "ext-simplexml": "*",
+        "ext-xml": "*",
+        "ext-xmlreader": "*",
+        "ext-zip": "*",
+        "ext-zlib": "*",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/horizon": "^5.22",
         "laravel/sanctum": "^3.3",
-        "laravel/tinker": "^2.8"
+        "laravel/tinker": "^2.8",
+        "maatwebsite/excel": "^3.1"
     },
     "require-dev": {
         "brianium/paratest": "^7.4",
