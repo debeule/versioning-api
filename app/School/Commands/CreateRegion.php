@@ -37,10 +37,10 @@ final class CreateRegion
         $newRegion = new Region();
 
         $newRegion->name = $koheraRegion->name();
-        $newRegion->province = $koheraRegion->province();
         $newRegion->region_id = $koheraRegion->regionId();
         
         $newRegion->save();
+        
         //link municipalities to region
         $municipalities = Municipality::where('postal_code', $koheraRegion->postalCode())->get();
 

@@ -6,7 +6,7 @@ namespace App\School\Commands;
 
 use App\Kohera\Commands\SyncRegions;
 use App\Kohera\Commands\SyncSchools;
-use App\Kohera\Commands\SyncMunicipalities;
+use App\Bpost\Commands\SyncMunicipalities;
 use App\Kohera\Commands\SyncAddresses;
 
 final class SyncSchoolDomain
@@ -15,7 +15,7 @@ final class SyncSchoolDomain
     {
         $syncMunicipalities = new SyncMunicipalities();
         $syncMunicipalities();
-        
+
         $syncRegions = new SyncRegions();
         $syncRegions();
 

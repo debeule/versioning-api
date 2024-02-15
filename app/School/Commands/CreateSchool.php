@@ -70,7 +70,7 @@ final class CreateSchool
         $newSchool->student_count = $koheraSchool->studentCount();
         $newSchool->institution_id = $koheraSchool->institutionId();
         
-        $addressId = Address::where('street_name', $koheraSchool->address()->streetName())->first()->id;
+        $addressId = Address::where('street_name', $koheraSchool->address()->street_name)->first()->id;
         $newSchool->address_id = $addressId;
         
         return $newSchool->save();

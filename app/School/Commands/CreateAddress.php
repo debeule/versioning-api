@@ -54,10 +54,9 @@ final class CreateAddress
         $newAdress->street_name = $koheraAddress->streetName();
         $newAdress->street_identifier = $koheraAddress->streetIdentifier();
         
-        // $newAdress->municipality_id = Municipality::where('postal_code', $koheraAddress->municipality()->postalCode())->first()->id;
+        $newAdress->municipality_id = Municipality::where('postal_code', $koheraAddress->municipality()->postal_code)->first()->id;
 
-        // return $newAdress->save();
-        return true;
+        return $newAdress->save();
     }
 
     private function createNewRecordVersion(KoheraAddress $koheraAddress): bool
