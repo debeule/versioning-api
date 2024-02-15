@@ -35,7 +35,7 @@ final class CreateAddress
 
     private function recordExists(KoheraAddress $koheraAddress): bool
     {
-        return Address::where('street_name', $koheraAddress->streetName())->exists();
+        return Address::where('address_id', $koheraAddress->addressId())->exists();
     }
 
     private function recordHasChanged(KoheraAddress $koheraAddress): bool

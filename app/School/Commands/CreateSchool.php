@@ -37,7 +37,7 @@ final class CreateSchool
 
     private function recordExists(KoheraSchool $koheraSchool): bool
     {
-        return School::where('school_number', $koheraSchool->schoolNumber())->exists();
+        return School::where('school_id', $koheraSchool->schoolId())->exists();
     }
 
     private function buildRecord(KoheraSchool $koheraSchool): bool
