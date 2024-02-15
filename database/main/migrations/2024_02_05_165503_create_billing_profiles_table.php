@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('email');
             $table->string('tav');
             $table->string('vat_number');
+
+            $table->foreignId('billing_profiles_id')->references('id')->on('billing_profiles');
             $table->foreignId('address_id')->references('id')->on('addresses');
             $table->foreignId('school_id')->references('id')->on('schools');
         });

@@ -16,10 +16,13 @@ return new class extends Migration
             $table->string('name');
             $table->integer('postal_code');
             $table->enum('province', ['antwerpen', 'limburg', 'oost-vlaanderen', 'vlaams-brabant', 'west-vlaanderen']); 
+            $table->string('head_municipality')->nullable();
+
             $table->date('deleted_at')->nullable();
+
+            $table->foreignId('municipality_id')->references('id')->on('municipalities');
             $table->unsignedBigInteger('region_id')->nullable();
             $table->foreign('region_id')->references('id')->on('regions');
-            $table->string('head_municipality')->nullable();
         });
     }
 

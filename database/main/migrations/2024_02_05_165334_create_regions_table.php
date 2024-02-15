@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('regions', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('region_id');        
+            $table->integer('region_number');
+            
+            $table->foreignId('region_id')->references('id')->on('regions');   
         });
     }
 

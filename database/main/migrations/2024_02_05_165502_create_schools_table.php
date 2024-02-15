@@ -21,6 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('institution_id');
             $table->integer('student_count');
 
+            $table->foreignId('school_id')->references('id')->on('schools');
             $table->foreignId('address_id')->references('id')->on('addresses');
 
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
