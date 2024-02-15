@@ -8,14 +8,23 @@ apk --no-cache add \
     sqlite \
     libgomp \
     pcre-dev \
-    imagemagick-dev
+    imagemagick-dev \
+    libzip-dev \
+    libpng-dev \
+    libxml2-dev
+
 
 # Install PHP extensions
-docker-php-ext-install pdo_mysql pcntl
+docker-php-ext-install \
+    pdo_mysql \
+    pcntl \
+    zip \
+    xml \
+    gd
 
 # Install redis
 pecl install redis
 
 addgroup -g 1000 -S app \
-  && adduser -u 1000 -S app -G app \
-  && chown app .
+    && adduser -u 1000 -S app -G app \
+    && chown app .
