@@ -23,6 +23,11 @@ final class AllBillingProfiles
 
         foreach ($schools as $school) 
         {
+            if (empty($school->Facturatie_Adres)) 
+            {
+                continue;
+            }
+            
             $billingProfile = new BillingProfile($school);
             $billingProfile->billing_profile_id = $school->id;
             $billingProfiles ->push($billingProfile);

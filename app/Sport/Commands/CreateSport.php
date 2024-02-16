@@ -40,6 +40,7 @@ final class CreateSport
     {
         $newSport = new Sport();
 
+        $newSport->sport_id = $koheraSport->sportId();
         $newSport->name = $this->koheraSport->name();
 
         return $newSport->save();
