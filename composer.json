@@ -85,7 +85,7 @@
             "php artisan migrate:fresh --path=database/kohera/migrations/ --database=kohera-testing",
             "php artisan db:seed --database=testing"
         ],
-        "main:migrate": "php artisan migrate:fresh --path=database/main/migrations/ --database=main-testing",
+        "main:migrate": "php artisan migrate:fresh --path=database/main/migrations/ --database=db-testing",
         "testing:migrate": "php artisan migrate:fresh --path=database/kohera/migrations/ --database=testing",
 
         "testing:seed": "php artisan db:seed --database=testing",
