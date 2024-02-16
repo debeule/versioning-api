@@ -6,6 +6,7 @@ namespace App\Kohera;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Database\Kohera\Factories\RegionFactory;
 use App\Imports\Queries\Region as RegionContract;
 
 final class Region extends Model implements RegionContract
@@ -16,9 +17,9 @@ final class Region extends Model implements RegionContract
 
     use HasFactory;
     
-    protected static function newFactory()
+    protected static function newFactory(): RegionFactory
     {
-        return \Database\Kohera\Factories\RegionFactory::new();
+        return RegionFactory::new();
     }
 
     protected $fillable = [
@@ -38,7 +39,7 @@ final class Region extends Model implements RegionContract
         return $this->RegionNaam;
     }
 
-    public function regionId(): int
+    public function regionNumber(): int
     {
         return $this->RegioDetailId;
     }

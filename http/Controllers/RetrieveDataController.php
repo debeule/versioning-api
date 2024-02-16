@@ -6,7 +6,7 @@ namespace Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Imports\Version;
+use App\Imports\Objects\Version;
 use DateTimeImmutable;
 
 final class RetrieveDataController extends Controller
@@ -15,15 +15,6 @@ final class RetrieveDataController extends Controller
 
     public function __invoke(Request $request): void
     {
-        $client = new Client(
-            [
-                'base_uri' => 'http://api.example.com',
-                
-            ]
-        );
-        $response = $client->get('endpoint_X');
-        $data = $response->getBody()->getContents();
         
-        return $data;
     }
 }

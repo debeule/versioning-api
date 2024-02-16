@@ -36,7 +36,7 @@ final class CreateSport
         return Sport::where('sport_id', $koheraSport->sportId())->exists();
     }
 
-    public function buildRecord(): bool
+    public function buildRecord(KoheraSport $koheraSport): bool
     {
         $newSport = new Sport();
 

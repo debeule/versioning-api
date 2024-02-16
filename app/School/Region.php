@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\School;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class Region extends Model
 {
@@ -16,7 +17,7 @@ final class Region extends Model
         'region_id'
     ];
 
-    public function subregions() : HasMany
+    public function subregions(): HasMany
     {
         return $this->hasMany(Region::class, 'region_id');
     }

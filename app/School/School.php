@@ -6,6 +6,7 @@ namespace App\School;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 final class School extends Model
 {
@@ -30,7 +31,7 @@ final class School extends Model
         'type' => 'string',
     ];
 
-    public function address() : HasOne
+    public function address(): HasOne
     {
         return $this->hasOne(Address::class);
     }

@@ -46,7 +46,7 @@ final class CreateRegion
 
         foreach ($municipalities as $municipality) 
         {
-            $municipality->region_id = $newRegion->regionId();
+            $municipality->region_id = $koheraRegion->regionId();
             $municipality->save();
         }
         
@@ -59,12 +59,12 @@ final class CreateRegion
 
         $recordhasChanged = false;
 
-        $recordhasChanged = $region->name !== $koheraRegion->name();
-        $recordhasChanged = $region->email !== $koheraRegion->email();
-        $recordhasChanged = $region->contact_email !== $koheraRegion->contactEmail();
-        $recordhasChanged = $region->type !== $koheraRegion->type();
-        $recordhasChanged = $region->student_count !== $koheraRegion->studentCount();
-        $recordhasChanged = $region->institution_id !== $koheraRegion->institutionId();
+        // $recordhasChanged = $region->name !== $koheraRegion->name();
+        // $recordhasChanged = $region->email !== $koheraRegion->email();
+        // $recordhasChanged = $region->contact_email !== $koheraRegion->contactEmail();
+        // $recordhasChanged = $region->type !== $koheraRegion->type();
+        // $recordhasChanged = $region->student_count !== $koheraRegion->studentCount();
+        // $recordhasChanged = $region->institution_id !== $koheraRegion->institutionId();
 
         return $recordhasChanged;
     }

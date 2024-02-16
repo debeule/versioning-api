@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Imports\Queries\Address as AddressContract;
 use App\School\Municipality;
+use App\Kohera\School;
 
 final class Address extends Model implements AddressContract
 {

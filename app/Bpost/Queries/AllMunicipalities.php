@@ -70,7 +70,7 @@ final class AllMunicipalities
         return $municipalities;
     }
 
-    public function importMunicipalitiesFile(string $url)
+    public function importMunicipalitiesFile(string $url): bool
     {
         $file = Http::withOptions(['verify' => false])->get($url)->body();
         return Storage::disk('local')->put('municipalities.xlsx', $file);

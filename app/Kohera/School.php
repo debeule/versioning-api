@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Imports\Queries\School as SchoolContract;
 use App\School\Address;
+use Database\Kohera\Factories\SchoolFactory;
 
 final class School extends Model implements SchoolContract
 {
@@ -17,9 +18,9 @@ final class School extends Model implements SchoolContract
 
     use HasFactory;
 
-    protected static function newFactory()
+    protected static function newFactory(): SchoolFactory
     {
-        return \Database\Kohera\Factories\SchoolFactory::new();
+        return SchoolFactory::new();
     }
 
     protected $fillable = [

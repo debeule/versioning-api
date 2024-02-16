@@ -9,10 +9,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 final class SportByName
 {
-    public function __construct(
-        private ?FromVersion $fromVersion = null,
-    ) {}
-
     public function query(string $name): Builder
     {
         return Sport::query()

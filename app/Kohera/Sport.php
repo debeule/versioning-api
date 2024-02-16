@@ -7,6 +7,7 @@ namespace App\Kohera;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Imports\Queries\Sport as SportContract;
+use Database\Kohera\Factories\SportFactory;
 
 final class Sport extends Model implements SportContract
 {
@@ -16,9 +17,9 @@ final class Sport extends Model implements SportContract
 
     use HasFactory;
     
-    protected static function newFactory()
+    protected static function newFactory(): SportFactory 
     {
-        return \Database\Kohera\Factories\SportFactory::new();
+        return SportFactory::new();
     }
 
     protected $fillable = [

@@ -11,7 +11,7 @@ final readonly class Query
 {
     private Builder $query;
 
-    public fucntion __construct()
+    public function __construct()
     {
         $this->query = $query;
     }
@@ -26,7 +26,7 @@ final readonly class Query
         return $domain::$this->query;
     }
     
-    public function addFieldQuery()
+    public function addFieldQuery(): Builder
     {
         return $query
             ->where('updated_at', '>=', (string)$this)
@@ -34,9 +34,9 @@ final readonly class Query
             ->first();
     }
 
-    public function addVersionQuery()
+    public function addVersionQuery(): Builder
     {
-        $this->$query->mergeBindings($this->version->versionQuery()) 
+        $this->$query->mergeBindings($this->version->versionQuery());
     }
 
     public function __toString(): string

@@ -7,14 +7,15 @@ namespace App\Sport;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Database\Main\Factories\SportFactory;
 
 final class Sport extends Model
 {
     use SoftDeletes, HasFactory;
 
-    protected static function newFactory()
+    protected static function newFactory(): SportFactory
     {
-        return \Database\Main\Factories\SportFactory::new();
+        return SportFactory::new();
     }
 
     
