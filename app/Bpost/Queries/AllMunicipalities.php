@@ -17,7 +17,7 @@ final class AllMunicipalities
 
     public function query(): Array
     {
-        // $this->importMunicipalitiesFile($this->url);
+        $this->importMunicipalitiesFile($this->url);
 
         $filePath = storage_path('app/municipalities.xls');
         $data = Excel::toArray([], $filePath, null, \Maatwebsite\Excel\Excel::XLS)[0];

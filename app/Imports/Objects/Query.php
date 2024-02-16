@@ -16,9 +16,9 @@ final readonly class Query
         $this->query = $query;
     }
 
-    public function __invoke(string $domain, string $searchField, string $searchInput, Version $version)
+    public function __invoke(string $domain, string $searchField, string $searchInput, Version $version): void
     {
-        $this->buildQuery($this->query);
+        $this->buildQuery();
     }
 
     public function buildQuery(): Builder

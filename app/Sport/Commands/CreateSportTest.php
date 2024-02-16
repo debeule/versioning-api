@@ -14,7 +14,7 @@ use Database\Kohera\Factories\SportFactory as KoheraSportFactory;
 
 final class CreateSportTest extends TestCase
 {
-    protected $connectionsToTransact = ['main-testing'];
+    protected $connectionsToTransact = ['db-testing'];
 
     use RefreshDatabase;
     

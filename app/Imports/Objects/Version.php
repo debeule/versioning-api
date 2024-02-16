@@ -11,7 +11,7 @@ final class Version
 {
     private CarbonImmutable $version;    
 
-    public function __invoke($input)
+    public function __invoke($input): void
     {
         $this->version = CarbonImmutable::parse($input);
     }

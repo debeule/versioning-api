@@ -15,7 +15,7 @@ final class AllBillingProfiles
         return School::query();
     }
 
-    public function get(): Object
+    public function get(): Collection
     {
         $schools = $this->query()->get();
         
@@ -27,7 +27,7 @@ final class AllBillingProfiles
             {
                 continue;
             }
-            
+
             $billingProfile = new BillingProfile($school);
             $billingProfile->billing_profile_id = $school->id;
             $billingProfiles ->push($billingProfile);

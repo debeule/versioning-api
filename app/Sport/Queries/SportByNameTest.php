@@ -13,7 +13,7 @@ use Database\Main\Factories\SportFactory;
 
 final class SportByNameTest extends TestCase
 {
-    protected $connectionsToTransact = ['main-testing'];
+    protected $connectionsToTransact = ['db-testing'];
     
 
     use RefreshDatabase;

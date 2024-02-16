@@ -11,6 +11,6 @@ trait RecursiveRefreshDatabase
     protected function refreshDatabase()
     {
         // $this->artisan('migrate', ['--path' => 'database/kohera/migrations/']);
-        // $this->artisan('migrate', ['--path' => 'database/main/migrations/', '--database' => 'main-testing']);
+        // $this->artisan('migrate', ['--path' => 'database/main/migrations/', '--database' => 'db-testing']);
     }
 }

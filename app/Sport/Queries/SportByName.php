@@ -6,6 +6,7 @@ namespace App\Sport\Queries;
 
 use App\Sport\Sport;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Eloquent\Builder;
 
 final class SportByName
 {
@@ -13,7 +14,6 @@ final class SportByName
     {
         return Sport::query()
             ->where('name', '=', $name)
-            ->when($this->fromVersion, $this->fromVersion)
             ->orderBy('created_at', 'desc');
     }
 
