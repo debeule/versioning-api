@@ -7,11 +7,14 @@ namespace App\Kohera;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Imports\Queries\BillingProfile as BillingProfileContract;
+use App\School\Address;
+use App\School\School;
+use App\Kohera\School as KoheraSchool;
 
 final class BillingProfile extends Model implements BillingProfileContract
 {
     public function __construct(
-        private School $school
+        private KoheraSchool $school
     ) {}
     
     public function billingProfileId(): int
@@ -41,7 +44,7 @@ final class BillingProfile extends Model implements BillingProfileContract
 
     public function address(): Address
     {
-        return Address::where('school_id', $this->school->id)->first();
+        return Address::where('address_id', 'billing_profile-' . $this->school->id)->first();
     }
     public function school(): School
     {

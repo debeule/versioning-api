@@ -44,16 +44,15 @@ final class CreateSchool
     {        
         $newSchool = new School();
         
+        $newSchool->school_id = $koheraSchool->schoolId();
         $newSchool->name = $koheraSchool->name();
         $newSchool->email = $koheraSchool->email();
         $newSchool->contact_email = $koheraSchool->contactEmail();
         $newSchool->type = $koheraSchool->type();
-        $newSchool->schoolNumber = $koheraSchool->schoolNumber();
-        $newSchool->student_count = $koheraSchool->studentCount();
+        $newSchool->school_number = $koheraSchool->schoolNumber();
         $newSchool->institution_id = $koheraSchool->institutionId();
-        
-        $addressId = Address::where('street_name', $koheraSchool->address()->street_name)->first()->id;
-        $newSchool->address_id = $addressId;
+        $newSchool->student_count = $koheraSchool->studentCount();
+        $newSchool->address_id = $koheraSchool->address()->id;
         
         return $newSchool->save();
     }

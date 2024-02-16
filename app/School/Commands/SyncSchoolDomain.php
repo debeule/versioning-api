@@ -8,6 +8,7 @@ use App\Kohera\Commands\SyncRegions;
 use App\Kohera\Commands\SyncSchools;
 use App\Bpost\Commands\SyncMunicipalities;
 use App\Kohera\Commands\SyncAddresses;
+use App\Kohera\Commands\SyncBillingProfiles;
 
 final class SyncSchoolDomain
 {

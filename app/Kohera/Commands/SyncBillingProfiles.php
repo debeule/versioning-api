@@ -4,16 +4,9 @@ declare(strict_types=1);
 
 namespace App\Kohera\Commands;
 
-use App\School\School;
-use App\School\Province;
-use App\School\Region;
-use App\School\Address;
-use App\Kohera\School as KoheraSchool;
-use App\Imports\Sanitizer\Sanitizer;
-use App\Kohera\Queries\AllSchools as AllKoheraSchools;
-use App\School\Commands\CreateRegion;
-use App\School\Commands\CreateAddress;
-use App\School\Commands\CreateSchool;
+use App\School\BillingProfile;
+use App\Kohera\Queries\AllBillingProfiles as AllKoheraBillingProfiles;
+use App\School\Commands\CreateBillingProfile;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 
@@ -23,10 +16,10 @@ final class SyncBillingProfiles
 
     public function __invoke(): void
     {
-        $existingBillingProfiles = School::all();
+        $existingBillingProfiles = BillingProfile::all();
         $processedBillingProfiles = [];
 
-        $allkoheraBillingProfiles = new AllkoheraBillingProfiles();
+        $allkoheraBillingProfiles = new AllKoheraBillingProfiles();
         
         foreach ($allkoheraBillingProfiles->get() as $koheraBillingProfile) 
         {

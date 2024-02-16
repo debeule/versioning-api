@@ -93,6 +93,8 @@ final class School extends Model implements SchoolContract
 
     public function address(): Address
     {
-        return Address::where('street_name', explode(' ', $this->address)[0])->first();
+        return Address::where('street_name', explode(' ', $this->address)[0])
+            ->where('street_identifier', explode(' ', $this->address)[1])
+            ->first();
     }
 }

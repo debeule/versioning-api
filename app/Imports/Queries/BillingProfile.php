@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Imports\Queries;
 
 use App\School\Address;
+use App\School\School;
 
 interface BillingProfile
 {

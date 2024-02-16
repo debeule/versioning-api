@@ -15,8 +15,7 @@ final class BillingProfile extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'first_name',
-        'last_name',
+        'name',
         'email',
         'vat_number',
         'tav',

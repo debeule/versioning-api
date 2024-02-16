@@ -35,13 +35,16 @@ final class AllAddresses
                 continue;
             }
             
-            $address = new Address($school);
-            $address->address_id = 'billing_profile-' . $school->id;
-            $school->address = $school->Facturatie_Adres;
-            $school->Gemeente = $school->Facturatie_Gemeente;
-            $school->PostCode = $school->Facturatie_Postcode;
+            $schoolClone = clone($school);
 
-            $addresses ->push($address);
+            $schoolClone->address = $school->Facturatie_Adres;
+            $schoolClone->Gemeente = $school->Facturatie_Gemeente;
+            $schoolClone->Postcode = $school->Facturatie_Postcode;
+
+            $billingProfileAddress = new Address($schoolClone);
+            $billingProfileAddress->address_id = 'billing_profile-' . $schoolClone->id;
+
+            $addresses->push($billingProfileAddress);
         }
 
         return $addresses;
