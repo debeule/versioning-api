@@ -13,13 +13,15 @@ return new class extends Migration
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
-            $table->integer('address_id');
+            $table->string('address_id');
 
             $table->string('street_name');
             $table->string('street_identifier');
 
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             $table->softDeletes();
+
+            $table->foreignId('municipality_id')->references('id')->on('municipalities');
         });
     }
 

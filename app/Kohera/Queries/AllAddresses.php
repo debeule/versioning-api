@@ -24,7 +24,23 @@ final class AllAddresses
 
         foreach ($schools as $school) 
         {
+            //school address
             $address = new Address($school);
+            $address->address_id = 'school-' . $school->id;
+            $addresses ->push($address);
+
+            //billing_profile address
+            if (empty($school->Facturatie_Adres)) 
+            {
+                continue;
+            }
+            
+            $address = new Address($school);
+            $address->address_id = 'billing_profile-' . $school->id;
+            $school->address = $school->Facturatie_Adres;
+            $school->Gemeente = $school->Facturatie_Gemeente;
+            $school->PostCode = $school->Facturatie_Postcode;
+
             $addresses ->push($address);
         }
 

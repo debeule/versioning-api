@@ -24,5 +24,8 @@ final class SyncSchoolDomain
         
         $syncSchools = new SyncSchools();
         $syncSchools();
+
+        $syncBillingProfiles = new SyncBillingProfiles();
+        $syncBillingProfiles();
     }
 }

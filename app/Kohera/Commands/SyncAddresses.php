@@ -24,16 +24,16 @@ final class SyncAddresses
         
         foreach ($allkoheraAddresses->get() as $koheraAddress) 
         {
-            if (in_array($koheraAddress->streetName(), $processedAddresses)) 
+            if (in_array($koheraAddress->addressId(), $processedAddresses)) 
             {
                 continue;
             }
             
             $this->dispatchSync(new CreateAddress($koheraAddress));
             
-            $existingAddresses = $existingAddresses->where('street_name', "!=", $koheraAddress->streetName());
+            $existingAddresses = $existingAddresses->where('address_id', "!=", $koheraAddress->addressId());
 
-            array_push($processedAddresses, $koheraAddress->streetName());
+            array_push($processedAddresses, $koheraAddress->addressId());
         }
 
         //Address found in addresses but not in koheraAddresses

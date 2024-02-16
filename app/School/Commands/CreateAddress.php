@@ -40,7 +40,7 @@ final class CreateAddress
 
     private function recordHasChanged(KoheraAddress $koheraAddress): bool
     {
-        $address = Address::where('street_name', $koheraAddress->streetName())->first();
+        $address = Address::where('address_id', $koheraAddress->addressId())->first();
 
         $recordhasChanged = $address->street_identifier !== $koheraAddress->streetIdentifier();
 
@@ -51,6 +51,7 @@ final class CreateAddress
     {
         $newAdress = new Address();
 
+        $newAdress->address_id = $koheraAddress->addressId();
         $newAdress->street_name = $koheraAddress->streetName();
         $newAdress->street_identifier = $koheraAddress->streetIdentifier();
         
@@ -61,7 +62,7 @@ final class CreateAddress
 
     private function createNewRecordVersion(KoheraAddress $koheraAddress): bool
     {
-        $address = Address::where('street_name', $koheraAddress->streetName())->delete();
+        $address = Address::where('address_id', $koheraAddress->addressId())->delete();
 
         return $this->buildRecord($koheraAddress);
     }

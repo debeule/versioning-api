@@ -35,10 +35,12 @@ final class CreateMunicipality
     {
         $newMunicipality = new Municipality();
 
-        $newMunicipality->name = $bpostMunicipality->name();
+        $newMunicipality->name = strtolower($bpostMunicipality->name());
         $newMunicipality->postal_code = $bpostMunicipality->postalCode();
         $newMunicipality->province = $bpostMunicipality->province();
-        $newMunicipality->head_municipality = $bpostMunicipality->headMunicipality();
+
+        $headMunicipality = $bpostMunicipality->headMunicipality() !== null ? strtolower($bpostMunicipality->headMunicipality()) : null;
+        $newMunicipality->head_municipality = $headMunicipality;
         
         return $newMunicipality->save();
     }

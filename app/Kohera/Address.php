@@ -18,7 +18,7 @@ final class Address extends Model implements AddressContract
 
     public function addressId(): int
     {
-        return $this->id;
+        return $this->school->address_id;
     }
 
     public function streetName(): string
@@ -33,6 +33,6 @@ final class Address extends Model implements AddressContract
 
     public function municipality(): Municipality
     {
-        return Municipality::where('name', $this->school->Gemeente)->first();
+        return Municipality::where('name', strtolower($this->school->Gemeente))->first();
     }
 }

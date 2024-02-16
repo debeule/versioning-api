@@ -38,6 +38,7 @@ final class CreateRegion
 
         $newRegion->name = $koheraRegion->name();
         $newRegion->region_id = $koheraRegion->regionId();
+        $newRegion->region_number = $koheraRegion->regionNumber();
         
         $newRegion->save();
 
