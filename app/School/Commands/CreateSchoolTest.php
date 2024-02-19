@@ -6,7 +6,6 @@ namespace App\School\Commands;
 
 use App\Testing\TestCase;
 use App\Testing\RefreshDatabase;
-use App\Sport\Commands\CreateSport;
 use App\School\School;
 use App\Kohera\School as KoheraSchool;
 use Database\Kohera\Factories\SchoolFactory as KoheraSchoolFactory;
@@ -33,19 +32,29 @@ final class CreateSchoolTest extends TestCase
 
     public function ItReturnsFalseWhenRecordExists(): void
     {
-        $koheraSport = KoheraSportFactory::new()->create();
-        $this->dispatchSync(new CreateSport($koheraSport));
+        $koheraSchool = KoheraSchoolFactory::new()->create();
+        $this->dispatchSync(new CreateSchool($koheraSchool));
 
-        $this->assertFalse(dispatchSync(new CreateSport($koheraSport)));
+        $this->assertFalse(dispatchSync(new KoheraSchool($koheraSchool)));
     }
 
-    public function ItReturnsTrueWhenRecordChanged(): void
+    public function ItCreatesNewRecordVersionIfExists(): void
     {
-        
-    }
+        $koheraSchool = KoheraSchoolFactory::new()->create();
 
-    // public function ItCreatesNewRecordVersion(): void
-    // {
-        
-    // }
+        $this->dispatchSync(new KoheraSchool($koheraSchool));
+
+        $oldSchoolRecord = School::where('school_id', $koheraSchool->schoolId())->first();
+
+        $koheraSchool->Name = 'new name';
+        $this->dispatchSync(new CreateSchool($koheraSchool));
+
+        $updatedSchoolRecord = School::where('school_id', $koheraSchool->schoolId())->first();
+
+        $this->assertTrue($oldSchoolRecord->name !== $updatedSchoolRecord->name);
+        $this->assertSoftDeleted($oldSchoolRecord);
+
+        $this->assertEquals($updatedSchoolRecord->name, $koheraSchool->name());
+        $this->assertEquals($oldSchoolRecord->school_id, $updatedSchoolRecord->school_id);
+    }
 }

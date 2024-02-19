@@ -29,7 +29,7 @@ final class CreateSportTest extends TestCase
         $this->assertTrue($koheraSport->name() === $sport->name);
     }
 
-    public function itCanUpdateASportFromKoheraSport(): void
+    public function ItCreatesNewRecordVersionIfExists(): void
     {
         $koheraSport = KoheraSportFactory::new()->create();
 
