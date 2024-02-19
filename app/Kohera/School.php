@@ -68,7 +68,7 @@ final class School extends Model implements SchoolContract
 
     public function type(): string
     {
-        return $this->type;
+        return $this->Type;
     }
 
     public function schoolNumber(): string
@@ -88,8 +88,6 @@ final class School extends Model implements SchoolContract
 
     public function address(): Address
     {
-        return Address::where('street_name', explode(' ', $this->address)[0])
-            ->where('street_identifier', explode(' ', $this->address)[1])
-            ->first();
+        return Address::where('address_id', $this->id)->first();
     }
 }
