@@ -14,7 +14,9 @@ use Database\Main\Factories\AddressFactory;
 
 final class CreateSchoolTest extends TestCase
 {
-    /** @test */
+    /**
+     * @test
+     */
     public function itCreatesSchoolWhenRecordDoesNotExist(): void
     {
         $koheraSchool = KoheraSchoolFactory::new()->create();
@@ -30,6 +32,9 @@ final class CreateSchoolTest extends TestCase
         $this->assertSame($koheraSchool->name(), $school->name);
     }
 
+    /**
+     * @test
+     */
     public function ItReturnsFalseWhenRecordExists(): void
     {
         $koheraSchool = KoheraSchoolFactory::new()->create();
@@ -38,6 +43,9 @@ final class CreateSchoolTest extends TestCase
         $this->assertFalse(dispatchSync(new KoheraSchool($koheraSchool)));
     }
 
+    /**
+     * @test
+     */
     public function ItCreatesNewRecordVersionIfExists(): void
     {
         $koheraSchool = KoheraSchoolFactory::new()->create();

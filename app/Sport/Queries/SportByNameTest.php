@@ -13,7 +13,9 @@ use Database\Main\Factories\SportFactory;
 
 final class SportByNameTest extends TestCase
 {
-    /** @test */
+    /**
+     * @test
+     */
     public function ItCanGetASportByName(): void
     {
         $sportName = 'Football';
@@ -26,7 +28,9 @@ final class SportByNameTest extends TestCase
         $this->assertSame($sport->name, $result->name);
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function ItReturnsNullIfSportNotFound(): void
     {
         $SportByName = new SportByName;
@@ -34,6 +38,9 @@ final class SportByNameTest extends TestCase
         $this->assertNull($SportByName->find('Non-existing Sport'));
     }
 
+    /**
+     * @test
+     */ 
     public function ItCanCreateInstanceofSport(): void
     {
         $SportByName = new SportByName;

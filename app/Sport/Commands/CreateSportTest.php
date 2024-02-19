@@ -14,7 +14,9 @@ use App\Sport\Commands\CreateSport;
 
 final class CreateSportTest extends TestCase
 {    
-    /** @test */
+    /**
+     * @test
+     */
     public function itCanCreateASportFromkoheraSport(): void
     {
         $koheraSport = KoheraSportFactory::new()->create();
@@ -29,6 +31,9 @@ final class CreateSportTest extends TestCase
         $this->assertTrue($koheraSport->name() === $sport->name);
     }
 
+    /**
+     * @test
+     */
     public function ItCreatesNewRecordVersionIfExists(): void
     {
         $koheraSport = KoheraSportFactory::new()->create();
