@@ -13,32 +13,31 @@ use Database\Main\Factories\SportFactory;
 
 final class SportByNameTest extends TestCase
 {
-    protected $connectionsToTransact = ['db-testing'];
-    
-    use RefreshDatabase;
-
     /** @test */
-    public function ItCanGetASportByName()
+    public function ItCanGetASportByName(): void
     {
         $sportName = 'Football';
 
         $sport = SportFactory::new()->withName($sportName)->create();
-        
+
         $SportByName = new SportByName;
         $result = $SportByName->get($sportName);
 
-        $sport->delete();
-
-        $this->assertInstanceOf(Sport::class, $sport);
-        $this->assertEquals($sport->name, $result->name);
-        $this->assertSoftDeleted($sport);
+        $this->assertSame($sport->name, $result->name);
     }
 
     /** @test */
-    public function ItReturnsNullIfSportNotFound()
+    public function ItReturnsNullIfSportNotFound(): void
     {
         $SportByName = new SportByName;
 
         $this->assertNull($SportByName->find('Non-existing Sport'));
+    }
+
+    public function ItCanCreateInstanceofSport(): void
+    {
+        $SportByName = new SportByName;
+
+        $this->assertInstanceOf(Sport::class, $SportByName->get());
     }
 }

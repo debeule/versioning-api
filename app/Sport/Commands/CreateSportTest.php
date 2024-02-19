@@ -7,54 +7,45 @@ namespace App\Sport\Commands;
 use App\Testing\TestCase;
 use App\Sport\Sport;
 use App\Kohera\Sport as KoheraSport;
+use Database\Kohera\Factories\SportFactory as KoheraSportFactory;
 use App\Testing\RefreshDatabase;
 use App\Sport\Commands\CreateSport;
-use Illuminate\Foundation\Bus\DispatchesJobs;
 
 
 final class CreateSportTest extends TestCase
-{
-    use RefreshDatabase, DispatchesJobs;
-
-    private KoheraSport $koheraSport;
-
-    public function __construct()
-    {
-        $this->koheraSport = KoheraSport::factory()->create();
-    }
-    
+{    
     /** @test */
-    public function itCanCreateASportFromkoheraSport()
+    public function itCanCreateASportFromkoheraSport(): void
     {
-        $this->dispatchSync(new CreateSport($this->koheraSport));
+        $koheraSport = KoheraSportFactory::new()->create();
+
+        $this->dispatchSync(new CreateSport($koheraSport));
         
-        $sport = Sport::where('name', $koheraSport->name())->first();
+        $sport = Sport::where('sport_id', $koheraSport->sportId())->first();
         
         $this->assertInstanceOf(koheraSport::class, $koheraSport);
         $this->assertInstanceOf(Sport::class, $sport);
 
-        $this->assertTrue($this->koheraSport->name() === $sport->name);
+        $this->assertTrue($koheraSport->name() === $sport->name);
     }
 
-    public function itCanUpdateASportFromKoheraSport()
+    public function itCanUpdateASportFromKoheraSport(): void
     {
-        $this->dispatchSync(new CreateSport($this->koheraSport));
+        $koheraSport = KoheraSportFactory::new()->create();
 
-        $oldSportRecord = Sport::where('name', $this->koheraSport->name())->first();
+        $this->dispatchSync(new CreateSport($koheraSport));
 
-        $this->koheraSport->Sportkeuze = 'new name';
-        $this->dispatchSync(new CreateSport($this->koheraSport));
+        $oldSportRecord = Sport::where('name', $koheraSport->name())->first();
 
-        $updatedSportRecord = Sport::where('name', $this->koheraSport->name())->first();
+        $koheraSport->Sportkeuze = 'new name';
+        $this->dispatchSync(new CreateSport($koheraSport));
 
-        $this->assertInstanceOf(Sport::class, $oldSportRecord);
-        $this->assertInstanceOf(Sport::class, $updatedSportRecord);
+        $updatedSportRecord = Sport::where('name', $koheraSport->name())->first();
 
         $this->assertTrue($oldSportRecord->name !== $updatedSportRecord->name);
-        $this->assertNotNull($oldSportRecord->deleted_at);
+        $this->assertSoftDeleted($oldSportRecord);
 
-        $this->assertTrue($updatedSportRecord->name === $this->koheraSport->name());
-
-        $this->assertTrue($oldSportRecord->sport_id === $updatedSportRecord->sport_id);
+        $this->assertEquals($updatedSportRecord->name, $koheraSport->name());
+        $this->assertEquals($oldSportRecord->sport_id, $updatedSportRecord->sport_id);
     }
 }
