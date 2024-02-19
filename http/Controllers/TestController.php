@@ -24,7 +24,7 @@ final class TestController extends Controller
 {
     public function __invoke(): void
     {
-        $syncLocation = new SyncLocatio nDomain();
+        $syncLocation = new SyncLocationDomain();
         $syncLocation();
 
         $syncSchool = new SyncSchoolDomain();
