@@ -44,11 +44,6 @@ final class Region extends Model implements RegionContract
         return $this->RegioDetailId;
     }
 
-    public function province(): string
-    {
-        return $this->Provincie;
-    }
-
     public function postalCode(): int
     {
         return (int) $this->Postcode;

@@ -9,5 +9,4 @@ interface Region
     public function regionId(): int;
     public function name(): string;
     public function regionNumber(): int;
-    public function province(): string;
 }

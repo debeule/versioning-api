@@ -33,6 +33,6 @@ final class Address extends Model implements AddressContract
 
     public function municipality(): Municipality
     {
-        return Municipality::where('name', strtolower($this->school->Gemeente))->first();
+        return Municipality::where('postal_code', $this->school->Postcode)->first();
     }
 }

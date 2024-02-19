@@ -11,6 +11,7 @@ use App\Kohera\Queries\AllRegions as AllKoheraRegions;
 use App\Imports\Sanitizer\Sanitizer;
 
 use App\School\Commands\CreateRegion;
+use App\School\Commands\LinkRegion;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 final class SyncRegions
@@ -43,6 +44,7 @@ final class SyncRegions
             }
 
             $this->dispatchSync(new CreateRegion($koheraRegion));
+            $this->dispatchSync(new LinkRegion($koheraRegion));
 
             array_push($processedSports, $koheraRegion->name());
         }
