@@ -7,10 +7,14 @@ namespace App\School;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 final class Address extends Model
 {
+    use SoftDeletes;
+
     public $timestamps = false;
+
     /**
      * The attributes that are mass assignable.
      *

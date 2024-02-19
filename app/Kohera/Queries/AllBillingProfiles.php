@@ -7,6 +7,7 @@ namespace App\Kohera\Queries;
 use Illuminate\Database\Eloquent\Builder;
 use App\Kohera\School;
 use App\Kohera\BillingProfile;
+use Illuminate\Support\Collection;
 
 final class AllBillingProfiles
 {
