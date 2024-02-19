@@ -43,8 +43,11 @@ final class SportByNameTest extends TestCase
      */ 
     public function ItCanCreateInstanceofSport(): void
     {
+        $sportName = 'Football';
         $SportByName = new SportByName;
 
-        $this->assertInstanceOf(Sport::class, $SportByName->get());
+        $sport = SportFactory::new()->withName($sportName)->create();
+        
+        $this->assertInstanceOf(Sport::class, $SportByName->get($sportName));
     }
 }

@@ -19,7 +19,7 @@ final class BillingProfile extends Model implements BillingProfileContract
     
     public function billingProfileId(): int
     {
-        return $this->school->id;
+        return (int) $this->school->id;
     }
 
     public function name(): string
@@ -34,18 +34,19 @@ final class BillingProfile extends Model implements BillingProfileContract
 
     public function vatNumber(): string
     {
-        return $this->school->BTWNummer;
+        return (string) $this->school->BTWNummer;
     }
 
     public function tav(): string
     {
-        return $this->school->Facturatie_Tav;
+        return (string) $this->school->Facturatie_Tav;
     }
 
     public function address(): Address
     {
         return Address::where('address_id', 'billing_profile-' . $this->school->id)->first();
     }
+    
     public function school(): School
     {
         return School::where('school_id', $this->school->id)->first();

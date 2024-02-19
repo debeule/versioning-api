@@ -20,7 +20,8 @@ final class CreateSchoolTest extends TestCase
     public function itCreatesSchoolWhenRecordDoesNotExist(): void
     {
         $koheraSchool = KoheraSchoolFactory::new()->create();
-        $matchingAddress = AddressFactory::new()->withId($koheraSchool->id)->create();
+        $matchingAddress = AddressFactory::new()->withId((string) $koheraSchool->id)->create();
+        // dd($matchingAddress->address_id . "---" . $koheraSchool->id);
 
         $this->dispatchSync(new CreateSchool($koheraSchool));
 
@@ -50,7 +51,7 @@ final class CreateSchoolTest extends TestCase
     {
         $koheraSchool = KoheraSchoolFactory::new()->create();
 
-        $this->dispatchSync(new KoheraSchool($koheraSchool));
+        $this->dispatchSync(new CreateSchool($koheraSchool));
 
         $oldSchoolRecord = School::where('school_id', $koheraSchool->schoolId())->first();
 

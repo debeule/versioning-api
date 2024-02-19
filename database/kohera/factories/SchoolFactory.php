@@ -20,7 +20,7 @@ final class SchoolFactory extends Factory
     public function definition()
     {
         return [
-            'Place_id' => $this->faker->randomNumber(8),
+            'Place_id' => $this->faker->randomNumber(3),
             'Name' => $this->faker->name(),
             'Gangmaker_mail' => $this->faker->email(),
             'School_mail' => $this->faker->email(),
@@ -39,5 +39,10 @@ final class SchoolFactory extends Factory
             'BTWNummer' => $this->faker->randomNumber(8),
             'Facturatie_Email' => $this->faker->email(),
         ];
+    }
+
+    public function withId(int $id): self
+    {
+        return $this->state(['Place_id' => $id]);
     }
 }

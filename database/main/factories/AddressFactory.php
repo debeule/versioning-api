@@ -26,8 +26,8 @@ final class AddressFactory extends Factory
         ];
     }
 
-    public function withId(int $id): self
+    public function withId(string $idString): self
     {
-        return $this->state(['address_id' => $id]);
+        return $this->state(['address_id' => $idString]);
     }
 }
