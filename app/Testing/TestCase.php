@@ -3,26 +3,30 @@
 namespace App\Testing;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication;
+    use CreatesApplication, dispatchesJobs, RefreshDatabase;
 
     /**
      * @param object $class
-     * @return mixed
      */
-    public function handle(object $class): mixed
+    protected function handle(object $class)
     {
         return $this->app->call([$class, 'handle']);
     }
 
-    // /**
-    //  * @param object $class
-    //  * @return mixed
-    //  */
-    // public function dispatch(object $class): mixed
-    // {
-    //     return $this->app->call([$class, '__invoke']);
-    // }
+    /**
+     * @param object $class
+     */
+    protected function dispatch(object $class)
+    {
+        return $this->app->call([$class, '__invoke']);
+    }
+
+    public function setUp(): void
+    {
+        parent::setUp();
+    }
 }
