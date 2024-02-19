@@ -42,6 +42,9 @@ final class CreateAddress
     {
         $address = Address::where('address_id', $koheraAddress->addressId())->first();
 
+        $recordhasChanged = false;
+
+        $recordhasChanged = $recordhasChanged || $address->street_name !== $koheraAddress->streetName();
         $recordhasChanged = $recordhasChanged || $address->street_identifier !== $koheraAddress->streetIdentifier();
 
         return $recordhasChanged;
