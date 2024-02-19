@@ -86,9 +86,9 @@
             "php artisan db:seed --database=testing"
         ],
         "main:migrate": "php artisan migrate:fresh --path=database/main/migrations/ --database=db",
-        "testing:migrate": "php artisan migrate:fresh --path=database/kohera/migrations/ --database=db-testing",
+        "testing:migrate": "php artisan migrate:fresh --path=database/kohera/migrations/ --database=kohera-testing",
 
-        "testing:seed": "php artisan db:seed --database=testing",
+        "testing:seed": "php artisan db:seed --database=kohera-testing",
 
         "cs:check": "vendor/bin/phpcs --standard=PSR12 app",
         "cs:fix": "vendor/bin/php-cs-fixer fix --verbose",
