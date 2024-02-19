@@ -23,7 +23,7 @@ return new class extends Migration
             $table->integer('Instellingsnummer');
             $table->integer('Postcode');
             $table->string('Gemeente');
-            $table->string('type');
+            $table->string('Type');
             $table->string('Facturatie_Naam');
             $table->string('Facturatie_Tav');
             $table->string('Facturatie_Adres');
