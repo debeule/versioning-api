@@ -16,11 +16,6 @@ final class Sport extends Model implements SportContract
     protected $connection = 'kohera-testing';
 
     use HasFactory;
-    
-    protected static function newFactory(): SportFactory 
-    {
-        return SportFactory::new();
-    }
 
     protected $fillable = [
         'Sportkeuze',

@@ -12,12 +12,6 @@ use Database\Main\Factories\SportFactory;
 final class Sport extends Model
 {
     use SoftDeletes, HasFactory;
-
-    protected static function newFactory(): SportFactory
-    {
-        return SportFactory::new();
-    }
-
     
     public $timestamps = false;
     /**

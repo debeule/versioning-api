@@ -16,11 +16,6 @@ final class Region extends Model implements RegionContract
     protected $connection = 'kohera-testing';
 
     use HasFactory;
-    
-    protected static function newFactory(): RegionFactory
-    {
-        return RegionFactory::new();
-    }
 
     protected $fillable = [
         'RegionNaam',

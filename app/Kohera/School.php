@@ -18,11 +18,6 @@ final class School extends Model implements SchoolContract
 
     use HasFactory;
 
-    protected static function newFactory(): SchoolFactory
-    {
-        return SchoolFactory::new();
-    }
-
     protected $fillable = [
         'place_id',
         'Name',
