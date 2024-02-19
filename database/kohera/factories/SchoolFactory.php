@@ -6,6 +6,7 @@ namespace Database\Kohera\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Kohera\School;
+use Database\Main\Factories\AddressFactory;
 
 final class SchoolFactory extends Factory
 {
