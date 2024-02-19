@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\School\Commands;
+namespace App\Location\Commands;
 
-use App\School\Region;
-use App\School\Municipality;
+use App\Location\Region;
+use App\Location\Municipality;
 use App\Kohera\Region as KoheraRegion;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 

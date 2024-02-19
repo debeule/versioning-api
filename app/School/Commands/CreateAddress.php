@@ -6,7 +6,7 @@ namespace App\School\Commands;
 
 use App\School\Address;
 use App\Kohera\Address as KoheraAddress;
-use App\School\Municipality;
+use App\Location\Municipality;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 

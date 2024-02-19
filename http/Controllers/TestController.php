@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Redis;
 
 use App\School\Commands\SyncSchoolDomain;
 use App\Sport\Commands\SyncSportDomain;
+use App\Location\Commands\SyncLocationDomain;
+
 use App\Kohera\School as KoheraSchool;
 use App\School\School;
 
@@ -22,7 +24,9 @@ final class TestController extends Controller
 {
     public function __invoke(): void
     {
-        //vertaal Kohera query naar db
+        $syncLocation = new SyncLocatio nDomain();
+        $syncLocation();
+
         $syncSchool = new SyncSchoolDomain();
         $syncSchool();
         

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\School\Commands;
+namespace App\Location\Commands;
 
-use App\School\Municipality;
+use App\Location\Municipality;
 use App\Bpost\Municipality as BpostMunicipality;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Imports\Queries;
 
-use App\School\Region;
+use App\Location\Region;
 
 interface Municipality
 {

@@ -6,7 +6,7 @@ namespace App\Kohera\Commands;
 
 use App\School\School;
 use App\School\Province;
-use App\School\Region;
+use App\Location\Region;
 use App\School\Address;
 use App\Kohera\School as KoheraSchool;
 use App\Imports\Sanitizer\Sanitizer;

@@ -6,7 +6,7 @@ namespace App\School\Commands;
 
 use App\School\BillingProfile;
 use App\Kohera\BillingProfile as KoheraBillingProfile;
-use App\School\Municipality;
+use App\Location\Municipality;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 

@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace App\Kohera\Commands;
 
-use App\School\Province;
-use App\School\Region;
+use App\Location\Region;
 use App\Kohera\Region as KoheraRegion;
 use App\Kohera\Queries\AllRegions as AllKoheraRegions;
 use App\Imports\Sanitizer\Sanitizer;
 
-use App\School\Commands\CreateRegion;
-use App\School\Commands\LinkRegion;
+use App\Location\Commands\CreateRegion;
+use App\Location\Commands\LinkRegion;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 final class SyncRegions

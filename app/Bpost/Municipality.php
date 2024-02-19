@@ -7,7 +7,7 @@ namespace App\Bpost;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Imports\Queries\Municipality as MunicipalityContract;
-use App\School\Region;
+use App\Location\Region;
 
 final class Municipality extends Model implements MunicipalityContract
 {

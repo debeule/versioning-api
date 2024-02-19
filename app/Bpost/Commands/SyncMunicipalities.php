@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Bpost\Commands;
 
-use App\School\Municipality;
+use App\Location\Municipality;
 use App\Imports\Sanitizer\Sanitizer;
 use App\Bpost\Queries\AllMunicipalities as allBpostMunicipalities;
-use App\School\Commands\CreateMunicipality;
+use App\Location\Commands\CreateMunicipality;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 

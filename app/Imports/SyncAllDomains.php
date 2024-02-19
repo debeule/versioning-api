@@ -12,6 +12,7 @@ use Illuminate\Queue\SerializesModels;
 
 use App\School\Commands\SyncSchoolDomain;
 use App\Sport\Commands\SyncSportDomain;
+use App\Location\Commands\SyncLocationDomain;
 
 final class SyncAllDomains implements ShouldQueue
 {
@@ -19,8 +20,12 @@ final class SyncAllDomains implements ShouldQueue
 
     public function handle(): void
     {
+        $syncLocations = new SyncLocationDomain();
+        $syncLocations();
+
         $syncSchools = new SyncSchoolDomain();
         $syncSchools();
+
         $syncSports = new SyncSportDomain();
         $syncSports();
     }
