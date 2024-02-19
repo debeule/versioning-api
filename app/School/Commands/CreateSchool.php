@@ -27,9 +27,7 @@ final class CreateSchool
         
         if ($this->recordExists($this->koheraSchool) && $this->recordHasChanged($this->koheraSchool)) 
         {
-            $this->createNewRecordVersion($this->koheraSchool);
-
-            return true;
+            return $this->createNewRecordVersion($this->koheraSchool);
         }
 
         return true;
@@ -59,23 +57,24 @@ final class CreateSchool
 
     private function recordHasChanged(KoheraSchool $koheraSchool): bool
     {
-        $school = School::where('school_number', $koheraSchool->schoolNumber())->first();
-
+        $school = School::where('school_id', $koheraSchool->schoolId())->first();
+        
         $recordhasChanged = false;
 
-        $recordhasChanged = $school->name !== $koheraSchool->name();
-        $recordhasChanged = $school->email !== $koheraSchool->email();
-        $recordhasChanged = $school->contact_email !== $koheraSchool->contactEmail();
-        $recordhasChanged = $school->type !== $koheraSchool->type();
-        $recordhasChanged = $school->student_count !== $koheraSchool->studentCount();
-        $recordhasChanged = $school->institution_id !== $koheraSchool->institutionId();
+        $recordhasChanged = $recordhasChanged || $school->name !== $koheraSchool->name();
+        $recordhasChanged = $recordhasChanged || $school->email !== $koheraSchool->email();
+        $recordhasChanged = $recordhasChanged || $school->contact_email !== $koheraSchool->contactEmail();
+        $recordhasChanged = $recordhasChanged || $school->type !== $koheraSchool->type();
+        $recordhasChanged = $recordhasChanged || $school->school_number !== $koheraSchool->schoolNumber();
+        $recordhasChanged = $recordhasChanged || $school->institution_id !== $koheraSchool->institutionId();
+        $recordhasChanged = $recordhasChanged || $school->student_count !== $koheraSchool->studentCount();
 
         return $recordhasChanged;
     }
 
-    public function createNewRecordVersion(KoheraSchool $koheraSchool): bool
+    private function createNewRecordVersion(KoheraSchool $koheraSchool): bool
     {
-        $school = School::where('school_number', $koheraSchool->schoolNumber())->delete();
+        $school = School::where('school_id', $koheraSchool->schoolId())->delete();
 
         return $this->buildRecord($koheraSchool);
     }

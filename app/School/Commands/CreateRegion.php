@@ -24,6 +24,11 @@ final class CreateRegion
             return $this->buildRecord($this->koheraRegion);
         }
 
+        if ($this->recordExists($this->koheraRegion) && $this->recordHasChanged($this->koheraRegion)) 
+        {
+            return $this->createNewRecordVersion($this->koheraRegion);
+        }
+
         return true;
     }
 
@@ -42,9 +47,33 @@ final class CreateRegion
         
         $newRegion->save();
 
+        return $this->linkMunicipalitiesToRegion($koheraRegion);
+    }
+
+    public function recordHasChanged(KoheraRegion $koheraRegion): bool
+    {
+        $region = Region::where('region_id', $koheraRegion->regionId())->first();
+
+        $recordhasChanged = false;
+
+        $recordhasChanged = $recordhasChanged || $region->name !== $koheraRegion->name();
+        $recordhasChanged = $recordhasChanged || $region->region_number !== $koheraRegion->regionNumber();
+
+        return $recordhasChanged;
+    }
+
+    public function createNewRecordVersion(KoheraRegion $koheraRegion): bool
+    {
+        Region::where('region_id', $koheraRegion->regionId())->delete();
+
+        return $this->buildRecord($koheraRegion);
+    }
+
+    public function linkMunicipalitiesToRegion($koheraRegion)
+    {
         //link municipalities to region
         $municipalities = Municipality::where('postal_code', $koheraRegion->postalCode())->get();
-
+    
         foreach ($municipalities as $municipality) 
         {
             $municipality->region_id = $koheraRegion->regionId();
@@ -52,21 +81,5 @@ final class CreateRegion
         }
         
         return true;
-    }
-
-    public function regionHasChanged(KoheraRegion $koheraRegion): bool
-    {
-        $region = Region::where('region_id', $koheraRegion->regionId())->first();
-
-        $recordhasChanged = false;
-
-        // $recordhasChanged = $region->name !== $koheraRegion->name();
-        // $recordhasChanged = $region->email !== $koheraRegion->email();
-        // $recordhasChanged = $region->contact_email !== $koheraRegion->contactEmail();
-        // $recordhasChanged = $region->type !== $koheraRegion->type();
-        // $recordhasChanged = $region->student_count !== $koheraRegion->studentCount();
-        // $recordhasChanged = $region->institution_id !== $koheraRegion->institutionId();
-
-        return $recordhasChanged;
     }
 }

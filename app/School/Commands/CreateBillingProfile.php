@@ -42,13 +42,13 @@ final class CreateBillingProfile
     {
         $billingProfile = BillingProfile::where('billing_profile_id', $koheraBillingProfile->billingProfileId())->first();
 
-        $recordhasChanged = $billingProfile->billing_profile_id !== $koheraBillingProfile->billingProfileId();
-        $recordhasChanged = $billingProfile->name !== $koheraBillingProfile->name();
-        $recordhasChanged = $billingProfile->email !== $koheraBillingProfile->email();
-        $recordhasChanged = $billingProfile->vat_number !== $koheraBillingProfile->vatNumber();
-        $recordhasChanged = $billingProfile->tav !== $koheraBillingProfile->tav();
-        $recordhasChanged = $billingProfile->address_id !== $koheraBillingProfile->address()->id;
-        $recordhasChanged = $billingProfile->school_id !== $koheraBillingProfile->school()->id;
+        $recordhasChanged = $recordhasChanged || $billingProfile->billing_profile_id !== $koheraBillingProfile->billingProfileId();
+        $recordhasChanged = $recordhasChanged || $billingProfile->name !== $koheraBillingProfile->name();
+        $recordhasChanged = $recordhasChanged || $billingProfile->email !== $koheraBillingProfile->email();
+        $recordhasChanged = $recordhasChanged || $billingProfile->vat_number !== $koheraBillingProfile->vatNumber();
+        $recordhasChanged = $recordhasChanged || $billingProfile->tav !== $koheraBillingProfile->tav();
+        $recordhasChanged = $recordhasChanged || $billingProfile->address_id !== $koheraBillingProfile->address()->id;
+        $recordhasChanged = $recordhasChanged || $billingProfile->school_id !== $koheraBillingProfile->school()->id;
 
         return $recordhasChanged;
     }

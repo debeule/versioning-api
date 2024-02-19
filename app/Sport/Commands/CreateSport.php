@@ -48,11 +48,21 @@ final class CreateSport
 
     public function recordHasChanged(KoheraSport $koheraSport): bool
     {
-        return true;
+        $sport = Sport::where('sport_id', $koheraSport->sportId())->first();
+
+        return $sport->name !== $koheraSport->name();
     }
 
     public function createNewRecordVersion(KoheraSport $koheraSport): bool
     {
-        return true;
+        $sport = Sport::where('sport_id', $koheraSport->sportId())->first();
+        $sport->delete();
+
+        $newSport = new Sport();
+
+        $newSport->sport_id = $koheraSport->sportId();
+        $newSport->name = $koheraSport->name();
+
+        return $newSport->save();
     }
 }
