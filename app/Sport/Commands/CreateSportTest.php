@@ -15,18 +15,46 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 final class CreateSportTest extends TestCase
 {
     use RefreshDatabase, DispatchesJobs;
+
+    private KoheraSport $koheraSport;
+
+    public function __construct()
+    {
+        $this->koheraSport = KoheraSport::factory()->create();
+    }
     
     /** @test */
     public function itCanCreateASportFromkoheraSport()
     {
-        $koheraSport = KoheraSport::factory()->create();
-
-        $sportCreated = $this->dispatchSync(new CreateSport($koheraSport));
+        $this->dispatchSync(new CreateSport($this->koheraSport));
         
-        $sport = Sport::where('name', $koheraSport->Sportkeuze)->first();
+        $sport = Sport::where('name', $koheraSport->name())->first();
         
         $this->assertInstanceOf(koheraSport::class, $koheraSport);
         $this->assertInstanceOf(Sport::class, $sport);
-        $this->assertTrue($sportCreated);
+
+        $this->assertTrue($this->koheraSport->name() === $sport->name);
+    }
+
+    public function itCanUpdateASportFromKoheraSport()
+    {
+        $this->dispatchSync(new CreateSport($this->koheraSport));
+
+        $oldSportRecord = Sport::where('name', $this->koheraSport->name())->first();
+
+        $this->koheraSport->Sportkeuze = 'new name';
+        $this->dispatchSync(new CreateSport($this->koheraSport));
+
+        $updatedSportRecord = Sport::where('name', $this->koheraSport->name())->first();
+
+        $this->assertInstanceOf(Sport::class, $oldSportRecord);
+        $this->assertInstanceOf(Sport::class, $updatedSportRecord);
+
+        $this->assertTrue($oldSportRecord->name !== $updatedSportRecord->name);
+        $this->assertNotNull($oldSportRecord->deleted_at);
+
+        $this->assertTrue($updatedSportRecord->name === $this->koheraSport->name());
+
+        $this->assertTrue($oldSportRecord->sport_id === $updatedSportRecord->sport_id);
     }
 }
