@@ -7,7 +7,7 @@ namespace App\Sport\Queries;
 use App\Testing\TestCase;
 use App\Sport\Queries\SportByName;
 use App\Sport\Sport;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Testing\RefreshDatabase;
 use Database\Main\Factories\SportFactory;
 
 
@@ -15,7 +15,6 @@ final class SportByNameTest extends TestCase
 {
     protected $connectionsToTransact = ['db-testing'];
     
-
     use RefreshDatabase;
 
     /** @test */
@@ -26,7 +25,7 @@ final class SportByNameTest extends TestCase
         $sport = SportFactory::new()->withName($sportName)->create();
         
         $SportByName = new SportByName;
-        $result = $SportByName($sportName);
+        $result = $SportByName->get($sportName);
 
         $sport->delete();
 
@@ -38,8 +37,8 @@ final class SportByNameTest extends TestCase
     /** @test */
     public function ItReturnsNullIfSportNotFound()
     {
-        $SportByName = new SportByName();
+        $SportByName = new SportByName;
 
-        $this->assertNull($SportByName('Non-existing Sport'));
+        $this->assertNull($SportByName->find('Non-existing Sport'));
     }
 }
