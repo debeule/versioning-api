@@ -20,6 +20,7 @@ final class SportFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
+            'sport_id' => $this->faker->unique()->randomNumber(),
         ];
     }
 
