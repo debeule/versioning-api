@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Bpost\Commands;
 
-use App\Location\Municipality;
+use App\Bpost\Municipality;
 use App\Imports\Sanitizer\Sanitizer;
 use App\Bpost\Queries\AllMunicipalities as allBpostMunicipalities;
 use App\Location\Commands\CreateMunicipality;

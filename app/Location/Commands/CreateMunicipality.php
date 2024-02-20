@@ -55,7 +55,6 @@ final class CreateMunicipality
         $municipality = Municipality::where('postal_code', $bpostMunicipality->postalCode())->first();
 
         $recordhasChanged = false;
-
         $recordhasChanged = $recordhasChanged || $municipality->name !== strtolower($bpostMunicipality->name());
         $recordhasChanged = $recordhasChanged || $municipality->province !== $bpostMunicipality->province();
 
@@ -70,7 +69,6 @@ final class CreateMunicipality
     public function createNewRecordVersion(BpostMunicipality $bpostMunicipality): bool
     {
         $municipality = Municipality::where('postal_code', $bpostMunicipality->postalCode())->delete();
-
         return $this->buildRecord($bpostMunicipality);
     }
 }
