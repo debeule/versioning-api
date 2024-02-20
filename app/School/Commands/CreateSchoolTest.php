@@ -14,15 +14,20 @@ use Database\Main\Factories\AddressFactory;
 final class CreateSchoolTest extends TestCase
 {
     private KoheraSchool $koheraSchool;
+    private School $school;
 
     public function setUp(): void
     {
         parent::setUp();
 
         $this->koheraSchool = KoheraSchoolFactory::new()->create();
+        AddressFactory::new()->withId('school-' . $this->koheraSchool->schoolId())->create();
+        
+        $this->dispatchSync(new CreateSchool($this->koheraSchool));
+        $this->school = School::where('school_id', $this->koheraSchool->schoolId())->first();
+
 
         //create matching address & school so that the billing profile can be created
-        AddressFactory::new()->withId((string) $this->koheraSchool->id)->create();
     }
 
     /**
@@ -45,8 +50,6 @@ final class CreateSchoolTest extends TestCase
      */
     public function ItReturnsFalseWhenExactRecordExists(): void
     {
-        $this->dispatchSync(new CreateSchool($this->koheraSchool));
-
         $this->assertFalse($this->dispatchSync(new CreateSchool($this->koheraSchool)));
     }
 
@@ -55,19 +58,15 @@ final class CreateSchoolTest extends TestCase
      */
     public function ItCreatesNewRecordVersionIfExists(): void
     {
-        $this->dispatchSync(new CreateSchool($this->koheraSchool));
-
-        $oldSchoolRecord = School::where('school_id', $this->koheraSchool->schoolId())->first();
-
         $this->koheraSchool->Name = 'new name';
         $this->dispatchSync(new CreateSchool($this->koheraSchool));
 
-        $updatedSchoolRecord = School::where('school_id', $this->koheraSchool->schoolId())->first();
+        $updatedSchool = School::where('school_id', $this->koheraSchool->schoolId())->first();
 
-        $this->assertTrue($oldSchoolRecord->name !== $updatedSchoolRecord->name);
-        $this->assertSoftDeleted($oldSchoolRecord);
+        $this->assertNotEquals($this->school->name, $updatedSchool->name);
+        $this->assertSoftDeleted($this->school);
 
-        $this->assertEquals($updatedSchoolRecord->name, $this->koheraSchool->name());
-        $this->assertEquals($oldSchoolRecord->school_id, $updatedSchoolRecord->school_id);
+        $this->assertEquals($updatedSchool->name, $this->koheraSchool->name());
+        $this->assertEquals($this->school->school_id, $updatedSchool->school_id);
     }
 }
