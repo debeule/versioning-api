@@ -5,6 +5,7 @@ namespace Database\Kohera\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Kohera\Region;
+use Database\Kohera\Factories\RegionFactory;
 
 class RegionSeeder extends Seeder
 {
@@ -12,7 +13,7 @@ class RegionSeeder extends Seeder
 
     public function run()
     {
-        Region::factory()
+        RegionFactory::new()
             ->count(50)
             ->create();
 

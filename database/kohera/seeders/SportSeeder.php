@@ -5,9 +5,7 @@ namespace Database\Kohera\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Kohera\Sport;
-
-use App\Database\Kohera\Factories\SportFactory;
-
+use Database\Kohera\Factories\SportFactory;
 
 class SportSeeder extends Seeder
 {
@@ -15,7 +13,7 @@ class SportSeeder extends Seeder
 
     public function run()
     {
-        Sport::factory()
+        SportFactory::new()
             ->count(50)
             ->create();
 

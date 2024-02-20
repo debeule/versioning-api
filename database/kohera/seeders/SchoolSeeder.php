@@ -5,6 +5,7 @@ namespace Database\Kohera\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Kohera\School;
+use Database\Kohera\Factories\SchoolFactory;
 
 class SchoolSeeder extends Seeder
 {
@@ -12,7 +13,7 @@ class SchoolSeeder extends Seeder
     
     public function run()
     {
-        School::factory()
+        SchoolFactory::new()
             ->count(50)
             ->create();
 
