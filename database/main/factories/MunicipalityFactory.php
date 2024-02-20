@@ -26,4 +26,9 @@ final class MunicipalityFactory extends Factory
             'region_id' => RegionFactory::new()->create()->id,
         ];
     }
+
+    public function withPostalCode(int $postalCode): self
+    {
+        return $this->state(['postal_code' => $postalCode]);
+    }
 }
