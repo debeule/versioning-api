@@ -14,7 +14,6 @@ use Database\Main\Factories\AddressFactory;
 final class CreateSchoolTest extends TestCase
 {
     private KoheraSchool $koheraSchool;
-    private School $school;
 
     public function setUp(): void
     {

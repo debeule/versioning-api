@@ -8,7 +8,7 @@ use App\Testing\TestCase;
 use App\Testing\RefreshDatabase;
 use App\School\BillingProfile;
 use App\Kohera\BillingProfile as KoheraBillingProfile;
-use App\Kohera\School as koheraSchool;
+use App\Kohera\School as KoheraSchool;
 use Database\Kohera\Factories\SchoolFactory as KoheraSchoolFactory;
 use Database\Main\Factories\AddressFactory;
 use Database\Main\Factories\SchoolFactory;
@@ -17,7 +17,7 @@ use App\School\Commands\CreateBillingProfile;
 final class CreateBillingProfileTest extends TestCase
 {
     private KoheraBillingProfile $koheraBillingProfile;
-    private koheraSchool $koheraSchool;
+    private KoheraSchool $koheraSchool;
 
     public function setUp(): void
     {
@@ -26,7 +26,6 @@ final class CreateBillingProfileTest extends TestCase
         $this->koheraSchool = KoheraSchoolFactory::new()->create();
         $this->koheraBillingProfile = new KoheraBillingProfile($this->koheraSchool);
 
-        //create matching address & school so that the billing profile can be created
         AddressFactory::new()->withId('billing_profile-' . $this->koheraSchool->schoolId())->create();
         SchoolFactory::new()->withId((string) $this->koheraSchool->schoolId())->create();
     }
@@ -52,7 +51,7 @@ final class CreateBillingProfileTest extends TestCase
     public function ItReturnsFalseWhenExactRecordExists(): void
     {
         $this->dispatchSync(new CreateBillingProfile($this->koheraBillingProfile));
-        
+
         $this->assertFalse($this->dispatchSync(new CreateBillingProfile($this->koheraBillingProfile)));
     }
 
