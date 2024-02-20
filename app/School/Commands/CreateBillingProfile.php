@@ -42,22 +42,23 @@ final class CreateBillingProfile
     {
         $billingProfile = BillingProfile::where('billing_profile_id', $koheraBillingProfile->billingProfileId())->first();
 
-        $recordhasChanged = false;
+        $recordHasChanged = false;
 
-        $recordhasChanged = $recordhasChanged || $billingProfile->billing_profile_id !== $koheraBillingProfile->billingProfileId();
-        $recordhasChanged = $recordhasChanged || $billingProfile->name !== $koheraBillingProfile->name();
-        $recordhasChanged = $recordhasChanged || $billingProfile->email !== $koheraBillingProfile->email();
-        $recordhasChanged = $recordhasChanged || $billingProfile->vat_number !== $koheraBillingProfile->vatNumber();
-        $recordhasChanged = $recordhasChanged || $billingProfile->tav !== $koheraBillingProfile->tav();
-        $recordhasChanged = $recordhasChanged || $billingProfile->address_id !== $koheraBillingProfile->address()->id;
-        $recordhasChanged = $recordhasChanged || $billingProfile->school_id !== $koheraBillingProfile->school()->id;
-
-        return $recordhasChanged;
+        $recordHasChanged = $recordHasChanged || $billingProfile->billing_profile_id !== $koheraBillingProfile->billingProfileId();
+        $recordHasChanged = $recordHasChanged || $billingProfile->name !== $koheraBillingProfile->name();
+        $recordHasChanged = $recordHasChanged || $billingProfile->email !== $koheraBillingProfile->email();
+        $recordHasChanged = $recordHasChanged || $billingProfile->vat_number !== $koheraBillingProfile->vatNumber();
+        $recordHasChanged = $recordHasChanged || $billingProfile->tav !== $koheraBillingProfile->tav();
+        $recordHasChanged = $recordHasChanged || $billingProfile->address_id !== $koheraBillingProfile->address()->id;
+        $recordHasChanged = $recordHasChanged || $billingProfile->school_id !== $koheraBillingProfile->school()->id;
+        
+        return $recordHasChanged;
     }
 
     private function buildRecord(KoheraBillingProfile $koheraBillingProfile): bool
     {
         $newbillingProfile = new BillingProfile();
+
 
         $newbillingProfile->billing_profile_id = $koheraBillingProfile->billingProfileId();
         $newbillingProfile->name = $koheraBillingProfile->name();
@@ -72,7 +73,7 @@ final class CreateBillingProfile
 
     private function createNewRecordVersion(KoheraBillingProfile $koheraBillingProfile): bool
     {
-        $billingProfile = BillingProfile::where('billing_profile_id', $koheraBillingProfile->billingProfileId())->delete();
+        BillingProfile::where('billing_profile_id', $koheraBillingProfile->billingProfileId())->delete();
 
         return $this->buildRecord($koheraBillingProfile);
     }
