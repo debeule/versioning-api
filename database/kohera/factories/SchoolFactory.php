@@ -40,9 +40,4 @@ final class SchoolFactory extends Factory
             'Facturatie_Email' => $this->faker->email(),
         ];
     }
-
-    public function withId(int $id): self
-    {
-        return $this->state(['Place_id' => $id]);
-    }
 }
