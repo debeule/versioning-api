@@ -16,67 +16,65 @@ use App\School\Commands\CreateBillingProfile;
 
 final class CreateBillingProfileTest extends TestCase
 {
-    private KoheraSchool $koheraSchool;
+    private KoheraBillingProfile $koheraBillingProfile;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->koheraSchool = KoheraSchoolFactory::new()->create();
+        $koheraSchool = KoheraSchoolFactory::new()->create();
+        $this->koheraBillingProfile = new KoheraBillingProfile($koheraSchool);
 
         //create matching address & school so that the billing profile can be created
-        AddressFactory::new()->withId('billing_profile-' . $this->koheraSchool->id)->create();
-        SchoolFactory::new()->withId((string) $this->koheraSchool->id)->create();
+        AddressFactory::new()->withId('billing_profile-' . $this->koheraBillingProfile->billingProfileId())->create();
+        SchoolFactory::new()->withId((string) $this->koheraBillingProfile->billingProfileId())->create();
     }
 
     /**
      * @test
      */
-    public function itCreatesSchoolWhenRecordDoesNotExist(): void
+    public function itCanCreateBillingProfileFromKoheraBillingProfile(): void
     {
-        $koheraBillingProfile = new KoheraBillingProfile($this->koheraSchool);
+        $this->dispatchSync(new CreateBillingProfile($this->koheraBillingProfile));
 
-        $this->dispatchSync(new CreateBillingProfile($koheraBillingProfile));
+        $billingProfile = BillingProfile::where('billing_profile_id', $this->koheraBillingProfile->billingProfileId())->first();
 
-        $billingProfile = BillingProfile::where('billing_profile_id', $koheraBillingProfile->billingProfileId())->first();
-
-        $this->assertInstanceOf(KoheraBillingProfile::class, $koheraBillingProfile);
+        $this->assertInstanceOf(KoheraBillingProfile::class, $this->koheraBillingProfile);
         $this->assertInstanceOf(BillingProfile::class, $billingProfile);
 
-        $this->assertSame($koheraBillingProfile->billingProfileId(), $billingProfile->billing_profile_id);
+        $this->assertSame($this->koheraBillingProfile->billingProfileId(), $billingProfile->billing_profile_id);
     }
 
     /**
      * @test
      */
-    // public function ItReturnsFalseWhenRecordExists(): void
-    // {
-    //     $this->koheraSchool = KoheraSchoolFactory::new()->create();
-    //     $this->dispatchSync(new CreateSchool($this->koheraSchool));
+    public function ItReturnsFalseWhenExactRecordExists(): void
+    {
+        $this->dispatchSync(new CreateBillingProfile($this->koheraBillingProfile));
 
-    //     $this->assertFalse(dispatchSync(new KoheraSchool($this->koheraSchool)));
-    // }
+        $this->assertFalse($this->dispatchSync(new CreateBillingProfile($this->koheraBillingProfile)));
+    }
 
     // /**
     //  * @test
     //  */
     // public function ItCreatesNewRecordVersionIfExists(): void
     // {
-    //     $this->koheraSchool = KoheraSchoolFactory::new()->create();
+    //     $this->koheraBillingProfile = KoheraSchoolFactory::new()->create();
 
-    //     $this->dispatchSync(new KoheraSchool($this->koheraSchool));
+    //     $this->dispatchSync(new KoheraSchool($this->koheraBillingProfile));
 
-    //     $oldSchoolRecord = School::where('school_id', $this->koheraSchool->schoolId())->first();
+    //     $oldSchoolRecord = School::where('school_id', $this->koheraBillingProfile->schoolId())->first();
 
-    //     $this->koheraSchool->Name = 'new name';
-    //     $this->dispatchSync(new CreateSchool($this->koheraSchool));
+    //     $this->koheraBillingProfile->Name = 'new name';
+    //     $this->dispatchSync(new CreateSchool($this->koheraBillingProfile));
 
-    //     $updatedSchoolRecord = School::where('school_id', $this->koheraSchool->schoolId())->first();
+    //     $updatedSchoolRecord = School::where('school_id', $this->koheraBillingProfile->schoolId())->first();
 
     //     $this->assertTrue($oldSchoolRecord->name !== $updatedSchoolRecord->name);
     //     $this->assertSoftDeleted($oldSchoolRecord);
 
-    //     $this->assertEquals($updatedSchoolRecord->name, $this->koheraSchool->name());
+    //     $this->assertEquals($updatedSchoolRecord->name, $this->koheraBillingProfile->name());
     //     $this->assertEquals($oldSchoolRecord->school_id, $updatedSchoolRecord->school_id);
     // }
 }
