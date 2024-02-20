@@ -30,7 +30,7 @@ final class CreateAddress
             return $this->createNewRecordVersion($this->koheraAddress);
         }
 
-        return true;
+        return false;
     }
 
     private function recordExists(KoheraAddress $koheraAddress): bool

@@ -29,7 +29,7 @@ final class CreateRegion
             return $this->createNewRecordVersion($this->koheraRegion);
         }
 
-        return true;
+        return false;
     }
 
     private function recordExists(KoheraRegion $koheraRegion): bool

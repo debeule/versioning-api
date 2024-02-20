@@ -30,7 +30,7 @@ final class CreateSchool
             return $this->createNewRecordVersion($this->koheraSchool);
         }
 
-        return true;
+        return false;
     }
 
     private function recordExists(KoheraSchool $koheraSchool): bool

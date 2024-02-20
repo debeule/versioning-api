@@ -30,7 +30,7 @@ final class CreateBillingProfile
             return $this->createNewRecordVersion($this->koheraBillingProfile);
         }
 
-        return true;
+        return false;
     }
 
     private function recordExists(KoheraBillingProfile $koheraBillingProfile): bool

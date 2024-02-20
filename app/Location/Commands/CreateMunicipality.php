@@ -28,7 +28,7 @@ final class CreateMunicipality
             return $this->createNewRecordVersion($this->bpostMunicipality);
         }
 
-        return true;
+        return false;
     }
 
     private function recordExists(BpostMunicipality $bpostMunicipality): bool

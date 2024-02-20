@@ -28,7 +28,7 @@ final class CreateSport
             return $this->createNewRecordVersion($this->koheraSport);
         }
 
-        return true;
+        return false;
     }
 
     public function recordExists(KoheraSport $koheraSport): bool
