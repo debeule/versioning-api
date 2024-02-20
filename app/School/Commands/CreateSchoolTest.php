@@ -22,12 +22,6 @@ final class CreateSchoolTest extends TestCase
 
         $this->koheraSchool = KoheraSchoolFactory::new()->create();
         AddressFactory::new()->withId('school-' . $this->koheraSchool->schoolId())->create();
-        
-        $this->dispatchSync(new CreateSchool($this->koheraSchool));
-        $this->school = School::where('school_id', $this->koheraSchool->schoolId())->first();
-
-
-        //create matching address & school so that the billing profile can be created
     }
 
     /**
@@ -50,6 +44,8 @@ final class CreateSchoolTest extends TestCase
      */
     public function ItReturnsFalseWhenExactRecordExists(): void
     {
+        $this->dispatchSync(new CreateSchool($this->koheraSchool));
+
         $this->assertFalse($this->dispatchSync(new CreateSchool($this->koheraSchool)));
     }
 
@@ -58,15 +54,18 @@ final class CreateSchoolTest extends TestCase
      */
     public function ItCreatesNewRecordVersionIfExists(): void
     {
+        $this->dispatchSync(new CreateSchool($this->koheraSchool));
+        $school = School::where('name', $this->koheraSchool->name())->first();
+
         $this->koheraSchool->Name = 'new name';
         $this->dispatchSync(new CreateSchool($this->koheraSchool));
 
-        $updatedSchool = School::where('school_id', $this->koheraSchool->schoolId())->first();
+        $updatedSchool = School::where('name', $this->koheraSchool->name())->first();
 
-        $this->assertNotEquals($this->school->name, $updatedSchool->name);
-        $this->assertSoftDeleted($this->school);
+        $this->assertNotEquals($school->name, $updatedSchool->name);
+        $this->assertSoftDeleted($school);
 
         $this->assertEquals($updatedSchool->name, $this->koheraSchool->name());
-        $this->assertEquals($this->school->school_id, $updatedSchool->school_id);
+        $this->assertEquals($school->school_id, $updatedSchool->school_id);
     }
 }
