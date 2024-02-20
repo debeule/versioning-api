@@ -33,6 +33,6 @@ final class SchoolFactory extends Factory
 
     public function withId(string $idString): self
     {
-        return $this->state(['address_id' => $idString]);
+        return $this->state(['school_id' => $idString]);
     }
 }
