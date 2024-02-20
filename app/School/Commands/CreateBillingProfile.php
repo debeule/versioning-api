@@ -42,6 +42,8 @@ final class CreateBillingProfile
     {
         $billingProfile = BillingProfile::where('billing_profile_id', $koheraBillingProfile->billingProfileId())->first();
 
+        $recordhasChanged = false;
+
         $recordhasChanged = $recordhasChanged || $billingProfile->billing_profile_id !== $koheraBillingProfile->billingProfileId();
         $recordhasChanged = $recordhasChanged || $billingProfile->name !== $koheraBillingProfile->name();
         $recordhasChanged = $recordhasChanged || $billingProfile->email !== $koheraBillingProfile->email();
