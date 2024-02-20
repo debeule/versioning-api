@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Kohera;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Imports\Queries\Sport as SportContract;
 use Database\Kohera\Factories\SportFactory;
 
@@ -14,8 +13,6 @@ final class Sport extends Model implements SportContract
     public $timestamps = false;
 
     protected $connection = 'kohera-testing';
-
-    use HasFactory;
 
     protected $fillable = [
         'Sportkeuze',

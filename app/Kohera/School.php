@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Kohera;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Imports\Queries\School as SchoolContract;
 use App\School\Address;
 use Database\Kohera\Factories\SchoolFactory;
@@ -15,8 +14,6 @@ final class School extends Model implements SchoolContract
     public $timestamps = false;
 
     protected $connection = 'kohera-testing';
-
-    use HasFactory;
 
     protected $fillable = [
         'place_id',
@@ -88,6 +85,6 @@ final class School extends Model implements SchoolContract
 
     public function address(): Address
     {
-        return Address::where('address_id', $this->id)->first();
+        return Address::where('address_id', 'school-' . $this->id)->first();
     }
 }

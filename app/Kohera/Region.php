@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Kohera;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Database\Kohera\Factories\RegionFactory;
 use App\Imports\Queries\Region as RegionContract;
 
@@ -14,8 +13,6 @@ final class Region extends Model implements RegionContract
     public $timestamps = false;
 
     protected $connection = 'kohera-testing';
-
-    use HasFactory;
 
     protected $fillable = [
         'RegionNaam',

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Kohera;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Imports\Queries\BillingProfile as BillingProfileContract;
 use App\School\Address;
 use App\School\School;
@@ -19,7 +18,7 @@ final class BillingProfile extends Model implements BillingProfileContract
     
     public function billingProfileId(): int
     {
-        return (int) $this->school->id;
+        return $this->school->id;
     }
 
     public function name(): string
@@ -49,6 +48,6 @@ final class BillingProfile extends Model implements BillingProfileContract
     
     public function school(): School
     {
-        return School::where('school_id', $this->school->id)->first();
+        return School::where('school_id', (int) $this->school->id)->first();
     }
 }
