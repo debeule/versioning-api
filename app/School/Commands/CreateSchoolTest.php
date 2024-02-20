@@ -23,13 +23,12 @@ final class CreateSchoolTest extends TestCase
 
         //create matching address & school so that the billing profile can be created
         AddressFactory::new()->withId((string) $this->koheraSchool->id)->create();
-
     }
 
     /**
      * @test
      */
-    public function itCreatesSchoolWhenRecordDoesNotExist(): void
+    public function itCanCreateSchoolFromKoheraSchool(): void
     {
         $this->dispatchSync(new CreateSchool($this->koheraSchool));
 
@@ -44,7 +43,7 @@ final class CreateSchoolTest extends TestCase
     /**
      * @test
      */
-    public function ItReturnsFalseWhenRecordExists(): void
+    public function ItReturnsFalseWhenExactRecordExists(): void
     {
         $this->dispatchSync(new CreateSchool($this->koheraSchool));
 

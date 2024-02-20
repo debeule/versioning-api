@@ -26,7 +26,7 @@ final class CreateSportTest extends TestCase
     /**
      * @test
      */
-    public function itCanCreateASportFromkoheraSport(): void
+    public function itCanCreateSportFromKoheraSport(): void
     {
         $this->dispatchSync(new CreateSport($this->koheraSport));
         
