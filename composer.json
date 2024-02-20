@@ -62,7 +62,9 @@
             "Database\\Kohera\\Seeders\\": "database/kohera/seeders/",
                      
             "Database\\Main\\Factories\\": "database/main/factories/",
-            "Database\\Main\\Seeders\\": "database/main/seeders/"
+            "Database\\Main\\Seeders\\": "database/main/seeders/",
+            
+            "Database\\Bpost\\Factories\\": "database/bpost/factories/"
         }
     },
     "autoload-dev": {
