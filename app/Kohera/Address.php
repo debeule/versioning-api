@@ -17,7 +17,7 @@ final class Address extends Model implements AddressContract
 
     public function addressId(): string
     {
-        return $this->address_id;
+        return (string) $this->school->id;
     }
 
     public function streetName(): string
