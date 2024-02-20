@@ -2,11 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Sport\Commands;
+namespace App\Location\Commands;
 
 use App\Testing\TestCase;
-use App\Sport\Sport;
-use App\Kohera\Sport as KoheraSport;
 use Database\Kohera\Factories\RegionFactory as KoheraRegionFactory;
 use App\Testing\RefreshDatabase;
 use App\Location\Commands\CreateRegion;
