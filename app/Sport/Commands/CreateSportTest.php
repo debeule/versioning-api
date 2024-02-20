@@ -35,7 +35,17 @@ final class CreateSportTest extends TestCase
         $this->assertInstanceOf(koheraSport::class, $this->koheraSport);
         $this->assertInstanceOf(Sport::class, $sport);
 
-        $this->assertTrue($this->koheraSport->name() === $sport->name);
+        $this->assertEquals($this->koheraSport->name(), $sport->name);
+    }
+
+    /**
+     * @test
+     */
+    public function ItReturnsFalseWhenExactRecordExists(): void
+    {
+        $this->dispatchSync(new CreateSport($this->koheraSport));
+
+        $this->assertFalse($this->dispatchSync(new CreateSport($this->koheraSport)));
     }
 
     /**
