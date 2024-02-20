@@ -11,30 +11,31 @@ use App\Location\Region;
 final class Municipality extends Model implements MunicipalityContract
 {
     protected $fillable = [
-        'name',
-        'postal_code',
-        'head_municipality',
-        'province',
+        'Plaatsnaam',
+        'Postcode',
+        'Deelgemeente',
+        'HoofdGemeente',
+        'Provincie',
     ];
 
     public function name(): string
     {
-        return $this->name;
+        return $this->Plaatsnaam;
     }
 
     public function province(): string
     {
-        return $this->province;
+        return $this->Provincie;
     }
 
     public function postalCode(): int
     {
-        return (int) $this->postal_code;
+        return (int) $this->Postcode;
     }
 
     public function headMunicipality(): ?string
     {
-        return $this->head_municipality;
+        return $this->HoofdGemeente;
     }
 
     public function region(): Region
