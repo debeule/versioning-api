@@ -101,6 +101,11 @@
         "cs:check": "vendor/bin/phpcs --standard=PSR12 app",
         "cs:fix": "vendor/bin/php-cs-fixer fix --verbose",
         "phpstan": "vendor/bin/phpstan analyse --memory-limit=2G",
-        "phpunit": "vendor/bin/phpunit --colors=always,'Feature','Integration'"
+        
+        "phpunit": [
+            "php artisan migrate:fresh --path=database/main/migrations/ --database=db-testing",
+            "php artisan migrate:fresh --path=database/kohera/migrations/ --database=kohera-testing",
+            "vendor/bin/phpunit --colors=always,'Feature','Integration'"
+        ]
     }
 }
