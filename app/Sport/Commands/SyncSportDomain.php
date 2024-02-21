@@ -10,7 +10,7 @@ final class SyncSportDomain
 {
     public function __invoke(): void
     {
-        $syncSportsTable = new SyncSports();
-        $syncSportsTable();
+        $syncSports = new SyncSports();
+        $syncSports();
     }
 }
