@@ -20,7 +20,7 @@ final class AllMunicipalities
         // $this->importMunicipalitiesFile($this->url);
 
         $filePath = storage_path('app/municipalities.xlsx');
-        $data = Excel::toArray([], $filePath, null, \Maatwebsite\Excel\Excel::XLS)[0];
+        $data = Excel::toArray([], $filePath, null, \Maatwebsite\Excel\Excel::XLSX)[0];
 
         return $data;
     }
