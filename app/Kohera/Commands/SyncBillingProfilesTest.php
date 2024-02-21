@@ -7,6 +7,7 @@ namespace App\Kohera\Commands;
 use App\Testing\TestCase;
 use App\School\BillingProfile;
 use App\Kohera\BillingProfile as KoheraBillingProfile;
+use App\Kohera\School as KoheraSchool;
 use Database\Kohera\Factories\SchoolFactory as KoheraSchoolFactory;
 use Database\Main\Factories\SchoolFactory;
 use Database\Main\Factories\AddressFactory;
@@ -44,15 +45,15 @@ final class SyncBillingProfilesTest extends TestCase
         }
         
         $existingBillingProfiles = BillingProfile::get();
-        $koheraBillingProfiles = KoheraBillingProfile::get();
-        dd
+        $koheraBillingProfiles = KoheraSchool::get();
+        
         $this->assertGreaterThan($existingBillingProfiles->count(), $koheraBillingProfiles->count());
 
         $syncBillingProfiles = new SyncBillingProfiles();
         $syncBillingProfiles();
 
         $existingBillingProfiles = BillingProfile::get();
-        $koheraBillingProfiles = KoheraBillingProfile::get();
+        $koheraBillingProfiles = KoheraSchool::get();
         $this->assertEquals($existingBillingProfiles->count(), $koheraBillingProfiles->count());
     }
 
@@ -61,9 +62,12 @@ final class SyncBillingProfilesTest extends TestCase
      */
     public function itSoftDeletesDeletedRecords(): void
     {
-        $koheraBillingProfile = KoheraBillingProfile::first();
+        $koheraSchool = KoheraSchool::first();  
+
+        $koheraBillingProfile = new KoheraBillingProfile($koheraSchool);
         $koheraBillingProfileName = $koheraBillingProfile->name();
-        $koheraBillingProfile->delete();
+
+        $koheraSchool->delete();
 
         
         $syncBillingProfiles = new SyncBillingProfiles();
@@ -72,7 +76,7 @@ final class SyncBillingProfilesTest extends TestCase
         $this->assertSoftDeleted(BillingProfile::withTrashed()->where('name', $koheraBillingProfileName)->first());
 
         $existingBillingProfiles = BillingProfile::withTrashed()->get();
-        $koheraBillingProfiles = KoheraBillingProfile::get();
+        $koheraBillingProfiles = KoheraSchool::get();
 
         $this->assertGreaterThan($koheraBillingProfiles->count(), $existingBillingProfiles->count());
     }
