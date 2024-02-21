@@ -49,13 +49,13 @@ final class AllMunicipalities
             {
                 $municipality = new Municipality;
                 
-                $municipality->name = $value[1];
-                $municipality->postal_code = $value[0];
-                $municipality->province = strtolower($value[4]);
+                $municipality->Plaatsnaam = $value[1];
+                $municipality->Postcode = $value[0];
+                $municipality->Provincie = strtolower($value[4]);
 
                 if ($value[2] === 'Ja') 
                 {
-                    $municipality->head_municipality = $value[3];
+                    $municipality->Hoofdgemeente = $value[3];
                 }
                 
                 $municipalities->push($municipality);
