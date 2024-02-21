@@ -82,14 +82,20 @@
             "php artisan key:generate --ansi",
             "php artisan migrate:fresh --path=database/main/migrations/ --database=db"
         ],
+        
+        "main:migrate": "php artisan migrate:fresh --path=database/main/migrations/ --database=db",
+
         "testing": [
             "php artisan migrate:fresh --path=database/main/migrations/ --database=db-testing",
             "php artisan migrate:fresh --path=database/kohera/migrations/ --database=kohera-testing",
             "php artisan db:seed --database=testing"
         ],
-        "main:migrate": "php artisan migrate:fresh --path=database/main/migrations/ --database=db",
-        "testing:migrate": "php artisan migrate:fresh --path=database/kohera/migrations/ --database=kohera-testing",
 
+        "kohera:migrate": "php artisan migrate:fresh --path=database/kohera/migrations/ --database=kohera-testing",
+        "testing:clean": [
+            "php artisan migrate:fresh --path=database/main/migrations/ --database=db-testing",
+            "php artisan migrate:fresh --path=database/kohera/migrations/ --database=kohera-testing"
+        ],
         "testing:seed": "php artisan db:seed --database=kohera-testing",
 
         "cs:check": "vendor/bin/phpcs --standard=PSR12 app",
