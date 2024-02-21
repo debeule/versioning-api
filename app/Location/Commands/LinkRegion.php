@@ -24,7 +24,7 @@ final class LinkRegion
             return $this->linkMunicipalitiesToRegion($this->koheraRegion);
         }
         
-        return true;
+        return false;
     }
 
     private function regionExists(KoheraRegion $koheraRegion): bool
@@ -39,12 +39,12 @@ final class LinkRegion
 
     public function linkMunicipalitiesToRegion($koheraRegion)
     {
-        //link municipalities to region
         $municipalities = Municipality::where('postal_code', $koheraRegion->postalCode())->get();
+        $region = Region::where('region_id', $koheraRegion->regionId())->first();
     
         foreach ($municipalities as $municipality) 
         {
-            $municipality->region_id = $koheraRegion->regionId();
+            $municipality->region_id = $region->id;
             $municipality->save();
         }
         
