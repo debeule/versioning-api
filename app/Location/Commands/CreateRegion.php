@@ -45,9 +45,7 @@ final class CreateRegion
         $newRegion->region_id = $koheraRegion->regionId();
         $newRegion->region_number = $koheraRegion->regionNumber();
         
-        $newRegion->save();
-
-        return $this->linkMunicipalitiesToRegion($koheraRegion);
+        return $newRegion->save();
     }
 
     public function recordHasChanged(KoheraRegion $koheraRegion): bool
@@ -67,19 +65,5 @@ final class CreateRegion
         Region::where('region_id', $koheraRegion->regionId())->delete();
 
         return $this->buildRecord($koheraRegion);
-    }
-
-    public function linkMunicipalitiesToRegion($koheraRegion)
-    {
-        //link municipalities to region
-        $municipalities = Municipality::where('postal_code', $koheraRegion->postalCode())->get();
-    
-        foreach ($municipalities as $municipality) 
-        {
-            $municipality->region_id = $koheraRegion->regionId();
-            $municipality->save();
-        }
-        
-        return true;
     }
 }
