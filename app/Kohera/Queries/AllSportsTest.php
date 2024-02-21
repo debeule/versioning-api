@@ -8,7 +8,6 @@ use App\Testing\TestCase;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use App\Kohera\Sport;
-use Database\Main\Factories\SportFactory;
 
 final class AllSportsTest extends TestCase
 {
