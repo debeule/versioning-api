@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use App\Kohera\School;
 use App\Kohera\Address;
+use Illuminate\Support\Collection;
 
 final class AllAddresses
 {
@@ -16,7 +17,7 @@ final class AllAddresses
         return School::query();
     }
 
-    public function get(): Object
+    public function get(): Collection
     {
         $schools = $this->query()->get();
         
