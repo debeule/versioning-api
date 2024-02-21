@@ -25,7 +25,7 @@ final class CreateAddressTest extends TestCase
         $this->koheraSchool = KoheraSchoolFactory::new()->create();
         $this->koheraAddress = new KoheraAddress($this->koheraSchool);
         
-        MunicipalityFactory::new()->withPostalCode($this->koheraSchool->Postcode)->create();
+        MunicipalityFactory::new()->withRegion()->withPostalCode($this->koheraSchool->Postcode)->create();
     }
 
     /**
