@@ -40,6 +40,6 @@ final class Municipality extends Model implements MunicipalityContract
 
     public function region(): Region
     {
-        return Region::where('name', $this->school->RegioDetailId)->first();
+        return Region::where('region_number', $this->school->RegioDetailId)->first();
     }
 }
