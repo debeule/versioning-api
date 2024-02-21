@@ -8,13 +8,15 @@ use App\Testing\TestCase;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use App\Kohera\BillingProfile;
-use Database\Main\Factories\BillingProfileFactory;
+use Database\Kohera\Factories\SchoolFactory as KoheraSchoolFactory;
 
 final class AllBillingProfilesTest extends TestCase
 {
     public function setUp(): void
     {
         parent::setUp();
+
+        KoheraSchoolFactory::new()->count(3)->create();
 
         $this->allBillingProfiles = new AllBillingProfiles;
     }

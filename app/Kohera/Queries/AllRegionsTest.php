@@ -8,7 +8,7 @@ use App\Testing\TestCase;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use App\Kohera\Region;
-use Database\Main\Factories\RegionFactory;
+use Database\Kohera\Factories\RegionFactory as KoheraRegionFactory;
 
 final class AllRegionsTest extends TestCase
 {
@@ -16,6 +16,7 @@ final class AllRegionsTest extends TestCase
     {
         parent::setUp();
 
+        KoheraRegionFactory::new()->count(3)->create();
         $this->allRegions = new AllRegions;
     }
 

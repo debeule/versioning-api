@@ -8,7 +8,7 @@ use App\Testing\TestCase;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use App\Kohera\School;
-use Database\Main\Factories\SchoolFactory;
+use Database\Kohera\Factories\SchoolFactory as KoheraSchoolFactory;
 
 final class AllSchoolsTest extends TestCase
 {
@@ -16,6 +16,8 @@ final class AllSchoolsTest extends TestCase
     {
         parent::setUp();
 
+        KoheraSchoolFactory::new()->count(3)->create();
+        
         $this->allSchools = new AllSchools;
     }
 

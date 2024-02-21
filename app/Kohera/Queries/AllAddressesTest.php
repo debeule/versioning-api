@@ -8,13 +8,15 @@ use App\Testing\TestCase;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use App\Kohera\Address;
-use Database\Main\Factories\AddressFactory;
+use Database\Kohera\Factories\SchoolFactory  as KoheraSchoolFactory;
 
 final class AllAddressesTest extends TestCase
 {
     public function setUp(): void
     {
         parent::setUp();
+
+        KoheraSchoolFactory::new()->count(3)->create();
 
         $this->allAddresses = new AllAddresses;
     }

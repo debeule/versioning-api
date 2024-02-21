@@ -16,6 +16,7 @@ final class SyncSportsTest extends TestCase
     {
         parent::setUp();
 
+        KoheraSportFactory::new()->count(3)->create();
         $syncSports = new SyncSports();
         $syncSports();
     }

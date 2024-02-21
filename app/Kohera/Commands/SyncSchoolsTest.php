@@ -26,13 +26,13 @@ final class SyncSchoolsTest extends TestCase
     public function itDispatchesCreateSchoolsWhenNotExists(): void
     {
         $createdKoheraSchools = KoheraSchoolFactory::new()->count(3)->create();
-        dd($createdKoheraSchools);
+        
         foreach ($createdKoheraSchools as $createdKoheraSchool)
         {
             
             AddressFactory::new()->withId('school-' . $createdKoheraSchool->schoolId())->create();
         }
-            
+
         $existingSchools = School::get();
         $koheraSchools = KoheraSchool::get();
 

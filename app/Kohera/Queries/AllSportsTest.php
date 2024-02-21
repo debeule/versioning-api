@@ -8,6 +8,7 @@ use App\Testing\TestCase;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use App\Kohera\Sport;
+use Database\Kohera\Factories\SportFactory as KoheraSportFactory;
 
 final class AllSportsTest extends TestCase
 {
@@ -15,6 +16,7 @@ final class AllSportsTest extends TestCase
     {
         parent::setUp();
 
+        KoheraSportFactory::new()->count(3)->create();
         $this->allSports = new AllSports;
     }
 
