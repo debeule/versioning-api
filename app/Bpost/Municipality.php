@@ -35,7 +35,7 @@ final class Municipality extends Model implements MunicipalityContract
 
     public function headMunicipality(): ?string
     {
-        return $this->HoofdGemeente;
+        return $this->Hoofdgemeente;
     }
 
     public function region(): Region

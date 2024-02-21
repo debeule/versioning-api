@@ -22,7 +22,7 @@ final class MunicipalityFactory extends Factory
             'Postcode' => 2000,
             'Plaatsnaam' => 'Beerse',
             'Deelgemeente' => 'Ja',
-            'HoofdGemeente' => 'Vlimmeren',
+            'Hoofdgemeente' => 'Vlimmeren',
             'Provincie' => $this->faker->randomElement(['Antwerpen', 'Limburg', 'Oost-Vlaanderen', 'Vlaams-Brabant', 'West-Vlaanderen']),
         ];
     }
