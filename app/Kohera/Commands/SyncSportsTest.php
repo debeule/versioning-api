@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Kohera\Queries;
+namespace App\Kohera\Commands;
 
 use App\Testing\TestCase;
 use App\Sport\Sport;
