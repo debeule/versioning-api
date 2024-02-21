@@ -23,12 +23,17 @@ final class MunicipalityFactory extends Factory
             'postal_code' => 2000,
             'province' => 'Antwerpen',
             'head_municipality' => 'Beerse',
-            'region_id' => RegionFactory::new()->create()->id,
+            'region_id' => null,
         ];
     }
 
     public function withPostalCode(int $postalCode): self
     {
         return $this->state(['postal_code' => $postalCode]);
+    }
+    
+    public function withRegion(): self
+    {
+        return $this->state(['region_id' => RegionFactory::new()->create()->id]);
     }
 }

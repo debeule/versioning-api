@@ -22,7 +22,7 @@ final class AddressFactory extends Factory
             'address_id' => $this->faker->randomNumber(3),
             'street_name' => $this->faker->name(),
             'street_identifier' => $this->faker->randomNumber(3) . ' ' . $this->faker->text(5),
-            'municipality_id' => MunicipalityFactory::new()->create()->id,
+            'municipality_id' => MunicipalityFactory::new()->withRegion()->create()->id,
         ];
     }
 
