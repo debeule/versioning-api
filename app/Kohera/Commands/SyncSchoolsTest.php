@@ -8,6 +8,7 @@ use App\Testing\TestCase;
 use App\School\School;
 use App\Kohera\School as KoheraSchool;
 use Database\Kohera\Factories\SchoolFactory as KoheraSchoolFactory;
+use Database\Main\Factories\AddressFactory;
 use App\Kohera\Commands\SyncSchools;
 
 final class SyncSchoolsTest extends TestCase
@@ -15,6 +16,13 @@ final class SyncSchoolsTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
+
+        $schoolRecords = KoheraSchoolFactory::new()->count(3)->create();
+
+        foreach ($schoolRecords as $schoolRecord) 
+        {
+            AddressFactory::new()->withId('school-' . $schoolRecord->id)->create();
+        }
 
         $syncSchools = new SyncSchools();
         $syncSchools();
@@ -25,12 +33,11 @@ final class SyncSchoolsTest extends TestCase
      */
     public function itDispatchesCreateSchoolsWhenNotExists(): void
     {
-        $createdKoheraSchools = KoheraSchoolFactory::new()->count(3)->create();
-        
-        foreach ($createdKoheraSchools as $createdKoheraSchool)
+        $schoolRecords = KoheraSchoolFactory::new()->count(3)->create();
+
+        foreach ($schoolRecords as $schoolRecord) 
         {
-            
-            AddressFactory::new()->withId('school-' . $createdKoheraSchool->schoolId())->create();
+            AddressFactory::new()->withId('school-' . $schoolRecord->id)->create();
         }
 
         $existingSchools = School::get();
