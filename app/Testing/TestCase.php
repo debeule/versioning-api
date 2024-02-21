@@ -9,6 +9,8 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication, dispatchesJobs, RefreshDatabase;
 
+    protected $connectionsToTransact = ['db-testing', 'kohera-testing'];
+
     /**
      * @param object $class
      */
