@@ -19,10 +19,10 @@ final class MunicipalityFactory extends Factory
     public function definition()
     {
         return [
-            'Postcode' => 2000,
-            'Plaatsnaam' => 'Beerse',
-            'Deelgemeente' => 'Ja',
-            'Hoofdgemeente' => 'Vlimmeren',
+            'Postcode' => $this->faker->randomNumber(4),
+            'Plaatsnaam' => $this->faker->city,
+            'Deelgemeente' => $this->faker->randomElement(['Ja', 'Nee']),
+            'Hoofdgemeente' => $this->faker->city,
             'Provincie' => $this->faker->randomElement(['Antwerpen', 'Limburg', 'Oost-Vlaanderen', 'Vlaams-Brabant', 'West-Vlaanderen']),
         ];
     }
