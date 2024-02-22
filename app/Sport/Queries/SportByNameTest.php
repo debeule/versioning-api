@@ -32,7 +32,9 @@ final class SportByNameTest extends TestCase
     {
         $SportByName = new SportByName;
 
-        $this->assertNull($SportByName->find('Non-existing Sport'));
+        $result = $SportByName->find('Non-existing Sport');
+
+        $this->assertNull($result);
     }
 
     #[Test] 
@@ -42,7 +44,9 @@ final class SportByNameTest extends TestCase
         $SportByName = new SportByName;
 
         $sport = SportFactory::new()->withName($sportName)->create();
+
+        $result = $SportByName->get($sportName);
         
-        $this->assertInstanceOf(Sport::class, $SportByName->get($sportName));
+        $this->assertInstanceOf(Sport::class, $result);
     }
 }
