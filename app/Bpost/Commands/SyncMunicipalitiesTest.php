@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\File;
 
 final class SyncMunicipalitiesTest extends TestCase
 {
-    private string $filePath = 'municipalities.xlsx';
+    private string $filePath = 'municipalities.xls';
 
     #[Before]
     public function ensureNoFilePresent(): void

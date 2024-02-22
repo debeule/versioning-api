@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\File;
 
 final class AllMunicipalitiesTest extends TestCase
 {
-    private string $filePath = 'municipalities.xlsx';
+    private string $filePath = 'municipalities.xls';
 
     #[Test]
     public function queryReturnsArrayOfMunicipalities(): void
