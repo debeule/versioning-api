@@ -15,52 +15,49 @@ use App\Location\Region;
 
 final class CreateRegionTest extends TestCase
 {
-    private KoheraRegion $koheraRegion;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->koheraRegion = KoheraRegionFactory::new()->create();
-    } 
-
     #[Test]
     public function itCanCreateSportFromKoheraSport(): void
     {
-        $this->dispatchSync(new CreateRegion($this->koheraRegion));
+        $koheraRegion = KoheraRegionFactory::new()->create();
+
+        $this->dispatchSync(new CreateRegion($koheraRegion));
         
-        $region = Region::where('region_id', $this->koheraRegion->regionId())->first();
+        $region = Region::where('region_id', $koheraRegion->regionId())->first();
         
-        $this->assertInstanceOf(KoheraRegion::class, $this->koheraRegion);
+        $this->assertInstanceOf(KoheraRegion::class, $koheraRegion);
         $this->assertInstanceOf(Region::class, $region);
         
-        $this->assertEquals($this->koheraRegion->regionNumber(), $region->region_number);
+        $this->assertEquals($koheraRegion->regionNumber(), $region->region_number);
     }
 
     #[Test]
     public function ItReturnsFalseWhenExactRecordExists(): void
     {
-        $this->dispatchSync(new CreateRegion($this->koheraRegion));
+        $koheraRegion = KoheraRegionFactory::new()->create();
 
-        $this->assertFalse($this->dispatchSync(new CreateRegion($this->koheraRegion)));
+        $this->dispatchSync(new CreateRegion($koheraRegion));
+
+        $this->assertFalse($this->dispatchSync(new CreateRegion($koheraRegion)));
     }
 
     #[Test]
     public function ItCreatesNewRecordVersionIfExists(): void
     {
-        $this->dispatchSync(new CreateRegion($this->koheraRegion));
+        $koheraRegion = KoheraRegionFactory::new()->create();
+        
+        $this->dispatchSync(new CreateRegion($koheraRegion));
 
-        $oldRegionRecord = Region::where('region_number', $this->koheraRegion->regionNumber())->first();
+        $oldRegionRecord = Region::where('region_number', $koheraRegion->regionNumber())->first();
 
-        $this->koheraRegion->RegionNaam = 'new name';
-        $this->dispatchSync(new CreateRegion($this->koheraRegion));
+        $koheraRegion->RegionNaam = 'new name';
+        $this->dispatchSync(new CreateRegion($koheraRegion));
 
-        $updatedRegionRecord = Region::where('name', $this->koheraRegion->name())->first();
+        $updatedRegionRecord = Region::where('name', $koheraRegion->name())->first();
 
         $this->assertTrue($oldRegionRecord->name !== $updatedRegionRecord->name);
         $this->assertSoftDeleted($oldRegionRecord);
 
-        $this->assertEquals($updatedRegionRecord->name, $this->koheraRegion->name());
+        $this->assertEquals($updatedRegionRecord->name, $koheraRegion->name());
         $this->assertEquals($oldRegionRecord->region_id, $updatedRegionRecord->region_id);
     }
 }

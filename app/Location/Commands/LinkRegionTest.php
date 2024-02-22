@@ -16,41 +16,38 @@ use App\Location\Region;
 
 final class LinkRegionTest extends TestCase
 {
-    private KoheraRegion $koheraRegion;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->koheraRegion = KoheraRegionFactory::new()->create();
-    } 
-
     #[Test]
     public function itReturnsFalseWhenRegionDoesNotExist(): void
     {
-        MunicipalityFactory::new()->withPostalCode($this->koheraRegion->postalCode())->create();
+        $koheraRegion = KoheraRegionFactory::new()->create();
 
-        $this->assertFalse($this->dispatchSync(new LinkRegion($this->koheraRegion)));
+        MunicipalityFactory::new()->withPostalCode($koheraRegion->postalCode())->create();
+
+        $this->assertFalse($this->dispatchSync(new LinkRegion($koheraRegion)));
     }
 
     #[Test]
     public function itReturnsFalseWhenMunicipalityDoesNotExist(): void
     {
-        $this->dispatchSync(new CreateRegion($this->koheraRegion));
+        $koheraRegion = KoheraRegionFactory::new()->create();
+        
+        $this->dispatchSync(new CreateRegion($koheraRegion));
 
-        $this->assertFalse($this->dispatchSync(new LinkRegion($this->koheraRegion)));
+        $this->assertFalse($this->dispatchSync(new LinkRegion($koheraRegion)));
     }
 
     #[Test]
     public function itLinksMunicipalityToRegionWhenExists(): void
     {
-        MunicipalityFactory::new()->withPostalCode($this->koheraRegion->postalCode())->count(3)->create();
+        $koheraRegion = KoheraRegionFactory::new()->create();
+        
+        MunicipalityFactory::new()->withPostalCode($koheraRegion->postalCode())->count(3)->create();
 
-        $this->dispatchSync(new CreateRegion($this->koheraRegion));
+        $this->dispatchSync(new CreateRegion($koheraRegion));
 
-        $region = Region::where('region_id', $this->koheraRegion->regionId())->first();
+        $region = Region::where('region_id', $koheraRegion->regionId())->first();
 
-        $result = $this->dispatchSync(new LinkRegion($this->koheraRegion));
+        $result = $this->dispatchSync(new LinkRegion($koheraRegion));
 
         $linkedMunicipalities = Municipality::where('region_id', $region->id)->get();
 

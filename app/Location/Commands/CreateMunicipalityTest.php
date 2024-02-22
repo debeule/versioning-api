@@ -14,53 +14,50 @@ use App\Location\Municipality;
 
 final class CreateMunicipalityTest extends TestCase
 {
-    private BpostMunicipality $bpostMunicipality;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-        
-        $this->bpostMunicipality = BpostMunicipalityFactory::new()->make();
-    } 
-
     #[Test]
     public function itCanCreateMunicipalityFromBpostMunicipality(): void
     {
-        $this->dispatchSync(new CreateMunicipality($this->bpostMunicipality));
+        $bpostMunicipality = BpostMunicipalityFactory::new()->make();
+
+        $this->dispatchSync(new CreateMunicipality($bpostMunicipality));
         
-        $Municipality = Municipality::where('postal_code', $this->bpostMunicipality->postalCode())->first();
+        $Municipality = Municipality::where('postal_code', $bpostMunicipality->postalCode())->first();
         
-        $this->assertInstanceOf(BpostMunicipality::class, $this->bpostMunicipality);
+        $this->assertInstanceOf(BpostMunicipality::class, $bpostMunicipality);
         $this->assertInstanceOf(Municipality::class, $Municipality);
         
-        $this->assertEquals($this->bpostMunicipality->postalCode(), $Municipality->postal_code);
+        $this->assertEquals($bpostMunicipality->postalCode(), $Municipality->postal_code);
     }
 
     #[Test]
     public function ItReturnsFalseWhenExactRecordExists(): void
     {
-        $this->dispatchSync(new CreateMunicipality($this->bpostMunicipality));
+        $bpostMunicipality = BpostMunicipalityFactory::new()->make();
 
-        $this->assertFalse($this->dispatchSync(new CreateMunicipality($this->bpostMunicipality)));
+        $this->dispatchSync(new CreateMunicipality($bpostMunicipality));
+
+        $this->assertFalse($this->dispatchSync(new CreateMunicipality($bpostMunicipality)));
     }
 
     #[Test]
     public function ItCreatesNewRecordVersionIfExists(): void
     {
-        $this->dispatchSync(new CreateMunicipality($this->bpostMunicipality));
+        $bpostMunicipality = BpostMunicipalityFactory::new()->make();
 
-        $oldMunicipalityRecord = Municipality::where('name', $this->bpostMunicipality->name())->first();
-        
-        $this->bpostMunicipality->Plaatsnaam = 'new name';
-        
-        $this->dispatchSync(new CreateMunicipality($this->bpostMunicipality));
+        $this->dispatchSync(new CreateMunicipality($bpostMunicipality));
 
-        $updatedMunicipalityRecord = Municipality::where('name', $this->bpostMunicipality->name())->first();
+        $oldMunicipalityRecord = Municipality::where('name', $bpostMunicipality->name())->first();
+        
+        $bpostMunicipality->Plaatsnaam = 'new name';
+        
+        $this->dispatchSync(new CreateMunicipality($bpostMunicipality));
+
+        $updatedMunicipalityRecord = Municipality::where('name', $bpostMunicipality->name())->first();
 
         $this->assertNotEquals($oldMunicipalityRecord->name, $updatedMunicipalityRecord->name);
         $this->assertSoftDeleted($oldMunicipalityRecord);
 
-        $this->assertEquals($updatedMunicipalityRecord->name, $this->bpostMunicipality->name());
+        $this->assertEquals($updatedMunicipalityRecord->name, $bpostMunicipality->name());
         $this->assertEquals($oldMunicipalityRecord->Municipality_id, $updatedMunicipalityRecord->Municipality_id);
     }
 }
