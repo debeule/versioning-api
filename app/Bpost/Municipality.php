@@ -30,7 +30,7 @@ final class Municipality extends Model implements MunicipalityContract
 
     public function postalCode(): int
     {
-        return (int) $this->Postcode;
+        return $this->Postcode;
     }
 
     public function headMunicipality(): ?string
