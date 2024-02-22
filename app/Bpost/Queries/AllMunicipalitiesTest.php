@@ -7,20 +7,56 @@ namespace App\Bpost\Queries;
 use App\Testing\TestCase;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
-use App\Kohera\Address;
-use Database\Kohera\Factories\SchoolFactory  as KoheraSchoolFactory;
+use App\Bpost\Municipality;
+use Database\Bpost\Factories\MunicipalityFactory as BpostMunicipalityFactory;
+use Illuminate\Support\Facades\File;
 
 final class AllMunicipalitiesTest extends TestCase
 {
+    private Collection $bpostMunicipalities;
+    private string $fileName;
+    private string $filePath;
+    private AllMunicipalities $allMunicipalities;
+
     public function setUp(): void
     {
         parent::setUp();
+        
+        $this->fileName = 'municipalities.xlsx';
+        $this->filePath = storage_path($this->fileName . '/app');
+
+        $this->bpostMunicipalities = BpostMunicipalityFactory::new()->count(4)->make();
+
+        if (File::exists($this->filePath)) 
+        {
+            File::delete($this->filePath);
+        }
+
+        $this->bpostMunicipalities->storeExcel($this->fileName);
+
+        $this->allMunicipalities = new AllMunicipalities;
     }
 
     /**
      * @test
      */
-    public function placeholder(): void
+    public function queryReturnsArrayOfMunicipalities(): void
+    {
+        $this->assertIsArray($this->allMunicipalities->query());
+    }
+
+    /**
+     * @test
+     */
+    public function getReturnsCollectionOfMunicipalities(): void
+    {
+        $this->assertInstanceOf(Collection::class, $this->allMunicipalities->get());
+        $this->assertInstanceOf(Municipality::class, $this->allMunicipalities->get()[0]);
+    }
+    /**
+     * @test
+     */
+    public function ItCanDOwnloadMunicipalitiesExcelFile(): void
     {
         $this->assertTrue(true);
     }
