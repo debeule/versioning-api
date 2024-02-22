@@ -23,7 +23,7 @@ final class AllMunicipalitiesTest extends TestCase
         parent::setUp();
         
         $this->fileName = 'municipalities.xlsx';
-        $this->filePath = storage_path($this->fileName . '/app');
+        $this->filePath = storage_path('app/' . $this->fileName);
 
         $this->bpostMunicipalities = BpostMunicipalityFactory::new()->count(4)->make();
 
@@ -58,6 +58,17 @@ final class AllMunicipalitiesTest extends TestCase
      */
     public function ItCanDOwnloadMunicipalitiesExcelFile(): void
     {
-        $this->assertTrue(true);
+        putenv('IMPORT_MUNICIPALITIES = true');
+
+        if (File::exists($this->filePath)) 
+        {
+            File::delete($this->filePath);
+        }
+
+        $this->allMunicipalities->importMunicipalitiesFile();
+        
+        $this->assertFileExists($this->filePath);
+
+        putenv('IMPORT_MUNICIPALITIES = false');
     }
 }
