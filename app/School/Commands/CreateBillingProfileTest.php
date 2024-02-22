@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\School\Commands;
 
 use App\Testing\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 use App\Testing\RefreshDatabase;
 use App\School\BillingProfile;
 use App\Kohera\BillingProfile as KoheraBillingProfile;
@@ -30,9 +31,7 @@ final class CreateBillingProfileTest extends TestCase
         SchoolFactory::new()->withId((string) $this->koheraSchool->schoolId())->create();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itCanCreateBillingProfileFromKoheraBillingProfile(): void
     {
         $this->dispatchSync(new CreateBillingProfile($this->koheraBillingProfile));
@@ -45,9 +44,7 @@ final class CreateBillingProfileTest extends TestCase
         $this->assertSame($this->koheraBillingProfile->billingProfileId(), $billingProfile->billing_profile_id);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function ItReturnsFalseWhenExactRecordExists(): void
     {
         $this->dispatchSync(new CreateBillingProfile($this->koheraBillingProfile));
@@ -55,9 +52,7 @@ final class CreateBillingProfileTest extends TestCase
         $this->assertFalse($this->dispatchSync(new CreateBillingProfile($this->koheraBillingProfile)));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function ItCreatesNewRecordVersionIfExists(): void
     {
         $this->dispatchSync(new CreateBillingProfile($this->koheraBillingProfile));

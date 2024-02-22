@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Location\Commands;
 
 use App\Testing\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 use Database\Kohera\Factories\RegionFactory as KoheraRegionFactory;
 use App\Testing\RefreshDatabase;
 use App\Location\Commands\CreateRegion;
@@ -23,9 +24,7 @@ final class CreateRegionTest extends TestCase
         $this->koheraRegion = KoheraRegionFactory::new()->create();
     } 
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itCanCreateSportFromKoheraSport(): void
     {
         $this->dispatchSync(new CreateRegion($this->koheraRegion));
@@ -38,9 +37,7 @@ final class CreateRegionTest extends TestCase
         $this->assertEquals($this->koheraRegion->regionNumber(), $region->region_number);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function ItReturnsFalseWhenExactRecordExists(): void
     {
         $this->dispatchSync(new CreateRegion($this->koheraRegion));
@@ -48,9 +45,7 @@ final class CreateRegionTest extends TestCase
         $this->assertFalse($this->dispatchSync(new CreateRegion($this->koheraRegion)));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function ItCreatesNewRecordVersionIfExists(): void
     {
         $this->dispatchSync(new CreateRegion($this->koheraRegion));

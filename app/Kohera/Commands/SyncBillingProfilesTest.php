@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Kohera\Commands;
 
 use App\Testing\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 use App\School\BillingProfile;
 use App\Kohera\BillingProfile as KoheraBillingProfile;
 use App\Kohera\School as KoheraSchool;
@@ -31,9 +32,7 @@ final class SyncBillingProfilesTest extends TestCase
         $syncBillingProfiles();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itDispatchesCreateBillingProfilesWhenNotExists(): void
     {
         $schoolRecords = KoheraSchoolFactory::new()->count(3)->create();
@@ -57,9 +56,7 @@ final class SyncBillingProfilesTest extends TestCase
         $this->assertEquals($existingBillingProfiles->count(), $koheraBillingProfiles->count());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itSoftDeletesDeletedRecords(): void
     {
         $koheraSchool = KoheraSchool::first();  

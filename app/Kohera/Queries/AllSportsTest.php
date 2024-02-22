@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Kohera\Queries;
 
 use App\Testing\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use App\Kohera\Sport;
@@ -20,17 +21,13 @@ final class AllSportsTest extends TestCase
         $this->allSports = new AllSports;
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function queryReturnsBuilderInstance(): void
     {
         $this->assertInstanceOf(Builder::class, $this->allSports->query());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getReturnsCollectionOfSports(): void
     {
         $this->assertInstanceOf(Collection::class, $this->allSports->get());

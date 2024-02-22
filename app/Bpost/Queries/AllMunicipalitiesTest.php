@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Bpost\Queries;
 
 use App\Testing\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use App\Bpost\Municipality;
@@ -37,25 +38,19 @@ final class AllMunicipalitiesTest extends TestCase
         $this->allMunicipalities = new AllMunicipalities;
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function queryReturnsArrayOfMunicipalities(): void
     {
         $this->assertIsArray($this->allMunicipalities->query());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getReturnsCollectionOfMunicipalities(): void
     {
         $this->assertInstanceOf(Collection::class, $this->allMunicipalities->get());
         $this->assertInstanceOf(Municipality::class, $this->allMunicipalities->get()[0]);
     }
-    /**
-     * @test
-     */
+    #[Test]
     public function ItCanDOwnloadMunicipalitiesExcelFile(): void
     {
         putenv('IMPORT_MUNICIPALITIES = true');

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Bpost\Commands;
 
 use App\Testing\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 use App\School\School;
 use App\Bpost\School as BpostSchool;
 use Database\Bpost\Factories\MunicipalityFactory as BpostMunicipalityFactory;
@@ -44,9 +45,7 @@ final class SyncMunicipalitiesTest extends TestCase
         $syncMunicipalities();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itDispatchesCreateMunicipalitiesWhenNotExists(): void
     {
         $this->bpostMunicipalities->push(BpostMunicipalityFactory::new()->make());
@@ -70,9 +69,7 @@ final class SyncMunicipalitiesTest extends TestCase
         $this->assertEquals($existingMunicipalities->count(), $this->bpostMunicipalities->count() -1);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itSoftDeletesDeletedRecords(): void
     {
         $deletedMunicipality = $this->bpostMunicipalities->pop();

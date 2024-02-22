@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Sport\Queries;
 
 use App\Testing\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 use App\Sport\Queries\SportByName;
 use App\Sport\Sport;
 use App\Testing\RefreshDatabase;
@@ -13,9 +14,7 @@ use Database\Main\Factories\SportFactory;
 
 final class SportByNameTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function ItCanGetASportByName(): void
     {
         $sportName = 'Football';
@@ -28,9 +27,7 @@ final class SportByNameTest extends TestCase
         $this->assertSame($sport->name, $result->name);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function ItReturnsNullIfSportNotFound(): void
     {
         $SportByName = new SportByName;
@@ -38,9 +35,7 @@ final class SportByNameTest extends TestCase
         $this->assertNull($SportByName->find('Non-existing Sport'));
     }
 
-    /**
-     * @test
-     */ 
+    #[Test] 
     public function ItCanCreateInstanceofSport(): void
     {
         $sportName = 'Football';

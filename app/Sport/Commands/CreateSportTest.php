@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Sport\Commands;
 
 use App\Testing\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 use App\Sport\Sport;
 use App\Kohera\Sport as KoheraSport;
 use Database\Kohera\Factories\SportFactory as KoheraSportFactory;
@@ -23,9 +24,7 @@ final class CreateSportTest extends TestCase
         $this->koheraSport = KoheraSportFactory::new()->create();
     } 
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itCanCreateSportFromKoheraSport(): void
     {
         $this->dispatchSync(new CreateSport($this->koheraSport));
@@ -38,9 +37,7 @@ final class CreateSportTest extends TestCase
         $this->assertEquals($this->koheraSport->name(), $sport->name);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function ItReturnsFalseWhenExactRecordExists(): void
     {
         $this->dispatchSync(new CreateSport($this->koheraSport));
@@ -48,9 +45,7 @@ final class CreateSportTest extends TestCase
         $this->assertFalse($this->dispatchSync(new CreateSport($this->koheraSport)));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function ItCreatesNewRecordVersionIfExists(): void
     {
         $this->dispatchSync(new CreateSport($this->koheraSport));

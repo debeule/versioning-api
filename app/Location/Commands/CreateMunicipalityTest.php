@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Location\Commands;
 
 use App\Testing\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 use Database\Bpost\Factories\MunicipalityFactory as BpostMunicipalityFactory;
 use App\Location\Commands\CreateMunicipality;
 use App\Bpost\Municipality as BpostMunicipality;
@@ -22,9 +23,7 @@ final class CreateMunicipalityTest extends TestCase
         $this->bpostMunicipality = BpostMunicipalityFactory::new()->make();
     } 
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itCanCreateMunicipalityFromBpostMunicipality(): void
     {
         $this->dispatchSync(new CreateMunicipality($this->bpostMunicipality));
@@ -37,9 +36,7 @@ final class CreateMunicipalityTest extends TestCase
         $this->assertEquals($this->bpostMunicipality->postalCode(), $Municipality->postal_code);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function ItReturnsFalseWhenExactRecordExists(): void
     {
         $this->dispatchSync(new CreateMunicipality($this->bpostMunicipality));
@@ -47,9 +44,7 @@ final class CreateMunicipalityTest extends TestCase
         $this->assertFalse($this->dispatchSync(new CreateMunicipality($this->bpostMunicipality)));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function ItCreatesNewRecordVersionIfExists(): void
     {
         $this->dispatchSync(new CreateMunicipality($this->bpostMunicipality));

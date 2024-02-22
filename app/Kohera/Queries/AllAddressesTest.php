@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Kohera\Queries;
 
 use App\Testing\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use App\Kohera\Address;
@@ -21,17 +22,13 @@ final class AllAddressesTest extends TestCase
         $this->allAddresses = new AllAddresses;
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function queryReturnsBuilderInstance(): void
     {
         $this->assertInstanceOf(Builder::class, $this->allAddresses->query());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getReturnsCollectionOfAddresses(): void
     {
         $this->assertInstanceOf(Collection::class, $this->allAddresses->get());

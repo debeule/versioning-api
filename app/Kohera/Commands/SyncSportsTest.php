@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Kohera\Commands;
 
 use App\Testing\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 use App\Sport\Sport;
 use App\Kohera\Sport as KoheraSport;
 use Database\Kohera\Factories\SportFactory as KoheraSportFactory;
@@ -21,9 +22,7 @@ final class SyncSportsTest extends TestCase
         $syncSports();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itDispatchesCreateSportsWhenNotExists(): void
     {
         KoheraSportFactory::new()->count(3)->create();
@@ -41,9 +40,7 @@ final class SyncSportsTest extends TestCase
         $this->assertEquals($existingSports->count(), $koheraSports->count());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itSoftDeletesDeletedRecords(): void
     {
         $koheraSport = KoheraSport::first();

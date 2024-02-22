@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Location\Commands;
 
 use App\Testing\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 use Database\Kohera\Factories\RegionFactory as KoheraRegionFactory;
 use Database\Main\Factories\MunicipalityFactory;
 use App\Location\Commands\LinkRegion;
@@ -24,9 +25,7 @@ final class LinkRegionTest extends TestCase
         $this->koheraRegion = KoheraRegionFactory::new()->create();
     } 
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itReturnsFalseWhenRegionDoesNotExist(): void
     {
         MunicipalityFactory::new()->withPostalCode($this->koheraRegion->postalCode())->create();
@@ -34,9 +33,7 @@ final class LinkRegionTest extends TestCase
         $this->assertFalse($this->dispatchSync(new LinkRegion($this->koheraRegion)));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itReturnsFalseWhenMunicipalityDoesNotExist(): void
     {
         $this->dispatchSync(new CreateRegion($this->koheraRegion));
@@ -44,9 +41,7 @@ final class LinkRegionTest extends TestCase
         $this->assertFalse($this->dispatchSync(new LinkRegion($this->koheraRegion)));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itLinksMunicipalityToRegionWhenExists(): void
     {
         MunicipalityFactory::new()->withPostalCode($this->koheraRegion->postalCode())->count(3)->create();

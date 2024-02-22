@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Kohera\Queries;
 
 use App\Testing\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use App\Kohera\Region;
@@ -20,17 +21,13 @@ final class AllRegionsTest extends TestCase
         $this->allRegions = new AllRegions;
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function queryReturnsBuilderInstance(): void
     {
         $this->assertInstanceOf(Builder::class, $this->allRegions->query());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getReturnsCollectionOfRegions(): void
     {
         $this->assertInstanceOf(Collection::class, $this->allRegions->get());

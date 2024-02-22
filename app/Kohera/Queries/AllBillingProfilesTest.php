@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Kohera\Queries;
 
 use App\Testing\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use App\Kohera\BillingProfile;
@@ -21,17 +22,13 @@ final class AllBillingProfilesTest extends TestCase
         $this->allBillingProfiles = new AllBillingProfiles;
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function queryReturnsBuilderInstance(): void
     {
         $this->assertInstanceOf(Builder::class, $this->allBillingProfiles->query());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getReturnsCollectionOfBillingProfiles(): void
     {
         $this->assertInstanceOf(Collection::class, $this->allBillingProfiles->get());

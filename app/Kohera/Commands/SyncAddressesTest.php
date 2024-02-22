@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Kohera\Commands;
 
 use App\Testing\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 use App\School\Address;
 use App\Kohera\Address as KoheraAddress;
 use App\Kohera\School as KoheraSchool;
@@ -25,9 +26,7 @@ final class SyncAddressesTest extends TestCase
         $syncAddresses();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itDispatchesCreateAddressesWhenNotExists(): void
     {
 
@@ -46,9 +45,7 @@ final class SyncAddressesTest extends TestCase
         $this->assertEquals($existingAddresses->count() / 2, $koheraAddresses->count());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itSoftDeletesDeletedRecords(): void
     {
         $koheraSchool = KoheraSchool::first();  

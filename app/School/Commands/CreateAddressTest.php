@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\School\Commands;
 
 use App\Testing\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 use App\Testing\RefreshDatabase;
 use App\School\Address;
 use App\Kohera\School as KoheraSchool;
@@ -28,9 +29,7 @@ final class CreateAddressTest extends TestCase
         MunicipalityFactory::new()->withRegion()->withPostalCode($this->koheraSchool->Postcode)->create();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itCanCreateAddressFromKoheraAddress(): void
     {
         $this->dispatchSync(new CreateAddress($this->koheraAddress));
@@ -43,9 +42,7 @@ final class CreateAddressTest extends TestCase
         $this->assertSame($this->koheraAddress->addressId(), $address->address_id);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function ItReturnsFalseWhenExactRecordExists(): void
     {
         $this->dispatchSync(new CreateAddress($this->koheraAddress));
@@ -53,9 +50,7 @@ final class CreateAddressTest extends TestCase
         $this->assertFalse($this->dispatchSync(new CreateAddress($this->koheraAddress)));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function ItCreatesNewRecordVersionIfExists(): void
     {
         $this->dispatchSync(new CreateAddress($this->koheraAddress));

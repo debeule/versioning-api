@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Kohera\Commands;
 
 use App\Testing\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 use App\Location\Region;
 use App\Kohera\Region as KoheraRegion;
 use Database\Kohera\Factories\RegionFactory as KoheraRegionFactory;
@@ -23,9 +24,7 @@ final class SyncRegionsTest extends TestCase
         $syncRegions();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itDispatchesCreateRegionsWhenNotExists(): void
     {
         $regionRecords = KoheraRegionFactory::new()->count(3)->create();
@@ -43,9 +42,7 @@ final class SyncRegionsTest extends TestCase
         $this->assertEquals($existingRegions->count(), $koheraRegions->count());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itSoftDeletesDeletedRecords(): void
     {
         $koheraRegion = KoheraRegion::first();

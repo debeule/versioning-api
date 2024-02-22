@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Kohera\Commands;
 
 use App\Testing\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 use App\School\School;
 use App\Kohera\School as KoheraSchool;
 use Database\Kohera\Factories\SchoolFactory as KoheraSchoolFactory;
@@ -28,9 +29,7 @@ final class SyncSchoolsTest extends TestCase
         $syncSchools();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itDispatchesCreateSchoolsWhenNotExists(): void
     {
         $schoolRecords = KoheraSchoolFactory::new()->count(3)->create();
@@ -53,9 +52,7 @@ final class SyncSchoolsTest extends TestCase
         $this->assertEquals($existingSchools->count(), $koheraSchools->count());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itSoftDeletesDeletedRecords(): void
     {
         $koheraSchool = KoheraSchool::first();

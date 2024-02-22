@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\School\Commands;
 
 use App\Testing\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 use App\School\School;
 use App\Kohera\School as KoheraSchool;
 use Database\Kohera\Factories\SchoolFactory as KoheraSchoolFactory;
@@ -23,9 +24,7 @@ final class CreateSchoolTest extends TestCase
         AddressFactory::new()->withId('school-' . $this->koheraSchool->schoolId())->create();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function itCanCreateSchoolFromKoheraSchool(): void
     {
         $this->dispatchSync(new CreateSchool($this->koheraSchool));
@@ -38,9 +37,7 @@ final class CreateSchoolTest extends TestCase
         $this->assertSame($this->koheraSchool->name(), $school->name);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function ItReturnsFalseWhenExactRecordExists(): void
     {
         $this->dispatchSync(new CreateSchool($this->koheraSchool));
@@ -48,9 +45,7 @@ final class CreateSchoolTest extends TestCase
         $this->assertFalse($this->dispatchSync(new CreateSchool($this->koheraSchool)));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function ItCreatesNewRecordVersionIfExists(): void
     {
         $this->dispatchSync(new CreateSchool($this->koheraSchool));
