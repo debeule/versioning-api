@@ -22,10 +22,10 @@ final class Municipality extends Model
      */
     protected $fillable = [
         'name',
-    ];
-
-    protected $casts = [
-        'type' => 'string',
+        'postal_code',
+        'province',
+        'head_municipality',
+        'region_id',
     ];
 
     public function address(): HasMany
