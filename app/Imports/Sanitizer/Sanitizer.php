@@ -6,25 +6,41 @@ namespace App\Imports\Sanitizer;
 
 final class Sanitizer
 {
-    public object $subject;
+    private string $input = '';
 
-    public function cleanAllFields(object $object): object
+    public function __construct(string $input)
     {
-        foreach ($object->getAttributes() as $key => $value) 
-        {
-            if (is_string($value)) 
-            {
-                $object->{$key} = $this->cleanAttribute($value);
-            }
-        }
-
-        return $object;
+        $this->input = $input;
     }
 
-    private function cleanAttribute(string $input): string
+    public static function input($input): self
     {
-        $intput = trim($input);
+        return new self((string) $input);
+    }
 
-        return $input;
+    public function defaultSanitising(): self
+    {
+        return new self($this->trimString());
+    }
+
+    public function value(): string
+    {
+        return $this->input;
+    }
+
+    public function intValue(): int
+    {
+        return (int) $this->input;
+    }
+
+    //string cleaning methods
+    public function stringToLower(): self
+    {
+        return new self(strtolower($this->input));
+    }
+
+    public function trimString(): self
+    {
+        return new self(trim($this->input));
     }
 }
