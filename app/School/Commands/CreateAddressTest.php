@@ -16,58 +16,60 @@ use Database\Main\Factories\MunicipalityFactory;
 
 final class CreateAddressTest extends TestCase
 {
-    private KoheraAddress $koheraAddress;
-    private koheraSchool $koheraSchool;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->koheraSchool = KoheraSchoolFactory::new()->create();
-        $this->koheraAddress = new KoheraAddress($this->koheraSchool);
-        
-        MunicipalityFactory::new()->withRegion()->withPostalCode($this->koheraSchool->Postcode)->create();
-    }
-
     #[Test]
     public function itCanCreateAddressFromKoheraAddress(): void
     {
-        $this->dispatchSync(new CreateAddress($this->koheraAddress));
+        $koheraSchool = KoheraSchoolFactory::new()->create();
+        $koheraAddress = new KoheraAddress($koheraSchool);
         
-        $address = Address::where('address_id', $this->koheraAddress->addressId())->first();
+        MunicipalityFactory::new()->withRegion()->withPostalCode($koheraSchool->Postcode)->create();
+        
+        $this->dispatchSync(new CreateAddress($koheraAddress));
+        
+        $address = Address::where('address_id', $koheraAddress->addressId())->first();
 
-        $this->assertInstanceOf(KoheraAddress::class, $this->koheraAddress);
+        $this->assertInstanceOf(KoheraAddress::class, $koheraAddress);
         $this->assertInstanceOf(Address::class, $address);
 
-        $this->assertSame($this->koheraAddress->addressId(), $address->address_id);
+        $this->assertSame($koheraAddress->addressId(), $address->address_id);
     }
 
     #[Test]
     public function ItReturnsFalseWhenExactRecordExists(): void
     {
-        $this->dispatchSync(new CreateAddress($this->koheraAddress));
+        $koheraSchool = KoheraSchoolFactory::new()->create();
+        $koheraAddress = new KoheraAddress($koheraSchool);
         
-        $this->assertFalse($this->dispatchSync(new CreateAddress($this->koheraAddress)));
+        MunicipalityFactory::new()->withRegion()->withPostalCode($koheraSchool->Postcode)->create();
+        
+        $this->dispatchSync(new CreateAddress($koheraAddress));
+        
+        $this->assertFalse($this->dispatchSync(new CreateAddress($koheraAddress)));
     }
 
     #[Test]
     public function ItCreatesNewRecordVersionIfExists(): void
     {
-        $this->dispatchSync(new CreateAddress($this->koheraAddress));
+        $koheraSchool = KoheraSchoolFactory::new()->create();
+        $koheraAddress = new KoheraAddress($koheraSchool);
+        
+        MunicipalityFactory::new()->withRegion()->withPostalCode($koheraSchool->Postcode)->create();
+        
+        $this->dispatchSync(new CreateAddress($koheraAddress));
 
-        $oldAddress = Address::where('street_name', $this->koheraAddress->streetName())->first();
+        $oldAddress = Address::where('street_name', $koheraAddress->streetName())->first();
         $oldName = $oldAddress->name;
         
-        $this->koheraSchool->address = 'new name';
+        $koheraSchool->address = 'new name';
 
-        $this->dispatchSync(new CreateAddress(new KoheraAddress($this->koheraSchool)));
+        $this->dispatchSync(new CreateAddress(new KoheraAddress($koheraSchool)));
 
-        $updatedAddress = Address::where('street_name', $this->koheraAddress->streetName())->first();
+        $updatedAddress = Address::where('street_name', $koheraAddress->streetName())->first();
         
         $this->assertNotEquals($oldAddress->street_name, $updatedAddress->street_name);
         $this->assertSoftDeleted($oldAddress);
 
-        $this->assertEquals($updatedAddress->street_name, $this->koheraAddress->streetName());
+        $this->assertEquals($updatedAddress->street_name, $koheraAddress->streetName());
         $this->assertEquals($oldAddress->address_id, $updatedAddress->address_id);
     }
 }
