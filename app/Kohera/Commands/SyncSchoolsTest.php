@@ -14,10 +14,9 @@ use App\Kohera\Commands\SyncSchools;
 
 final class SyncSchoolsTest extends TestCase
 {
-    public function setUp(): void
+    #[Test]
+    public function itDispatchesCreateSchoolsWhenNotExists(): void
     {
-        parent::setUp();
-
         $schoolRecords = KoheraSchoolFactory::new()->count(3)->create();
 
         foreach ($schoolRecords as $schoolRecord) 
@@ -27,11 +26,7 @@ final class SyncSchoolsTest extends TestCase
 
         $syncSchools = new SyncSchools();
         $syncSchools();
-    }
 
-    #[Test]
-    public function itDispatchesCreateSchoolsWhenNotExists(): void
-    {
         $schoolRecords = KoheraSchoolFactory::new()->count(3)->create();
 
         foreach ($schoolRecords as $schoolRecord) 
@@ -55,6 +50,16 @@ final class SyncSchoolsTest extends TestCase
     #[Test]
     public function itSoftDeletesDeletedRecords(): void
     {
+        $schoolRecords = KoheraSchoolFactory::new()->count(3)->create();
+
+        foreach ($schoolRecords as $schoolRecord) 
+        {
+            AddressFactory::new()->withId('school-' . $schoolRecord->id)->create();
+        }
+
+        $syncSchools = new SyncSchools();
+        $syncSchools();
+        
         $koheraSchool = KoheraSchool::first();
         $koheraSchoolName = $koheraSchool->name();
         $koheraSchool->delete();

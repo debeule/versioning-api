@@ -13,18 +13,13 @@ use App\Kohera\Commands\SyncSports;
 
 final class SyncSportsTest extends TestCase
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        KoheraSportFactory::new()->count(3)->create();
-        $syncSports = new SyncSports();
-        $syncSports();
-    }
-
     #[Test]
     public function itDispatchesCreateSportsWhenNotExists(): void
     {
+        KoheraSportFactory::new()->count(3)->create();
+        $syncSports = new SyncSports();
+        $syncSports();
+
         KoheraSportFactory::new()->count(3)->create();
 
         $existingSports = Sport::get();
@@ -43,11 +38,14 @@ final class SyncSportsTest extends TestCase
     #[Test]
     public function itSoftDeletesDeletedRecords(): void
     {
+        KoheraSportFactory::new()->count(3)->create();
+        $syncSports = new SyncSports();
+        $syncSports();
+
         $koheraSport = KoheraSport::first();
         $koheraSportName = $koheraSport->name();
         $koheraSport->delete();
 
-        
         $syncSports = new SyncSports();
         $syncSports();
             

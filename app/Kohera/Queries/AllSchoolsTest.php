@@ -13,24 +13,23 @@ use Database\Kohera\Factories\SchoolFactory as KoheraSchoolFactory;
 
 final class AllSchoolsTest extends TestCase
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        KoheraSchoolFactory::new()->count(3)->create();
-        
-        $this->allSchools = new AllSchools;
-    }
-
     #[Test]
     public function queryReturnsBuilderInstance(): void
     {
+        KoheraSchoolFactory::new()->count(3)->create();
+        
+        $this->allSchools = new AllSchools;
+
         $this->assertInstanceOf(Builder::class, $this->allSchools->query());
     }
 
     #[Test]
     public function getReturnsCollectionOfSchools(): void
     {
+        KoheraSchoolFactory::new()->count(3)->create();
+        
+        $this->allSchools = new AllSchools;
+        
         $this->assertInstanceOf(Collection::class, $this->allSchools->get());
         $this->assertInstanceOf(School::class, $this->allSchools->get()[0]);
     }

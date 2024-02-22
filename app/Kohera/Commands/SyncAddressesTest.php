@@ -15,20 +15,14 @@ use App\Kohera\Commands\SyncAddresses;
 
 final class SyncAddressesTest extends TestCase
 {
-    public function setUp(): void
+    #[Test]
+    public function itDispatchesCreateAddressesWhenNotExists(): void
     {
-        parent::setUp();
-
         KoheraSchoolFactory::new()->count(3)->create();
         MunicipalityFactory::new()->create();
 
         $syncAddresses = new SyncAddresses();
         $syncAddresses();
-    }
-
-    #[Test]
-    public function itDispatchesCreateAddressesWhenNotExists(): void
-    {
 
         KoheraSchoolFactory::new()->count(3)->create();
 
@@ -48,6 +42,12 @@ final class SyncAddressesTest extends TestCase
     #[Test]
     public function itSoftDeletesDeletedRecords(): void
     {
+        KoheraSchoolFactory::new()->count(3)->create();
+        MunicipalityFactory::new()->create();
+
+        $syncAddresses = new SyncAddresses();
+        $syncAddresses();
+        
         $koheraSchool = KoheraSchool::first();  
 
         $koheraAddress = new KoheraAddress($koheraSchool);

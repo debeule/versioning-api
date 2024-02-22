@@ -16,10 +16,9 @@ use App\Kohera\Commands\SyncBillingProfiles;
 
 final class SyncBillingProfilesTest extends TestCase
 {
-    public function setUp(): void
+    #[Test]
+    public function itDispatchesCreateBillingProfilesWhenNotExists(): void
     {
-        parent::setUp();
-
         $schoolRecords = KoheraSchoolFactory::new()->count(3)->create();
 
         foreach ($schoolRecords as $schoolRecord) 
@@ -30,11 +29,7 @@ final class SyncBillingProfilesTest extends TestCase
 
         $syncBillingProfiles = new SyncBillingProfiles();
         $syncBillingProfiles();
-    }
 
-    #[Test]
-    public function itDispatchesCreateBillingProfilesWhenNotExists(): void
-    {
         $schoolRecords = KoheraSchoolFactory::new()->count(3)->create();
 
         foreach ($schoolRecords as $schoolRecord) 
@@ -59,6 +54,17 @@ final class SyncBillingProfilesTest extends TestCase
     #[Test]
     public function itSoftDeletesDeletedRecords(): void
     {
+        $schoolRecords = KoheraSchoolFactory::new()->count(3)->create();
+
+        foreach ($schoolRecords as $schoolRecord) 
+        {
+            AddressFactory::new()->withId('billing_profile-' . $schoolRecord->id)->create();
+            $school = SchoolFactory::new()->withId( (string) $schoolRecord->id)->create();
+        }
+
+        $syncBillingProfiles = new SyncBillingProfiles();
+        $syncBillingProfiles();
+
         $koheraSchool = KoheraSchool::first();  
 
         $koheraBillingProfile = new KoheraBillingProfile($koheraSchool);

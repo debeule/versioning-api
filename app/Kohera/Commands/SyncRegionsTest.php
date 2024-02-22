@@ -14,19 +14,14 @@ use App\Kohera\Commands\SyncRegions;
 
 final class SyncRegionsTest extends TestCase
 {
-    public function setUp(): void
+    #[Test]
+    public function itDispatchesCreateRegionsWhenNotExists(): void
     {
-        parent::setUp();
-
         $regionRecords = KoheraRegionFactory::new()->count(3)->create();
 
         $syncRegions = new SyncRegions();
         $syncRegions();
-    }
 
-    #[Test]
-    public function itDispatchesCreateRegionsWhenNotExists(): void
-    {
         $regionRecords = KoheraRegionFactory::new()->count(3)->create();
 
         $existingRegions = Region::get();
@@ -45,6 +40,11 @@ final class SyncRegionsTest extends TestCase
     #[Test]
     public function itSoftDeletesDeletedRecords(): void
     {
+        $regionRecords = KoheraRegionFactory::new()->count(3)->create();
+
+        $syncRegions = new SyncRegions();
+        $syncRegions();
+        
         $koheraRegion = KoheraRegion::first();
         $koheraRegionName = $koheraRegion->name();
         $koheraRegion->delete();
