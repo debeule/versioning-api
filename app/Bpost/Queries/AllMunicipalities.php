@@ -10,14 +10,17 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Http;
 use Excel;
 use App\Bpost\Municipality;
+use Illuminate\Support\Facades\File;
 
 final class AllMunicipalities
 {
-    private string $url = 'https://www.bpost2.be/zipcodes/files/zipcodes_alpha_nl_new.xls';
-
     public function query(): Array
     {
-        // $this->importMunicipalitiesFile($this->url);
+        if (env('APP_ENV') != 'testing')
+        {
+            $url = 'https://www.bpost2.be/zipcodes/files/zipcodes_alpha_nl_new.xls';
+            $this->importMunicipalitiesFile($url);
+        }
 
         $filePath = storage_path('app/municipalities.xlsx');
         $data = Excel::toArray([], $filePath, null, \Maatwebsite\Excel\Excel::XLSX)[0];
@@ -72,7 +75,15 @@ final class AllMunicipalities
 
     public function importMunicipalitiesFile(string $url): bool
     {
+        $filePath = 'app/municipalities.xlsx';
+
         $file = Http::withOptions(['verify' => false])->get($url)->body();
-        return Storage::disk('local')->put('municipalities.xlsx', $file);
+
+        if (File::exists($filePath)) 
+        {
+            File::delete($filePath);
+        }
+
+        return Storage::disk('local')->put($filePath, $file);
     }
 }
