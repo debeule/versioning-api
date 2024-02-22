@@ -7,6 +7,7 @@ namespace App\Kohera;
 use Illuminate\Database\Eloquent\Model;
 use Database\Kohera\Factories\RegionFactory;
 use App\Imports\Queries\Region as RegionContract;
+use App\Imports\Sanitizer\Sanitizer;
 
 final class Region extends Model implements RegionContract
 {
@@ -23,21 +24,21 @@ final class Region extends Model implements RegionContract
 
     public function regionId(): int
     {
-        return $this->id;
+        return Sanitizer::input($this->id)->intValue();
     }
 
     public function name(): string
     {
-        return $this->RegionNaam;
+        return Sanitizer::input($this->RegionNaam)->stringToLower()->value();
     }
 
     public function regionNumber(): int
     {
-        return $this->RegioDetailId;
+        return Sanitizer::input($this->RegioDetailId)->intValue();
     }
 
     public function postalCode(): int
     {
-        return $this->Postcode;
+        return Sanitizer::input($this->Postcode)->intValue();
     }   
 }

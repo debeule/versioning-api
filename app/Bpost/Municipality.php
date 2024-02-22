@@ -7,6 +7,7 @@ namespace App\Bpost;
 use Illuminate\Database\Eloquent\Model;
 use App\Imports\Queries\Municipality as MunicipalityContract;
 use App\Location\Region;
+use App\Imports\Sanitizer\Sanitizer;
 
 final class Municipality extends Model implements MunicipalityContract
 {
@@ -20,22 +21,22 @@ final class Municipality extends Model implements MunicipalityContract
 
     public function name(): string
     {
-        return $this->Plaatsnaam;
+        return Sanitizer::input($this->Plaatsnaam)->stringToLower()->value();
     }
 
     public function province(): string
     {
-        return $this->Provincie;
+        return Sanitizer::input($this->Provincie)->stringToLower()->value();
     }
 
     public function postalCode(): int
     {
-        return $this->Postcode;
+        return Sanitizer::input($this->Postcode)->intValue();
     }
 
     public function headMunicipality(): ?string
     {
-        return $this->Hoofdgemeente;
+        return Sanitizer::input($this->Hoofdgemeente)->stringToLower()->value();
     }
 
     public function region(): Region

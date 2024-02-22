@@ -6,6 +6,7 @@ namespace App\Kohera;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Imports\Queries\Sport as SportContract;
+use App\Imports\Sanitizer\Sanitizer;
 
 final class Sport extends Model implements SportContract
 {
@@ -22,11 +23,11 @@ final class Sport extends Model implements SportContract
 
     public function sportId(): int
     {
-        return $this->id;
+        return Sanitizer::input($this->id)->intValue();
     }
 
     public function name(): string
     {
-        return $this->Sportkeuze;
+        return Sanitizer::input($this->Sportkeuze)->stringToLower()->value();
     }
 }

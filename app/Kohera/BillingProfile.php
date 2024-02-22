@@ -9,6 +9,7 @@ use App\Imports\Queries\BillingProfile as BillingProfileContract;
 use App\School\Address;
 use App\School\School;
 use App\Kohera\School as KoheraSchool;
+use App\Imports\Sanitizer\Sanitizer;
 
 final class BillingProfile extends Model implements BillingProfileContract
 {
@@ -18,36 +19,36 @@ final class BillingProfile extends Model implements BillingProfileContract
     
     public function billingProfileId(): int
     {
-        return $this->school->id;
+        return Sanitizer::input($this->school->id)->intValue();
     }
 
     public function name(): string
     {
-        return $this->school->Facturatie_Naam;
+        return Sanitizer::input($this->school->Facturatie_Naam)->value();
     }
 
     public function email(): string
     {
-        return $this->school->Facturatie_Email;
+        return Sanitizer::input($this->school->Facturatie_Email)->value();
     }
 
     public function vatNumber(): string
     {
-        return $this->school->BTWNummer;
+        return Sanitizer::input($this->school->BTWNummer)->value();
     }
 
     public function tav(): string
     {
-        return $this->school->Facturatie_Tav;
+        return Sanitizer::input($this->school->Facturatie_Tav)->stringToLower()->value();
     }
 
     public function address(): Address
     {
-        return Address::where('address_id', 'billing_profile-' . $this->school->id)->first();
+        return Address::where('address_id', 'billing_profile-' . $this->billingProfileId())->first();
     }
     
     public function school(): School
     {
-        return School::where('school_id', $this->school->id)->first();
+        return School::where('school_id', $this->billingProfileId())->first();
     }
 }

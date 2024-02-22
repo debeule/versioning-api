@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Imports\Queries\Address as AddressContract;
 use App\Location\Municipality;
 use App\Kohera\School;
+use App\Imports\Sanitizer\Sanitizer;
 
 final class Address extends Model implements AddressContract
 {
@@ -17,21 +18,22 @@ final class Address extends Model implements AddressContract
 
     public function addressId(): string
     {
-        return (string) $this->address_id;
+        return Sanitizer::input($this->address_id)->stringToLower()->value();
     }
 
     public function streetName(): string
     {
-        return explode(' ', $this->school->address)[0];
+        return Sanitizer::input(explode(' ', $this->school->address)[0])->stringToLower()->value();
     }
 
     public function streetIdentifier(): string
     {
-        return explode(' ', $this->school->address)[1];
+        return Sanitizer::input(explode(' ', $this->school->address)[1])->stringToLower()->value();
     }
 
     public function municipality(): Municipality
     {
-        return Municipality::where('postal_code', $this->school->Postcode)->first();
+        $postalCode = Sanitizer::input($this->school->Postcode)->value();
+        return Municipality::where('postal_code', $postalCode)->first();
     }
 }

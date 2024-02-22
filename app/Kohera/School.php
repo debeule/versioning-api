@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Imports\Queries\School as SchoolContract;
 use App\School\Address;
 use Database\Kohera\Factories\SchoolFactory;
+use App\Imports\Sanitizer\Sanitizer;
 
 final class School extends Model implements SchoolContract
 {
@@ -42,49 +43,49 @@ final class School extends Model implements SchoolContract
 
     public function schoolId(): int
     {
-        return $this->id;
+        return Sanitizer::input($this->id)->intValue();
     }
     
     public function sourceId(): string
     {
-        return $this->place_id;
+        return Sanitizer::input($this->place_id)->stringToLower()->value();
     }
     public function name(): string
     {
-        return $this->Name;
+        return Sanitizer::input($this->Name)->stringToLower()->value();
     }
 
     public function email(): ?string
     {
-        return $this->School_mail;
+        return Sanitizer::input($this->School_mail)->stringToLower()->value();
     }
     public function contactEmail(): ?string
     {
-        return $this->Gangmaker_mail;
+        return Sanitizer::input($this->Gangmaker_mail)->stringToLower()->value();
     }
 
     public function type(): string
     {
-        return $this->Type;
+        return Sanitizer::input($this->Type)->stringToLower()->value();
     }
 
     public function schoolNumber(): string
     {
-        return $this->School_Id;
+        return Sanitizer::input($this->School_Id)->stringToLower()->value();
     }
 
     public function institutionId(): int
     {
-        return $this->Instellingsnummer;
+        return Sanitizer::input($this->Instellingsnummer)->intValue();
     }
 
     public function studentCount(): int
     {
-        return $this->Student_Count;
+        return  Sanitizer::input($this->Student_Count)->intValue();
     }
 
     public function address(): Address
     {
-        return Address::where('address_id', 'school-' . $this->id)->first();
+        return Address::where('address_id', 'school-' . $this->schoolId())->first();
     }
 }
