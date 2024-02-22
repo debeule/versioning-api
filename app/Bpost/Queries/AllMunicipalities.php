@@ -16,10 +16,9 @@ final class AllMunicipalities
 {
     public function query(): Array
     {
-        if (env('APP_ENV') != 'testing')
+        if (config('import_municipalities'))
         {
-            $url = 'https://www.bpost2.be/zipcodes/files/zipcodes_alpha_nl_new.xls';
-            $this->importMunicipalitiesFile($url);
+            $this->importMunicipalitiesFile();
         }
 
         $filePath = storage_path('app/municipalities.xlsx');
@@ -73,9 +72,10 @@ final class AllMunicipalities
         return $municipalities;
     }
 
-    public function importMunicipalitiesFile(string $url): bool
+    public function importMunicipalitiesFile(): bool
     {
-        $filePath = 'app/municipalities.xlsx';
+        $url = 'https://www.bpost2.be/zipcodes/files/zipcodes_alpha_nl_new.xls';
+        $filePath = 'municipalities.xlsx';
 
         $file = Http::withOptions(['verify' => false])->get($url)->body();
 
