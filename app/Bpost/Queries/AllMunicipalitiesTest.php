@@ -14,56 +14,54 @@ use Illuminate\Support\Facades\File;
 
 final class AllMunicipalitiesTest extends TestCase
 {
-    private Collection $bpostMunicipalities;
-    private string $fileName;
-    private string $filePath;
-    private AllMunicipalities $allMunicipalities;
+    private string $filePath = 'municipalities.xlsx';
 
-    public function setUp(): void
+    #[Test]
+    public function queryReturnsArrayOfMunicipalities(): void
     {
-        parent::setUp();
-        
-        $this->fileName = 'municipalities.xlsx';
-        $this->filePath = storage_path('app/' . $this->fileName);
-
-        $this->bpostMunicipalities = BpostMunicipalityFactory::new()->count(4)->make();
+        $bpostMunicipalities = BpostMunicipalityFactory::new()->count(4)->make();
 
         if (File::exists($this->filePath)) 
         {
             File::delete($this->filePath);
         }
 
-        $this->bpostMunicipalities->storeExcel($this->fileName);
+        $bpostMunicipalities->storeExcel($this->filePath);
 
-        $this->allMunicipalities = new AllMunicipalities;
-    }
+        $allMunicipalities = new AllMunicipalities;
 
-    #[Test]
-    public function queryReturnsArrayOfMunicipalities(): void
-    {
-        $this->assertIsArray($this->allMunicipalities->query());
+        $this->assertIsArray($allMunicipalities->query());
     }
 
     #[Test]
     public function getReturnsCollectionOfMunicipalities(): void
     {
-        $this->assertInstanceOf(Collection::class, $this->allMunicipalities->get());
-        $this->assertInstanceOf(Municipality::class, $this->allMunicipalities->get()[0]);
-    }
-    #[Test]
-    public function ItCanDOwnloadMunicipalitiesExcelFile(): void
-    {
-        putenv('IMPORT_MUNICIPALITIES = true');
+        $bpostMunicipalities = BpostMunicipalityFactory::new()->count(4)->make();
 
         if (File::exists($this->filePath)) 
         {
             File::delete($this->filePath);
         }
 
-        $this->allMunicipalities->importMunicipalitiesFile();
-        
-        $this->assertFileExists($this->filePath);
+        $bpostMunicipalities->storeExcel($this->filePath);
 
-        putenv('IMPORT_MUNICIPALITIES = false');
+        $allMunicipalities = new AllMunicipalities;
+
+        $this->assertInstanceOf(Collection::class, $allMunicipalities->get());
+        $this->assertInstanceOf(Municipality::class, $allMunicipalities->get()[0]);
+    }
+
+    #[Test]
+    public function ItCanDOwnloadMunicipalitiesExcelFile(): void
+    {
+        if (File::exists($this->filePath)) 
+        {
+            File::delete($this->filePath);
+        }
+
+        $allMunicipalities = new AllMunicipalities;
+        $allMunicipalities->importMunicipalitiesFile();
+        
+        $this->assertFileExists(storage_path('app/' . $this->filePath));
     }
 }

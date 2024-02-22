@@ -21,65 +21,66 @@ use Illuminate\Support\Facades\File;
 
 final class SyncMunicipalitiesTest extends TestCase
 {
-    private Collection $bpostMunicipalities;
-    private string $fileName;
-    private string $filePath;
+    private string $filePath = 'municipalities.xlsx';
 
-    public function setUp(): void
+    #[Before]
+    public function ensureNoFilePresent(): void
     {
-        parent::setUp();
-        
-        $this->fileName = 'municipalities.xlsx';
-        $this->filePath = storage_path('app/'. $this->fileName);
-
-        $this->bpostMunicipalities = BpostMunicipalityFactory::new()->count(4)->make();
-
         if (File::exists($this->filePath)) 
         {
             File::delete($this->filePath);
         }
-
-        $this->bpostMunicipalities->storeExcel($this->fileName);
-
-        $syncMunicipalities = new SyncMunicipalities();
-        $syncMunicipalities();
     }
 
     #[Test]
     public function itDispatchesCreateMunicipalitiesWhenNotExists(): void
     {
-        $this->bpostMunicipalities->push(BpostMunicipalityFactory::new()->make());
+        $bpostMunicipalities = BpostMunicipalityFactory::new()->count(4)->make();
+
+        $bpostMunicipalities->storeExcel($this->filePath);
+
+        $syncMunicipalities = new SyncMunicipalities();
+        $syncMunicipalities();
+
+        $bpostMunicipalities->push(BpostMunicipalityFactory::new()->make());
 
         if (File::exists($this->filePath)) 
         {
             File::delete($this->filePath);
         }
 
-        $this->bpostMunicipalities->storeExcel($this->fileName);
+        $bpostMunicipalities->storeExcel($this->filePath);
 
         $existingMunicipalities = Municipality::get();
 
-        $this->assertGreaterThan($existingMunicipalities->count(), $this->bpostMunicipalities->count() -1);
+        $this->assertGreaterThan($existingMunicipalities->count(), $bpostMunicipalities->count() -1);
 
         $syncMunicipalities = new SyncMunicipalities();
         $syncMunicipalities();
 
         $existingMunicipalities = Municipality::get();
         
-        $this->assertEquals($existingMunicipalities->count(), $this->bpostMunicipalities->count() -1);
+        $this->assertEquals($existingMunicipalities->count(), $bpostMunicipalities->count() -1);
     }
 
     #[Test]
     public function itSoftDeletesDeletedRecords(): void
     {
-        $deletedMunicipality = $this->bpostMunicipalities->pop();
+        $bpostMunicipalities = BpostMunicipalityFactory::new()->count(4)->make();
+
+        $bpostMunicipalities->storeExcel($this->filePath);
+
+        $syncMunicipalities = new SyncMunicipalities();
+        $syncMunicipalities();
+
+        $deletedMunicipality = $bpostMunicipalities->pop();
 
         if (File::exists($this->filePath)) 
         {
             File::delete($this->filePath);
         }
 
-        $this->bpostMunicipalities->storeExcel($this->fileName);
+        $bpostMunicipalities->storeExcel($this->filePath);
         
         $syncMunicipalities = new SyncMunicipalities();
         $syncMunicipalities();
@@ -88,6 +89,6 @@ final class SyncMunicipalitiesTest extends TestCase
 
         $existingMunicipalities = Municipality::withTrashed()->get();
         
-        $this->assertGreaterThan($this->bpostMunicipalities->count() -1, $existingMunicipalities->count());
+        $this->assertGreaterThan($bpostMunicipalities->count() -1, $existingMunicipalities->count());
     }
 }
