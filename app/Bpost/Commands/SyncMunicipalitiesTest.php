@@ -29,7 +29,7 @@ final class SyncMunicipalitiesTest extends TestCase
         parent::setUp();
         
         $this->fileName = 'municipalities.xlsx';
-        $this->filePath = storage_path($this->fileName . '/app');
+        $this->filePath = storage_path('app/'. $this->fileName);
 
         $this->bpostMunicipalities = BpostMunicipalityFactory::new()->count(4)->make();
 
