@@ -14,15 +14,16 @@ use Illuminate\Support\Facades\File;
 
 final class AllMunicipalities
 {
+    private string $filePath = 'municipalities.xls';
+
     public function query(): Array
     {
-        if (config('import_municipalities'))
+        if (config('app.import_municipalities'))
         {
             $this->importMunicipalitiesFile();
-        }
-
-        $filePath = storage_path('app/municipalities.xlsx');
-        $data = Excel::toArray([], $filePath, null, \Maatwebsite\Excel\Excel::XLSX)[0];
+        }   
+        
+        $data = Excel::toArray([], $this->filePath, null, \Maatwebsite\Excel\Excel::XLS)[0];
 
         return $data;
     }
@@ -75,15 +76,14 @@ final class AllMunicipalities
     public function importMunicipalitiesFile(): bool
     {
         $url = 'https://www.bpost2.be/zipcodes/files/zipcodes_alpha_nl_new.xls';
-        $filePath = 'municipalities.xlsx';
 
         $file = Http::withOptions(['verify' => false])->get($url)->body();
 
-        if (File::exists($filePath)) 
+        if (File::exists($this->filePath)) 
         {
-            File::delete($filePath);
+            File::delete($this->filePath);
         }
-
-        return Storage::disk('local')->put($filePath, $file);
+        
+        return Storage::disk('local')->put($this->filePath, $file);
     }
 }
