@@ -19,6 +19,8 @@ use Http\Controllers\SchoolControllers\SchoolByInstitutionId;
 
 Route::prefix('v1')->group(function () 
 {
+    Route::get('/sync', AllSports::class);
+
     Route::prefix('sports')->group(function () 
     {
         Route::get('/all', AllSports::class);
