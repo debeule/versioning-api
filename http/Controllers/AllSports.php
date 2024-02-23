@@ -14,7 +14,7 @@ use Illuminate\Http\JsonResponse;
 final class AllSports extends Controller
 {
     public function __construct(
-        private AllSportsQuery $allSportsQuery
+        private AllSportsQuery $allSportsQuery = new AllSportsQuery()
     ) {}
 
     public function __invoke(Request $request): JsonResponse
@@ -23,12 +23,17 @@ final class AllSports extends Controller
         {
             $this->setVersion($request->version);
         }
+
         $responseModels = $this->allSportsQuery->get();
+
         return $this->jsonifyModels($responseModels);
     }
 
     public function setVersion(string $version): void
     {
-        $this->allSportsQuery->version = $version;
+        $versionObject = new Version();
+        $versionObject($version);
+
+        $this->allSportsQuery->version = $versionObject;
     }
 }
