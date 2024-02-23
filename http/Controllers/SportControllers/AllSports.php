@@ -10,6 +10,7 @@ use App\Imports\Objects\Version;
 use DateTimeImmutable;
 use App\Sport\Queries\AllSports as AllSportsQuery;
 use Illuminate\Http\JsonResponse;
+use Http\Controllers\Controller;
 
 final class AllSports extends Controller
 {

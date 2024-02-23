@@ -4,25 +4,25 @@ declare(strict_types=1);
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Http\Controllers\AllSports;
+use Http\Controllers\SportControllers\AllSports;
+use Http\Controllers\SportControllers\SportByName;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
+use Http\Controllers\RegionControllers\AllRegions;
+use Http\Controllers\RegionControllers\RegionByName;
+use Http\Controllers\RegionControllers\RegionByRegionNumber;
+use Http\Controllers\RegionControllers\RegionByLinkedMunicipality;
+use Http\Controllers\RegionControllers\AllLinkedRegionMunicipalities;
+
+use Http\Controllers\SchoolControllers\AllSchools;
+use Http\Controllers\SchoolControllers\SchoolByName;
+use Http\Controllers\SchoolControllers\SchoolByInstitutionId;
 
 Route::prefix('v1')->group(function () 
 {
     Route::prefix('sports')->group(function () 
     {
         Route::get('/all', AllSports::class);
-        Route::get('/name/{value}', SportsByName::class);
+        Route::get('/name/{value}', SportByName::class);
     });
 
     Route::prefix('regions')->group(function () 
@@ -30,8 +30,8 @@ Route::prefix('v1')->group(function ()
         Route::get('/all', AllRegions::class);
         Route::get('/name/{value}', RegionByName::class);
         Route::get('/region_number/{value}', RegionByRegionNumber::class);
-        Route::get('/linked_municipality/{value}', RegionByLinkedMunicipality::class);
-        Route::get('/linked_municipalities/{value}', AllLinkedMunicipalities::class);
+        Route::get('/region_municipality/{value}', RegionByLinkedMunicipality::class);
+        Route::get('/region_municipalities/{value}', AllLinkedRegionMunicipalities::class);
     });
 
     Route::prefix('schools')->group(function () 
