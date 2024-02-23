@@ -4,24 +4,28 @@ declare(strict_types=1);
 
 namespace App\Imports\Objects;
 
-use CarbonImmutable;
-use Illuminate\Database\Query\Builder;
+use Carbon\CarbonImmutable;
+use Illuminate\Database\Eloquent\Builder;
 
 final class Version
 {
-    private CarbonImmutable $version;    
+    private CarbonImmutable $version;
+    public function __construct() 
+    {
+        $this->version = CarbonImmutable::now(); 
+    }
 
     public function __invoke($input): void
     {
         $this->version = CarbonImmutable::parse($input);
     }
 
-    public function versionQuery(): Builder
+    public function versionQuery(Builder $query): Builder
     {
         return $query
-            ->where('updated_at', '>=', (string)$this)
-            ->orderBy('version', 'asc')
-            ->first();
+            ->where('created_at', '<=', $this->version)
+            ->Where('deleted_at', '>=', $this->version)
+            ->orWhereNull('deleted_at');
     }
 
     public function __toString(): string
