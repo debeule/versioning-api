@@ -7,7 +7,6 @@ namespace Http\Controllers;
 use App\Testing\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Imports\Objects\Version;
 use DateTimeImmutable;
 use DateInterval;
