@@ -6,12 +6,11 @@ namespace App\Imports\Sanitizer;
 
 final class Sanitizer
 {
-    private string $input = '';
+    use StringSanitizationTrait, IntSanitizationTrait;
 
-    public function __construct(string $input)
-    {
-        $this->input = $input;
-    }
+    public function __construct(
+        private string $input = 'a'
+    ) {}
 
     public static function input($input): self
     {
@@ -31,16 +30,5 @@ final class Sanitizer
     public function intValue(): int
     {
         return (int) $this->input;
-    }
-
-    //string cleaning methods
-    public function stringToLower(): self
-    {
-        return new self(strtolower($this->input));
-    }
-
-    public function trimString(): self
-    {
-        return new self(trim($this->input));
     }
 }
