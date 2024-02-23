@@ -22,20 +22,22 @@ Route::prefix('v1')->group(function ()
     Route::prefix('sports')->group(function () 
     {
         Route::get('/all', AllSports::class);
-    //     Route::get('/sport_id/{value}', SportsBySportId::class);
-    //     Route::get('/name/{value}', SportsByName::class);
+        Route::get('/name/{value}', SportsByName::class);
     });
 
-    // Route::prefix('schools')->group(function () 
-    // {
-    //     Route::get('/all', AllSchools::class);
-    //     Route::get('/school_id/{value}', SchoolsBySchoolId::class);
-    //     Route::get('/name/{value}', SchoolsByName::class);
-    //     Route::get('/email/{value}', SchoolsByEmail::class);
-    //     Route::get('/contact_email/{value}', SchoolsByContactEmail::class);
-    //     Route::get('/type/{value}', SchoolByType::class);
-    //     Route::get('/school_number/{value}', SchoolsBySchoolNumber::class);
-    //     Route::get('/institution_id/{value}', SchoolsByInstitutionId::class);
-    //     Route::get('/student_count/{value}', SchoolsByStudentCount::class);
-    // });
+    Route::prefix('regions')->group(function () 
+    {
+        Route::get('/all', AllRegions::class);
+        Route::get('/name/{value}', RegionByName::class);
+        Route::get('/region_number/{value}', RegionByRegionNumber::class);
+        Route::get('/linked_municipality/{value}', RegionByLinkedMunicipality::class);
+        Route::get('/linked_municipalities/{value}', AllLinkedMunicipalities::class);
+    });
+
+    Route::prefix('schools')->group(function () 
+    {
+        Route::get('/all', AllSchools::class);
+        Route::get('/name/{value}', SchoolByName::class);
+        Route::get('/institution_id/{value}', SchoolByInstitutionId::class);
+    });
 });
