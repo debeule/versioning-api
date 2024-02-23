@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Sport;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\SoftDeletes\SoftDeletes;
 use Database\Main\Factories\SportFactory;
 
 final class Sport extends Model
