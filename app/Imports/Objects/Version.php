@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\Builder;
 
 final class Version
 {
-    private CarbonImmutable $version;
+    # TODO: make private
+    public CarbonImmutable $version;
     public function __construct() 
     {
         $this->version = CarbonImmutable::now(); 
@@ -23,9 +24,12 @@ final class Version
     public function versionQuery(Builder $query): Builder
     {
         return $query
-            ->where('created_at', '<=', $this->version)
-            ->Where('deleted_at', '>=', $this->version)
-            ->orWhereNull('deleted_at');
+            ->whereDate('created_at', '<=', (string) $this->version)
+            ->where(function ($query) {
+                $query->WhereNull('deleted_at')
+                    ->orWhereDate('deleted_at', '>', $this->version);
+                    
+            });
     }
 
     public function __toString(): string
