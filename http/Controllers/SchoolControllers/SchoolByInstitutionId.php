@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Http\Controllers\SportControllers;
+namespace Http\Controllers\SchoolControllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,7 +12,10 @@ use App\Sport\Queries\SportByName as SportByNameQuery;
 use Illuminate\Http\JsonResponse;
 use Http\Controllers\Controller;
 
-final class RegionLinkedMunicipality extends Controller
+final class SchoolByInstitutionId extends Controller
 {
-    
+    public function __invoke()
+    {
+        
+    }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Http\Controllers\SportControllers;
+namespace Http\Controllers\SchoolControllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,5 +14,8 @@ use Http\Controllers\Controller;
 
 final class SchoolByName extends Controller
 {
-    
+    public function __invoke()
+    {
+        
+    }
 }

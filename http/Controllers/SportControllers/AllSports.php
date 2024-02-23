@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Http\Controllers\SportControllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Http\Request;    
 use Illuminate\Support\Facades\Auth;
 use App\Imports\Objects\Version;
 use DateTimeImmutable;
