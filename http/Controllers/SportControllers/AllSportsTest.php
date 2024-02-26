@@ -17,42 +17,36 @@ use Database\Main\Factories\SportFactory;
 
 final class AllSportsTest extends TestCase
 {
+    private string $endpoint = '/api/v1/sports/all/';
+
     #[Test]
     public function itReturnsValidSportRecord(): void
     {
-        $AllSportsController = new AllSportsController();
+        $sports = SportFactory::new()->count(3)->create();
 
-        SportFactory::new()->count(3)->create();
+        $response = $this->get($this->endpoint);
 
-        $result = $AllSportsController(new Request);
+        $result = json_decode($response->content(), true)[0];
 
-        $resultInstance = json_decode($result->content(), true)[0];
-        
-        $sport = new Sport;
-
-        foreach ($sport->getFillable() as $fillable) 
+        foreach ($sports->first()->getFillable() as $fillable) 
         {
-            $this->assertArrayHasKey($fillable, $resultInstance);
+            $this->assertArrayHasKey($fillable, $result);
         }
     }
 
     #[Test]
-    public function itDoesNotReturnRecordsDeletedAfterVersion(): void
+    public function itDoesNotReturnRecordsDeletedBeforeVersion(): void
     {
-        $AllSportsController = new AllSportsController();
+        $sports = SportFactory::new()->count(3)->create();
 
-        SportFactory::new()->count(3)->create();
+        $response = $this->get($this->endpoint);
 
-        $result = $AllSportsController(new Request);
-
-        Sport::first()->delete();
+        $sports->first()->delete();
         
-        $version = (string) new Version();
-        $request = Request::create('/v1/sports/all', 'GET', ['version' => $version]);
-        $versionedResult = $AllSportsController($request);
+        $versionedResponse = $this->get($this->endpoint);
 
-        $resultCount = count(json_decode($result->content()));
-        $versionedResultCount = count(json_decode($versionedResult->content()));
+        $resultCount = count(json_decode($response->content(), true));
+        $versionedResultCount = count(json_decode($versionedResponse->content(), true));
 
         $this->assertGreaterThan($versionedResultCount, $resultCount);
     }
@@ -60,21 +54,18 @@ final class AllSportsTest extends TestCase
     #[Test]
     public function itDoesNotReturnRecordsCreatedBeforeVersion(): void
     {
-        $AllSportsController = new AllSportsController();
+        $sports = SportFactory::new()->count(3)->create();
 
-        SportFactory::new()->count(3)->create();
-
-        $result = $AllSportsController(new Request);
+        $response = $this->get($this->endpoint);
         
         $version = new DateTimeImmutable();
         $version = $version->sub(new DateInterval('P1D'));
         $version = $version->format('Y-m-d');
         
-        $request = Request::create('/v1/sports/all', 'GET', ['version' => $version]);
-        $versionedResult = $AllSportsController($request);
+        $versionedResponse = $this->get($this->endpoint . '?version=' . $version);
 
-        $resultCount = count(json_decode($result->content()));
-        $versionedResultCount = count(json_decode($versionedResult->content()));
+        $resultCount = count(json_decode($response->content(), true));
+        $versionedResultCount = count(json_decode($versionedResponse->content(), true));
 
         $this->assertGreaterThan($versionedResultCount, $resultCount);
     }
