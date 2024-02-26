@@ -11,7 +11,7 @@ use Http\Controllers\RegionControllers\AllRegions;
 use Http\Controllers\RegionControllers\RegionByName;
 use Http\Controllers\RegionControllers\RegionByRegionNumber;
 use Http\Controllers\RegionControllers\RegionByPostalCode;
-use Http\Controllers\RegionControllers\AllRegionMunicipalities;
+use Http\Controllers\RegionControllers\LinkedMunicipalities;
 
 use Http\Controllers\SchoolControllers\AllSchools;
 use Http\Controllers\SchoolControllers\SchoolByName;
@@ -32,8 +32,8 @@ Route::prefix('v1')->group(function ()
         Route::get('/all', AllRegions::class);
         Route::get('/name/{value}', RegionByName::class);
         Route::get('/region_number/{value}', RegionByRegionNumber::class);
-        Route::get('/Region_by_postal_code/{value}', RegionByPostalCode::class);
-        Route::get('/region_municipalities/{value}', AllRegionMunicipalities::class);
+        Route::get('/postal_code/{value}', RegionByPostalCode::class);
+        Route::get('/linked_municipalities/{value}', LinkedMunicipalities::class);
     });
 
     Route::prefix('schools')->group(function () 
