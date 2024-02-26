@@ -8,7 +8,7 @@ use App\Testing\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use App\School\Queries\SchoolByInstitutionId;
 use Database\Main\Factories\SchoolFactory;
-
+use Illuminate\Database\Eloquent\Collection;
 
 final class SchoolByInstitutionIdTest extends TestCase
 {

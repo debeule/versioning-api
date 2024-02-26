@@ -19,7 +19,7 @@ final class AllSportsTest extends TestCase
         SportFactory::new()->count(3)->create();
 
         $allSports = new AllSports;
-        $result = $SportByName->get();
+        $result = $allSports->get();
 
         $allSportRecords = Sport::get();
 

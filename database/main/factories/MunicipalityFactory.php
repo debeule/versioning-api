@@ -20,7 +20,7 @@ final class MunicipalityFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'postal_code' => 2000,
+            'postal_code' => '2000',
             'province' => 'Antwerpen',
             'head_municipality' => 'Beerse',
             'region_id' => null,
@@ -35,5 +35,10 @@ final class MunicipalityFactory extends Factory
     public function withRegion(): self
     {
         return $this->state(['region_id' => RegionFactory::new()->create()->id]);
+    }
+    
+    public function withRegionId(int $id): self
+    {
+        return $this->state(['region_id' => $id]);
     }
 }

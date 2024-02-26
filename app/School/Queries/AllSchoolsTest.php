@@ -9,7 +9,7 @@ use PHPUnit\Framework\Attributes\Test;
 use App\School\Queries\AllSchools;
 use App\School\School;
 use Database\Main\Factories\SchoolFactory;
-
+use Illuminate\Database\Eloquent\Collection;
 
 final class AllSchoolsTest extends TestCase
 {
