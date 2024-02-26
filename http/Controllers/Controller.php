@@ -12,7 +12,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
-    public function jsonifyModels(Object $models): JsonResponse
+    public function jsonifyModels(?Object $models): ?JsonResponse
     {
         return response()->json($models);
     }
