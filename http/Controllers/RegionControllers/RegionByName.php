@@ -23,7 +23,7 @@ final class RegionByName extends Controller
             $this->setVersion($request->version);
         }
 
-        $responseModels = $this->regionByNameQuery->find($request->value);
+        $responseModels = $this->regionByNameQuery->find($request->name);
 
         return $this->jsonifyModels($responseModels);
     }

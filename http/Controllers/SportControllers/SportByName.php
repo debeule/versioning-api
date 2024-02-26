@@ -23,7 +23,7 @@ final class SportByName extends Controller
             $this->setVersion($request->version);
         }
 
-        $responseModels = $this->sportByNameQuery->find($request->value);
+        $responseModels = $this->sportByNameQuery->find($request->name);
 
         return $this->jsonifyModels($responseModels);
     }

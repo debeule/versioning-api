@@ -27,7 +27,6 @@ final class SchoolByInstitutionIdTest extends TestCase
         $response = $this->get($this->endpoint . $school->institution_id);
         
         $result = json_decode($response->content(), true);
-        
 
         foreach ($school->getFillable() as $fillable) 
         {

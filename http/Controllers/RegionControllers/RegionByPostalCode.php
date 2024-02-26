@@ -23,7 +23,7 @@ final class RegionByPostalCode extends Controller
             $this->setVersion($request->version);
         }
 
-        $responseModels = $this->regionyPostalCodeQuery->find($request->value);
+        $responseModels = $this->regionyPostalCodeQuery->find($request->postalCode);
         
         return $this->jsonifyModels($responseModels);
     }

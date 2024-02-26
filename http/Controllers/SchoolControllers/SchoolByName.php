@@ -23,7 +23,7 @@ final class SchoolByName extends Controller
             $this->setVersion($request->version);
         }
 
-        $responseModels = $this->schoolByNameQuery->find($request->value);
+        $responseModels = $this->schoolByNameQuery->find($request->name);
 
         return $this->jsonifyModels($responseModels);
     }

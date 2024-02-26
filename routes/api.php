@@ -24,22 +24,22 @@ Route::prefix('v1')->group(function ()
     Route::prefix('sports')->group(function () 
     {
         Route::get('/all', AllSports::class);
-        Route::get('/name/{value}', SportByName::class);
+        Route::get('/name/{name}', SportByName::class);
     });
 
     Route::prefix('regions')->group(function () 
     {
         Route::get('/all', AllRegions::class);
-        Route::get('/name/{value}', RegionByName::class);
-        Route::get('/region_number/{value}', RegionByRegionNumber::class);
-        Route::get('/postal_code/{value}', RegionByPostalCode::class);
-        Route::get('/linked_municipalities/{value}', LinkedMunicipalities::class);
+        Route::get('/name/{name}', RegionByName::class);
+        Route::get('/region_number/{regionNumber}', RegionByRegionNumber::class);
+        Route::get('/postal_code/{postalCode}', RegionByPostalCode::class);
+        Route::get('/linked_municipalities/{regionNumber}', LinkedMunicipalities::class);
     });
 
     Route::prefix('schools')->group(function () 
     {
         Route::get('/all', AllSchools::class);
-        Route::get('/name/{value}', SchoolByName::class);
-        Route::get('/institution_id/{value}', SchoolByInstitutionId::class);
+        Route::get('/name/{name}', SchoolByName::class);
+        Route::get('/institution_id/{institutionId}', SchoolByInstitutionId::class);
     });
 });
