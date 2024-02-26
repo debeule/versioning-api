@@ -6,7 +6,7 @@ namespace Http\Controllers\SchoolControllers;
 
 use Illuminate\Http\Request;
 use App\Imports\Objects\Version;
-use App\School\Queries\SchoolByNameQuery as SchoolByNameQuery;
+use App\School\Queries\SchoolByName as SchoolByNameQuery;
 use Illuminate\Http\JsonResponse;
 use Http\Controllers\Controller;
 

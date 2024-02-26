@@ -24,7 +24,7 @@ final class SchoolByInstitutionId extends Controller
             $this->setVersion($request->version);
         }
 
-        $responseModels = $this->schoolByInstitutionIdQuery->find($request->value);
+        $responseModels = $this->schoolByInstitutionIdQuery->find((int) $request->value);
 
         return $this->jsonifyModels($responseModels);
     }
