@@ -9,7 +9,6 @@ use App\Imports\Objects\Version;
 use App\School\Queries\SchoolByNameQuery as SchoolByNameQuery;
 use Illuminate\Http\JsonResponse;
 use Http\Controllers\Controller;
-use App\School\School;
 
 final class SchoolByName extends Controller
 {

@@ -9,7 +9,6 @@ use App\Imports\Objects\Version;
 use App\Location\Queries\RegionByRegionNumber as RegionByRegionNumberQuery;
 use Illuminate\Http\JsonResponse;
 use Http\Controllers\Controller;
-use App\School\School;
 
 final class RegionByRegionNumber extends Controller
 {

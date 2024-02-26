@@ -32,8 +32,8 @@ Route::prefix('v1')->group(function ()
         Route::get('/all', AllRegions::class);
         Route::get('/name/{value}', RegionByName::class);
         Route::get('/region_number/{value}', RegionByRegionNumber::class);
-        Route::get('/region_municipality/{value}', RegionByLinkedMunicipality::class);
-        Route::get('/region_municipalities/{value}', AllLinkedRegionMunicipalities::class);
+        Route::get('/Region_by_postal_code/{value}', RegionByPostalCode::class);
+        Route::get('/region_municipalities/{value}', AllRegionMunicipalities::class);
     });
 
     Route::prefix('schools')->group(function () 

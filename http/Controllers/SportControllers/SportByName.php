@@ -9,7 +9,6 @@ use App\Imports\Objects\Version;
 use App\Sport\Queries\SportByName as SportByNameQuery;
 use Illuminate\Http\JsonResponse;
 use Http\Controllers\Controller;
-use App\Sport\Sport;
 
 final class SportByName extends Controller
 {
