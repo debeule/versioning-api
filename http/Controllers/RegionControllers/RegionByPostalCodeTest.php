@@ -28,8 +28,7 @@ final class RegionByPostalCodeTest extends TestCase
         
         $response = $this->get($this->endpoint . $municipality->postal_code);
         
-        $result = json_decode($response->content(), true);  
-        dd($response->content());      
+        $result = json_decode($response->content(), true);
 
         foreach ($region->getFillable() as $fillable) 
         {
@@ -41,12 +40,13 @@ final class RegionByPostalCodeTest extends TestCase
     public function itDoesNotReturnRecordsDeletedBeforeVersion(): void
     {
         $region = RegionFactory::new()->create();
+        $municipality = MunicipalityFactory::new()->withRegionId($region->id)->create();
 
-        $response = $this->get($this->endpoint . $region->postal_code);
+        $response = $this->get($this->endpoint . $municipality->postal_code);
 
         $region->delete();
         
-        $versionedResponse = $this->get($this->endpoint . $region->postal_code);
+        $versionedResponse = $this->get($this->endpoint . $municipality->postal_code);
 
         $resultCount = count(json_decode($response->content(), true));
         $versionedResultCount = count(json_decode($versionedResponse->content(), true));
@@ -58,14 +58,15 @@ final class RegionByPostalCodeTest extends TestCase
     public function itDoesNotReturnRecordsCreatedAfterVersion(): void
     {
         $region = RegionFactory::new()->create();
+        $municipality = MunicipalityFactory::new()->withRegionId($region->id)->create();
 
-        $response = $this->get($this->endpoint . $region->postal_code);
+        $response = $this->get($this->endpoint . $municipality->postal_code);
         
         $version = new DateTimeImmutable();
         $version = $version->sub(new DateInterval('P1D'));
         $version = $version->format('Y-m-d');
         
-        $versionedResponse = $this->get($this->endpoint . $region->postal_code . '?version=' . $version);
+        $versionedResponse = $this->get($this->endpoint . $municipality->postal_code . '?version=' . $version);
 
         $resultCount = count(json_decode($response->content(), true));
         $versionedResultCount = count(json_decode($versionedResponse->content(), true));
