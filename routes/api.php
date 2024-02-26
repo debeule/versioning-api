@@ -10,8 +10,8 @@ use Http\Controllers\SportControllers\SportByName;
 use Http\Controllers\RegionControllers\AllRegions;
 use Http\Controllers\RegionControllers\RegionByName;
 use Http\Controllers\RegionControllers\RegionByRegionNumber;
-use Http\Controllers\RegionControllers\RegionByLinkedMunicipality;
-use Http\Controllers\RegionControllers\AllLinkedRegionMunicipalities;
+use Http\Controllers\RegionControllers\RegionByPostalCode;
+use Http\Controllers\RegionControllers\AllRegionMunicipalities;
 
 use Http\Controllers\SchoolControllers\AllSchools;
 use Http\Controllers\SchoolControllers\SchoolByName;
