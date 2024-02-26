@@ -13,7 +13,7 @@ use Http\Controllers\Controller;
 final class LinkedMunicipalities extends Controller
 {
     public function __construct(
-        private AllLinkedMunicipalitiesQuery $allRegionMunicipalitiesQuery = new AllRegionMunicipalitiesQuery()
+        private AllLinkedMunicipalitiesQuery $allRegionMunicipalitiesQuery = new AllLinkedMunicipalitiesQuery()
     ) {}
 
     public function __invoke(Request $request): JsonResponse
@@ -23,7 +23,7 @@ final class LinkedMunicipalities extends Controller
             $this->setVersion($request->version);
         }
 
-        $responseModels = $this->allRegionMunicipalitiesQuery->find($request->value);
+        $responseModels = $this->allRegionMunicipalitiesQuery->get((int) $request->regionNumber);
 
         return $this->jsonifyModels($responseModels);
     }
