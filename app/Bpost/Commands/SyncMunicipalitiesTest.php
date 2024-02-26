@@ -85,9 +85,9 @@ final class SyncMunicipalitiesTest extends TestCase
         $syncMunicipalities = new SyncMunicipalities();
         $syncMunicipalities();
         
-        $this->assertSoftDeleted(Municipality::withTrashed()->where('postal_code', $deletedMunicipality->postalCode())->first());
+        $this->assertSoftDeleted(Municipality::where('postal_code', $deletedMunicipality->postalCode())->first());
 
-        $existingMunicipalities = Municipality::withTrashed()->get();
+        $existingMunicipalities = Municipality::get();
         
         $this->assertGreaterThan($bpostMunicipalities->count() -1, $existingMunicipalities->count());
     }

@@ -59,9 +59,9 @@ final class SyncAddressesTest extends TestCase
         $syncAddresses = new SyncAddresses();
         $syncAddresses();
             
-        $this->assertSoftDeleted(Address::withTrashed()->where('street_name', $koheraStreetName)->first());
+        $this->assertSoftDeleted(Address::where('street_name', $koheraStreetName)->first());
 
-        $existingAddresses = Address::withTrashed()->get();
+        $existingAddresses = Address::get();
         $koheraAddresses = KoheraSchool::get();
 
         $this->assertGreaterThan($koheraAddresses->count(), $existingAddresses->count());

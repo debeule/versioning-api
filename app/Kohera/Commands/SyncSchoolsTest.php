@@ -68,9 +68,9 @@ final class SyncSchoolsTest extends TestCase
         $syncSchools = new SyncSchools();
         $syncSchools();
             
-        $this->assertSoftDeleted(School::withTrashed()->where('name', $koheraSchoolName)->first());
+        $this->assertSoftDeleted(School::where('name', $koheraSchoolName)->first());
 
-        $existingSchools = School::withTrashed()->get();
+        $existingSchools = School::get();
         $koheraSchools = KoheraSchool::get();
 
         $this->assertGreaterThan($koheraSchools->count(), $existingSchools->count());

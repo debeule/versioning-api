@@ -53,9 +53,9 @@ final class SyncRegionsTest extends TestCase
         $syncRegions = new SyncRegions();
         $syncRegions();
             
-        $this->assertSoftDeleted(Region::withTrashed()->where('name', $koheraRegionName)->first());
+        $this->assertSoftDeleted(Region::where('name', $koheraRegionName)->first());
 
-        $existingRegions = Region::withTrashed()->get();
+        $existingRegions = Region::get();
         $koheraRegions = KoheraRegion::get();
 
         $this->assertGreaterThan($koheraRegions->count(), $existingRegions->count());

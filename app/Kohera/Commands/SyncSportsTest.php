@@ -49,9 +49,9 @@ final class SyncSportsTest extends TestCase
         $syncSports = new SyncSports();
         $syncSports();
             
-        $this->assertSoftDeleted(Sport::withTrashed()->where('name', $koheraSportName)->first());
+        $this->assertSoftDeleted(Sport::where('name', $koheraSportName)->first());
 
-        $existingSports = Sport::withTrashed()->get();
+        $existingSports = Sport::get();
         $koheraSports = KoheraSport::get();
 
         $this->assertGreaterThan($koheraSports->count(), $existingSports->count());

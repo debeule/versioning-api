@@ -76,9 +76,9 @@ final class SyncBillingProfilesTest extends TestCase
         $syncBillingProfiles = new SyncBillingProfiles();
         $syncBillingProfiles();
             
-        $this->assertSoftDeleted(BillingProfile::withTrashed()->where('name', $koheraBillingProfileName)->first());
+        $this->assertSoftDeleted(BillingProfile::where('name', $koheraBillingProfileName)->first());
 
-        $existingBillingProfiles = BillingProfile::withTrashed()->get();
+        $existingBillingProfiles = BillingProfile::get();
         $koheraBillingProfiles = KoheraSchool::get();
 
         $this->assertGreaterThan($koheraBillingProfiles->count(), $existingBillingProfiles->count());
