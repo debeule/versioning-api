@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Location\Queries;
 
-use App\Location\Region;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\Builder;
 use App\Imports\Objects\Version;
+use App\Location\Region;
+use App\Location\Municipality;
 
-final class RegionByName
+final class RegionByPostalCode
 {
     public function __construct(
         public Version $version = new Version()

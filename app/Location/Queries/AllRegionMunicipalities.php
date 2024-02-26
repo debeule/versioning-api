@@ -4,27 +4,30 @@ declare(strict_types=1);
 
 namespace App\Location\Queries;
 
-use App\Location\Region;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use App\Imports\Objects\Version;
+use App\Location\Region;
+use App\Location\Municipality;
 
-final class RegionByName
+final class AllRegionMunicipalities
 {
     public function __construct(
         public Version $version = new Version()
     ) {}
 
-    public function query(string $regionNumber): Builder
+    public function query(int $regionNumber): Builder
     {
-        $region = Region::where('region_number', $regionNumber);
+        $region = Region::where('region_number', $regionNumber)->first();
+        
         $municipalityQuery = Municipality::query()->where('region_id', $region->id);
 
         return $this->version->versionQuery($municipalityQuery);
     }
 
-    public function find(string $postalCode): ?Region
+    public function get(int $regionNumber): Collection
     {
-        return $this->query($postalCode)->first();
+        return $this->query($regionNumber)->get();
     }
 }
