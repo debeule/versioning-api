@@ -18,7 +18,7 @@ use Database\Main\Factories\SportFactory;
 final class AllSportsTest extends TestCase
 {
     #[Test]
-    public function itReturnsSportRecords(): void
+    public function itReturnsValidSportRecord(): void
     {
         $AllSportsController = new AllSportsController();
 
