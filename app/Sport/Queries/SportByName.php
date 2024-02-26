@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Sport\Queries;
 
 use App\Sport\Sport;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\Builder;
 use App\Imports\Objects\Version;
 
