@@ -23,7 +23,7 @@ final class School extends Model
         'name',
         'email',
         'type',
-        'schoolNumber',
+        'school_number',
         'institution_id',
     ];
 
