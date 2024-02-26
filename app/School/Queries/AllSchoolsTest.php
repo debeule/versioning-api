@@ -25,4 +25,16 @@ final class AllSchoolsTest extends TestCase
 
         $this->assertEquals($allSchoolRecords->count(), $result->count());
     }
+
+    #[Test]
+    public function ItReturnsCollectionOfSchools()
+    {
+        SchoolFactory::new()->count(3)->create();
+
+        $allSchools = new AllSchools;
+        $result = $allSchools->get();
+
+        $this->assertInstanceOf(Collection::class, $result);
+        $this->assertInstanceOf(School::class, $result->first());
+    }
 }
