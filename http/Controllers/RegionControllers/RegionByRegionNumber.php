@@ -23,7 +23,7 @@ final class RegionByRegionNumber extends Controller
             $this->setVersion($request->version);
         }
 
-        $responseModels = $this->regionByRegionNumberQuery->find($request->value);
+        $responseModels = $this->regionByRegionNumberQuery->find((int) $request->value);
 
         return $this->jsonifyModels($responseModels);
     }

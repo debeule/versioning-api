@@ -6,14 +6,14 @@ namespace Http\Controllers\RegionControllers;
 
 use Illuminate\Http\Request;
 use App\Imports\Objects\Version;
-use App\Location\Queries\AllRegionMunicipalities as AllRegionMunicipalitiesQuery;
+use App\Location\Queries\AllLinkedMunicipalities as AllLinkedMunicipalitiesQuery;
 use Illuminate\Http\JsonResponse;
 use Http\Controllers\Controller;
 
-final class AllRegionMunicipalities extends Controller
+final class LinkedMunicipalities extends Controller
 {
     public function __construct(
-        private AllRegionMunicipalitiesQuery $allRegionMunicipalitiesQuery = new AllRegionMunicipalitiesQuery()
+        private AllLinkedMunicipalitiesQuery $allRegionMunicipalitiesQuery = new AllRegionMunicipalitiesQuery()
     ) {}
 
     public function __invoke(Request $request): JsonResponse

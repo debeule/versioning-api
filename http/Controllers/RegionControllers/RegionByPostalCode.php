@@ -6,14 +6,14 @@ namespace Http\Controllers\RegionControllers;
 
 use Illuminate\Http\Request;
 use App\Imports\Objects\Version;
-use App\Location\Queries\RegionbyPostalCode as RegionbyPostalCodeQuery;
+use App\Location\Queries\RegionByPostalCode as RegionByPostalCodeQuery;
 use Illuminate\Http\JsonResponse;
 use Http\Controllers\Controller;
 
 final class RegionByPostalCode extends Controller
 {
     public function __construct(
-        private RegionyPostalCodeQuery $regionyPostalCodeQuery = new RegionyPostalCodeQuery()
+        private RegionByPostalCodeQuery $regionyPostalCodeQuery = new RegionByPostalCodeQuery()
     ) {}
 
     public function __invoke(Request $request): JsonResponse
@@ -24,7 +24,7 @@ final class RegionByPostalCode extends Controller
         }
 
         $responseModels = $this->regionyPostalCodeQuery->find($request->value);
-
+        
         return $this->jsonifyModels($responseModels);
     }
 
