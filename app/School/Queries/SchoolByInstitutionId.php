@@ -15,14 +15,14 @@ final class SchoolByInstitutionId
         public Version $version = new Version()
     ) {}
 
-    public function query(string $institutionId): Builder
+    public function query(int $institutionId): Builder
     {
         $schoolQuery = School::query()->where('institution_id', '=', $institutionId);
 
         return $this->version->versionQuery($schoolQuery);
     }
 
-    public function find(string $name): ?School
+    public function find(int $name): ?School
     {
         return $this->query($name)->first();
     }
