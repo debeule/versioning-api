@@ -17,13 +17,13 @@ final class SchoolByInstitutionId
 
     public function query(int $institutionId): Builder
     {
-        $schoolQuery = School::query()->where('institution_id', '=', $institutionId);
+        $schoolQuery = School::query()->where('institution_id', $institutionId);
 
         return $this->version->versionQuery($schoolQuery);
     }
 
-    public function find(int $name): ?School
+    public function find(int $institutionId): ?School
     {
-        return $this->query($name)->first();
+        return $this->query($institutionId)->first();
     }
 }
