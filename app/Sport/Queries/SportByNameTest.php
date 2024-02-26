@@ -22,7 +22,7 @@ final class SportByNameTest extends TestCase
         $sport = SportFactory::new()->withName($sportName)->create();
 
         $SportByName = new SportByName;
-        $result = $SportByName->get($sportName);
+        $result = $SportByName->find($sportName);
 
         $this->assertSame($sport->name, $result->name);
     }
@@ -45,7 +45,7 @@ final class SportByNameTest extends TestCase
 
         $sport = SportFactory::new()->withName($sportName)->create();
 
-        $result = $SportByName->get($sportName);
+        $result = $SportByName->find($sportName);
         
         $this->assertInstanceOf(Sport::class, $result);
     }

@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use App\Imports\Objects\Version;
 use DateTimeImmutable;
 use DateInterval;
-use Http\Controllers\AllSports as AllSportsController;
+use Http\Controllers\SportControllers\AllSports as AllSportsController;
 use Illuminate\Http\JsonResponse;
 use App\Sport\Sport;
 use Database\Main\Factories\SportFactory;
