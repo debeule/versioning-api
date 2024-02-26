@@ -9,15 +9,15 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\Builder;
 use App\Imports\Objects\Version;
 
-final class SchoolByName
+final class SchoolByInstitutionId
 {
     public function __construct(
         public Version $version = new Version()
     ) {}
 
-    public function query(string $name): Builder
+    public function query(string $institutionId): Builder
     {
-        $schoolQuery = School::query()->where('name', '=', $name);
+        $schoolQuery = School::query()->where('institution_id', '=', $institutionId);
 
         return $this->version->versionQuery($schoolQuery);
     }
