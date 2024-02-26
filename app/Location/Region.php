@@ -15,9 +15,9 @@ final class Region extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'region_id',
         'name',
-        'province',
-        'region_id'
+        'region_number',
     ];
 
     public function subregions(): HasMany
