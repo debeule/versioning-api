@@ -12,7 +12,7 @@ use App\Sport\Queries\SportByName as SportByNameQuery;
 use Illuminate\Http\JsonResponse;
 use Http\Controllers\Controller;
 
-final class RegionByLinkedMunicipality extends Controller
+final class AllRegionMunicipalities extends Controller
 {
     public function __invoke()
     {

@@ -6,14 +6,14 @@ namespace Http\Controllers\RegionControllers;
 
 use Illuminate\Http\Request;
 use App\Imports\Objects\Version;
-use App\Location\Queries\RegionByName as RegionByNameQuery;
+use App\Location\Queries\RegionbyPostalCode as RegionbyPostalCodeQuery;
 use Illuminate\Http\JsonResponse;
 use Http\Controllers\Controller;
 
-final class RegionByName extends Controller
+final class RegionByPostalCode extends Controller
 {
     public function __construct(
-        private RegionByNameQuery $regionByNameQuery = new RegionByNameQuery()
+        private RegionyPostalCodeQuery $regionyPostalCodeQuery = new RegionyPostalCodeQuery()
     ) {}
 
     public function __invoke(Request $request): JsonResponse
@@ -23,7 +23,7 @@ final class RegionByName extends Controller
             $this->setVersion($request->version);
         }
 
-        $responseModels = $this->regionByNameQuery->find($request->value);
+        $responseModels = $this->regionyPostalCodeQuery->find($request->value);
 
         return $this->jsonifyModels($responseModels);
     }
@@ -33,6 +33,6 @@ final class RegionByName extends Controller
         $versionObject = new Version();
         $versionObject($version);
 
-        $this->regionByNameQuery->version = $versionObject;
+        $this->regionyPostalCodeQuery->version = $versionObject;
     }
 }
