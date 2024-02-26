@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Http\Controllers;
+namespace Http\Controllers\SportControllers;
 
 use App\Testing\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -22,7 +22,7 @@ final class AllSportsTest extends TestCase
     #[Test]
     public function itReturnsValidSportRecord(): void
     {
-        $sports = SportFactory::new()->count(3)->create();
+        $sports = SportFactory::new()->create();
 
         $response = $this->get($this->endpoint);
 
@@ -52,7 +52,7 @@ final class AllSportsTest extends TestCase
     }
 
     #[Test]
-    public function itDoesNotReturnRecordsCreatedBeforeVersion(): void
+    public function itDoesNotReturnRecordsCreatedAfterVersion(): void
     {
         $sports = SportFactory::new()->count(3)->create();
 
