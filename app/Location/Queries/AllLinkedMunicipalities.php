@@ -11,7 +11,7 @@ use App\Imports\Objects\Version;
 use App\Location\Region;
 use App\Location\Municipality;
 
-final class AllRegionMunicipalities
+final class AllLinkedMunicipalities
 {
     public function __construct(
         public Version $version = new Version()
