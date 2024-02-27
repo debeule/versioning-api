@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Http\Controllers\SportControllers;
+namespace Http\Endpoints\Sport;
 
 use App\Testing\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use App\Imports\Values\Version;
 use DateTimeImmutable;
 use DateInterval;
-use Http\Controllers\SportControllers\AllSports as AllSportsController;
+use Http\Endpoints\Sport\AllSports as AllSportsController;
 use Illuminate\Http\JsonResponse;
 use App\Sport\Sport;
 use App\Exports\Sport as ExportSport;

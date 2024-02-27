@@ -2,16 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Http\Controllers\SchoolControllers;
+namespace Http\Endpoints\School;
 
 use Illuminate\Http\Request;
 use App\Imports\Values\Version;
 use App\School\Queries\AllSchools as AllSchoolsQuery;
 use Illuminate\Http\JsonResponse;
-use Http\Controllers\Controller;
 use App\Exports\School;
 
-final class AllSchools extends Controller
+final class AllSchools
 {
     public function __construct(
         private AllSchoolsQuery $allSchoolsQuery = new AllSchoolsQuery()

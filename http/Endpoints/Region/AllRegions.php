@@ -2,16 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Http\Controllers\RegionControllers;
+namespace Http\Endpoints\Region;
 
 use Illuminate\Http\Request;
 use App\Imports\Values\Version;
 use App\Location\Queries\AllRegions as AllRegionsQuery;
 use Illuminate\Http\JsonResponse;
-use Http\Controllers\Controller;
 use App\Exports\Region;
 
-final class AllRegions extends Controller
+final class AllRegions
 {
     public function __construct(
         private AllRegionsQuery $allRegionsQuery = new AllRegionsQuery()

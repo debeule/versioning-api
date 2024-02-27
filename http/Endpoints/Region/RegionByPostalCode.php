@@ -2,16 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Http\Controllers\RegionControllers;
+namespace Http\Endpoints\Region;
 
 use Illuminate\Http\Request;
 use App\Imports\Values\Version;
 use App\Location\Queries\RegionByPostalCode as RegionByPostalCodeQuery;
 use Illuminate\Http\JsonResponse;
-use Http\Controllers\Controller;
 use App\Exports\Region;
 
-final class RegionByPostalCode extends Controller
+final class RegionByPostalCode
 {
     public function __construct(
         private RegionByPostalCodeQuery $regionyPostalCodeQuery = new RegionByPostalCodeQuery()

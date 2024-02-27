@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Http\Controllers;
+namespace Http\Endpoints;
 
 use App\Imports\SyncAllDomainsJob;
 use Illuminate\Routing\Controller;
@@ -20,7 +20,7 @@ use App\Kohera\Queries\AllSports;
 use App\Kohera\Queries\AllSchools;
 use App\Kohera\Sport;
 
-final class TestController extends Controller
+final class TestController
 {
     public function __invoke(): void
     {

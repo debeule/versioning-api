@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Http\Controllers\SportControllers\AllSports;
-use Http\Controllers\SportControllers\SportByName;
+use Http\Endpoints\Sport\AllSports;
+use Http\Endpoints\Sport\SportByName;
 
-use Http\Controllers\RegionControllers\AllRegions;
-use Http\Controllers\RegionControllers\RegionByName;
-use Http\Controllers\RegionControllers\RegionByRegionNumber;
-use Http\Controllers\RegionControllers\RegionByPostalCode;
-use Http\Controllers\RegionControllers\LinkedMunicipalities;
+use Http\Endpoints\Region\AllRegions;
+use Http\Endpoints\Region\RegionByName;
+use Http\Endpoints\Region\RegionByRegionNumber;
+use Http\Endpoints\Region\RegionByPostalCode;
+use Http\Endpoints\Region\LinkedMunicipalities;
 
-use Http\Controllers\SchoolControllers\AllSchools;
-use Http\Controllers\SchoolControllers\SchoolByName;
-use Http\Controllers\SchoolControllers\SchoolByInstitutionId;
+use Http\Endpoints\School\AllSchools;
+use Http\Endpoints\School\SchoolByName;
+use Http\Endpoints\School\SchoolByInstitutionId;
 
 Route::prefix('v1')->group(function () 
 {

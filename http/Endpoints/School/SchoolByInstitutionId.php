@@ -2,16 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Http\Controllers\SchoolControllers;
+namespace Http\Endpoints\School;
 
 use Illuminate\Http\Request;
 use App\Imports\Values\Version;
 use App\School\Queries\SchoolByInstitutionId as SchoolByInstitutionIdQuery;
 use Illuminate\Http\JsonResponse;
-use Http\Controllers\Controller;
 use App\Exports\School;
 
-final class SchoolByInstitutionId extends Controller
+final class SchoolByInstitutionId
 {
     public function __construct(
         private SchoolByInstitutionIdQuery $schoolByInstitutionIdQuery = new SchoolByInstitutionIdQuery()

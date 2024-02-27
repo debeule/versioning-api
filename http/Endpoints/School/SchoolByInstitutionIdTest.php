@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Http\Controllers\SchoolControllers;
+namespace Http\Endpoints\School;
 
 use App\Testing\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use App\Imports\Values\Version;
 use DateTimeImmutable;
 use DateInterval;
-use Http\Controllers\SchoolControllers\SchoolByInstitutionId as SchoolByInstitutionIdController;
+use Http\Endpoints\School\SchoolByInstitutionId as SchoolByInstitutionIdController;
 use Illuminate\Http\JsonResponse;
 use App\School\School;
 use App\Exports\School as ExportSchool;

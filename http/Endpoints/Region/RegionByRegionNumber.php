@@ -2,16 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Http\Controllers\RegionControllers;
+namespace Http\Endpoints\Region;
 
 use Illuminate\Http\Request;
 use App\Imports\Values\Version;
 use App\Location\Queries\RegionByRegionNumber as RegionByRegionNumberQuery;
 use Illuminate\Http\JsonResponse;
-use Http\Controllers\Controller;
 use App\Exports\Region;
 
-final class RegionByRegionNumber extends Controller
+final class RegionByRegionNumber
 {
     public function __construct(
         private RegionByRegionNumberQuery $regionByRegionNumberQuery = new RegionByRegionNumberQuery()

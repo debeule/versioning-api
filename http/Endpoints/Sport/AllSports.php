@@ -2,16 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Http\Controllers\SportControllers;
+namespace Http\Endpoints\Sport;
 
 use Illuminate\Http\Request;
 use App\Imports\Values\Version;
 use App\Sport\Queries\AllSports as AllSportsQuery;
 use Illuminate\Http\JsonResponse;
-use Http\Controllers\Controller;
 use App\Exports\Sport;
 
-final class AllSports extends Controller
+final class AllSports
 {
     public function __construct(
         private AllSportsQuery $allSportsQuery = new AllSportsQuery()
