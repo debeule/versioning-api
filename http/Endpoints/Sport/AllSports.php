@@ -32,7 +32,7 @@ final class AllSports extends Controller
             $response->push(Sport::build($responseModel));
         }
 
-        return $this->jsonifyModels($response);
+        return response()->json($response);
     }
 
     public function setVersion(string $version): void

@@ -26,7 +26,7 @@ final class RegionByName extends Controller
 
         $responseModel = $this->regionByNameQuery->find($request->name);
 
-        return $this->jsonifyModels(Region::build($responseModel));
+        return response()->json(Region::build($responseModel));
     }
 
     public function setVersion(string $version): void

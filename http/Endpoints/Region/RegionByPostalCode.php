@@ -6,15 +6,15 @@ namespace Http\Controllers\RegionControllers;
 
 use Illuminate\Http\Request;
 use App\Imports\Values\Version;
-use App\Location\Queries\RegionByRegionNumber as RegionByRegionNumberQuery;
+use App\Location\Queries\RegionByPostalCode as RegionByPostalCodeQuery;
 use Illuminate\Http\JsonResponse;
 use Http\Controllers\Controller;
 use App\Exports\Region;
 
-final class RegionByRegionNumber extends Controller
+final class RegionByPostalCode extends Controller
 {
     public function __construct(
-        private RegionByRegionNumberQuery $regionByRegionNumberQuery = new RegionByRegionNumberQuery()
+        private RegionByPostalCodeQuery $regionyPostalCodeQuery = new RegionByPostalCodeQuery()
     ) {}
 
     public function __invoke(Request $request): JsonResponse
@@ -24,9 +24,9 @@ final class RegionByRegionNumber extends Controller
             $this->setVersion($request->version);
         }
 
-        $responseModel = $this->regionByRegionNumberQuery->find((int) $request->regionNumber);
+        $responseModel = $this->regionyPostalCodeQuery->find($request->postalCode);
 
-        return $this->jsonifyModels(Region::build($responseModel));
+        return response()->json(Region::build($responseModel));
     }
 
     public function setVersion(string $version): void
@@ -34,6 +34,6 @@ final class RegionByRegionNumber extends Controller
         $versionObject = new Version();
         $versionObject($version);
 
-        $this->regionByRegionNumberQuery->version = $versionObject;
+        $this->regionyPostalCodeQuery->version = $versionObject;
     }
 }

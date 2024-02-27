@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Http\Controllers\SportControllers;
+namespace Http\Controllers\RegionControllers;
 
 use Illuminate\Http\Request;
 use App\Imports\Values\Version;
-use App\Sport\Queries\SportByName as SportByNameQuery;
+use App\Location\Queries\RegionByRegionNumber as RegionByRegionNumberQuery;
 use Illuminate\Http\JsonResponse;
 use Http\Controllers\Controller;
-use App\Exports\Sport;
+use App\Exports\Region;
 
-final class SportByName extends Controller
+final class RegionByRegionNumber extends Controller
 {
     public function __construct(
-        private SportByNameQuery $sportByNameQuery = new SportByNameQuery()
+        private RegionByRegionNumberQuery $regionByRegionNumberQuery = new RegionByRegionNumberQuery()
     ) {}
 
     public function __invoke(Request $request): JsonResponse
@@ -24,9 +24,9 @@ final class SportByName extends Controller
             $this->setVersion($request->version);
         }
 
-        $responseModel = $this->sportByNameQuery->find($request->name);
+        $responseModel = $this->regionByRegionNumberQuery->find((int) $request->regionNumber);
 
-        return $this->jsonifyModels(Sport::build($responseModel));
+        return response()->json(Region::build($responseModel));
     }
 
     public function setVersion(string $version): void
@@ -34,6 +34,6 @@ final class SportByName extends Controller
         $versionObject = new Version();
         $versionObject($version);
 
-        $this->sportByNameQuery->version = $versionObject;
+        $this->regionByRegionNumberQuery->version = $versionObject;
     }
 }

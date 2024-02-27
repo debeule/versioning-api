@@ -32,7 +32,7 @@ final class AllRegions extends Controller
             $response->push(Region::build($responseModel));
         }
 
-        return $this->jsonifyModels($response);
+        return response()->json($response);
     }
 
     public function setVersion(string $version): void

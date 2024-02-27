@@ -6,15 +6,15 @@ namespace Http\Controllers\SchoolControllers;
 
 use Illuminate\Http\Request;
 use App\Imports\Values\Version;
-use App\School\Queries\SchoolByName as SchoolByNameQuery;
+use App\School\Queries\SchoolByInstitutionId as SchoolByInstitutionIdQuery;
 use Illuminate\Http\JsonResponse;
 use Http\Controllers\Controller;
 use App\Exports\School;
 
-final class SchoolByName extends Controller
+final class SchoolByInstitutionId extends Controller
 {
     public function __construct(
-        private SchoolByNameQuery $schoolByNameQuery = new SchoolByNameQuery()
+        private SchoolByInstitutionIdQuery $schoolByInstitutionIdQuery = new SchoolByInstitutionIdQuery()
     ) {}
 
     public function __invoke(Request $request): JsonResponse
@@ -23,10 +23,10 @@ final class SchoolByName extends Controller
         {
             $this->setVersion($request->version);
         }
+        
+        $responseModel = $this->schoolByInstitutionIdQuery->find((int) $request->institutionId);
 
-        $responseModel = $this->schoolByNameQuery->find($request->name);
-
-        return $this->jsonifyModels(School::build($responseModel));
+        return response()->json(School::build($responseModel));
     }
 
     public function setVersion(string $version): void
@@ -34,6 +34,6 @@ final class SchoolByName extends Controller
         $versionObject = new Version();
         $versionObject($version);
 
-        $this->schoolByNameQuery->version = $versionObject;
+        $this->schoolByInstitutionIdQuery->version = $versionObject;
     }
 }
