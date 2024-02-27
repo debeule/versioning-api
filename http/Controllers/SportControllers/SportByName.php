@@ -9,6 +9,7 @@ use App\Imports\Objects\Version;
 use App\Sport\Queries\SportByName as SportByNameQuery;
 use Illuminate\Http\JsonResponse;
 use Http\Controllers\Controller;
+use App\Exports\Sport;
 
 final class SportByName extends Controller
 {
@@ -23,9 +24,9 @@ final class SportByName extends Controller
             $this->setVersion($request->version);
         }
 
-        $responseModels = $this->sportByNameQuery->find($request->name);
+        $responseModel = $this->sportByNameQuery->find($request->name);
 
-        return $this->jsonifyModels($responseModels);
+        return $this->jsonifyModels(Sport::build($responseModel));
     }
 
     public function setVersion(string $version): void

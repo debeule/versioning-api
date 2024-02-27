@@ -9,6 +9,7 @@ use App\Imports\Objects\Version;
 use App\Location\Queries\RegionByPostalCode as RegionByPostalCodeQuery;
 use Illuminate\Http\JsonResponse;
 use Http\Controllers\Controller;
+use App\Exports\Region;
 
 final class RegionByPostalCode extends Controller
 {
@@ -23,9 +24,9 @@ final class RegionByPostalCode extends Controller
             $this->setVersion($request->version);
         }
 
-        $responseModels = $this->regionyPostalCodeQuery->find($request->postalCode);
-        
-        return $this->jsonifyModels($responseModels);
+        $responseModel = $this->regionyPostalCodeQuery->find($request->postalCode);
+
+        return $this->jsonifyModels(Region::build($responseModel));
     }
 
     public function setVersion(string $version): void

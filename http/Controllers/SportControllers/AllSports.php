@@ -9,6 +9,7 @@ use App\Imports\Objects\Version;
 use App\Sport\Queries\AllSports as AllSportsQuery;
 use Illuminate\Http\JsonResponse;
 use Http\Controllers\Controller;
+use App\Exports\Sport;
 
 final class AllSports extends Controller
 {
@@ -25,7 +26,13 @@ final class AllSports extends Controller
 
         $responseModels = $this->allSportsQuery->get();
 
-        return $this->jsonifyModels($responseModels);
+        $response = collect();
+        foreach ($responseModels as $responseModel) 
+        {
+            $response->push(Sport::build($responseModel));
+        }
+
+        return $this->jsonifyModels($response);
     }
 
     public function setVersion(string $version): void

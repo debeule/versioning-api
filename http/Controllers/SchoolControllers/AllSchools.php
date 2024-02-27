@@ -9,6 +9,7 @@ use App\Imports\Objects\Version;
 use App\School\Queries\AllSchools as AllSchoolsQuery;
 use Illuminate\Http\JsonResponse;
 use Http\Controllers\Controller;
+use App\Exports\School;
 
 final class AllSchools extends Controller
 {
@@ -25,7 +26,13 @@ final class AllSchools extends Controller
 
         $responseModels = $this->allSchoolsQuery->get();
 
-        return $this->jsonifyModels($responseModels);
+        $response = collect();
+        foreach ($responseModels as $responseModel) 
+        {
+            $response->push(School::build($responseModel));
+        }
+
+        return $this->jsonifyModels($response);
     }
 
     public function setVersion(string $version): void

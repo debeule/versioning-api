@@ -9,7 +9,7 @@ use App\Imports\Objects\Version;
 use App\School\Queries\SchoolByInstitutionId as SchoolByInstitutionIdQuery;
 use Illuminate\Http\JsonResponse;
 use Http\Controllers\Controller;
-use App\School\School;
+use App\Exports\School;
 
 final class SchoolByInstitutionId extends Controller
 {
@@ -24,9 +24,9 @@ final class SchoolByInstitutionId extends Controller
             $this->setVersion($request->version);
         }
         
-        $responseModels = $this->schoolByInstitutionIdQuery->find((int) $request->institutionId);
-        
-        return $this->jsonifyModels($responseModels);
+        $responseModel = $this->schoolByInstitutionIdQuery->find((int) $request->institutionId);
+
+        return $this->jsonifyModels(School::build($responseModel));
     }
 
     public function setVersion(string $version): void

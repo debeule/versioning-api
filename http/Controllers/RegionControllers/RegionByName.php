@@ -9,6 +9,7 @@ use App\Imports\Objects\Version;
 use App\Location\Queries\RegionByName as RegionByNameQuery;
 use Illuminate\Http\JsonResponse;
 use Http\Controllers\Controller;
+use App\Exports\Region;
 
 final class RegionByName extends Controller
 {
@@ -23,9 +24,9 @@ final class RegionByName extends Controller
             $this->setVersion($request->version);
         }
 
-        $responseModels = $this->regionByNameQuery->find($request->name);
+        $responseModel = $this->regionByNameQuery->find($request->name);
 
-        return $this->jsonifyModels($responseModels);
+        return $this->jsonifyModels(Region::build($responseModel));
     }
 
     public function setVersion(string $version): void
