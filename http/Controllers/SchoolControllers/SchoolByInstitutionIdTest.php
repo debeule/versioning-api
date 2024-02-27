@@ -13,7 +13,9 @@ use DateInterval;
 use Http\Controllers\SchoolControllers\SchoolByInstitutionId as SchoolByInstitutionIdController;
 use Illuminate\Http\JsonResponse;
 use App\School\School;
+use App\Exports\School as ExportSchool;
 use Database\Main\Factories\SchoolFactory;
+use Database\Main\Factories\BillingProfileFactory;
 
 final class SchoolByInstitutionIdTest extends TestCase
 {
@@ -23,11 +25,13 @@ final class SchoolByInstitutionIdTest extends TestCase
     public function itReturnsSchoolRecord(): void
     {
         $school = SchoolFactory::new()->create();
+        BillingProfileFactory::new()->withSchoolId($school->id)->create();
         
         $response = $this->get($this->endpoint . $school->institution_id);
         
         $result = json_decode($response->content(), true);
 
+        $school = new ExportSchool;
         foreach ($school->getFillable() as $fillable) 
         {
             $this->assertArrayHasKey($fillable, $result);
@@ -46,7 +50,7 @@ final class SchoolByInstitutionIdTest extends TestCase
         $versionedResponse = $this->get($this->endpoint . $school->institution_id);
 
         $resultCount = count(json_decode($response->content(), true));
-        $versionedResultCount = count(json_decode($versionedResponse->content(), true));
+        $versionedResultCount = count(json_decode($versionedResponse->content(), true) ?? []);
 
         $this->assertGreaterThan($versionedResultCount, $resultCount);
     }
@@ -65,7 +69,7 @@ final class SchoolByInstitutionIdTest extends TestCase
         $versionedResponse = $this->get($this->endpoint . $school->institution_id . '?version=' . $version);
 
         $resultCount = count(json_decode($response->content(), true));
-        $versionedResultCount = count(json_decode($versionedResponse->content(), true));
+        $versionedResultCount = count(json_decode($versionedResponse->content(), true) ?? []);
 
         $this->assertGreaterThan($versionedResultCount, $resultCount);
     }

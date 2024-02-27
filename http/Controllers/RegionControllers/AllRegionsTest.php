@@ -13,6 +13,7 @@ use DateInterval;
 use Http\Controllers\RegionControllers\AllRegions as AllRegionsController;
 use Illuminate\Http\JsonResponse;
 use App\Region\Region;
+use App\Exports\Region as ExportRegion;
 use Database\Main\Factories\RegionFactory;
 
 final class AllRegionsTest extends TestCase
@@ -28,7 +29,8 @@ final class AllRegionsTest extends TestCase
 
         $result = json_decode($response->content(), true)[0];
 
-        foreach ($regions->first()->getFillable() as $fillable) 
+        $region = new ExportRegion;
+        foreach ($region->getFillable() as $fillable) 
         {
             $this->assertArrayHasKey($fillable, $result);
         }

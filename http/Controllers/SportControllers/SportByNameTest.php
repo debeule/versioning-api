@@ -13,6 +13,7 @@ use DateInterval;
 use Http\Controllers\SportControllers\SportByName as SportByNameController;
 use Illuminate\Http\JsonResponse;
 use App\Sport\Sport;
+use App\Exports\Sport as ExportSport;
 use Database\Main\Factories\SportFactory;
 
 final class SportByNameTest extends TestCase
@@ -28,6 +29,7 @@ final class SportByNameTest extends TestCase
         
         $result = json_decode($response->content(), true);
 
+        $sport = new ExportSport;
         foreach ($sport->getFillable() as $fillable) 
         {
             $this->assertArrayHasKey($fillable, $result);
@@ -65,7 +67,7 @@ final class SportByNameTest extends TestCase
         $versionedResponse = $this->get($this->endpoint . $sport->name . '?version=' . $version);
 
         $resultCount = count(json_decode($response->content(), true));
-        $versionedResultCount = count(json_decode($versionedResponse->content(), true));
+        $versionedResultCount = count(json_decode($versionedResponse->content(), true) ?? []);
 
         $this->assertGreaterThan($versionedResultCount, $resultCount);
     }

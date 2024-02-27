@@ -13,6 +13,7 @@ use DateInterval;
 use Http\Controllers\RegionControllers\RegionByName as RegionByNameController;
 use Illuminate\Http\JsonResponse;
 use App\Region\Region;
+use App\Exports\Region as ExportRegion;
 use Database\Main\Factories\RegionFactory;
 
 final class RegionByNameTest extends TestCase
@@ -28,6 +29,7 @@ final class RegionByNameTest extends TestCase
         
         $result = json_decode($response->content(), true);
 
+        $region = new ExportRegion;
         foreach ($region->getFillable() as $fillable) 
         {
             $this->assertArrayHasKey($fillable, $result);
@@ -46,7 +48,7 @@ final class RegionByNameTest extends TestCase
         $versionedResponse = $this->get($this->endpoint . $region->name);
 
         $resultCount = count(json_decode($response->content(), true));
-        $versionedResultCount = count(json_decode($versionedResponse->content(), true));
+        $versionedResultCount = count(json_decode($versionedResponse->content(), true) ?? []);
 
         $this->assertGreaterThan($versionedResultCount, $resultCount);
     }
@@ -65,7 +67,7 @@ final class RegionByNameTest extends TestCase
         $versionedResponse = $this->get($this->endpoint . $region->name . '?version=' . $version);
 
         $resultCount = count(json_decode($response->content(), true));
-        $versionedResultCount = count(json_decode($versionedResponse->content(), true));
+        $versionedResultCount = count(json_decode($versionedResponse->content(), true) ?? []);
 
         $this->assertGreaterThan($versionedResultCount, $resultCount);
     }

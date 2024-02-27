@@ -13,6 +13,7 @@ use DateInterval;
 use Http\Controllers\RegionControllers\RegionByRegionNumber as RegionByRegionNumberController;
 use Illuminate\Http\JsonResponse;
 use App\Region\Region;
+use App\Exports\Region as ExportRegion;
 use Database\Main\Factories\RegionFactory;
 use Database\Main\Factories\MunicipalityFactory;
 
@@ -30,6 +31,7 @@ final class RegionByPostalCodeTest extends TestCase
         
         $result = json_decode($response->content(), true);
 
+        $region = new ExportRegion;
         foreach ($region->getFillable() as $fillable) 
         {
             $this->assertArrayHasKey($fillable, $result);
@@ -49,7 +51,7 @@ final class RegionByPostalCodeTest extends TestCase
         $versionedResponse = $this->get($this->endpoint . $municipality->postal_code);
 
         $resultCount = count(json_decode($response->content(), true));
-        $versionedResultCount = count(json_decode($versionedResponse->content(), true));
+        $versionedResultCount = count(json_decode($versionedResponse->content(), true) ?? []);
 
         $this->assertGreaterThan($versionedResultCount, $resultCount);
     }
@@ -69,7 +71,7 @@ final class RegionByPostalCodeTest extends TestCase
         $versionedResponse = $this->get($this->endpoint . $municipality->postal_code . '?version=' . $version);
 
         $resultCount = count(json_decode($response->content(), true));
-        $versionedResultCount = count(json_decode($versionedResponse->content(), true));
+        $versionedResultCount = count(json_decode($versionedResponse->content(), true) ?? []);
 
         $this->assertGreaterThan($versionedResultCount, $resultCount);
     }

@@ -13,7 +13,9 @@ use DateInterval;
 use Http\Controllers\SchoolControllers\AllSchools as AllSchoolsController;
 use Illuminate\Http\JsonResponse;
 use App\School\School;
+use App\Exports\School as ExportSchool;
 use Database\Main\Factories\SchoolFactory;
+use Database\Main\Factories\BillingProfileFactory;
 
 final class AllSchoolsTest extends TestCase
 {
@@ -23,12 +25,14 @@ final class AllSchoolsTest extends TestCase
     public function itReturnsValidSchoolRecord(): void
     {
         $schools = SchoolFactory::new()->create();
+        BillingProfileFactory::new()->withSchoolId($schools->id)->create();
 
         $response = $this->get($this->endpoint);
 
         $result = json_decode($response->content(), true)[0];
 
-        foreach ($schools->first()->getFillable() as $fillable) 
+        $school = new ExportSchool;
+        foreach ($school->getFillable() as $fillable) 
         {
             $this->assertArrayHasKey($fillable, $result);
         }

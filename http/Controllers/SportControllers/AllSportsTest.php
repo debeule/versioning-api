@@ -13,6 +13,7 @@ use DateInterval;
 use Http\Controllers\SportControllers\AllSports as AllSportsController;
 use Illuminate\Http\JsonResponse;
 use App\Sport\Sport;
+use App\Exports\Sport as ExportSport;
 use Database\Main\Factories\SportFactory;
 
 final class AllSportsTest extends TestCase
@@ -28,7 +29,8 @@ final class AllSportsTest extends TestCase
 
         $result = json_decode($response->content(), true)[0];
 
-        foreach ($sports->first()->getFillable() as $fillable) 
+        $sport = new ExportSport;
+        foreach ($sport->getFillable() as $fillable) 
         {
             $this->assertArrayHasKey($fillable, $result);
         }
