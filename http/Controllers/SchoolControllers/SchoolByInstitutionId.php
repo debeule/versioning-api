@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Http\Controllers\SchoolControllers;
 
 use Illuminate\Http\Request;
-use App\Imports\Objects\Version;
+use App\Imports\Values\Version;
 use App\School\Queries\SchoolByInstitutionId as SchoolByInstitutionIdQuery;
 use Illuminate\Http\JsonResponse;
 use Http\Controllers\Controller;

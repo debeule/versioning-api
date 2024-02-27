@@ -6,7 +6,7 @@ namespace App\School\Queries;
 
 use Illuminate\Database\Eloquent\Builder;
 use App\School\School;
-use App\Imports\Objects\Version;
+use App\Imports\Values\Version;
 
 final class AllSchools
 {

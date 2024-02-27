@@ -6,7 +6,7 @@ namespace App\Location\Queries;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\Builder;
-use App\Imports\Objects\Version;
+use App\Imports\Values\Version;
 use App\Location\Region;
 use App\Location\Municipality;
 

@@ -7,7 +7,7 @@ namespace Http\Controllers\SportControllers;
 use App\Testing\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use Illuminate\Http\Request;
-use App\Imports\Objects\Version;
+use App\Imports\Values\Version;
 use DateTimeImmutable;
 use DateInterval;
 use Http\Controllers\SportControllers\SportByName as SportByNameController;

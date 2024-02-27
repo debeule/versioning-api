@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Http\Controllers\RegionControllers;
 
 use Illuminate\Http\Request;
-use App\Imports\Objects\Version;
+use App\Imports\Values\Version;
 use App\Location\Queries\AllRegions as AllRegionsQuery;
 use Illuminate\Http\JsonResponse;
 use Http\Controllers\Controller;

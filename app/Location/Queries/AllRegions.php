@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Location\Queries;
 
 use Illuminate\Database\Eloquent\Builder;
-use App\Imports\Objects\Version;
+use App\Imports\Values\Version;
 use App\Location\Region;
 
 final class AllRegions

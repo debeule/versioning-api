@@ -7,7 +7,7 @@ namespace App\School\Queries;
 use App\School\School;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\Builder;
-use App\Imports\Objects\Version;
+use App\Imports\Values\Version;
 
 final class SchoolByName
 {

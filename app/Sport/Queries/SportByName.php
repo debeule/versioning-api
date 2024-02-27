@@ -6,7 +6,7 @@ namespace App\Sport\Queries;
 
 use App\Sport\Sport;
 use Illuminate\Database\Eloquent\Builder;
-use App\Imports\Objects\Version;
+use App\Imports\Values\Version;
 
 final class SportByName
 {

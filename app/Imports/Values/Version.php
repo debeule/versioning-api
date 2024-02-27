@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Imports\Objects;
+namespace App\Imports\Values;
 
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Builder;

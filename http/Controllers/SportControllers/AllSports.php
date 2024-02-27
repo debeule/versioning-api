@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Http\Controllers\SportControllers;
 
 use Illuminate\Http\Request;
-use App\Imports\Objects\Version;
+use App\Imports\Values\Version;
 use App\Sport\Queries\AllSports as AllSportsQuery;
 use Illuminate\Http\JsonResponse;
 use Http\Controllers\Controller;
