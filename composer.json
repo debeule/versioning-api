@@ -88,7 +88,7 @@
         "testing": [
             "php artisan migrate:fresh --path=database/main/migrations/ --database=db-testing",
             "php artisan migrate:fresh --path=database/kohera/migrations/ --database=kohera-testing",
-            "php artisan db:seed --database=testing"
+            "php artisan db:seed --database=db-testing"
         ],
 
         "kohera:migrate": "php artisan migrate:fresh --path=database/kohera/migrations/ --database=kohera-testing",
@@ -102,6 +102,9 @@
         "cs:fix": "vendor/bin/php-cs-fixer fix --verbose",
         "phpstan": "vendor/bin/phpstan analyse --memory-limit=2G",
         
+        "phpunit2": [
+            "vendor/bin/phpunit --colors=always,'Feature','Integration' --debug"
+        ],
         "phpunit": [
             "php artisan migrate:fresh --path=database/main/migrations/ --database=db-testing",
             "php artisan migrate:fresh --path=database/kohera/migrations/ --database=kohera-testing",
