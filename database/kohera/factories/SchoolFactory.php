@@ -30,7 +30,7 @@ final class SchoolFactory extends Factory
             'Instellingsnummer' => $this->faker->randomNumber(8),
             'Postcode' => 2000,
             'Gemeente' => "beerse",
-            'Type' => $this->faker->randomElement(['KO', 'LO', 'SO']),
+            'Type' => $this->faker->randomElement(['ko', 'lo', 'so']),
             'Facturatie_Naam' => $this->faker->company(),
             'Facturatie_tav' => $this->faker->name(),
             'Facturatie_Adres' => $this->faker->firstName() . " " . $this->faker->numberBetween(1, 1000),

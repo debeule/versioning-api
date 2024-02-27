@@ -23,7 +23,7 @@ final class SchoolFactory extends Factory
             'name' => $this->faker->name(),
             'email' => $this->faker->email(),
             'contact_email' => $this->faker->email(),
-            'type' => $this->faker->randomElement(['KO', 'LO', 'SO']),
+            'type' => $this->faker->randomElement(['ko', 'lo', 'so']),
             'school_number' => $this->faker->randomNumber(5),
             'institution_id' => $this->faker->randomNumber(5),
             'student_count' => $this->faker->numberBetween(1, 100),
