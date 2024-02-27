@@ -23,7 +23,7 @@ final class CreateMunicipality
             return $this->buildRecord($this->bpostMunicipality);
         }
 
-        if ($this->recordExists($this->bpostMunicipality) && $this->recordHasChanged($this->bpostMunicipality)) 
+        if ($this->recordHasChanged($this->bpostMunicipality)) 
         {
             return $this->createNewRecordVersion($this->bpostMunicipality);
         }

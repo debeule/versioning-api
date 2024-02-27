@@ -24,7 +24,7 @@ final class CreateRegion
             return $this->buildRecord($this->koheraRegion);
         }
 
-        if ($this->recordExists($this->koheraRegion) && $this->recordHasChanged($this->koheraRegion)) 
+        if ($this->recordHasChanged($this->koheraRegion)) 
         {
             return $this->createNewRecordVersion($this->koheraRegion);
         }

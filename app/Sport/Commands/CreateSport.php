@@ -23,7 +23,7 @@ final class CreateSport
             return $this->buildRecord($this->koheraSport);
         }
         
-        if ($this->recordExists($this->koheraSport) && $this->recordHasChanged($this->koheraSport)) 
+        if ($this->recordHasChanged($this->koheraSport)) 
         {
             return $this->createNewRecordVersion($this->koheraSport);
         }

@@ -25,7 +25,7 @@ final class CreateSchool
             return $this->buildRecord($this->koheraSchool);
         }
         
-        if ($this->recordExists($this->koheraSchool) && $this->recordHasChanged($this->koheraSchool)) 
+        if ($this->recordHasChanged($this->koheraSchool)) 
         {
             return $this->createNewRecordVersion($this->koheraSchool);
         }

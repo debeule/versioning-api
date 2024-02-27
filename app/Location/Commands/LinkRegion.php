@@ -19,7 +19,7 @@ final class LinkRegion
 
     public function handle(): bool
     {
-        if ($this->regionExists($this->koheraRegion) && $this->municipalityExists($this->koheraRegion)) 
+        if ($this->municipalityExists($this->koheraRegion)) 
         {
             return $this->linkMunicipalitiesToRegion($this->koheraRegion);
         }

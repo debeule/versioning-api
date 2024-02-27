@@ -25,7 +25,7 @@ final class CreateBillingProfile
             return $this->buildRecord($this->koheraBillingProfile);
         }
         
-        if ($this->recordExists($this->koheraBillingProfile) && $this->recordHasChanged($this->koheraBillingProfile)) 
+        if ($this->recordHasChanged($this->koheraBillingProfile)) 
         {
             return $this->createNewRecordVersion($this->koheraBillingProfile);
         }

@@ -25,7 +25,7 @@ final class CreateAddress
             return $this->buildRecord($this->koheraAddress);
         }
         
-        if ($this->recordExists($this->koheraAddress) && $this->recordHasChanged($this->koheraAddress)) 
+        if ($this->recordHasChanged($this->koheraAddress)) 
         {
             return $this->createNewRecordVersion($this->koheraAddress);
         }
