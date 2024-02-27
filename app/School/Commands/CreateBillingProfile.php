@@ -44,7 +44,7 @@ final class CreateBillingProfile
 
         $recordHasChanged = false;
 
-        $recordHasChanged = $recordHasChanged || $billingProfile->billing_profile_id !== $koheraBillingProfile->billingProfileId();
+        $recordHasChanged = $billingProfile->billing_profile_id !== $koheraBillingProfile->billingProfileId();
         $recordHasChanged = $recordHasChanged || $billingProfile->name !== $koheraBillingProfile->name();
         $recordHasChanged = $recordHasChanged || $billingProfile->email !== $koheraBillingProfile->email();
         $recordHasChanged = $recordHasChanged || $billingProfile->vat_number !== $koheraBillingProfile->vatNumber();

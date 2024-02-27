@@ -44,7 +44,7 @@ final class CreateAddress
 
         $recordhasChanged = false;
 
-        $recordhasChanged = $recordhasChanged || $address->street_name !== $koheraAddress->streetName();
+        $recordhasChanged = $address->street_name !== $koheraAddress->streetName();
         $recordhasChanged = $recordhasChanged || $address->street_identifier !== $koheraAddress->streetIdentifier();
 
         return $recordhasChanged;

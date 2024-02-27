@@ -54,7 +54,7 @@ final class CreateRegion
 
         $recordhasChanged = false;
 
-        $recordhasChanged = $recordhasChanged || $region->name !== $koheraRegion->name();
+        $recordhasChanged = $region->name !== $koheraRegion->name();
         $recordhasChanged = $recordhasChanged || $region->region_number !== $koheraRegion->regionNumber();
 
         return $recordhasChanged;

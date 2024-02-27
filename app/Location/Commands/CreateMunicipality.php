@@ -56,7 +56,7 @@ final class CreateMunicipality
 
         $recordhasChanged = false;
         
-        $recordhasChanged = $recordhasChanged || $municipality->name !== strtolower($bpostMunicipality->name());
+        $recordhasChanged = $municipality->name !== strtolower($bpostMunicipality->name());
         $recordhasChanged = $recordhasChanged || $municipality->province !== strtolower($bpostMunicipality->province());
 
         if (!is_null($bpostMunicipality->headMunicipality())) 

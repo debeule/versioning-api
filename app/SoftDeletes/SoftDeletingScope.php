@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope as BaseSoftDeletingScope;
 
 final class SoftDeletingScope extends BaseSoftDeletingScope
 {
-    public function apply(Builder $builder, Model $model)
+    public function apply(Builder $builder, Model $model): void
     {
     }
 }

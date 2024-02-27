@@ -61,7 +61,7 @@ final class CreateSchool
         
         $recordhasChanged = false;
 
-        $recordhasChanged = $recordhasChanged || $school->name !== $koheraSchool->name();
+        $recordhasChanged = $school->name !== $koheraSchool->name();
         $recordhasChanged = $recordhasChanged || $school->email !== $koheraSchool->email();
         $recordhasChanged = $recordhasChanged || $school->contact_email !== $koheraSchool->contactEmail();
         $recordhasChanged = $recordhasChanged || $school->type !== $koheraSchool->type();

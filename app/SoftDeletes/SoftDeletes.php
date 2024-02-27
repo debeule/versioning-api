@@ -11,7 +11,7 @@ trait SoftDeletes
 {
     use BaseSoftDeletes;
 
-    public static function bootSoftDeletes()
+    public static function bootSoftDeletes(): void
     {
         static::addGlobalScope(new SoftDeletingScope);
     }
