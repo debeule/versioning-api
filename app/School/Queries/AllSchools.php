@@ -11,16 +11,36 @@ use App\Imports\Values\Version;
 final class AllSchools
 {
     public function __construct(
-        public Version $version = new Version()
+        public FromVersion $fromVersion = new FromVersion,
     ) {}
 
     public function query(): Builder
     {
-        return $this->version->versionQuery(School::query());
+        return School::query()
+            ->when($this->fromVersion, $this->fromVersion);
     }
 
-    public function get(): Object
+    public function fromVersion(?string $versionString): self
+    {
+        return new self(
+            new FromVersion(Version::fromString($versionString)),
+        );
+    }
+
+    public function get(): Collection
     {
         return $this->query()->get();
+    }
+
+    public function find(): ?School
+    {
+        try 
+        {
+            return $this->get();
+        } 
+        catch (ModelNotFoundException) 
+        {
+            return null;
+        }
     }
 }

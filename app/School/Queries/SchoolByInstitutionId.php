@@ -12,18 +12,47 @@ use App\Imports\Values\Version;
 final class SchoolByInstitutionId
 {
     public function __construct(
-        public Version $version = new Version()
+        public HasInstitutionId $hasInstitutionId = new HasInstitutionId(''),
+        public FromVersion $fromVersion = new FromVersion,
     ) {}
 
-    public function query(int $institutionId): Builder
+    public function query(): Builder
     {
-        $schoolQuery = School::query()->where('institution_id', $institutionId);
-
-        return $this->version->versionQuery($schoolQuery);
+        return Sport::query()
+            ->tap($this->hasInstitutionId)
+            ->when($this->fromVersion, $this->fromVersion);
     }
 
-    public function find(int $institutionId): ?School
+    public function fromVersion(?string $versionString): self
     {
-        return $this->query($institutionId)->first();
+        return new self(
+            $this->hasInstitutionId,
+            new FromVersion(Version::fromString($versionString)),
+        );
+    }
+
+    public function hasInstitutionId(string $institutionId): self
+    {
+        return new self(
+            new HasInstitutionId($institutionId),
+            $this->fromVersion,
+        );
+    }
+
+    public function get(): School
+    {
+        return $this->query()->firstOrFail();
+    }
+
+    public function find(): ?School
+    {
+        try 
+        {
+            return $this->get();
+        } 
+        catch (ModelNotFoundException) 
+        {
+            return null;
+        }
     }
 }
