@@ -9,31 +9,28 @@ use Illuminate\Database\Eloquent\Builder;
 
 final class Version
 {
-    # TODO: make private
-    public CarbonImmutable $version;
-    public function __construct() 
-    {
-        $this->version = CarbonImmutable::now(); 
+    public CarbonImmutable $value;
+    
+    public function __construct(
+        CarbonImmutable $carbonImmutable,
+    ) {
+        $this->value = CarbonImmutable::toDateString(); 
     }
 
-    public function __invoke($input): void
+    public function fromString(string $value): self
     {
-        $this->version = CarbonImmutable::parse($input);
+        new self(CarbonImmutable::parse($value));
     }
 
-    public function versionQuery(Builder $query): Builder
+    public static function fromDateTimeInterface(DateTimeInterface $dateTime): self
     {
-        return $query
-            ->whereDate('created_at', '<=', (string) $this->version)
-            ->where(function ($query) {
-                $query->WhereNull('deleted_at')
-                    ->orWhereDate('deleted_at', '>', $this->version);
-                    
-            });
+        $immutable = CarbonImmutable::createFromInterface($dateTime);
+
+        return new self($immutable);
     }
 
     public function __toString(): string
     {
-        return $this->version->format('Y-m-d');
+        return $this->value;
     }
 }
