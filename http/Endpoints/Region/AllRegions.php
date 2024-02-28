@@ -19,11 +19,13 @@ final class AllRegions
     public function __invoke(Request $request): JsonResponse
     {
         $responseModels = $this->allRegionsQuery->fromVersion($request->version)->get();
+        
+        if (is_null($responseModels)) return response()->json(config('reporting.404'), 404);
 
         $response = collect();
         foreach ($responseModels as $responseModel) 
         {
-            $response->push(School::build($responseModel));
+            $response->push(Region::build($responseModel));
         }
 
         return response()->json($response);

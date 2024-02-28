@@ -20,6 +20,8 @@ final class RegionByName
     {
         $region = $this->regionByNameQuery->hasName($request->name)->fromVersion($request->version)->find();
         
+        if (is_null($region)) return response()->json(config('reporting.404'), 404);
+
         return response()->json(Region::build($region));
     }
 }

@@ -19,6 +19,8 @@ final class AllSchools
     public function __invoke(Request $request): JsonResponse
     {
         $responseModels = $this->allSchoolsQuery->fromVersion($request->version)->get();
+        
+        if (is_null($responseModels)) return response()->json(config('reporting.404'), 404);
 
         $response = collect();
         foreach ($responseModels as $responseModel) 

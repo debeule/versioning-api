@@ -18,8 +18,10 @@ final class SchoolByInstitutionId
 
     public function __invoke(Request $request): JsonResponse
     {
-        $sport = $this->schoolByInstitutionIdQuery->hasInstitutionId($request->name)->fromVersion($request->version)->find();
+        $school = $this->schoolByInstitutionIdQuery->hasInstitutionId($request->institutionId)->fromVersion($request->version)->find();
         
-        return response()->json(Sport::build($sport));
+        if (is_null($school)) return response()->json(config('reporting.404'), 404);
+        
+        return response()->json(School::build($school));
     }
 }

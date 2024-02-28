@@ -19,6 +19,8 @@ final class AllSports
     public function __invoke(Request $request): JsonResponse
     {
         $responseModels = $this->allSportsQuery->fromVersion($request->version)->find();
+        
+        if (is_null($responseModels)) return response()->json(config('reporting.404'), 404);
 
         $response = collect();
         foreach ($responseModels as $responseModel) 
