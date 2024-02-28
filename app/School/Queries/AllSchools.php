@@ -7,6 +7,9 @@ namespace App\School\Queries;
 use Illuminate\Database\Eloquent\Builder;
 use App\School\School;
 use App\Imports\Values\Version;
+use App\Extensions\Eloquent\Scopes\FromVersion;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 final class AllSchools
 {
@@ -32,7 +35,7 @@ final class AllSchools
         return $this->query()->get();
     }
 
-    public function find(): ?School
+    public function find(): ?Collection
     {
         try 
         {

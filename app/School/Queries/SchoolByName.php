@@ -8,6 +8,8 @@ use App\School\School;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\Builder;
 use App\Imports\Values\Version;
+use App\Extensions\Eloquent\Scopes\FromVersion;
+use App\Extensions\Eloquent\Scopes\HasName;
 
 final class SchoolByName
 {
@@ -18,7 +20,7 @@ final class SchoolByName
 
     public function query(): Builder
     {
-        return Sport::query()
+        return School::query()
             ->tap($this->hasName)
             ->when($this->fromVersion, $this->fromVersion);
     }
