@@ -20,7 +20,6 @@ final readonly class FromVersion
             ->where(function ($query) {
                 $query->WhereNull('deleted_at')
                     ->orWhereDate('deleted_at', '>', (string) $this->version);
-                    
             });
     }
 }

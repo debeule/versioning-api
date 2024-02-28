@@ -29,7 +29,7 @@ final class SportByName
     {
         return new self(
             $this->hasName,
-            new FromVersion(new Version($versionString)),
+            new FromVersion(Version::fromString($versionString)),
         );
     }
 

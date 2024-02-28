@@ -4,22 +4,34 @@ declare(strict_types=1);
 
 namespace App\Sport\Queries;
 
-use Illuminate\Database\Eloquent\Builder;
+use App\Extensions\Eloquent\Scopes\FromVersion;
+use App\Extensions\Eloquent\Scopes\HasName;
 use App\Sport\Sport;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use App\Imports\Values\Version;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 final class AllSports
 {
     public function __construct(
-        public Version $version = new Version()
+        public FromVersion $fromVersion = new FromVersion,
     ) {}
 
     public function query(): Builder
     {
-        return $this->version->versionQuery(Sport::query());
+        return Sport::query()
+            ->when($this->fromVersion, $this->fromVersion);
     }
 
-    public function get(): Object
+    public function fromVersion(?string $versionString): self
+    {
+        return new self(
+            new FromVersion(Version::fromString($versionString)),
+        );
+    }
+
+    public function get(): Collection
     {
         return $this->query()->get();
     }
