@@ -18,7 +18,7 @@ final class AllSports
 
     public function __invoke(Request $request): JsonResponse
     {
-        $responseModels = $this->allSportsQuery->fromVersion($request->version)->get();
+        $responseModels = $this->allSportsQuery->fromVersion($request->version)->find();
 
         $response = collect();
         foreach ($responseModels as $responseModel) 

@@ -35,4 +35,16 @@ final class AllSports
     {
         return $this->query()->get();
     }
+
+    public function find(): ?Collection
+    {
+        try 
+        {
+            return $this->get();
+        } 
+        catch (ModelNotFoundException) 
+        {
+            return null;
+        }
+    }
 }
