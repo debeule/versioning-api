@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 final readonly class FromVersion
 {
     public function __construct(
-        private Version $version,
+        private Version $version = new Version,
     ) {}
 
     public function __invoke(Builder $query): Builder
@@ -19,7 +19,7 @@ final readonly class FromVersion
             ->whereDate('created_at', '<=', (string) $this->version)
             ->where(function ($query) {
                 $query->WhereNull('deleted_at')
-                    ->orWhereDate('deleted_at', '>', $this->version);
+                    ->orWhereDate('deleted_at', '>', (string) $this->version);
                     
             });
     }
