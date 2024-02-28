@@ -13,7 +13,7 @@ use App\Exports\Region;
 final class RegionByPostalCode
 {
     public function __construct(
-        private RegionByPostalCodeQuery $regionyPostalCodeQuery = new RegionByPostalCodeQuery()
+        private RegionByPostalCodeQuery $regionByPostalCodeQuery = new RegionByPostalCodeQuery()
     ) {}
 
     public function __invoke(Request $request): JsonResponse
@@ -23,7 +23,7 @@ final class RegionByPostalCode
             $this->setVersion($request->version);
         }
 
-        $responseModel = $this->regionyPostalCodeQuery->find($request->postalCode);
+        $responseModel = $this->regionByPostalCodeQuery->find($request->postalCode);
 
         return response()->json(Region::build($responseModel));
     }
@@ -33,6 +33,6 @@ final class RegionByPostalCode
         $versionObject = new Version();
         $versionObject($version);
 
-        $this->regionyPostalCodeQuery->version = $versionObject;
+        $this->regionByPostalCodeQuery->version = $versionObject;
     }
 }
