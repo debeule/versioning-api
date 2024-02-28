@@ -7,20 +7,43 @@ namespace App\Location\Queries;
 use Illuminate\Database\Eloquent\Builder;
 use App\Imports\Values\Version;
 use App\Location\Region;
+use App\Extensions\Eloquent\Scopes\FromVersion;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 final class AllRegions
 {
     public function __construct(
-        public Version $version = new Version()
+        public FromVersion $fromVersion = new FromVersion,
     ) {}
 
     public function query(): Builder
     {
-        return $this->version->versionQuery(Region::query());
+        return Region::query()
+            ->when($this->fromVersion, $this->fromVersion);
     }
 
-    public function get(): Object
+    public function fromVersion(?string $versionString): self
+    {
+        return new self(
+            new FromVersion(Version::fromString($versionString)),
+        );
+    }
+
+    public function get(): Collection
     {
         return $this->query()->get();
+    }
+
+    public function find(): ?Collection
+    {
+        try 
+        {
+            return $this->get();
+        } 
+        catch (ModelNotFoundException) 
+        {
+            return null;
+        }
     }
 }
