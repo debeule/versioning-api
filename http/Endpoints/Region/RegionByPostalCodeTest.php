@@ -12,7 +12,7 @@ use DateTimeImmutable;
 use DateInterval;
 use Http\Endpoints\Region\RegionByRegionNumber as RegionByRegionNumberController;
 use Illuminate\Http\JsonResponse;
-use App\Region\Region;
+use App\Location\Region;
 use App\Exports\Region as ExportRegion;
 use Database\Main\Factories\RegionFactory;
 use Database\Main\Factories\MunicipalityFactory;
@@ -46,14 +46,14 @@ final class RegionByPostalCodeTest extends TestCase
 
         $response = $this->get($this->endpoint . $municipality->postal_code);
 
-        $region->delete();
+        $municipality->delete();
         
         $versionedResponse = $this->get($this->endpoint . $municipality->postal_code);
 
         $resultCount = count(json_decode($response->content(), true));
-        $versionedResultCount = count(json_decode($versionedResponse->content(), true) ?? []);
-
-        $this->assertGreaterThan($versionedResultCount, $resultCount);
+        
+        $this->assertGreaterThan(0, $resultCount);
+        $this->assertEquals('404', $versionedResponse->status());
     }
 
     #[Test]
@@ -71,8 +71,8 @@ final class RegionByPostalCodeTest extends TestCase
         $versionedResponse = $this->get($this->endpoint . $municipality->postal_code . '?version=' . $version);
 
         $resultCount = count(json_decode($response->content(), true));
-        $versionedResultCount = count(json_decode($versionedResponse->content(), true) ?? []);
-
-        $this->assertGreaterThan($versionedResultCount, $resultCount);
+        
+        $this->assertGreaterThan(0, $resultCount);
+        $this->assertEquals('404', $versionedResponse->status());
     }
 }

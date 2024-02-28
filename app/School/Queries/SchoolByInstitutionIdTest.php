@@ -18,7 +18,7 @@ final class SchoolByInstitutionIdTest extends TestCase
         $school = SchoolFactory::new()->create();
 
         $schoolByInstitutionId = new SchoolByInstitutionId;
-        $result = $schoolByInstitutionId->find($school->institution_id);
+        $result = $schoolByInstitutionId->hasInstitutionId((string) $school->institution_id)->find();
 
         $this->assertSame($school->name, $result->name);
     }

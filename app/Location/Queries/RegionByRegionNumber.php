@@ -33,10 +33,10 @@ final class RegionByRegionNumber
         );
     }
 
-    public function hasRegionNumber(string $name): self
+    public function hasRegionNumber(string $regionNumber): self
     {
         return new self(
-            new HasRegionNumber($name),
+            new HasRegionNumber($regionNumber),
             $this->fromVersion,
         );
     }

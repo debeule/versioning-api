@@ -12,7 +12,7 @@ use DateTimeImmutable;
 use DateInterval;
 use Http\Endpoints\Region\AllRegions as AllRegionsController;
 use Illuminate\Http\JsonResponse;
-use App\Region\Region;
+use App\Location\Region;
 use App\Exports\Region as ExportRegion;
 use Database\Main\Factories\RegionFactory;
 

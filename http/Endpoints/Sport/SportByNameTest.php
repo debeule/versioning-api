@@ -48,9 +48,9 @@ final class SportByNameTest extends TestCase
         $versionedResponse = $this->get($this->endpoint . $sport->name);
 
         $resultCount = count(json_decode($response->content(), true));
-        $versionedResultCount = count(json_decode($versionedResponse->content(), true));
-
-        $this->assertGreaterThan($versionedResultCount, $resultCount);
+        
+        $this->assertGreaterThan(0, $resultCount);
+        $this->assertEquals('404', $versionedResponse->status());
     }
 
     #[Test]
@@ -67,8 +67,8 @@ final class SportByNameTest extends TestCase
         $versionedResponse = $this->get($this->endpoint . $sport->name . '?version=' . $version);
 
         $resultCount = count(json_decode($response->content(), true));
-        $versionedResultCount = count(json_decode($versionedResponse->content(), true) ?? []);
-
-        $this->assertGreaterThan($versionedResultCount, $resultCount);
+        
+        $this->assertGreaterThan(0, $resultCount);
+        $this->assertEquals('404', $versionedResponse->status());
     }
 }

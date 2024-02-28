@@ -20,7 +20,7 @@ final class SportByNameTest extends TestCase
         $sport = SportFactory::new()->withName($sportName)->create();
 
         $SportByName = new SportByName;
-        $result = $SportByName->find($sportName);
+        $result = $SportByName->hasName($sportName)->find();
 
         $this->assertSame($sport->name, $result->name);
     }
@@ -30,7 +30,7 @@ final class SportByNameTest extends TestCase
     {
         $SportByName = new SportByName;
 
-        $result = $SportByName->find('Non-existing Sport');
+        $result = $SportByName->hasName('Non-existing Sport')->find();
 
         $this->assertNull($result);
     }

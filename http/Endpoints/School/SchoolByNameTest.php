@@ -50,9 +50,9 @@ final class SchoolByNameTest extends TestCase
         $versionedResponse = $this->get($this->endpoint . $school->name);
 
         $resultCount = count(json_decode($response->content(), true));
-        $versionedResultCount = count(json_decode($versionedResponse->content(), true) ?? []);
-
-        $this->assertGreaterThan($versionedResultCount, $resultCount);
+        
+        $this->assertGreaterThan(0, $resultCount);
+        $this->assertEquals('404', $versionedResponse->status());
     }
 
     #[Test]
@@ -69,8 +69,8 @@ final class SchoolByNameTest extends TestCase
         $versionedResponse = $this->get($this->endpoint . $school->name . '?version=' . $version);
 
         $resultCount = count(json_decode($response->content(), true));
-        $versionedResultCount = count(json_decode($versionedResponse->content(), true) ?? []);
-
-        $this->assertGreaterThan($versionedResultCount, $resultCount);
+        
+        $this->assertGreaterThan(0, $resultCount);
+        $this->assertEquals('404', $versionedResponse->status());
     }
 }

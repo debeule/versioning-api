@@ -18,7 +18,7 @@ final class SchoolByNameTest extends TestCase
         $school = SchoolFactory::new()->create();
 
         $schoolByName = new SchoolByName;
-        $result = $schoolByName->find($school->name);
+        $result = $schoolByName->hasName($school->name)->find();
 
         $this->assertSame($school->name, $result->name);
     }
@@ -28,7 +28,7 @@ final class SchoolByNameTest extends TestCase
     {
         $schoolByName = new SchoolByName;
 
-        $result = $schoolByName->find('school name');
+        $result = $schoolByName->hasName('school name')->find();
 
         $this->assertNull($result);
     }

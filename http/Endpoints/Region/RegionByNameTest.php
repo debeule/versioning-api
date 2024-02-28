@@ -12,7 +12,7 @@ use DateTimeImmutable;
 use DateInterval;
 use Http\Endpoints\Region\RegionByName as RegionByNameController;
 use Illuminate\Http\JsonResponse;
-use App\Region\Region;
+use App\Location\Region;
 use App\Exports\Region as ExportRegion;
 use Database\Main\Factories\RegionFactory;
 
@@ -42,15 +42,14 @@ final class RegionByNameTest extends TestCase
         $region = RegionFactory::new()->create();
 
         $response = $this->get($this->endpoint . $region->name);
-
         $region->delete();
         
         $versionedResponse = $this->get($this->endpoint . $region->name);
 
         $resultCount = count(json_decode($response->content(), true));
-        $versionedResultCount = count(json_decode($versionedResponse->content(), true) ?? []);
-
-        $this->assertGreaterThan($versionedResultCount, $resultCount);
+        
+        $this->assertGreaterThan(0, $resultCount);
+        $this->assertEquals('404', $versionedResponse->status());
     }
 
     #[Test]
@@ -67,8 +66,8 @@ final class RegionByNameTest extends TestCase
         $versionedResponse = $this->get($this->endpoint . $region->name . '?version=' . $version);
 
         $resultCount = count(json_decode($response->content(), true));
-        $versionedResultCount = count(json_decode($versionedResponse->content(), true) ?? []);
-
-        $this->assertGreaterThan($versionedResultCount, $resultCount);
+        
+        $this->assertGreaterThan(0, $resultCount);
+        $this->assertEquals('404', $versionedResponse->status());
     }
 }
