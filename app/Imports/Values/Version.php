@@ -9,16 +9,18 @@ use Illuminate\Database\Eloquent\Builder;
 
 final class Version
 {
+    public string $value;
+
     public function __construct(
-        public string $value = '',
-        CarbonImmutable $carbonImmutable = new CarbonImmutable(),
+        $carbonImmutable = new CarbonImmutable(),
     ) {
-        $value = $carbonImmutable->toDateString(CarbonImmutable::now());
+        $this->value = $carbonImmutable->toDateString();
     }
 
-    public function fromString(string $input): self
+    public static function fromString(?string $input): self
     {
-        new self(CarbonImmutable::parse($input));
+        
+        return new self(CarbonImmutable::parse($input ?? ''));
     }
 
     public static function fromDateTimeInterface(DateTimeInterface $dateTime): self
