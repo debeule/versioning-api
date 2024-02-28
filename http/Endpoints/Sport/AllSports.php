@@ -13,17 +13,12 @@ use App\Exports\Sport;
 final class AllSports
 {
     public function __construct(
-        private AllSportsQuery $allSportsQuery = new AllSportsQuery()
+        private AllSportsQuery $allSportsQuery,
     ) {}
 
     public function __invoke(Request $request): JsonResponse
     {
-        if (!is_null($request->version))
-        {
-            $this->setVersion($request->version);
-        }
-
-        $responseModels = $this->allSportsQuery->get();
+        $responseModels = $this->allSportsQuery->fromVersion($request->version)->get();
 
         $response = collect();
         foreach ($responseModels as $responseModel) 
@@ -32,13 +27,5 @@ final class AllSports
         }
 
         return response()->json($response);
-    }
-
-    public function setVersion(string $version): void
-    {
-        $versionObject = new Version();
-        $versionObject($version);
-
-        $this->allSportsQuery->version = $versionObject;
     }
 }

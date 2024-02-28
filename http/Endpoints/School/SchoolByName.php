@@ -13,26 +13,13 @@ use App\Exports\School;
 final class SchoolByName
 {
     public function __construct(
-        private SchoolByNameQuery $schoolByNameQuery = new SchoolByNameQuery()
+        private SchoolByNameQuery $schoolByNameQuery,
     ) {}
 
     public function __invoke(Request $request): JsonResponse
     {
-        if (!is_null($request->version))
-        {
-            $this->setVersion($request->version);
-        }
-
-        $responseModel = $this->schoolByNameQuery->find($request->name);
-
-        return response()->json(School::build($responseModel));
-    }
-
-    public function setVersion(string $version): void
-    {
-        $versionObject = new Version();
-        $versionObject($version);
-
-        $this->schoolByNameQuery->version = $versionObject;
+        $sport = $this->schoolByNameQuery->hasName($request->name)->fromVersion($request->version)->find();
+        
+        return response()->json(Sport::build($sport));
     }
 }

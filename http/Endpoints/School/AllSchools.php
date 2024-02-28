@@ -13,17 +13,12 @@ use App\Exports\School;
 final class AllSchools
 {
     public function __construct(
-        private AllSchoolsQuery $allSchoolsQuery = new AllSchoolsQuery()
+        private AllSchoolsQuery $allSchoolsQuery,
     ) {}
 
     public function __invoke(Request $request): JsonResponse
     {
-        if (!is_null($request->version))
-        {
-            $this->setVersion($request->version);
-        }
-
-        $responseModels = $this->allSchoolsQuery->get();
+        $responseModels = $this->allSchoolsQuery->fromVersion($request->version)->get();
 
         $response = collect();
         foreach ($responseModels as $responseModel) 
@@ -32,13 +27,5 @@ final class AllSchools
         }
 
         return response()->json($response);
-    }
-
-    public function setVersion(string $version): void
-    {
-        $versionObject = new Version();
-        $versionObject($version);
-
-        $this->allSchoolsQuery->version = $versionObject;
     }
 }

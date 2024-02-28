@@ -28,7 +28,7 @@ final class RegionByNameTest extends TestCase
         $response = $this->get($this->endpoint . $region->name);
         
         $result = json_decode($response->content(), true);
-
+        dd($response);
         $region = new ExportRegion;
         foreach ($region->getFillable() as $fillable) 
         {

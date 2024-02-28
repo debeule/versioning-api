@@ -13,26 +13,13 @@ use App\Exports\Region;
 final class RegionByRegionNumber
 {
     public function __construct(
-        private RegionByRegionNumberQuery $regionByRegionNumberQuery = new RegionByRegionNumberQuery()
+        private RegionByRegionNumberQuery $regionByRegionNumberQuery,
     ) {}
 
     public function __invoke(Request $request): JsonResponse
     {
-        if (!is_null($request->version))
-        {
-            $this->setVersion($request->version);
-        }
-
-        $responseModel = $this->regionByRegionNumberQuery->find((int) $request->regionNumber);
-
-        return response()->json(Region::build($responseModel));
-    }
-
-    public function setVersion(string $version): void
-    {
-        $versionObject = new Version();
-        $versionObject($version);
-
-        $this->regionByRegionNumberQuery->version = $versionObject;
+        $region = $this->regionByRegionNumberQuery->hasRegionNumber($request->name)->fromVersion($request->version)->find();
+        
+        return response()->json(Region::build($region));
     }
 }
