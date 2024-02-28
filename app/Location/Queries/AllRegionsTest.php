@@ -20,7 +20,7 @@ final class AllRegionsTest extends TestCase
         RegionFactory::new()->count(3)->create();
 
         $allRegions = new AllRegions;
-        $result = $allRegions->get();
+        $result = $allRegions->find();
 
         $allRegionRecords = Region::get();
 
@@ -33,7 +33,7 @@ final class AllRegionsTest extends TestCase
         $region = RegionFactory::new()->count(3)->create();
 
         $allRegions = new AllRegions;
-        $result = $allRegions->get();
+        $result = $allRegions->find();
 
         $this->assertInstanceOf(Collection::class, $result);
         $this->assertInstanceOf(Region::class, $result->first());

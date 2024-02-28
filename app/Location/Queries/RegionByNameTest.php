@@ -21,7 +21,7 @@ final class RegionByNameTest extends TestCase
         $region = RegionFactory::new()->create();
 
         $regionByName = new RegionByName;
-        $result = $regionByName->find($region->name);
+        $result = $regionByName->hasName($region->name)->find();
 
         $region = Region::where('name', $region->name)->first();
         
@@ -32,7 +32,7 @@ final class RegionByNameTest extends TestCase
     public function ItReturnsNullIfRegionNameNotExists()
     {
         $regionByName = new RegionByName;
-        $result = $regionByName->find('NonExistentRegion');
+        $result = $regionByName->hasName('NonExistentRegion')->find();
 
         $this->assertNull($result);
     }
@@ -43,7 +43,7 @@ final class RegionByNameTest extends TestCase
         $region = RegionFactory::new()->create();
 
         $regionByName = new RegionByName;
-        $result = $regionByName->find($region->name);
+        $result = $regionByName->hasName($region->name)->find();
 
         $this->assertInstanceOf(Region::class, $result);
     }

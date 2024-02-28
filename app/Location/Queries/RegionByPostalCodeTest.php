@@ -22,7 +22,7 @@ final class RegionByPostalCodeTest extends TestCase
         $municipality = MunicipalityFactory::new()->withRegionId($region->id)->create();
 
         $regionByPostalCode = new RegionByPostalCode;
-        $result = $regionByPostalCode->find($municipality->postal_code);
+        $result = $regionByPostalCode->hasPostalCode($municipality->postal_code)->find();
 
         $municipality = Municipality::where('postal_code', $municipality->postal_code)->first();
         $region = Region::where('id', $municipality->region_id)->first();
@@ -36,7 +36,7 @@ final class RegionByPostalCodeTest extends TestCase
         $municipality = MunicipalityFactory::new()->create();
 
         $regionByPostalCode = new RegionByPostalCode;
-        $result = $regionByPostalCode->find($municipality->postal_code);
+        $result = $regionByPostalCode->hasPostalCode($municipality->postal_code)->find();
 
         $this->assertNull($result);
     }
@@ -48,7 +48,7 @@ final class RegionByPostalCodeTest extends TestCase
         $municipality = MunicipalityFactory::new()->withRegionId($region->id)->create();
 
         $regionByPostalCode = new RegionByPostalCode;
-        $result = $regionByPostalCode->find($municipality->postal_code);
+        $result = $regionByPostalCode->hasPostalCode($municipality->postal_code)->find();
 
         $this->assertInstanceOf(Region::class, $result);
     }

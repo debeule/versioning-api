@@ -21,7 +21,7 @@ final class RegionByPostalCode
 
     public function query(): Builder
     {
-        return Region::query()
+        return Municipality::query()
             ->tap($this->hasPostalCode)
             ->when($this->fromVersion, $this->fromVersion);
     }
@@ -34,17 +34,17 @@ final class RegionByPostalCode
         );
     }
 
-    public function hasPostalCode(string $name): self
+    public function hasPostalCode(string $postalCode): self
     {
         return new self(
-            new HasPostalCode($name),
+            new HasPostalCode($postalCode),
             $this->fromVersion,
         );
     }
 
-    public function get(): Region
+    public function get(): ?Region
     {
-        return $this->query()->firstOrFail();
+        return $this->query()->firstOrFail()->region;
     }
 
     public function find(): ?Region
