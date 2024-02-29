@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use Http\Endpoints\SyncHandler;
 
 use Http\Endpoints\Sport\AllSportsHandler;
 use Http\Endpoints\Sport\SportByNameHandler;
@@ -21,6 +22,7 @@ use Http\Endpoints\School\SchoolByInstitutionIdHandler;
 
 Route::prefix('v1')->group(function () 
 {
+    Route::get('/sync', SyncHandler::class);
 
     Route::prefix('sports')->group(function () 
     {
