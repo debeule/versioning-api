@@ -2,30 +2,30 @@
 
 declare(strict_types=1);
 
-namespace Http\Endpoints\Region;
+namespace Http\Endpoints\School;
 
 use Illuminate\Http\Request;
 use App\Imports\Values\Version;
-use App\Location\Queries\AllRegions as AllRegionsQuery;
+use App\School\Queries\AllSchools as AllSchoolsQuery;
 use Illuminate\Http\JsonResponse;
-use App\Exports\Region;
+use App\Exports\School;
 
-final class AllRegions
+final class AllSchoolsHandler
 {
     public function __construct(
-        private AllRegionsQuery $allRegionsQuery,
+        private AllSchoolsQuery $allSchoolsQuery,
     ) {}
 
     public function __invoke(Request $request): JsonResponse
     {
-        $responseModels = $this->allRegionsQuery->fromVersion($request->version)->get();
+        $responseModels = $this->allSchoolsQuery->fromVersion($request->version)->get();
         
         if (is_null($responseModels)) return response()->json(config('reporting.404'), 404);
 
         $response = collect();
         foreach ($responseModels as $responseModel) 
         {
-            $response->push(Region::build($responseModel));
+            $response->push(School::build($responseModel));
         }
 
         return response()->json($response);

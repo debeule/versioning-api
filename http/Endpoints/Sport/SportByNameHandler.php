@@ -10,7 +10,7 @@ use App\Sport\Queries\SportByName as SportByNameQuery;
 use Illuminate\Http\JsonResponse;
 use App\Exports\Sport;
 
-final class SportByName
+final class SportByNameHandler
 {
     public function __construct(
         private SportByNameQuery $sportByNameQuery,

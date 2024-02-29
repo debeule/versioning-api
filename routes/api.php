@@ -4,41 +4,42 @@ declare(strict_types=1);
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Http\Endpoints\Sport\AllSports;
-use Http\Endpoints\Sport\SportByName;
 
-use Http\Endpoints\Region\AllRegions;
-use Http\Endpoints\Region\RegionByName;
-use Http\Endpoints\Region\RegionByRegionNumber;
-use Http\Endpoints\Region\RegionByPostalCode;
-use Http\Endpoints\Region\LinkedMunicipalities;
 
-use Http\Endpoints\School\AllSchools;
-use Http\Endpoints\School\SchoolByName;
-use Http\Endpoints\School\SchoolByInstitutionId;
+use Http\Endpoints\Sport\AllSportsHandler;
+use Http\Endpoints\Sport\SportByNameHandler;
+
+use Http\Endpoints\Region\AllRegionsHandler;
+use Http\Endpoints\Region\RegionByNameHandler;
+use Http\Endpoints\Region\RegionByRegionNumberHandler;
+use Http\Endpoints\Region\RegionByPostalCodeHandler;
+use Http\Endpoints\Region\LinkedMunicipalitiesHandler;
+
+use Http\Endpoints\School\AllSchoolsHandler;
+use Http\Endpoints\School\SchoolByNameHandler;
+use Http\Endpoints\School\SchoolByInstitutionIdHandler;
 
 Route::prefix('v1')->group(function () 
 {
-    Route::get('/sync', AllSports::class);
 
     Route::prefix('sports')->group(function () 
     {
-        Route::get('/all', AllSports::class);
-        Route::get('/name/{name}', SportByName::class);
+        Route::get('/all', AllSportsHandler::class);
+        Route::get('/name/{name}', SportByNameHandler::class);
     });
 
     Route::prefix('regions')->group(function () 
     {
-        Route::get('/all', AllRegions::class);
-        Route::get('/name/{name}', RegionByName::class);
-        Route::get('/region_number/{regionNumber}', RegionByRegionNumber::class);
-        Route::get('/postal_code/{postalCode}', RegionByPostalCode::class);
+        Route::get('/all', AllRegionsHandler::class);
+        Route::get('/name/{name}', RegionByNameHandler::class);
+        Route::get('/region_number/{regionNumber}', RegionByRegionNumberHandler::class);
+        Route::get('/postal_code/{postalCode}', RegionByPostalCodeHandler::class);
     });
 
     Route::prefix('schools')->group(function () 
     {
-        Route::get('/all', AllSchools::class);
-        Route::get('/name/{name}', SchoolByName::class);
-        Route::get('/institution_id/{institutionId}', SchoolByInstitutionId::class);
+        Route::get('/all', AllSchoolsHandler::class);
+        Route::get('/name/{name}', SchoolByNameHandler::class);
+        Route::get('/institution_id/{institutionId}', SchoolByInstitutionIdHandler::class);
     });
 });

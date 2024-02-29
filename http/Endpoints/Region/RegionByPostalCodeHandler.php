@@ -10,7 +10,7 @@ use App\Location\Queries\RegionByPostalCode as RegionByPostalCodeQuery;
 use Illuminate\Http\JsonResponse;
 use App\Exports\Region;
 
-final class RegionByPostalCode
+final class RegionByPostalCodeHandler
 {
     public function __construct(
         private RegionByPostalCodeQuery $regionByPostalCodeQuery,

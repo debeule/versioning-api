@@ -10,7 +10,7 @@ use App\School\Queries\SchoolByInstitutionId as SchoolByInstitutionIdQuery;
 use Illuminate\Http\JsonResponse;
 use App\Exports\School;
 
-final class SchoolByInstitutionId
+final class SchoolByInstitutionIdHandler
 {
     public function __construct(
         private SchoolByInstitutionIdQuery $schoolByInstitutionIdQuery,

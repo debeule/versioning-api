@@ -11,7 +11,7 @@ use Illuminate\Http\JsonResponse;
 use App\Exports\Region;
 
 
-final class RegionByRegionNumber
+final class RegionByRegionNumberHandler
 {
     public function __construct(
         private RegionByRegionNumberQuery $regionByRegionNumberQuery,

@@ -10,7 +10,7 @@ use App\Location\Queries\RegionByName as RegionByNameQuery;
 use Illuminate\Http\JsonResponse;
 use App\Exports\Region;
 
-final class RegionByName
+final class RegionByNameHandler
 {
     public function __construct(
         private RegionByNameQuery $regionByNameQuery,
