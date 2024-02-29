@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Http\Endpoints\Sport;
+namespace Http\Endpoints\SchoolControllers;
 
 use App\Testing\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -10,27 +10,29 @@ use Illuminate\Http\Request;
 use App\Imports\Values\Version;
 use DateTimeImmutable;
 use DateInterval;
-use Http\Endpoints\Sport\SportByName as SportByNameController;
+use Http\Endpoints\School\SchoolByName as SchoolByNameController;
 use Illuminate\Http\JsonResponse;
-use App\Sport\Sport;
-use App\Exports\Sport as ExportSport;
-use Database\Main\Factories\SportFactory;
+use App\School\School;
+use App\Exports\School as ExportSchool;
+use Database\Main\Factories\SchoolFactory;
+use Database\Main\Factories\BillingProfileFactory;
 
-final class SportByNameTest extends TestCase
+final class SchoolByNameHandlerTest extends TestCase
 {
-    private string $endpoint = '/api/v1/sports/name/';
+    private string $endpoint = '/api/v1/schools/name/';
 
     #[Test]
-    public function itReturnsSportRecord(): void
+    public function itReturnsSchoolRecord(): void
     {
-        $sport = SportFactory::new()->create();
+        $school = SchoolFactory::new()->create();
+        BillingProfileFactory::new()->withSchoolId($school->id)->create();
         
-        $response = $this->get($this->endpoint . $sport->name);
+        $response = $this->get($this->endpoint . $school->name);
         
         $result = json_decode($response->content(), true);
 
-        $sport = new ExportSport;
-        foreach ($sport->getFillable() as $fillable) 
+        $school = new ExportSchool;
+        foreach ($school->getFillable() as $fillable) 
         {
             $this->assertArrayHasKey($fillable, $result);
         }
@@ -39,13 +41,13 @@ final class SportByNameTest extends TestCase
     #[Test]
     public function itDoesNotReturnRecordsDeletedBeforeVersion(): void
     {
-        $sport = SportFactory::new()->create();
+        $school = SchoolFactory::new()->create();
 
-        $response = $this->get($this->endpoint . $sport->name);
+        $response = $this->get($this->endpoint . $school->name);
 
-        $sport->delete();
+        $school->delete();
         
-        $versionedResponse = $this->get($this->endpoint . $sport->name);
+        $versionedResponse = $this->get($this->endpoint . $school->name);
 
         $resultCount = count(json_decode($response->content(), true));
         
@@ -56,15 +58,15 @@ final class SportByNameTest extends TestCase
     #[Test]
     public function itDoesNotReturnRecordsCreatedAfterVersion(): void
     {
-        $sport = SportFactory::new()->create();
+        $school = SchoolFactory::new()->create();
 
-        $response = $this->get($this->endpoint . $sport->name);
+        $response = $this->get($this->endpoint . $school->name);
         
         $version = new DateTimeImmutable();
         $version = $version->sub(new DateInterval('P1D'));
         $version = $version->format('Y-m-d');
         
-        $versionedResponse = $this->get($this->endpoint . $sport->name . '?version=' . $version);
+        $versionedResponse = $this->get($this->endpoint . $school->name . '?version=' . $version);
 
         $resultCount = count(json_decode($response->content(), true));
         

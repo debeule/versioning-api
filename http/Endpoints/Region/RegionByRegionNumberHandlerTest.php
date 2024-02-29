@@ -16,7 +16,7 @@ use App\Location\Region;
 use App\Exports\Region as ExportRegion;
 use Database\Main\Factories\RegionFactory;
 
-final class RegionByRegionNumberTest extends TestCase
+final class RegionByRegionNumberHandlerTest extends TestCase
 {
     private string $endpoint = '/api/v1/regions/region_number/';
 

@@ -10,22 +10,24 @@ use Illuminate\Http\Request;
 use App\Imports\Values\Version;
 use DateTimeImmutable;
 use DateInterval;
-use Http\Endpoints\Region\RegionByName as RegionByNameController;
+use Http\Endpoints\Region\RegionByRegionNumber as RegionByRegionNumberController;
 use Illuminate\Http\JsonResponse;
 use App\Location\Region;
 use App\Exports\Region as ExportRegion;
 use Database\Main\Factories\RegionFactory;
+use Database\Main\Factories\MunicipalityFactory;
 
-final class RegionByNameTest extends TestCase
+final class RegionByPostalCodeHandlerTest extends TestCase
 {
-    private string $endpoint = '/api/v1/regions/name/';
+    private string $endpoint = '/api/v1/regions/postal_code/';
 
     #[Test]
     public function itReturnsRegionRecord(): void
     {
         $region = RegionFactory::new()->create();
+        $municipality = MunicipalityFactory::new()->withRegionId($region->id)->create();
         
-        $response = $this->get($this->endpoint . $region->name);
+        $response = $this->get($this->endpoint . $municipality->postal_code);
         
         $result = json_decode($response->content(), true);
 
@@ -40,11 +42,13 @@ final class RegionByNameTest extends TestCase
     public function itDoesNotReturnRecordsDeletedBeforeVersion(): void
     {
         $region = RegionFactory::new()->create();
+        $municipality = MunicipalityFactory::new()->withRegionId($region->id)->create();
 
-        $response = $this->get($this->endpoint . $region->name);
-        $region->delete();
+        $response = $this->get($this->endpoint . $municipality->postal_code);
+
+        $municipality->delete();
         
-        $versionedResponse = $this->get($this->endpoint . $region->name);
+        $versionedResponse = $this->get($this->endpoint . $municipality->postal_code);
 
         $resultCount = count(json_decode($response->content(), true));
         
@@ -56,14 +60,15 @@ final class RegionByNameTest extends TestCase
     public function itDoesNotReturnRecordsCreatedAfterVersion(): void
     {
         $region = RegionFactory::new()->create();
+        $municipality = MunicipalityFactory::new()->withRegionId($region->id)->create();
 
-        $response = $this->get($this->endpoint . $region->name);
+        $response = $this->get($this->endpoint . $municipality->postal_code);
         
         $version = new DateTimeImmutable();
         $version = $version->sub(new DateInterval('P1D'));
         $version = $version->format('Y-m-d');
         
-        $versionedResponse = $this->get($this->endpoint . $region->name . '?version=' . $version);
+        $versionedResponse = $this->get($this->endpoint . $municipality->postal_code . '?version=' . $version);
 
         $resultCount = count(json_decode($response->content(), true));
         

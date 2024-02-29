@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Http\Endpoints\School;
+namespace Http\Endpoints\Sport;
 
 use App\Testing\TestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -10,29 +10,27 @@ use Illuminate\Http\Request;
 use App\Imports\Values\Version;
 use DateTimeImmutable;
 use DateInterval;
-use Http\Endpoints\School\AllSchools as AllSchoolsController;
+use Http\Endpoints\Sport\AllSports as AllSportsController;
 use Illuminate\Http\JsonResponse;
-use App\School\School;
-use App\Exports\School as ExportSchool;
-use Database\Main\Factories\SchoolFactory;
-use Database\Main\Factories\BillingProfileFactory;
+use App\Sport\Sport;
+use App\Exports\Sport as ExportSport;
+use Database\Main\Factories\SportFactory;
 
-final class AllSchoolsTest extends TestCase
+final class AllSportsHandlerTest extends TestCase
 {
-    private string $endpoint = '/api/v1/schools/all/';
+    private string $endpoint = '/api/v1/sports/all/';
 
     #[Test]
-    public function itReturnsValidSchoolRecord(): void
+    public function itReturnsValidSportRecord(): void
     {
-        $schools = SchoolFactory::new()->create();
-        BillingProfileFactory::new()->withSchoolId($schools->id)->create();
+        $sports = SportFactory::new()->create();
 
         $response = $this->get($this->endpoint);
 
         $result = json_decode($response->content(), true)[0];
 
-        $school = new ExportSchool;
-        foreach ($school->getFillable() as $fillable) 
+        $sport = new ExportSport;
+        foreach ($sport->getFillable() as $fillable) 
         {
             $this->assertArrayHasKey($fillable, $result);
         }
@@ -41,11 +39,11 @@ final class AllSchoolsTest extends TestCase
     #[Test]
     public function itDoesNotReturnRecordsDeletedBeforeVersion(): void
     {
-        $schools = SchoolFactory::new()->count(3)->create();
+        $sports = SportFactory::new()->count(3)->create();
 
         $response = $this->get($this->endpoint);
 
-        $schools->first()->delete();
+        $sports->first()->delete();
         
         $versionedResponse = $this->get($this->endpoint);
 
@@ -58,7 +56,7 @@ final class AllSchoolsTest extends TestCase
     #[Test]
     public function itDoesNotReturnRecordsCreatedAfterVersion(): void
     {
-        $schools = SchoolFactory::new()->count(3)->create();
+        $sports = SportFactory::new()->count(3)->create();
 
         $response = $this->get($this->endpoint);
         

@@ -17,7 +17,7 @@ use App\Exports\School as ExportSchool;
 use Database\Main\Factories\SchoolFactory;
 use Database\Main\Factories\BillingProfileFactory;
 
-final class SchoolByInstitutionIdTest extends TestCase
+final class SchoolByInstitutionIdHandlerTest extends TestCase
 {
     private string $endpoint = '/api/v1/schools/institution_id/';
 

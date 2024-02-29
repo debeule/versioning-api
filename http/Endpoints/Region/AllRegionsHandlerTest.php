@@ -16,7 +16,7 @@ use App\Location\Region;
 use App\Exports\Region as ExportRegion;
 use Database\Main\Factories\RegionFactory;
 
-final class AllRegionsTest extends TestCase
+final class AllRegionsHandlerTest extends TestCase
 {
     private string $endpoint = '/api/v1/regions/all/';
 
