@@ -6,19 +6,19 @@ namespace Http\Endpoints\Sport;
 
 use Illuminate\Http\Request;
 use App\Imports\Values\Version;
-use App\Sport\Queries\SportByName as SportByNameQuery;
+use App\Sport\Queries\SportByName;
 use Illuminate\Http\JsonResponse;
 use App\Exports\Sport;
 
 final class SportByNameHandler
 {
     public function __construct(
-        private SportByNameQuery $sportByNameQuery,
+        private SportByName $sportByName,
     ) {}
 
     public function __invoke(Request $request): JsonResponse
     {
-        $sport = $this->sportByNameQuery->hasName($request->name)->fromVersion($request->version)->find();
+        $sport = $this->sportByName->hasName($request->name)->fromVersion($request->version)->find();
         
         if (is_null($sport)) return response()->json(config('reporting.404'), 404);
         

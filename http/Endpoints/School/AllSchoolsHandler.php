@@ -6,19 +6,19 @@ namespace Http\Endpoints\School;
 
 use Illuminate\Http\Request;
 use App\Imports\Values\Version;
-use App\School\Queries\AllSchools as AllSchoolsQuery;
+use App\School\Queries\AllSchools;
 use Illuminate\Http\JsonResponse;
 use App\Exports\School;
 
 final class AllSchoolsHandler
 {
     public function __construct(
-        private AllSchoolsQuery $allSchoolsQuery,
+        private AllSchools $allSchools,
     ) {}
 
     public function __invoke(Request $request): JsonResponse
     {
-        $responseModels = $this->allSchoolsQuery->fromVersion($request->version)->get();
+        $responseModels = $this->allSchools->fromVersion($request->version)->get();
         
         if (is_null($responseModels)) return response()->json(config('reporting.404'), 404);
 
