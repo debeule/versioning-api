@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Http\Endpoints\SchoolControllers;
+namespace Http\Endpoints\School;
 
 use App\Testing\TestCase;
 use PHPUnit\Framework\Attributes\Test;

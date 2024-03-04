@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Http\Endpoints;
 
 use App\Imports\SyncAllDomainsJob;
-use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 
@@ -20,7 +19,7 @@ use App\Kohera\Queries\AllSports;
 use App\Kohera\Queries\AllSchools;
 use App\Kohera\Sport;
 
-final class TestController
+final class TestHandler
 {
     public function __invoke(): void
     {

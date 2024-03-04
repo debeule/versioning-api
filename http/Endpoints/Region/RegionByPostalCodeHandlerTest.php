@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 use App\Imports\Values\Version;
 use DateTimeImmutable;
 use DateInterval;
-use Http\Endpoints\Region\RegionByRegionNumber as RegionByRegionNumberController;
 use Illuminate\Http\JsonResponse;
 use App\Location\Region;
 use App\Exports\Region as ExportRegion;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Http\Controllers\RegionControllers;
+namespace Http\Endpoints\Region;
 
 use App\Testing\TestCase;
 use PHPUnit\Framework\Attributes\Test;
