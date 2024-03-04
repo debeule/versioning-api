@@ -11,7 +11,8 @@ apk --no-cache add \
     imagemagick-dev \
     libzip-dev \
     libpng-dev \
-    libxml2-dev
+    libxml2-dev \
+    busybox-suid
 
 
 # Install PHP extensions

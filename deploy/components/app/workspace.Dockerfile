@@ -4,7 +4,6 @@ USER root
 
 WORKDIR /code
 
-# Install container deps that apply to all target environments...
 COPY deploy/components/app/setup.sh .
 RUN chmod u+x /code/setup.sh && /code/setup.sh
 

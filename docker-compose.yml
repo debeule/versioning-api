@@ -66,6 +66,17 @@ services:
     networks:
       - backend
 
+  cron:
+    build:
+      context: .
+      dockerfile: deploy/components/cron/workspace.Dockerfile
+    container_name: cron
+    restart: unless-stopped
+    volumes: *app-volumes
+    tty: true
+    networks:
+      - backend
+
   # db-testing-migrations:
   #   build: *app-build
   #   container_name: db-testing-migrations
