@@ -1,0 +1,26 @@
+name: Testing
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  testing:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: build containers
+      run: docker compose up -d --build
+
+    - name: setup databases
+      run: |
+        docker exec app composer start
+        docker exec app composer testing
+        
+    - name: Execute tests - PHPUnit
+      run: docker exec app vendor/bin/phpunit
+      

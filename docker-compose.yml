@@ -8,7 +8,7 @@ services:
     restart: unless-stopped
     tty: true
     volumes: &app-volumes
-      - ./:/code
+      - ./:/code:delegated
       - ./deploy/components/app/php.ini:/usr/local/etc/php/conf.d/php.ini
     networks:
       - backend
@@ -76,24 +76,6 @@ services:
     tty: true
     networks:
       - backend
-
-  # db-testing-migrations:
-  #   build: *app-build
-  #   container_name: db-testing-migrations
-  #   command:
-  #     - sh
-  #     - -c
-  #     - |
-  #       echo "💡 Waiting for db-testing container to be ready to handle connection..."
-  #       php -r "sleep(10);"
-  #       php artisan migrate:fresh --env=testing --ansi --seed  --no-interaction
-  #   environment:
-  #     DB_HOST: db-testing
-  #   volumes: *app-volumes
-  #   networks:
-  #     - backend
-  #   depends_on:
-  #     - db-testing
 
   redis:
     image: redis:alpine

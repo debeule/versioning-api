@@ -88,9 +88,9 @@
         "testing": [
             "php -r \"file_exists('database/kohera') || mkdir('database/kohera', 0777, true); touch('database/kohera/database.sqlite');\"",
             "php artisan migrate:fresh --path=database/main/migrations/ --database=db-testing",
-            "php artisan migrate:fresh --path=database/kohera/migrations/ --database=kohera-testing",
-            "php artisan db:seed --database=db-testing"
+            "php artisan migrate:fresh --path=database/kohera/migrations/ --database=kohera-testing"
         ],
+        "testing-seed": "php artisan db:seed --database=kohera-testing",
 
         "kohera:migrate": "php artisan migrate:fresh --path=database/kohera/migrations/ --database=kohera-testing",
         "testing:clean": [
