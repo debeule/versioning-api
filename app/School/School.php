@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\School;
 
 use Illuminate\Database\Eloquent\Model;
-use App\SoftDeletes\SoftDeletes;
+use App\Extensions\Eloquent\SoftDeletes
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 final class School extends Model

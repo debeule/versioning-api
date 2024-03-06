@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\School\Address;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use App\SoftDeletes\SoftDeletes;
+use App\Extensions\Eloquent\SoftDeletes
 
 final class Municipality extends Model
 {
