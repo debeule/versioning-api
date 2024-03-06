@@ -54,7 +54,7 @@ services:
     image: *db-image
     container_name: db-testing
     restart: unless-stopped
-    environment: db-environment
+    environment: *db-environment
     tty: true
     ports:
       - 3307:3306
