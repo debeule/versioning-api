@@ -4,8 +4,7 @@ $finder = Symfony\Component\Finder\Finder::create()
     ->in([
         __DIR__ . '/app',
         __DIR__ . '/console',
-        __DIR__ . '/database/factories',
-        __DIR__ . '/database/seeders',
+        __DIR__ . '/database',
         __DIR__ . '/http',
     ])
     ->name('*.php')
