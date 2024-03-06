@@ -1,5 +1,131 @@
 # Feedback
 
+## 2024-03-06
+
+### Organising code
+
+#### Scopes
+
+`SoftDeletes`
+
+I thought this would be functionality provided by the framework through the `Illuminate\Database\Eloquent\SoftDeletes` trait, I'm unsure why you duplicated this?
+
+Regardless, I reckon the `App\Extensions\Eloquent` and `App\Extensions\Eloquent\Scopes` namespaces would be a better fit.
+
+#### Config
+
+I find it better to make a config file specific for the project. Instead of dumping the config into `app.php`, it would be more fitting to use `tatooine.php`. I also strongly dislike the use of `config` inside a class, the value should be injected into the class's constructor.
+
+### Sanitizer
+
+It seems like dirty/polluted data still makes its way to the database? `App\BPost\Municipality` has the sanitizer class in the getters?
+
+### AllMunicipalities
+
+`App\Bpost\Queries\AllMunicipalities`
+
+There seems to be going on quite a lot in this file, perhaps a tad too much.
+
+#### FilePath
+
+I reckon this should be a value object that can be passed around.
+
+#### Provinces and allowed provinces
+
+I'd turn this into a value object (Provinces enum) which might have a subset with allowed provinces. If it was needed, for this project it is perfectly valid to live outside of Flanders but to sport and go to school in Flanders.
+
+#### BPost download url
+
+I reckon it's not bad to have it hardcoded but perhaps it belongs in a config file.
+
+#### Single Responsibility Principle & Separation of Concerns
+
+There are basically three to four things happening in this class
+- downloading of an xls file
+- storing or replacing of an xls file
+- turning the spreadsheet records into a collection (array) whilst filtering them
+- persisting data from xls to the database
+
+I'm making this up as I go along, this might need some more thought before starting to refactor.
+
+(Also please keepin mind CQRS: command query responsibility separation)
+
+##### Part I: downloading and storing
+
+1. I reckon I'd make a service for the storing and retrieving of downloaded files related to municipalities. This service would make use of a value object to determine where to retrieve or store a file, which might or might not include the path and full name of the file.
+1. I'd make a value object which encapsulates a `Uri` object (`league/uri` and `league/uri-interfaces`) to represent the download url (BPost)
+Proposal:
+1. Extracting a service whose sole purpose is to accept the previous value object and return the value object that holds the location. (contract)
+1. Create an implementation for this functionality: the service would download the spreadsheet and store it on disk
+1. Provide a fake based on the contract of the service
+
+Another proposal:
+1. Create a contract to download the spreadsheet
+1. Provide an implementation (uses Http or Guzzle for instance)
+1. Provide a fake implementation (this would return the spreadsheet)
+1. Create a service to retrieve and store spreadsheets related to municipalities
+1. Bring the two together in a command that download the spreadsheet and stores it
+
+All of the above would be part of the `BPost` namespace
+
+##### Part II: importing
+
+I reckon it would make more sense to create a command that accepts data (source could be anything from a spreadsheet to another database to entry through a form)
+This would accept a collection of data (or an array) and import it to the database, much like the CreateMunicipality command in the `Location` namespace.
+
+I'm not entirely sure if I see the value in moving data from one table to another (re: Municipality model in BPost). It's probably preferable to format the import data according to a contract (`App\Import\Municipality`) and use that to create the Municipality model in the `Location` namespace
+
+Which brings us to another query contract (interface): Municipalities. The `BPost` namespace would contain an implementation of this contract which would accept the location of the spreadsheet and turn it into a collection of data that abides by the Municipality contract (`App\Import\Municipality`).
+
+Example:
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App\Location;
+
+interface MunicipalityContract // or a better name?
+{
+    // the actual methods
+}
+```
+
+And the query:
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App\Location\Queries;
+
+interface Municipalities
+{
+    /**
+      * @return App\Location\MunicipalityContract[]
+      */
+    public function get(): array;
+}
+```
+
+Then a command would simply accept an implementation (BPost, Fake, something else) of this contact, loop over it and import the data.
+
+The BPost implementation would retrieve the file on disk and map the data to a DTO (not a model!) that follows the `MunicipalityContract`. The Municipality model would have static constructor which can create the model based on the contract, e.g.
+
+```php
+public static function fromContract(MunicipalityContract $dto): self;
+```
+
+### App\Import\Queries namespace
+
+The interfaces in here do not look like queries, perhaps they should move?
+
+### Kohera
+
+Can we apply the same logic or way of working from Municpalities (`App\Location` & `BPost`) to the Kohera namespace?
+
 ## 2024-02-13
 
 ### BPost
