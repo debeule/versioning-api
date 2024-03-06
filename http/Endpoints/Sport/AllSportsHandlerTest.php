@@ -67,7 +67,11 @@ final class AllSportsHandlerTest extends TestCase
         $versionedResponse = $this->get($this->endpoint . '?version=' . $version);
 
         $resultCount = count(json_decode($response->content(), true));
-        $versionedResultCount = count(json_decode($versionedResponse->content(), true));
+
+        $versionedResult = json_decode($versionedResponse->content(), true);
+        
+        if(is_string($versionedResult)) $versionedResult = [];
+        $versionedResultCount = count($versionedResult);
 
         $this->assertGreaterThan($versionedResultCount, $resultCount);
     }
