@@ -16,6 +16,9 @@ jobs:
     - name: build containers
       run: docker compose up -d --build
 
+    - name: wait for containers to start
+      run: sleep 20s
+
     - name: setup databases
       run: |
         sudo docker exec -u 0 app composer start
