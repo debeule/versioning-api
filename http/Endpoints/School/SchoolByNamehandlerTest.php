@@ -4,18 +4,13 @@ declare(strict_types=1);
 
 namespace Http\Endpoints\School;
 
-use App\Testing\TestCase;
-use PHPUnit\Framework\Attributes\Test;
-use Illuminate\Http\Request;
-use App\Imports\Values\Version;
-use DateTimeImmutable;
-use DateInterval;
-use Http\Endpoints\School\SchoolByName as SchoolByNameController;
-use Illuminate\Http\JsonResponse;
-use App\School\School;
 use App\Exports\School as ExportSchool;
-use Database\Main\Factories\SchoolFactory;
+use App\Testing\TestCase;
 use Database\Main\Factories\BillingProfileFactory;
+use Database\Main\Factories\SchoolFactory;
+use DateInterval;
+use DateTimeImmutable;
+use PHPUnit\Framework\Attributes\Test;
 
 final class SchoolByNameHandlerTest extends TestCase
 {

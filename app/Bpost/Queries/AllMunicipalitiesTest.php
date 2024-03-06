@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace App\Bpost\Queries;
 
-use App\Testing\TestCase;
-use PHPUnit\Framework\Attributes\Test;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Collection;
 use App\Bpost\Municipality;
+use App\Testing\TestCase;
 use Database\Bpost\Factories\MunicipalityFactory as BpostMunicipalityFactory;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
+use PHPUnit\Framework\Attributes\Test;
 
 final class AllMunicipalitiesTest extends TestCase
 {

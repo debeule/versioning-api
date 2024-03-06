@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Kohera;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Imports\Queries\Address as AddressContract;
-use App\Location\Municipality;
-use App\Kohera\School;
 use App\Imports\Sanitizer\Sanitizer;
+use App\Location\Municipality;
+use Illuminate\Database\Eloquent\Model;
 
 final class Address extends Model implements AddressContract
 {
@@ -34,6 +33,7 @@ final class Address extends Model implements AddressContract
     public function municipality(): Municipality
     {
         $postalCode = Sanitizer::input($this->school->Postcode)->value();
+
         return Municipality::where('postal_code', $postalCode)->first();
     }
 }

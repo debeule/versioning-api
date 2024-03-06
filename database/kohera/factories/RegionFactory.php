@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Database\Kohera\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Kohera\Region;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 final class RegionFactory extends Factory
 {
@@ -22,7 +22,7 @@ final class RegionFactory extends Factory
             'RegionNaam' => $this->faker->city(),
             'Provincie' => $this->faker->randomElement(['Antwerpen', 'Limburg', 'Oost-Vlaanderen', 'Vlaams-Brabant', 'West-Vlaanderen']),
             'Postcode' => 2000,
-            'RegioDetailId' => $this->faker->randomNumber(5)
+            'RegioDetailId' => $this->faker->randomNumber(5),
         ];
     }
 }

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Database\Kohera\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Kohera\Sport;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 final class SportFactory extends Factory
 {

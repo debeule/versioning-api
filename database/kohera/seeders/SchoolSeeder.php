@@ -1,17 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Kohera\Seeders;
 
+use Database\Kohera\Factories\SchoolFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Kohera\School;
-use Database\Kohera\Factories\SchoolFactory;
 
 class SchoolSeeder extends Seeder
 {
     protected $connection = 'kohera-testing';
     
-    public function run()
+    public function run(): void
     {
         SchoolFactory::new()
             ->count(50)

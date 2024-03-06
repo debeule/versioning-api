@@ -4,15 +4,12 @@ declare(strict_types=1);
 
 namespace App\School\Commands;
 
-use App\Testing\TestCase;
-use PHPUnit\Framework\Attributes\Test;
-use App\Testing\RefreshDatabase;
-use App\School\Address;
-use App\Kohera\School as KoheraSchool;
 use App\Kohera\Address as KoheraAddress;
+use App\School\Address;
+use App\Testing\TestCase;
 use Database\Kohera\Factories\SchoolFactory as KoheraSchoolFactory;
-use Database\Main\Factories\SchoolFactory;
 use Database\Main\Factories\MunicipalityFactory;
+use PHPUnit\Framework\Attributes\Test;
 
 final class CreateAddressTest extends TestCase
 {

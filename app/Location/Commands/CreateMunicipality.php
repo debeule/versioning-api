@@ -1,11 +1,12 @@
-<?php 
+<?php
+
 
 declare(strict_types=1);
 
 namespace App\Location\Commands;
 
-use App\Location\Municipality;
 use App\Bpost\Municipality as BpostMunicipality;
+use App\Location\Municipality;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 final class CreateMunicipality
@@ -18,7 +19,7 @@ final class CreateMunicipality
 
     public function handle(BpostMunicipality $bpostMunicipality): bool
     {
-        if (!$this->recordExists($this->bpostMunicipality)) 
+        if (! $this->recordExists($this->bpostMunicipality)) 
         {
             return $this->buildRecord($this->bpostMunicipality);
         }
@@ -59,7 +60,7 @@ final class CreateMunicipality
         $recordhasChanged = $municipality->name !== strtolower($bpostMunicipality->name());
         $recordhasChanged = $recordhasChanged || $municipality->province !== strtolower($bpostMunicipality->province());
 
-        if (!is_null($bpostMunicipality->headMunicipality())) 
+        if (! is_null($bpostMunicipality->headMunicipality())) 
         {
             $recordhasChanged = $recordhasChanged || $municipality->head_municipality !== strtolower($bpostMunicipality->headMunicipality());
         }

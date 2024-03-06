@@ -1,12 +1,12 @@
-<?php 
+<?php
+
 
 declare(strict_types=1);
 
 namespace App\School\Commands;
 
-use App\School\School;
 use App\Kohera\School as KoheraSchool;
-use App\School\Address;
+use App\School\School;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 
@@ -20,7 +20,7 @@ final class CreateSchool
 
     public function handle(): bool
     {
-        if (!$this->recordExists($this->koheraSchool)) 
+        if (! $this->recordExists($this->koheraSchool)) 
         {
             return $this->buildRecord($this->koheraSchool);
         }

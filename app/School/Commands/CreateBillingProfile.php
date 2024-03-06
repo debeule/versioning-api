@@ -1,12 +1,12 @@
-<?php 
+<?php
+
 
 declare(strict_types=1);
 
 namespace App\School\Commands;
 
-use App\School\BillingProfile;
 use App\Kohera\BillingProfile as KoheraBillingProfile;
-use App\Location\Municipality;
+use App\School\BillingProfile;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 
@@ -20,7 +20,7 @@ final class CreateBillingProfile
 
     public function handle(): bool
     {
-        if (!$this->recordExists($this->koheraBillingProfile)) 
+        if (! $this->recordExists($this->koheraBillingProfile)) 
         {
             return $this->buildRecord($this->koheraBillingProfile);
         }

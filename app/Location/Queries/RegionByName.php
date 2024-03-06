@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Location\Queries;
 
-use App\Location\Region;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Database\Eloquent\Builder;
-use App\Imports\Values\Version;
 use App\Extensions\Eloquent\Scopes\FromVersion;
 use App\Extensions\Eloquent\Scopes\HasName;
+use App\Imports\Values\Version;
+use App\Location\Region;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 final class RegionByName
 {

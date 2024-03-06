@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Kohera\Queries;
 
-use Illuminate\Database\Eloquent\Builder;
 use App\Kohera\Sport;
+use Illuminate\Database\Eloquent\Builder;
 
 final class AllSports
 {

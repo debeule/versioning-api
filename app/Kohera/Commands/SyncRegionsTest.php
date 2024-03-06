@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace App\Kohera\Commands;
 
-use App\Testing\TestCase;
-use PHPUnit\Framework\Attributes\Test;
-use App\Location\Region;
 use App\Kohera\Region as KoheraRegion;
+use App\Location\Region;
+use App\Testing\TestCase;
 use Database\Kohera\Factories\RegionFactory as KoheraRegionFactory;
-use Database\Main\Factories\AddressFactory;
-use App\Kohera\Commands\SyncRegions;
+use PHPUnit\Framework\Attributes\Test;
 
 final class SyncRegionsTest extends TestCase
 {

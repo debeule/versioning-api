@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\Location\Queries;
 
-use App\Testing\TestCase;
-use PHPUnit\Framework\Attributes\Test;
-use Illuminate\Database\Eloquent\Collection;
-use App\Location\Queries\AllRegions;
 use App\Location\Region;
+use App\Testing\TestCase;
 use Database\Main\Factories\RegionFactory;
+use Illuminate\Database\Eloquent\Collection;
+use PHPUnit\Framework\Attributes\Test;
 
 
 final class AllRegionsTest extends TestCase
@@ -28,7 +27,7 @@ final class AllRegionsTest extends TestCase
     }
 
     #[Test]
-    public function ItReturnsCollectionOfRegions()
+    public function ItReturnsCollectionOfRegions(): void
     {
         $region = RegionFactory::new()->count(3)->create();
 

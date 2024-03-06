@@ -1,12 +1,13 @@
-<?php 
+<?php
+
 
 declare(strict_types=1);
 
 namespace App\School\Commands;
 
-use App\School\Address;
 use App\Kohera\Address as KoheraAddress;
 use App\Location\Municipality;
+use App\School\Address;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 
@@ -20,7 +21,7 @@ final class CreateAddress
 
     public function handle(): bool
     {
-        if (!$this->recordExists($this->koheraAddress)) 
+        if (! $this->recordExists($this->koheraAddress)) 
         {
             return $this->buildRecord($this->koheraAddress);
         }

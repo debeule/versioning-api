@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Exports;
 
-use Illuminate\Database\Eloquent\Model;
-use App\School\School as DbSchool;
-use App\School\Address;
 use App\Location\Municipality;
+use App\School\Address;
 use App\School\BillingProfile;
+use App\School\School as DbSchool;
+use Illuminate\Database\Eloquent\Model;
 
 final class School extends Model
 {
@@ -67,7 +67,7 @@ final class School extends Model
     {
         $billingProfile = BillingProfile::where('school_id', $dbSchool->id)->first();
 
-        if (!is_null($billingProfile)) 
+        if (! is_null($billingProfile)) 
         {
             $this->billing_name = $billingProfile->name;
             $this->billing_email = $billingProfile->email;

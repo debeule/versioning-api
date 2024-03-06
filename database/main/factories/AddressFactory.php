@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Database\Main\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\School\Address;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 final class AddressFactory extends Factory
 {

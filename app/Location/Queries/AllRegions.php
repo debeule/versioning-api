@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Location\Queries;
 
-use Illuminate\Database\Eloquent\Builder;
+use App\Extensions\Eloquent\Scopes\FromVersion;
 use App\Imports\Values\Version;
 use App\Location\Region;
-use App\Extensions\Eloquent\Scopes\FromVersion;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 

@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\School\Queries;
 
-use App\Testing\TestCase;
-use PHPUnit\Framework\Attributes\Test;
-use App\School\Queries\AllSchools;
 use App\School\School;
+use App\Testing\TestCase;
 use Database\Main\Factories\SchoolFactory;
 use Illuminate\Database\Eloquent\Collection;
+use PHPUnit\Framework\Attributes\Test;
 
 final class AllSchoolsTest extends TestCase
 {
@@ -27,7 +26,7 @@ final class AllSchoolsTest extends TestCase
     }
 
     #[Test]
-    public function ItReturnsCollectionOfSchools()
+    public function ItReturnsCollectionOfSchools(): void
     {
         SchoolFactory::new()->count(3)->create();
 

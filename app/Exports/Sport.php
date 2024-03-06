@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Exports;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Sport\Sport as DbSport;
+use Illuminate\Database\Eloquent\Model;
 
 final class Sport extends Model
 {

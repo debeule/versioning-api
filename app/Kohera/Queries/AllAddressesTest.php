@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Kohera\Queries;
 
+use App\Kohera\Address;
 use App\Testing\TestCase;
-use PHPUnit\Framework\Attributes\Test;
+use Database\Kohera\Factories\SchoolFactory  as KoheraSchoolFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
-use App\Kohera\Address;
-use Database\Kohera\Factories\SchoolFactory  as KoheraSchoolFactory;
+use PHPUnit\Framework\Attributes\Test;
 
 final class AllAddressesTest extends TestCase
 {

@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace App\Kohera;
 
-use Illuminate\Database\Eloquent\Model;
-use Database\Kohera\Factories\RegionFactory;
 use App\Imports\Queries\Region as RegionContract;
 use App\Imports\Sanitizer\Sanitizer;
+use Illuminate\Database\Eloquent\Model;
 
 final class Region extends Model implements RegionContract
 {

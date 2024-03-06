@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Location\Commands;
 
-use App\Kohera\Commands\SyncRegions;
 use App\Bpost\Commands\SyncMunicipalities;
+use App\Kohera\Commands\SyncRegions;
 
 final class SyncLocationDomain
 {

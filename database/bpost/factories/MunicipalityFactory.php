@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Database\Bpost\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Bpost\Municipality;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 final class MunicipalityFactory extends Factory
 {

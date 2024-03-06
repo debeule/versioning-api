@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace App\Bpost\Queries;
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Http;
-use Excel;
 use App\Bpost\Municipality;
+use Excel;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 
 final class AllMunicipalities
 {
@@ -19,7 +18,7 @@ final class AllMunicipalities
     /** @return array<string> */
     public function query(): Array
     {
-        if (config('app.import_municipalities'))
+        if (config('tatooine.import_municipalities'))
         {
             $this->importMunicipalitiesFile();
         }   
@@ -44,7 +43,7 @@ final class AllMunicipalities
                 continue;
             }
 
-            if ( !in_array(strtolower($value[4]), $allowedProvinces)) 
+            if ( ! in_array(strtolower($value[4]), $allowedProvinces)) 
             {
                 continue;
             }

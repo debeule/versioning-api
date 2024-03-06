@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\SoftDeletes;
+namespace App\Extensions\Eloquent\SoftDeletes;
 
 use Illuminate\Database\Eloquent\SoftDeletes as BaseSoftDeletes;
-use App\Models\Scopes\SoftDeletingWithDeletesScope;
 
 trait SoftDeletes
 {

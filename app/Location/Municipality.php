@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Location;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Extensions\Eloquent\SoftDeletes\SoftDeletes;
 use App\School\Address;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use App\Extensions\Eloquent\SoftDeletes
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class Municipality extends Model
 {

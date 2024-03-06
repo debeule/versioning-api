@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Kohera;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Imports\Queries\BillingProfile as BillingProfileContract;
+use App\Imports\Sanitizer\Sanitizer;
+use App\Kohera\School as KoheraSchool;
 use App\School\Address;
 use App\School\School;
-use App\Kohera\School as KoheraSchool;
-use App\Imports\Sanitizer\Sanitizer;
+use Illuminate\Database\Eloquent\Model;
 
 final class BillingProfile extends Model implements BillingProfileContract
 {

@@ -4,14 +4,10 @@ declare(strict_types=1);
 
 namespace App\Location\Queries;
 
-use App\Testing\TestCase;
-use PHPUnit\Framework\Attributes\Test;
-use App\Location\Queries\RegionByName;
 use App\Location\Region;
-use App\Location\Municipality;
+use App\Testing\TestCase;
 use Database\Main\Factories\RegionFactory;
-use Database\Main\Factories\MunicipalityFactory;
-use Illuminate\Database\Eloquent\Collection;
+use PHPUnit\Framework\Attributes\Test;
 
 final class RegionByNameTest extends TestCase
 {
@@ -29,7 +25,7 @@ final class RegionByNameTest extends TestCase
     }
 
     #[Test]
-    public function ItReturnsNullIfRegionNameNotExists()
+    public function ItReturnsNullIfRegionNameNotExists(): void
     {
         $regionByName = new RegionByName;
         $result = $regionByName->hasName('NonExistentRegion')->find();
@@ -38,7 +34,7 @@ final class RegionByNameTest extends TestCase
     }
 
     #[Test]
-    public function ItReturnsRegion()
+    public function ItReturnsRegion(): void
     {
         $region = RegionFactory::new()->create();
 

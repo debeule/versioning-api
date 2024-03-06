@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\Location\Commands;
 
-use App\Testing\TestCase;
-use PHPUnit\Framework\Attributes\Test;
-use Database\Bpost\Factories\MunicipalityFactory as BpostMunicipalityFactory;
-use App\Location\Commands\CreateMunicipality;
 use App\Bpost\Municipality as BpostMunicipality;
 use App\Location\Municipality;
+use App\Testing\TestCase;
+use Database\Bpost\Factories\MunicipalityFactory as BpostMunicipalityFactory;
+use PHPUnit\Framework\Attributes\Test;
 
 
 final class CreateMunicipalityTest extends TestCase

@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Http\Endpoints\Region;
 
-use Illuminate\Http\Request;
-use App\Imports\Values\Version;
+use App\Exports\Region;
 use App\Location\Queries\RegionByRegionNumber;
 use Illuminate\Http\JsonResponse;
-use App\Exports\Region;
+use Illuminate\Http\Request;
 
 
 final class RegionByRegionNumberHandler

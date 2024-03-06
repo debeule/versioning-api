@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 
 declare(strict_types=1);
 
@@ -18,7 +19,7 @@ final class CreateSport
 
     public function handle(): bool
     {
-        if (!$this->recordExists($this->koheraSport)) 
+        if (! $this->recordExists($this->koheraSport)) 
         {
             return $this->buildRecord($this->koheraSport);
         }

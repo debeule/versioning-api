@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Database\Main\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Location\Municipality;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 final class MunicipalityFactory extends Factory
 {

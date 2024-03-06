@@ -1,13 +1,13 @@
-<?php 
+<?php
+
 
 declare(strict_types=1);
 
 namespace App\Location\Commands;
 
-use App\Location\Region;
 use App\Kohera\Region as KoheraRegion;
+use App\Location\Region;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use App\Location\Municipality;
 
 final class CreateRegion
 {
@@ -19,7 +19,7 @@ final class CreateRegion
 
     public function handle(): bool
     {
-        if (!$this->recordExists($this->koheraRegion)) 
+        if (! $this->recordExists($this->koheraRegion)) 
         {
             return $this->buildRecord($this->koheraRegion);
         }

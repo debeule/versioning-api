@@ -1,17 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Kohera\Seeders;
 
+use Database\Kohera\Factories\RegionFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Kohera\Region;
-use Database\Kohera\Factories\RegionFactory;
 
 class RegionSeeder extends Seeder
 {
     protected $connection = 'kohera-testing';
 
-    public function run()
+    public function run(): void
     {
         RegionFactory::new()
             ->count(50)

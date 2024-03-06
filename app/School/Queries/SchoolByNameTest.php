@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace App\School\Queries;
 
 use App\Testing\TestCase;
-use PHPUnit\Framework\Attributes\Test;
-use App\School\Queries\SchoolByName;
 use Database\Main\Factories\SchoolFactory;
-use Illuminate\Database\Eloquent\Collection;
+use PHPUnit\Framework\Attributes\Test;
 
 final class SchoolByNameTest extends TestCase
 {

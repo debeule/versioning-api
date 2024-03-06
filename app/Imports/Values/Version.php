@@ -6,7 +6,6 @@ namespace App\Imports\Values;
 
 use Carbon\CarbonImmutable;
 use DateTimeInterface;
-use Illuminate\Database\Eloquent\Builder;
 
 final class Version
 {

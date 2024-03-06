@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Kohera\Commands;
 
-use App\School\BillingProfile;
 use App\Kohera\Queries\AllBillingProfiles as AllKoheraBillingProfiles;
+use App\School\BillingProfile;
 use App\School\Commands\CreateBillingProfile;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 

@@ -4,16 +4,9 @@ declare(strict_types=1);
 
 namespace App\Kohera\Commands;
 
-use App\School\School;
-use App\School\Province;
-use App\Location\Region;
-use App\School\Address;
-use App\Kohera\School as KoheraSchool;
-use App\Imports\Sanitizer\Sanitizer;
 use App\Kohera\Queries\AllSchools as AllKoheraSchools;
-use App\School\Commands\CreateRegion;
-use App\School\Commands\CreateAddress;
 use App\School\Commands\CreateSchool;
+use App\School\School;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 

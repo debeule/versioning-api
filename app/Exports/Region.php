@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Exports;
 
-use Illuminate\Database\Eloquent\Model;
-use App\Location\Region as DbRegion;
 use App\Location\Municipality;
+use App\Location\Region as DbRegion;
+use Illuminate\Database\Eloquent\Model;
 
 final class Region extends Model
 {

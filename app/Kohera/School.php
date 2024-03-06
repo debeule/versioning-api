@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Kohera;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Imports\Queries\School as SchoolContract;
-use App\School\Address;
-use Database\Kohera\Factories\SchoolFactory;
 use App\Imports\Sanitizer\Sanitizer;
+use App\School\Address;
+use Illuminate\Database\Eloquent\Model;
 
 final class School extends Model implements SchoolContract
 {

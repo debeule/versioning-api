@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Http\Endpoints\Sport;
 
-use Illuminate\Http\Request;
-use App\Imports\Values\Version;
-use App\Sport\Queries\AllSports;
-use Illuminate\Http\JsonResponse;
-use App\Sport\Sport;
 use App\Exports\Sport as SportExport;
+use App\Sport\Queries\AllSports;
+use App\Sport\Sport;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 final class AllSportsHandler
 {

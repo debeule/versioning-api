@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\Kohera\Commands;
 
-use App\Testing\TestCase;
-use PHPUnit\Framework\Attributes\Test;
-use App\Sport\Sport;
 use App\Kohera\Sport as KoheraSport;
+use App\Sport\Sport;
+use App\Testing\TestCase;
 use Database\Kohera\Factories\SportFactory as KoheraSportFactory;
-use App\Kohera\Commands\SyncSports;
+use PHPUnit\Framework\Attributes\Test;
 
 final class SyncSportsTest extends TestCase
 {

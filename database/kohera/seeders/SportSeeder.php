@@ -1,17 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Kohera\Seeders;
 
+use Database\Kohera\Factories\SportFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Kohera\Sport;
-use Database\Kohera\Factories\SportFactory;
 
 class SportSeeder extends Seeder
 {
     protected $connection = 'kohera-testing';
 
-    public function run()
+    public function run(): void
     {
         SportFactory::new()
             ->count(50)
@@ -47,7 +48,7 @@ class SportSeeder extends Seeder
                 "BK_SportTakSportOrganisatie" => "00000000-0000-0000-0000-000000020014",
                 "Sport" => "Loopnummers",
                 "HoofdSport" => "Atletiek",
-            ]
+            ],
         ]);
     }
 }

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Kohera\Queries;
 
+use App\Kohera\Sport;
 use App\Testing\TestCase;
-use PHPUnit\Framework\Attributes\Test;
+use Database\Kohera\Factories\SportFactory as KoheraSportFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use App\Kohera\Sport;
-use Database\Kohera\Factories\SportFactory as KoheraSportFactory;
+use PHPUnit\Framework\Attributes\Test;
 
 final class AllSportsTest extends TestCase
 {

@@ -4,20 +4,10 @@ declare(strict_types=1);
 
 namespace App\Bpost\Commands;
 
-use App\Testing\TestCase;
-use PHPUnit\Framework\Attributes\Test;
-use App\School\School;
-use App\Bpost\School as BpostSchool;
-use Database\Bpost\Factories\MunicipalityFactory as BpostMunicipalityFactory;
-use Database\Main\Factories\AddressFactory;
-use App\Bpost\Commands\SyncSchools;
-use App\Bpost\Address as BpostAddress;
-use App\Bpost\Municipality as BpostMunicipality;
-use App\Bpost\Queries\AllMunicipalities;
 use App\Location\Municipality;
-use App\Location\Address;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\File;
+use App\Testing\TestCase;
+use Database\Bpost\Factories\MunicipalityFactory as BpostMunicipalityFactory;use Illuminate\Support\Facades\File;
+use PHPUnit\Framework\Attributes\Test;
 
 final class SyncMunicipalitiesTest extends TestCase
 {
@@ -53,14 +43,14 @@ final class SyncMunicipalitiesTest extends TestCase
 
         $existingMunicipalities = Municipality::get();
 
-        $this->assertGreaterThan($existingMunicipalities->count(), $bpostMunicipalities->count() -1);
+        $this->assertGreaterThan($existingMunicipalities->count(), $bpostMunicipalities->count() - 1);
 
         $syncMunicipalities = new SyncMunicipalities();
         $syncMunicipalities();
 
         $existingMunicipalities = Municipality::get();
         
-        $this->assertEquals($existingMunicipalities->count(), $bpostMunicipalities->count() -1);
+        $this->assertEquals($existingMunicipalities->count(), $bpostMunicipalities->count() - 1);
     }
 
     #[Test]
@@ -89,6 +79,6 @@ final class SyncMunicipalitiesTest extends TestCase
 
         $existingMunicipalities = Municipality::get();
         
-        $this->assertGreaterThan($bpostMunicipalities->count() -1, $existingMunicipalities->count());
+        $this->assertGreaterThan($bpostMunicipalities->count() - 1, $existingMunicipalities->count());
     }
 }

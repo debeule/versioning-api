@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\SoftDeletes;
+namespace App\Extensions\Eloquent\SoftDeletes;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;

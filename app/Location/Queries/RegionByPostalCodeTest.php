@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace App\Location\Queries;
 
-use App\Testing\TestCase;
-use PHPUnit\Framework\Attributes\Test;
-use App\Location\Queries\RegionByPostalCode;
-use App\Location\Region;
 use App\Location\Municipality;
-use Database\Main\Factories\RegionFactory;
+use App\Location\Region;
+use App\Testing\TestCase;
 use Database\Main\Factories\MunicipalityFactory;
-use Illuminate\Database\Eloquent\Collection;
+use Database\Main\Factories\RegionFactory;
+use PHPUnit\Framework\Attributes\Test;
 
 final class RegionByPostalCodeTest extends TestCase
 {
@@ -31,7 +29,7 @@ final class RegionByPostalCodeTest extends TestCase
     }
 
     #[Test]
-    public function ItReturnsNullIfPostalCodeNotLinked()
+    public function ItReturnsNullIfPostalCodeNotLinked(): void
     {
         $municipality = MunicipalityFactory::new()->create();
 
@@ -42,7 +40,7 @@ final class RegionByPostalCodeTest extends TestCase
     }
 
     #[Test]
-    public function ItReturnsRegion()
+    public function ItReturnsRegion(): void
     {
         $region = RegionFactory::new()->create();
         $municipality = MunicipalityFactory::new()->withRegionId($region->id)->create();

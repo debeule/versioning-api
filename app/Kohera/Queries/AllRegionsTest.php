@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Kohera\Queries;
 
+use App\Kohera\Region;
 use App\Testing\TestCase;
-use PHPUnit\Framework\Attributes\Test;
+use Database\Kohera\Factories\RegionFactory as KoheraRegionFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use App\Kohera\Region;
-use Database\Kohera\Factories\RegionFactory as KoheraRegionFactory;
+use PHPUnit\Framework\Attributes\Test;
 
 final class AllRegionsTest extends TestCase
 {

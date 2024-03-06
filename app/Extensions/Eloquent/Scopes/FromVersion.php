@@ -17,7 +17,7 @@ final readonly class FromVersion
     {
         return $query
             ->whereDate('created_at', '<=', (string) $this->version)
-            ->where(function ($query) {
+            ->where(function ($query): void {
                 $query->WhereNull('deleted_at')
                     ->orWhereDate('deleted_at', '>', (string) $this->version);
             });

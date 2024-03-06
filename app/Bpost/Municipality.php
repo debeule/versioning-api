@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Bpost;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Imports\Queries\Municipality as MunicipalityContract;
-use App\Location\Region;
 use App\Imports\Sanitizer\Sanitizer;
+use App\Location\Region;
+use Illuminate\Database\Eloquent\Model;
 
 final class Municipality extends Model implements MunicipalityContract
 {

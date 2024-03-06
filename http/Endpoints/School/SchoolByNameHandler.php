@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Http\Endpoints\School;
 
-use Illuminate\Http\Request;
-use App\Imports\Values\Version;
+use App\Exports\School;
 use App\School\Queries\SchoolByName;
 use Illuminate\Http\JsonResponse;
-use App\Exports\School;
+use Illuminate\Http\Request;
 
 final class SchoolByNameHandler
 {

@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace App\Kohera\Commands;
 
 use App\Kohera\Queries\AllSports as AllKoheraSports;
-use App\Sport\Sport;
-use App\Kohera\Sport as koheraSport;
-use App\Imports\Sanitizer\Sanitizer;
 use App\Sport\Commands\CreateSport;
+use App\Sport\Sport;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 final class SyncSports

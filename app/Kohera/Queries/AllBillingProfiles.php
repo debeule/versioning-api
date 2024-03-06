@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Kohera\Queries;
 
-use Illuminate\Database\Eloquent\Builder;
-use App\Kohera\School;
 use App\Kohera\BillingProfile;
+use App\Kohera\School;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 final class AllBillingProfiles

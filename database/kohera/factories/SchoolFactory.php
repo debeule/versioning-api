@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Database\Kohera\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Kohera\School;
-use Database\Main\Factories\AddressFactory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 final class SchoolFactory extends Factory
 {

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Console;
 
+use App\Imports\SyncAllDomains;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use App\Imports\SyncAllDomains;
 
 class Kernel extends ConsoleKernel
 {

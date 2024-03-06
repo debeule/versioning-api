@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\Kohera\Commands;
 
-use App\School\Address;
-use App\Imports\Sanitizer\Sanitizer;
 use App\Kohera\Queries\AllAddresses as AllKoheraAddresses;
+use App\School\Address;
 use App\School\Commands\CreateAddress;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 

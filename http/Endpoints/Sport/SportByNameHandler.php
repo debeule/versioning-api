@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Http\Endpoints\Sport;
 
-use Illuminate\Http\Request;
-use App\Imports\Values\Version;
+use App\Exports\Sport;
 use App\Sport\Queries\SportByName;
 use Illuminate\Http\JsonResponse;
-use App\Exports\Sport;
+use Illuminate\Http\Request;
 
 final class SportByNameHandler
 {

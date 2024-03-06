@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Http\Endpoints;
 
 use App\Imports\SyncAllDomains;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Foundation\Bus\DispatchesJobs;
 
 final class SyncHandler
 {
