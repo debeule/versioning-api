@@ -21,6 +21,10 @@ class Kernel extends ConsoleKernel
     /**
      * Register the commands for the application.
      */
+    protected $commands = [
+        \App\Console\Commands\GenerateApiToken::class,
+    ];
+
     protected function commands(): void
     {
         $this->load(__DIR__.'/Commands');
