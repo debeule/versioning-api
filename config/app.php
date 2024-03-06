@@ -4,9 +4,6 @@ use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 
 return [
-
-    'import_municipalities' => env('IMPORT_MUNICIPALITIES', true),
-
     /*
     |--------------------------------------------------------------------------
     | Application Name
