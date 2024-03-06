@@ -16,7 +16,7 @@ final class Region extends Model
         'linked_municipalities',
     ];
 
-    public static function build(DbRegion $dbRegion)
+    public static function build(DbRegion $dbRegion): self
     {
         $region = new self();
 
@@ -26,13 +26,13 @@ final class Region extends Model
         return $region;
     }
 
-    public function addRegionAttributes(DbRegion $dbRegion)
+    public function addRegionAttributes(DbRegion $dbRegion): void
     {
         $this->region_number = $dbRegion->region_number;
         $this->name = $dbRegion->name;
     }
 
-    public function addLinkedMunicipalitiesAttribute(DbRegion $dbRegion)
+    public function addLinkedMunicipalitiesAttribute(DbRegion $dbRegion): void
     {
         $municipalities = Municipality::where('region_id', $dbRegion->id)->get();
 

@@ -43,6 +43,7 @@ final class RegionByRegionNumber
 
     public function get(): Region
     {
+        /** @var Region */
         return $this->query()->firstOrFail();
     }
 

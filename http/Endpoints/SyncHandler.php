@@ -16,8 +16,7 @@ final class SyncHandler
         } 
         catch (\Throwable $th) 
         {
-            dd($th);
-            return response()->json(config('reporting.500'), 500);
+            return response()->json($th, 500);
         }
 
         return Response()->json('Syncing', 200);

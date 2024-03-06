@@ -37,7 +37,7 @@ final class LinkRegion
         return Municipality::where('postal_code', $koheraRegion->postalCode())->exists();
     }
 
-    public function linkMunicipalitiesToRegion($koheraRegion)
+    public function linkMunicipalitiesToRegion(KoheraRegion $koheraRegion): bool
     {
         $municipalities = Municipality::where('postal_code', $koheraRegion->postalCode())->get();
         $region = Region::where('region_id', $koheraRegion->regionId())->first();

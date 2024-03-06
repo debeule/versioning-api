@@ -37,8 +37,6 @@ services:
   db:
     image: &db-image mysql:8.0
     container_name: db
-    command: &db-command  
-      - "--default-authentication-plugin=mysql_native_password"
     restart: unless-stopped
     tty: true
     ports:
@@ -55,12 +53,11 @@ services:
   db-testing:
     image: *db-image
     container_name: db-testing
-    command: *db-command
     restart: unless-stopped
+    environment: &db-environment
     tty: true
     ports:
       - 3307:3306
-    environment: *db-environment
     volumes:
       - dbdata-testing:/var/lib/mysql
     networks:

@@ -43,6 +43,7 @@ final class SportByName
 
     public function get(): Sport
     {
+        /** @var Sport */
         return $this->query()->firstOrFail();
     }
 

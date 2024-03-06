@@ -25,7 +25,7 @@ final class AllAddresses
 
         foreach ($schools as $school) 
         {
-            //school address
+            /** @var School $school */
             $address = new Address($school);
             $address->address_id = 'school-' . $school->id;
             $addresses ->push($address);

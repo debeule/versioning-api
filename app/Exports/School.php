@@ -32,7 +32,7 @@ final class School extends Model
         'billing_postal_code',
     ];
 
-    public static function build(DbSchool $dbSchool)
+    public static function build(DbSchool $dbSchool): self
     {
         $school = new self();
 
@@ -43,7 +43,7 @@ final class School extends Model
         return $school;
     }
 
-    public function addSchoolAttributes(DbSchool $dbSchool)
+    public function addSchoolAttributes(DbSchool $dbSchool): void
     {
         $this->name = $dbSchool->name;
         $this->email = $dbSchool->email;
@@ -54,7 +54,7 @@ final class School extends Model
         $this->student_count = $dbSchool->student_count;
     }
 
-    public function addAddressAttributes(DbSchool $dbSchool)
+    public function addAddressAttributes(DbSchool $dbSchool): void
     {
         $address = Address::where('id', $dbSchool->address_id)->first();
 
@@ -63,7 +63,7 @@ final class School extends Model
         $this->postal_code = Municipality::where('id', $address->municipality_id)->first()->postal_code;
     }
 
-    public function addBillingProfileAttributes(DbSchool $dbSchool)
+    public function addBillingProfileAttributes(DbSchool $dbSchool): void
     {
         $billingProfile = BillingProfile::where('school_id', $dbSchool->id)->first();
 
@@ -78,7 +78,7 @@ final class School extends Model
         }
     }
 
-    public function addBillingProfileAddressAttributes(DbSchool $dbSchool)
+    public function addBillingProfileAddressAttributes(DbSchool $dbSchool): void
     {
         $address = Address::where('id', $dbSchool->address_id)->first();
 

@@ -16,6 +16,7 @@ final class AllMunicipalities
 {
     private string $filePath = 'municipalities.xls';
 
+    /** @return array<string> */
     public function query(): Array
     {
         if (config('app.import_municipalities'))
@@ -23,7 +24,7 @@ final class AllMunicipalities
             $this->importMunicipalitiesFile();
         }   
         
-        $data = Excel::toArray([], $this->filePath, null, \Maatwebsite\Excel\Excel::XLS)[0];
+        $data = Excel::toArray(new Request(), $this->filePath, null, \Maatwebsite\Excel\Excel::XLS)[0];
 
         return $data;
     }
@@ -38,7 +39,7 @@ final class AllMunicipalities
         {
             $allowedProvinces = ['vlaams-brabant', 'west-vlaanderen', 'oost-vlaanderen', 'antwerpen', 'limburg'];
 
-            if ($key == 0 || $value[4] === null) 
+            if ($key == 0 || $value[4] == null) 
             {
                 continue;
             }

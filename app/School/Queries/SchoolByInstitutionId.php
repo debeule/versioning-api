@@ -44,6 +44,7 @@ final class SchoolByInstitutionId
 
     public function get(): School
     {
+        /** @var School */
         return $this->query()->firstOrFail();
     }
 
