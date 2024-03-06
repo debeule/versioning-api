@@ -62,6 +62,7 @@ Proposal:
 Another proposal:
 1. Create a contract to download the spreadsheet
 1. Provide an implementation (uses Http or Guzzle for instance)
+   1. [Testing http client](https://laravel.com/docs/10.x/http-client#testing)
 1. Provide a fake implementation (this would return the spreadsheet)
 1. Create a service to retrieve and store spreadsheets related to municipalities
 1. Bring the two together in a command that download the spreadsheet and stores it
