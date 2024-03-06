@@ -59,7 +59,7 @@ return [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', 'db-testing'),
-            'port' => env('DB_PORT', '3306'),
+            'port' => env('DB_PORT', '3307'),
             'database' => env('DB_DATABASE', 'sport-na-school'),
             'username' => env('DB_USERNAME', 'root'),
             'password' => env('DB_PASSWORD', 'sport-na-school'),
