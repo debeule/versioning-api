@@ -1,25 +1,25 @@
 <?php
 
-namespace App\Bpost\Commands;
+declare(strict_types=1);
 
-use App\Bpost\Bpost;
-use Illuminate\Support\Facades\Http;
+namespace App\Bpost\Services;
+
+use App\Imports\Values\MunicipalitiesUri;
 use Illuminate\Support\Facades\File;
-use App\Imports\Values\BpostUri;
 
 final class StoreMunicipalitiesFIle
 {
     public function __construct(
-        private BpostUri $uri = new BpostUri(),
+        private MunicipalitiesUri $uri = new MunicipalitiesUri(),
     ) {}
     
-    public function store()
+    public function store(): void
     {
         $this->clearFilePath();
         $this->status = Storage::disk('local')->put($this->uri, $file);
     }
 
-    public function clearFilePath()
+    public function clearFilePath(): void
     {
         if (File::exists($this->uri)) 
         {

@@ -1,19 +1,20 @@
 <?php
 
-namespace App\Bpost\Commands;
+declare(strict_types=1);
 
-use App\Bpost\Bpost;
+namespace App\Bpost\Services;
+
+use App\Imports\Values\BpostUri;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\File;
-use App\Imports\Values\MunicipalitiesUri;
 
 final class DownloadMunicipalities
 {
     private string $file;
 
     public function __construct(
-        private MunicipalitiesUri $uri = new MunicipalitiesUri(),
+        private BpostUri $uri = new BpostUri(),
     ) {
+        dd((string) $this->uri);
         $this->file = Http::withOptions(['verify' => false])->get((string) $this->uri)->body();
     }
     
