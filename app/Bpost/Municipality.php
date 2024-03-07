@@ -9,15 +9,14 @@ use App\Imports\Sanitizer\Sanitizer;
 use App\Location\Region;
 use Illuminate\Database\Eloquent\Model;
 
-final class Municipality extends Model implements MunicipalityContract
+final class Municipality implements MunicipalityContract
 {
-    protected $fillable = [
-        'Plaatsnaam',
-        'Postcode',
-        'Deelgemeente',
-        'HoofdGemeente',
-        'Provincie',
-    ];
+    public function __construct(
+        private string $Plaatsnaam = '',
+        private string $Postcode = '',
+        private ?string $Hoofdgemeente = null,
+        private string $Provincie = '',
+    ) {}
 
     public function name(): string
     {
