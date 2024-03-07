@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Imports\Values\ProvinceGroup;
 
 return new class extends Migration
 {
@@ -18,7 +19,7 @@ return new class extends Migration
 
             $table->string('name');
             $table->integer('postal_code');
-            $table->enum('province', ['antwerpen', 'limburg', 'oost-vlaanderen', 'vlaams-brabant', 'west-vlaanderen']); 
+            $table->enum('province', ProvinceGroup::allProvinces()->get()); 
             $table->string('head_municipality')->nullable();
 
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
