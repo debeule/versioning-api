@@ -59,7 +59,7 @@ final class AllMunicipalitiesTest extends TestCase
         }
 
         $allMunicipalities = new AllMunicipalities;
-        $allMunicipalities->importMunicipalitiesFile();
+        $allMunicipalities->MunicipalitiesFileToCollectionFile();
         
         $this->assertFileExists(storage_path('app/' . $this->filePath));
     }
