@@ -14,14 +14,11 @@ final class MunicipalitiesFileToCollection
     use DispatchesJobs;
 
     private array $fileArray = [];
-    private array $allowedProvinces = [];
 
     public function __construct(
-        private ProvinceGroup $provinceGroup = new ProvinceGroup(),
         private RetrieveMunicipalitiesFromFile $retrieveMunicipalitiesFromFileQuery = new RetrieveMunicipalitiesFromFile,
     ) {
         $this->fileArray = $this->retrieveMunicipalitiesFromFileQuery->get();
-        $this->allowedProvinces = $this->provinceGroup->allProvinces()->get();
     }
 
     public function get(): Object
@@ -46,7 +43,7 @@ final class MunicipalitiesFileToCollection
             return false;
         }
 
-        if (!in_array(strtolower($column[4]), $this->allowedProvinces)) 
+        if (!in_array(strtolower($column[4]), provinceGroup::allProvinces()->get())) 
         {
             return false;
         }
