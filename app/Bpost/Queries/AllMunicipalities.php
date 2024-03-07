@@ -4,24 +4,21 @@ declare(strict_types=1);
 
 namespace App\Bpost\Queries;
 
-use App\Bpost\Services\DownloadMunicipalities;
-use App\Bpost\Services\StoreMunicipalities;
-use App\Bpost\Services\ImportMunicipalities;
+use App\Bpost\Queries\RetrieveMunicipalitiesFromBpost;
+use App\Bpost\Commands\StoreMunicipalitiesFIle;
+use App\Bpost\Services\MunicipalitiesFileToCollection;
 
 final class AllMunicipalities
 {
     public function __construct(
-        private DownloadMunicipalities $download = new DownloadMunicipalities,
-        private StoreMunicipalities $store = new StoreMunicipalities,
-        private ImportMunicipalities $import = new ImportMunicipalities,
-    ) {
-        $this->filePath = (string) $bpostUri;
-    }
+        private RetrieveMunicipalitiesFromBpost $download = new RetrieveMunicipalitiesFromBpost,
+        private StoreMunicipalitiesFIle $store = new StoreMunicipalitiesFIle,
+        private MunicipalitiesFileToCollection $import = new MunicipalitiesFileToCollection,
+    ) {}
 
     public function query()
     {
-        $file = $this->download->get();
-        $this->store->get($file);
+        $this->store->store($this->download->get());
         
         return $this->import->get();
     }
