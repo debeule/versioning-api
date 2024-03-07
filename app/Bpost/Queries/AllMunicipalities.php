@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Bpost\Queries;
 
-use App\Bpost\Queries\RetrieveMunicipalitiesFromBpost;
 use App\Bpost\Commands\StoreMunicipalitiesFIle;
 use App\Bpost\Services\MunicipalitiesFileToCollection;
 

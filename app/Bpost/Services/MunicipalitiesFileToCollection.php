@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Bpost\Services;
 
+use App\Bpost\Commands\BuildMunicipalityRecord;
 use App\Bpost\Queries\RetrieveMunicipalitiesFromFile;
 use App\Imports\Values\ProvinceGroup;
-use App\Bpost\Commands\BuildMunicipalityRecord;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 final class MunicipalitiesFileToCollection
@@ -43,7 +43,7 @@ final class MunicipalitiesFileToCollection
             return false;
         }
 
-        if (!in_array(strtolower($column[4]), provinceGroup::allProvinces()->get())) 
+        if (! in_array(strtolower($column[4]), provinceGroup::allProvinces()->get())) 
         {
             return false;
         }

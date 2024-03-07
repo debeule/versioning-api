@@ -17,6 +17,7 @@ final class StoreMunicipalitiesFIle
     public function store(string $file): bool
     {
         $this->clearFilePath();
+
         return Storage::disk('local')->put($this->uri, $file);
     }
 

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Bpost\Queries;
 
-use App\Bpost\Municipality;
 use App\Imports\Values\MunicipalitiesUri;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;

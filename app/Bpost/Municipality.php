@@ -7,7 +7,6 @@ namespace App\Bpost;
 use App\Imports\Queries\Municipality as MunicipalityContract;
 use App\Imports\Sanitizer\Sanitizer;
 use App\Location\Region;
-use Illuminate\Database\Eloquent\Model;
 
 final class Municipality implements MunicipalityContract
 {
