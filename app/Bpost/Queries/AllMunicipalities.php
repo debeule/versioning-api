@@ -4,26 +4,42 @@ declare(strict_types=1);
 
 namespace App\Bpost\Queries;
 
-use App\Bpost\Commands\StoreMunicipalitiesFIle;
-use App\Bpost\Services\MunicipalitiesFileToCollection;
+use App\Imports\Values\BpostUri;
+use App\Imports\Values\MunicipalitiesUri;
+use App\Services\ImportFileToStorage;
+use App\Services\SpreadsheetToCollection;
 
 final class AllMunicipalities
 {
-    public function __construct(
-        private RetrieveMunicipalitiesFromBpost $download = new RetrieveMunicipalitiesFromBpost,
-        private StoreMunicipalitiesFIle $store = new StoreMunicipalitiesFIle,
-        private MunicipalitiesFileToCollection $import = new MunicipalitiesFileToCollection,
-    ) {}
+    private string $source, $storagePath;
+
+    public function __construct()
+    {
+        $this->source = (string) new BpostUri;
+        $this->storagePath = (string) new MunicipalitiesUri;
+    }
 
     public function query()
     {
-        $this->store->store($this->download->get());
-        
-        return $this->import->get();
+        ImportFileToStorage::setup(
+            $this->source,
+            $this->storagePath,
+        )->pipe();
+
+        dd(SpreadsheetToCollection::setup(
+            $this->storagePath,
+        )->pipe());
     }
 
     public function get()
     {
-        return $this->query();
+        try 
+        {
+            return $this->query();
+        } 
+        catch (\Throwable $th) 
+        {
+            dd($th);
+        }
     }
 }
