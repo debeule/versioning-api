@@ -26,9 +26,9 @@ final class AllMunicipalities
             $this->storagePath,
         )->pipe();
 
-        dd(SpreadsheetToCollection::setup(
+        return SpreadsheetToCollection::setup(
             $this->storagePath,
-        )->pipe());
+        )->pipe();
     }
 
     public function get()
