@@ -43,7 +43,7 @@ final class MunicipalitiesFileToCollection
             return false;
         }
 
-        if (! in_array(strtolower($column[4]), provinceGroup::allProvinces()->get())) 
+        if (! in_array(strtolower($column[4]), ProvinceGroup::allProvinces()->get())) 
         {
             return false;
         }
