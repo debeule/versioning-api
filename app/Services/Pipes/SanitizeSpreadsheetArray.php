@@ -10,7 +10,6 @@ final class SanitizeSpreadsheetArray
     public function handle(array $content, \Closure $next)
     {
         $resultArray = [];
-        $rowIsValid = false;
 
         foreach ($content as $row) 
         {
