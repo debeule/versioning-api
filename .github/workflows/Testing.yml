@@ -14,10 +14,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: build containers
-      run: docker compose up -d --build
-
-    - name: wait for containers to start
-      run: sleep 20s
+      run: docker compose up -d --wait
 
     - name: setup databases
       run: |
