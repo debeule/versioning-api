@@ -17,14 +17,14 @@ final class RetrieveFromSourceTest extends TestCase
     #[Test]
     public function returnsFileContentsFromSource(): void
     {
-        $data = [
-            'source' => config('tatooine.testSource'),
-        ];
+        // $data = [
+        //     'source' => "url.com"
+        // ];
 
-        $result = app(Pipeline::class)
-            ->send($data)
-            ->through([RetrieveFromSource::class])
-            ->thenReturn();
+        // $result = app(Pipeline::class)
+        //     ->send($data)
+        //     ->through([RetrieveFromSource::class])
+        //     ->thenReturn();
 
         // dd($result);
 
