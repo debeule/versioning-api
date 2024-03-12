@@ -14,8 +14,6 @@ final class SanitizeSpreadsheetArray
 
         foreach ($content['spreadsheetArray'] as $row) 
         {
-            if ($row[4] == null)  continue;
-    
             if (! in_array(strtolower($row[4]), ProvinceGroup::allProvinces()->get())) continue;
     
             array_push($resultArray, $row);
