@@ -27,11 +27,6 @@ final class MunicipalityFactory
             $faker->randomElement(ProvinceGroup::allProvinces()->get()),
         ]));
     }
-    
-    public function make(): Municipality
-    {
-        return $this->municipality;
-    }
 
     public function count(int $times): collection
     {
@@ -43,5 +38,15 @@ final class MunicipalityFactory
         }
 
         return $collection;
+    }
+    
+    public function make(): Municipality
+    {
+        return $this->municipality;
+    }
+
+    public function makeArray(): array
+    {
+        return array_values(collect($this->municipality)->toArray());
     }
 }
