@@ -5,33 +5,44 @@ declare(strict_types=1);
 namespace Database\Bpost\Factories;
 
 use App\Bpost\Municipality;
-use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Bpost\Commands\BuildMunicipalityRecord;
+use Faker\Factory as FakerFactory;
+use App\Imports\Values\ProvinceGroup;
+use Illuminate\Support\Collection;
 
-final class MunicipalityFactory extends Factory
+final class MunicipalityFactory
 {
-    protected $model = Municipality::class;
+    public function __construct(
+        private ?Municipality $municipality,
+    ){}
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition()
+    public static function new()
     {
-        return [
-            'Postcode' => $this->faker->randomNumber(4),
-            'Plaatsnaam' => $this->faker->city,
-            'Deelgemeente' => $this->faker->randomElement(['Ja', 'Nee']),
-            'Hoofdgemeente' => $this->faker->city,
-            'Provincie' => $this->faker->randomElement(['Antwerpen', 'Limburg', 'Oost-Vlaanderen', 'Vlaams-Brabant', 'West-Vlaanderen']),
-        ];
+        $faker = FakerFactory::create();
+
+        return new self(new Municipality([
+            $faker->randomNumber(4),
+            $faker->city,
+            $faker->city,
+            'Ja',
+            $faker->randomElement(ProvinceGroup::allProvinces()->get()),
+        ]));
+    }
+    
+    public function make(): Municipality
+    {
+        return $this->municipality;
     }
 
-    public function withoutHeadMunicipality(): self
+    public function count(int $times): collection
     {
-        return $this->state(['
-            Deelgemeente' => 'Nee',
-            'HoofdGemeente' => null,
-        ]);
+        $collection = collect();
+
+        for ($i = 0; $i < $times; $i++) 
+        {
+            $collection->push(MunicipalityFactory::new()->make());
+        }
+
+        return $collection;
     }
 }
