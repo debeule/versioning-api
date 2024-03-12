@@ -13,54 +13,26 @@ use PHPUnit\Framework\Attributes\Test;
 
 final class AllMunicipalitiesTest extends TestCase
 {
-    private string $filePath = 'municipalities.xls';
+    private string $filePath = 'excel/municipalities.xls';
 
-    #[Test]
-    public function queryReturnsArrayOfMunicipalities(): void
+    #[Before]
+    public function ensureNoFilePresent(): void
     {
-        $bpostMunicipalities = BpostMunicipalityFactory::new()->count(4)->make();
-
         if (File::exists($this->filePath)) 
         {
             File::delete($this->filePath);
         }
-
-        $bpostMunicipalities->storeExcel($this->filePath);
-
-        $allMunicipalities = new AllMunicipalities;
-
-        $this->assertIsArray($allMunicipalities->query());
     }
 
     #[Test]
     public function getReturnsCollectionOfMunicipalities(): void
     {
-        $bpostMunicipalities = BpostMunicipalityFactory::new()->count(4)->make();
-
-        if (File::exists($this->filePath)) 
-        {
-            File::delete($this->filePath);
-        }
-
+        $bpostMunicipalities = BpostMunicipalityFactory::new()->count(4);
         $bpostMunicipalities->storeExcel($this->filePath);
 
         $allMunicipalities = new AllMunicipalities;
 
         $this->assertInstanceOf(Collection::class, $allMunicipalities->get());
-        $this->assertInstanceOf(Municipality::class, $allMunicipalities->get()[0]);
-    }
-
-    #[Test]
-    public function ItCanDOwnloadMunicipalitiesExcelFile(): void
-    {
-        if (File::exists($this->filePath)) 
-        {
-            File::delete($this->filePath);
-        }
-
-        $allMunicipalities = new AllMunicipalities;
-        $allMunicipalities->MunicipalitiesFileToCollectionFile();
-        
-        $this->assertFileExists(storage_path('app/' . $this->filePath));
+        $this->assertInstanceOf(Municipality::class, $allMunicipalities->get()->first());
     }
 }

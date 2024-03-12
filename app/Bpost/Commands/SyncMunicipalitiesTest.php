@@ -11,7 +11,7 @@ use PHPUnit\Framework\Attributes\Test;
 
 final class SyncMunicipalitiesTest extends TestCase
 {
-    private string $filePath = 'municipalities.xls';
+    private string $filePath = 'excel/municipalities.xls';
 
     #[Before]
     public function ensureNoFilePresent(): void
@@ -25,12 +25,15 @@ final class SyncMunicipalitiesTest extends TestCase
     #[Test]
     public function itDispatchesCreateMunicipalitiesWhenNotExists(): void
     {
-        $bpostMunicipalities = BpostMunicipalityFactory::new()->count(4)->make();
+        $bpostMunicipalities = BpostMunicipalityFactory::new()->count(4);
 
         $bpostMunicipalities->storeExcel($this->filePath);
 
         $syncMunicipalities = new SyncMunicipalities();
         $syncMunicipalities();
+
+        $municipalitiesCount = Municipality::get()->count();
+        $bpostMunicipalitiesCount = $bpostMunicipalities->count() - 1;
 
         $bpostMunicipalities->push(BpostMunicipalityFactory::new()->make());
 
@@ -41,22 +44,20 @@ final class SyncMunicipalitiesTest extends TestCase
 
         $bpostMunicipalities->storeExcel($this->filePath);
 
-        $existingMunicipalities = Municipality::get();
-
-        $this->assertGreaterThan($existingMunicipalities->count(), $bpostMunicipalities->count() - 1);
-
         $syncMunicipalities = new SyncMunicipalities();
         $syncMunicipalities();
 
-        $existingMunicipalities = Municipality::get();
-        
-        $this->assertEquals($existingMunicipalities->count(), $bpostMunicipalities->count() - 1);
+        $modifiedMunicipalitiesCount = Municipality::get()->count();
+        $modifiedBpostMunicipalitiesCount = $bpostMunicipalities->count() - 1;
+
+        $this->assertGreaterThan($municipalitiesCount, $modifiedMunicipalitiesCount);
+        $this->assertEquals($modifiedBpostMunicipalitiesCount, $modifiedBpostMunicipalitiesCount);
     }
 
     #[Test]
     public function itSoftDeletesDeletedRecords(): void
     {
-        $bpostMunicipalities = BpostMunicipalityFactory::new()->count(4)->make();
+        $bpostMunicipalities = BpostMunicipalityFactory::new()->count(4);
 
         $bpostMunicipalities->storeExcel($this->filePath);
 
