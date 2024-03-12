@@ -105,7 +105,7 @@
         "phpstan": "vendor/bin/phpstan analyse --memory-limit=2G",
         
         "phpunit2": [
-            "vendor/bin/phpunit --colors=always,'Feature','Integration' --debug"
+            "vendor/bin/phpunit --colors=always,'Feature','Integration'"
         ],
         "phpunit": [
             "php artisan migrate:fresh --path=database/main/migrations/ --database=db-testing",
