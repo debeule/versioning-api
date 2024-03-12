@@ -35,7 +35,6 @@ final class SyncMunicipalities
             array_push($processedMunicipalities, $bpostMunicipality->postalCode());
         }
 
-        //Municipality found in sports table but not in koheraMunicipalities
         foreach ($existingMunicipalities as $existingMunicipality) 
         {
             $existingMunicipality->delete();

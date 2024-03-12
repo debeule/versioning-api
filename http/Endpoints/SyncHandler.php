@@ -13,7 +13,7 @@ final class SyncHandler
     {
         try 
         {
-            dispatch(new SyncAllDomains);
+            SyncAllDomains::dispatch();
         } 
         catch (\Throwable $th) 
         {

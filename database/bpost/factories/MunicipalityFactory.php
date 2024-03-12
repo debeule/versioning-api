@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace Database\Bpost\Factories;
 
 use App\Bpost\Municipality;
-use App\Bpost\Commands\BuildMunicipalityRecord;
-use Faker\Factory as FakerFactory;
 use App\Imports\Values\ProvinceGroup;
+use Faker\Factory as FakerFactory;
 use Illuminate\Support\Collection;
 
 final class MunicipalityFactory

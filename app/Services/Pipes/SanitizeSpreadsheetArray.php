@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Pipes;
 
-use Illuminate\Support\Collection;
 use App\Imports\Values\ProvinceGroup;
 
 final class SanitizeSpreadsheetArray

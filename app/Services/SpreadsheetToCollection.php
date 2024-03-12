@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
 use Illuminate\Pipeline\Pipeline;
-use App\Services\Pipes;
 
 final class SpreadsheetToCollection
 {
@@ -17,7 +18,7 @@ final class SpreadsheetToCollection
         return new self($source, $objectType);
     }
     
-    public function pipe()
+    public function pipe(): mixed
     {
         return app(Pipeline::class)
             ->send([

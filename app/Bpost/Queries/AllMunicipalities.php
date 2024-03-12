@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Bpost\Queries;
 
+use App\Bpost\Municipality;
 use App\Imports\Values\BpostUri;
 use App\Imports\Values\MunicipalitiesUri;
 use App\Services\ImportFileToStorage;
 use App\Services\SpreadsheetToCollection;
-use App\Bpost\Municipality;
 
 final class AllMunicipalities
 {
@@ -29,6 +29,7 @@ final class AllMunicipalities
                 $this->storagePath,
             )->pipe();
         }
+        
         return SpreadsheetToCollection::setup(
             $this->storagePath,
             Municipality::class,

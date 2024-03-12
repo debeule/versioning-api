@@ -12,8 +12,7 @@ final class RetrieveMunicipalitiesFromFile
 {
     public function __construct(
         private MunicipalitiesUri $uri = new MunicipalitiesUri,
-    ) {
-    }
+    ) {}
 
     public function query()
     {

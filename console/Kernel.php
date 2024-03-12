@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->job(new SyncAllDomains)->Daily();
+        $schedule->job(new SyncAllDomains)->everyMinute();
     }
 
     /**

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
+use App\Imports\Values\ProvinceGroup;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Imports\Values\ProvinceGroup;
 
 return new class extends Migration
 {

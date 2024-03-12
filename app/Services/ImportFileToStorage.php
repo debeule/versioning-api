@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
 use Illuminate\Pipeline\Pipeline;
-use App\Services\Pipes;
 
 final class ImportFileToStorage
 {
@@ -17,7 +18,7 @@ final class ImportFileToStorage
         return new self($source, $destination);
     }
     
-    public function pipe()
+    public function pipe(): mixed
     {
         return app(Pipeline::class)
             ->send([
