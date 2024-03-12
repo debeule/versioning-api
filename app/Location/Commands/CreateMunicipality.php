@@ -17,7 +17,7 @@ final class CreateMunicipality
         public BpostMunicipality $bpostMunicipality
     ) {}
 
-    public function handle(BpostMunicipality $bpostMunicipality): bool
+    public function handle(): bool
     {
         if (! $this->recordExists($this->bpostMunicipality)) 
         {
@@ -41,7 +41,7 @@ final class CreateMunicipality
     {
         $newMunicipality = new Municipality();
 
-        $newMunicipality->name = strtolower($bpostMunicipality->name());
+        $newMunicipality->name = $bpostMunicipality->name();
         $newMunicipality->postal_code = $bpostMunicipality->postalCode();
         $newMunicipality->province = $bpostMunicipality->province();
 
