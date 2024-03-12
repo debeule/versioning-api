@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'import_municipalities' => env('IMPORT_MUNICIPALITIES', true),
+    'should_import' => env('IMPORT_MUNICIPALITIES', TRUE),
 ];
