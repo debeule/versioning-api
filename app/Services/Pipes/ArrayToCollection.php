@@ -12,12 +12,13 @@ final class ArrayToCollection
 {
     public function handle(mixed $content, \Closure $next)
     {
-        $municipalities = collect();
+        $collection = collect();
         
-        foreach ($content as $row) 
+        foreach ($content['spreadsheetArray'] as $row) 
         {
-            $municipalities->push(new Municipality($row));
+            $collection->push(new $content['objectType']($row));
         }
-        return $next($municipalities);
+
+        return $next($collection);
     }
 }

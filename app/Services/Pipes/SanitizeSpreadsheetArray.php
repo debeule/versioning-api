@@ -11,7 +11,7 @@ final class SanitizeSpreadsheetArray
     {
         $resultArray = [];
 
-        foreach ($content as $row) 
+        foreach ($content['spreadsheetArray'] as $row) 
         {
             if ($row[4] == null)  continue;
     
@@ -20,6 +20,8 @@ final class SanitizeSpreadsheetArray
             array_push($resultArray, $row);
         }
 
-        return $next($resultArray);
+        $content['spreadsheetArray'] = $resultArray;
+
+        return $next($content);
     }
 }

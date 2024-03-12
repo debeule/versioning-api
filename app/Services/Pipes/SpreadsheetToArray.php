@@ -14,7 +14,7 @@ final class SpreadsheetToArray
 {
     public function handle(mixed $content, \Closure $next)
     {
-        $content = Excel::toArray(new Request(), $content['source'], null, \Maatwebsite\Excel\Excel::XLS)[0];
+        $content['spreadsheetArray'] = Excel::toArray(new Request(), $content['source'], null, \Maatwebsite\Excel\Excel::XLS)[0];
 
         return $next($content);
     }
