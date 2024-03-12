@@ -21,10 +21,13 @@ final class AllMunicipalities
 
     public function query()
     {
-        ImportFileToStorage::setup(
-            $this->source,
-            $this->storagePath,
-        )->pipe();
+        if (config('tatooine.should_import')) 
+        {
+            ImportFileToStorage::setup(
+                $this->source,
+                $this->storagePath,
+            )->pipe();
+        }
 
         return SpreadsheetToCollection::setup(
             $this->storagePath,
