@@ -10,12 +10,20 @@ use App\Location\Region;
 
 final class Municipality implements MunicipalityContract
 {
-    public function __construct(
-        private string $Plaatsnaam = '',
-        private string $Postcode = '',
-        private ?string $Hoofdgemeente = null,
-        private string $Provincie = '',
-    ) {}
+    public int $Postcode;
+    public string $Plaatsnaam;
+    public string $Deelgemeente;
+    public string $Hoofdgemeente;
+    public string $Provincie;
+
+    public function __construct(Array $row) 
+    {
+        $this->Postcode = $row[0];
+        $this->Plaatsnaam = $row[1];
+        $this->Deelgemeente = Sanitizer::input($row[2])->stringToLower()->value();
+        $this->Hoofdgemeente = $row[3];
+        $this->Provincie = $row[4];
+    }
 
     public function name(): string
     {
@@ -34,7 +42,12 @@ final class Municipality implements MunicipalityContract
 
     public function headMunicipality(): ?string
     {
-        return Sanitizer::input($this->Hoofdgemeente)->stringToLower()->value();
+        if ($this->Deelgemeente == 'ja') 
+        {
+            return Sanitizer::input($this->Hoofdgemeente)->stringToLower()->value();
+        }
+
+        return null;
     }
 
     public function region(): Region
