@@ -22,10 +22,8 @@ final class SpreadsheetToArrayTest extends TestCase
     {
         $bpostMunicipalities = BpostMunicipalityFactory::new()->count(2);
 
-        if (File::exists($this->filePath)) 
-        {
-            File::delete($this->filePath);
-        }
+        
+        if (File::exists($this->filePath)) File::delete($this->filePath);
 
         $bpostMunicipalities->storeExcel($this->filePath);
 

@@ -17,10 +17,8 @@ final class StoreFileToDestinationTest extends TestCase
     #[Test]
     public function returnsCollectionOfobjectType(): void
     {
-        if (File::exists($this->filePath)) 
-        {
-            File::delete($this->filePath);
-        }
+        
+        if (File::exists($this->filePath)) File::delete($this->filePath);
 
         $data = [
             'destination' => 'excel/municipalities.xls',

@@ -16,10 +16,8 @@ final class SyncMunicipalitiesTest extends TestCase
     #[Before]
     public function ensureNoFilePresent(): void
     {
-        if (File::exists($this->filePath)) 
-        {
-            File::delete($this->filePath);
-        }
+        
+        if (File::exists($this->filePath)) File::delete($this->filePath);
     }
 
     #[Test]
@@ -37,10 +35,8 @@ final class SyncMunicipalitiesTest extends TestCase
 
         $bpostMunicipalities->push(BpostMunicipalityFactory::new()->make());
 
-        if (File::exists($this->filePath)) 
-        {
-            File::delete($this->filePath);
-        }
+        
+        if (File::exists($this->filePath)) File::delete($this->filePath);
 
         $bpostMunicipalities->storeExcel($this->filePath);
 
@@ -66,10 +62,8 @@ final class SyncMunicipalitiesTest extends TestCase
 
         $deletedMunicipality = $bpostMunicipalities->pop();
 
-        if (File::exists($this->filePath)) 
-        {
-            File::delete($this->filePath);
-        }
+        
+        if (File::exists($this->filePath)) File::delete($this->filePath);
 
         $bpostMunicipalities->storeExcel($this->filePath);
         
