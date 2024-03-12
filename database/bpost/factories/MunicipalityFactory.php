@@ -28,16 +28,18 @@ final class MunicipalityFactory
         ]));
     }
 
-    public function count(int $times): collection
+    public function count(int $times, bool $toArray = false): mixed
     {
-        $collection = collect();
+        $grouping = $toArray ? [] : collect();
 
         for ($i = 0; $i < $times; $i++) 
         {
-            $collection->push(MunicipalityFactory::new()->make());
+            if (!$toArray) $grouping->push(MunicipalityFactory::new()->make());
+
+            if ($toArray) array_push($grouping, MunicipalityFactory::new()->makeArray());
         }
 
-        return $collection;
+        return $grouping;
     }
     
     public function make(): Municipality
