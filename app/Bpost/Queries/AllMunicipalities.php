@@ -24,16 +24,10 @@ final class AllMunicipalities
     {
         if (config('tatooine.should_import')) 
         {
-            ImportFileToStorage::setup(
-                $this->source,
-                $this->storagePath,
-            )->pipe();
+            ImportFileToStorage::setup($this->source, $this->storagePath)->pipe();
         }
         
-        return SpreadsheetToCollection::setup(
-            $this->storagePath,
-            Municipality::class,
-        )->pipe();
+        return SpreadsheetToCollection::setup($this->storagePath, Municipality::class)->pipe();
     }
 
     public function get()
