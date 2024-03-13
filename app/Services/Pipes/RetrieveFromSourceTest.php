@@ -11,25 +11,27 @@ use Illuminate\Support\Collection;
 use App\Services\Pipes\RetrieveFromSource;
 use App\Bpost\Municipality;
 use Illuminate\Pipeline\Pipeline;
+use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 
 final class RetrieveFromSourceTest extends TestCase
 {
     #[Test]
     public function returnsFileContentsFromSource(): void
     {
-        // $data = [
-        //     'source' => "url.com"
-        // ];
+        $data = [
+            'source' => config('tatooine.test_file_url'),
+        ];
 
-        // $result = app(Pipeline::class)
-        //     ->send($data)
-        //     ->through([RetrieveFromSource::class])
-        //     ->thenReturn();
+        $result = app(Pipeline::class)
+            ->send($data)
+            ->through([RetrieveFromSource::class])
+            ->thenReturn();
 
-        // dd($result);
-
-        #TODO: find a way to download test file and test response
-        $this->assertTrue(true);
+        $this->assertEquals(
+            Storage::disk('local')->get('excel/TestFile.xls'),
+            $result['file']
+        );
     }
-
 }
