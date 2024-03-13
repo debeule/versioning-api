@@ -17,7 +17,8 @@ final class SanitizeSpreadsheetArrayTest extends TestCase
     #[Test]
     public function returnsCollectionOfobjectType(): void
     {
-        $municiaplities = BpostMunicipalityFactory::new()->count(2, true);
+        $municiaplities = BpostMunicipalityFactory::new()->count(2)->makeArray();
+        
         $municiaplities[0]['4'] = 'non existant province';
 
         $data = [

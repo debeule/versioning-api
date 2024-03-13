@@ -13,6 +13,7 @@ use App\Bpost\Municipality;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\File;
 
+
 final class SpreadsheetToArrayTest extends TestCase
 {
     private string $filePath = 'excel/municipalities.xls';
@@ -20,8 +21,7 @@ final class SpreadsheetToArrayTest extends TestCase
     #[Test]
     public function returnsCollectionOfobjectType(): void
     {
-        $bpostMunicipalities = BpostMunicipalityFactory::new()->count(2);
-
+        $bpostMunicipalities = BpostMunicipalityFactory::new()->count(2)->make();
         
         if (File::exists($this->filePath)) File::delete($this->filePath);
 

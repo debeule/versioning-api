@@ -20,7 +20,7 @@ final class ArrayToCollectionTest extends TestCase
         $municiaplity = BpostMunicipalityFactory::new()->makeArray();
 
         $data = [
-            'spreadsheetArray' => [$municiaplity],
+            'spreadsheetArray' => $municiaplity,
             'objectType' => Municipality::class,
         ];
 

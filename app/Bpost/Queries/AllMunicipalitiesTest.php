@@ -25,7 +25,7 @@ final class AllMunicipalitiesTest extends TestCase
     #[Test]
     public function getReturnsCollectionOfMunicipalities(): void
     {
-        $bpostMunicipalities = BpostMunicipalityFactory::new()->count(4);
+        $bpostMunicipalities = BpostMunicipalityFactory::new()->count(4)->make();
         $bpostMunicipalities->storeExcel($this->filePath);
 
         $allMunicipalities = new AllMunicipalities;

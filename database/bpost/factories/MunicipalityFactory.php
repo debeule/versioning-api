@@ -12,43 +12,57 @@ use Illuminate\Support\Collection;
 final class MunicipalityFactory
 {
     public function __construct(
-        private ?Municipality $municipality,
+        private Collection $municipalities,
     ){}
 
     public static function new()
     {
+        return new self(collect([self::create()]));
+    }
+
+    public static function create()
+    {
         $faker = FakerFactory::create();
 
-        return new self(new Municipality([
+        return new Municipality([
             $faker->randomNumber(4),
             $faker->city,
             $faker->city,
             'Ja',
             $faker->randomElement(ProvinceGroup::allProvinces()->get()),
-        ]));
+        ]);
     }
 
-    public function count(int $times, bool $toArray = false): mixed
+    public function make()
     {
-        $grouping = $toArray ? [] : collect();
-
-        for ($i = 0; $i < $times; $i++) 
+        if($this->municipalities->count() === 1) 
         {
-            if (!$toArray) $grouping->push(MunicipalityFactory::new()->make());
-
-            if ($toArray) array_push($grouping, MunicipalityFactory::new()->makeArray());
+            return $this->municipalities->first();
         }
 
-        return $grouping;
+        return $this->municipalities;
     }
-    
-    public function make(): Municipality
+
+    public function count(int $times): self
     {
-        return $this->municipality;
+        for ($i = 0; $i < $times -1; $i++) 
+        {
+            $this->municipalities->push($this->create());
+        }
+
+        return new self($this->municipalities);
+        
     }
 
     public function makeArray(): array
     {
-        return array_values(collect($this->municipality)->toArray());
+        $outputArray = [];
+
+        foreach ($this->municipalities as $municipality) 
+        {
+            array_push($outputArray, array_values((array) $municipality));
+        }
+
+        return $outputArray;
     }
 }

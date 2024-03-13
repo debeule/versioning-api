@@ -22,7 +22,7 @@ final class SyncMunicipalitiesTest extends TestCase
     #[Test]
     public function itDispatchesCreateMunicipalitiesWhenNotExists(): void
     {
-        $bpostMunicipalities = BpostMunicipalityFactory::new()->count(4);
+        $bpostMunicipalities = BpostMunicipalityFactory::new()->count(4)->make();
 
         $bpostMunicipalities->storeExcel($this->filePath);
 
@@ -52,7 +52,7 @@ final class SyncMunicipalitiesTest extends TestCase
     #[Test]
     public function itSoftDeletesDeletedRecords(): void
     {
-        $bpostMunicipalities = BpostMunicipalityFactory::new()->count(4);
+        $bpostMunicipalities = BpostMunicipalityFactory::new()->count(4)->make();
 
         $bpostMunicipalities->storeExcel($this->filePath);
 
