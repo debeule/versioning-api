@@ -8,21 +8,35 @@ use App\Testing\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 use Database\Bpost\Factories\MunicipalityFactory as BpostMunicipalityFactory;
 use Illuminate\Support\Collection;
-use App\Services\Pipes\ArrayToCollection;
+use App\Services\Pipes\StoreFileToDestination;
 use App\Bpost\Municipality;
 use Illuminate\Pipeline\Pipeline;
+use Maatwebsite\Excel\Facades\Excel;
+use Database\Bpost\Factories\MunicipalityFactory;
+use Illuminate\Support\Facades\File;
+use Illuminate\Http\UploadedFile;
 
 final class StoreFileToDestinationTest extends TestCase
 {
-    #[Test]
+    #[Test] 
     public function returnsCollectionOfobjectType(): void
     {
-        
-        if (File::exists($this->filePath)) File::delete($this->filePath);
+        $file = UploadedFile::fake()->create('image.jpg');
 
         $data = [
-            'destination' => 'excel/municipalities.xls',
+            'destination' => '',
+            'file' => $file,
         ];
-    }
 
+        $result = app(Pipeline::class)
+            ->send($data)
+            ->through([StoreFileToDestination::class])
+            ->thenReturn();
+
+        $fileExists = File::exists(storage_path('app/' . $file->hashName()));
+
+        if (File::exists(storage_path('app/' . $file->hashName()))) File::delete(storage_path('app/' . $file->hashName()));
+
+        $this->assertTrue($fileExists);
+    }
 }
