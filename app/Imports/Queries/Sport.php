@@ -6,6 +6,6 @@ namespace App\Imports\Queries;
 
 interface Sport
 {
-    public function sportId(): int;
+    public function recordId(): int;
     public function name(): string;
 }

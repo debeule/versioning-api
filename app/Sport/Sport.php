@@ -18,7 +18,7 @@ final class Sport extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'sport_id',
+        'record_id',
         'name',
     ];
 }

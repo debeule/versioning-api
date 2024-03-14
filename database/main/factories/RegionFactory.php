@@ -19,7 +19,7 @@ final class RegionFactory extends Factory
     public function definition()
     {
         return [
-            'region_id' => $this->faker->randomNumber(3),
+            'record_id' => $this->faker->randomNumber(3),
             'name' => $this->faker->name(),
             'region_number' => $this->faker->randomNumber(3),
         ];

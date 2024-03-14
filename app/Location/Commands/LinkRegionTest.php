@@ -42,7 +42,7 @@ final class LinkRegionTest extends TestCase
 
         $this->dispatchSync(new CreateRegion($koheraRegion));
 
-        $region = Region::where('region_id', $koheraRegion->regionId())->first();
+        $region = Region::where('record_id', $koheraRegion->recordId())->first();
 
         $result = $this->dispatchSync(new LinkRegion($koheraRegion));
 

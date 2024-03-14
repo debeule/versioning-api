@@ -34,7 +34,7 @@ final class CreateRegion
 
     private function recordExists(KoheraRegion $koheraRegion): bool
     {
-        return Region::where('region_id', $koheraRegion->regionId())->exists();
+        return Region::where('record_id', $koheraRegion->recordId())->exists();
     }
 
     public function buildRecord(KoheraRegion $koheraRegion): bool
@@ -42,7 +42,7 @@ final class CreateRegion
         $newRegion = new Region();
 
         $newRegion->name = $koheraRegion->name();
-        $newRegion->region_id = $koheraRegion->regionId();
+        $newRegion->recordId = $koheraRegion->recordId();
         $newRegion->region_number = $koheraRegion->regionNumber();
         
         return $newRegion->save();
@@ -50,7 +50,7 @@ final class CreateRegion
 
     public function recordHasChanged(KoheraRegion $koheraRegion): bool
     {
-        $region = Region::where('region_id', $koheraRegion->regionId())->first();
+        $region = Region::where('record_id', $koheraRegion->recordId())->first();
 
         $recordhasChanged = false;
 
@@ -62,7 +62,7 @@ final class CreateRegion
 
     public function createNewRecordVersion(KoheraRegion $koheraRegion): bool
     {
-        Region::where('region_id', $koheraRegion->regionId())->delete();
+        Region::where('record_id', $koheraRegion->recordId())->delete();
 
         return $this->buildRecord($koheraRegion);
     }

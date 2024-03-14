@@ -20,11 +20,15 @@ final class School extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'record_id',
         'name',
         'email',
+        'contact_email',
         'type',
         'school_number',
         'institution_id',
+        'student_count',
+        'address_id',
     ];
 
     protected $casts = [

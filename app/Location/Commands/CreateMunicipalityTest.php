@@ -57,6 +57,6 @@ final class CreateMunicipalityTest extends TestCase
         $this->assertSoftDeleted($oldMunicipalityRecord);
 
         $this->assertEquals($updatedMunicipalityRecord->name, $bpostMunicipality->name());
-        $this->assertEquals($oldMunicipalityRecord->Municipality_id, $updatedMunicipalityRecord->Municipality_id);
+        $this->assertEquals($oldMunicipalityRecord->record_id, $updatedMunicipalityRecord->record_id);
     }
 }

@@ -22,9 +22,9 @@ final class Address extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'record_id',
         'street_name',
         'street_identifier',
-        'email',
         'municipality_id',
     ];
 

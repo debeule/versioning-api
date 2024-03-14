@@ -21,7 +21,7 @@ final class CreateSportTest extends TestCase
 
         $this->dispatchSync(new CreateSport($koheraSport));
         
-        $sport = Sport::where('sport_id', $koheraSport->sportId())->first();
+        $sport = Sport::where('record_id', $koheraSport->recordId())->first();
         
         $this->assertInstanceOf(koheraSport::class, $koheraSport);
         $this->assertInstanceOf(Sport::class, $sport);
@@ -57,6 +57,6 @@ final class CreateSportTest extends TestCase
         $this->assertSoftDeleted($oldSportRecord);
 
         $this->assertEquals($updatedSportRecord->name, $koheraSport->name());
-        $this->assertEquals($oldSportRecord->sport_id, $updatedSportRecord->sport_id);
+        $this->assertEquals($oldSportRecord->record_id, $updatedSportRecord->record_id);
     }
 }

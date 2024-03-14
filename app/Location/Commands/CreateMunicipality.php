@@ -36,7 +36,7 @@ final class CreateMunicipality
     {
         return Municipality::where('postal_code', $bpostMunicipality->Postalcode())->exists();
     }
-
+    
     private function buildRecord(BpostMunicipality $bpostMunicipality): bool
     {
         $newMunicipality = new Municipality();

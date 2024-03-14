@@ -15,13 +15,14 @@ final class Region extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'region_id',
+        'record_id',
         'name',
         'region_number',
     ];
 
+    #TODO: check / redo all relations between models
     public function subregions(): HasMany
     {
-        return $this->hasMany(Region::class, 'region_id');
+        return $this->hasMany(Region::class, 'record_id');
     }
 }

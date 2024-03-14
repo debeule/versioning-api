@@ -20,7 +20,7 @@ final class CreateRegionTest extends TestCase
 
         $this->dispatchSync(new CreateRegion($koheraRegion));
         
-        $region = Region::where('region_id', $koheraRegion->regionId())->first();
+        $region = Region::where('record_id', $koheraRegion->recordId())->first();
         
         $this->assertInstanceOf(KoheraRegion::class, $koheraRegion);
         $this->assertInstanceOf(Region::class, $region);
@@ -56,6 +56,6 @@ final class CreateRegionTest extends TestCase
         $this->assertSoftDeleted($oldRegionRecord);
 
         $this->assertEquals($updatedRegionRecord->name, $koheraRegion->name());
-        $this->assertEquals($oldRegionRecord->region_id, $updatedRegionRecord->region_id);
+        $this->assertEquals($oldRegionRecord->record_id, $updatedRegionRecord->record_id);
     }
 }

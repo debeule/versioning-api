@@ -21,7 +21,7 @@ final class Sport extends Model implements SportContract
         'Hoofdsport',
     ];
 
-    public function sportId(): int
+    public function recordId(): int
     {
         return Sanitizer::input($this->id)->intValue();
     }

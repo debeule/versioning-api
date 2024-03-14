@@ -22,6 +22,7 @@ final class Municipality extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'record_id',
         'name',
         'postal_code',
         'province',
