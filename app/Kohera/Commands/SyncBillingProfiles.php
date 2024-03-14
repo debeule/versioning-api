@@ -23,16 +23,16 @@ final class SyncBillingProfiles
         
         foreach ($allkoheraBillingProfiles->get() as $koheraBillingProfile) 
         {
-            if (in_array($koheraBillingProfile->billingProfileId(), $processedBillingProfiles)) 
+            if (in_array($koheraBillingProfile->recordId(), $processedBillingProfiles)) 
             {
                 continue;
             }
 
             $this->dispatchSync(new CreateBillingProfile($koheraBillingProfile));
 
-            $existingBillingProfiles = $existingBillingProfiles->where('billing_profile_id', "!=", $koheraBillingProfile->billingProfileId());
+            $existingBillingProfiles = $existingBillingProfiles->where('record_id', "!=", $koheraBillingProfile->recordId());
 
-            array_push($processedBillingProfiles, $koheraBillingProfile->billingProfileId());
+            array_push($processedBillingProfiles, $koheraBillingProfile->recordId());
         }
 
         //billingProfile found in billing_profiles table but not in koheraBillingProfiles

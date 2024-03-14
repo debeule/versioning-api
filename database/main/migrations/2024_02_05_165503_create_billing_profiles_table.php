@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('billing_profiles', function (Blueprint $table): void {
             $table->id();
-            $table->integer('billing_profile_id');
+            $table->integer('record_id');
 
             $table->string('name');
             $table->string('email');
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             $table->softDeletes();
 
-            $table->foreignId('address_id')->references('id')->on('addresses');
+            $table->foreignId('profile_id')->references('id')->on('addresses');
             $table->foreignId('school_id')->references('id')->on('schools');
         });
     }

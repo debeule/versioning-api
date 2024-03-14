@@ -9,7 +9,7 @@ use App\School\School;
 
 interface BillingProfile
 {
-    public function billingProfileId(): int;
+    public function recordId(): int;
     public function name(): string;
     public function email(): string;
     public function vatNumber(): string;

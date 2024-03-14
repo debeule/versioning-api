@@ -20,7 +20,7 @@ final class AllSchoolsHandlerTest extends TestCase
     public function itReturnsValidSchoolRecord(): void
     {
         $schools = SchoolFactory::new()->create();
-        BillingProfileFactory::new()->withSchoolId($schools->id)->create();
+        BillingProfileFactory::new()->withrecordId($schools->id)->create();
 
         $response = $this->get($this->endpoint);
 

@@ -19,7 +19,7 @@ final class BillingProfileFactory extends Factory
     public function definition()
     {
         return [
-            'billing_profile_id' => $this->faker->unique()->randomNumber(5),
+            'record_id' => $this->faker->unique()->randomNumber(5),
             'name' => $this->faker->name(),
             'email' => $this->faker->email(),
             'tav' => $this->faker->name(),
@@ -29,7 +29,7 @@ final class BillingProfileFactory extends Factory
         ];
     }
 
-    public function withSchoolId(int $id): self
+    public function withrecordId(int $id): self
     {
         return $this->state(['school_id' => $id]);
     }

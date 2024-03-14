@@ -8,7 +8,7 @@ use App\School\Address;
 
 interface School
 {
-    public function schoolId(): int;
+    public function recordId(): int;
     public function sourceId(): string;
     public function name(): string;
     public function email(): ?string;

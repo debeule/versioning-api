@@ -20,17 +20,17 @@ final class CreateBillingProfileTest extends TestCase
         $koheraSchool = KoheraSchoolFactory::new()->create();
         $koheraBillingProfile = new KoheraBillingProfile($koheraSchool);
 
-        AddressFactory::new()->withId('billing_profile-' . $koheraSchool->schoolId())->create();
-        SchoolFactory::new()->withId((string) $koheraSchool->schoolId())->create();
+        AddressFactory::new()->withId('billing_profile-' . $koheraSchool->recordId())->create();
+        SchoolFactory::new()->withId((string) $koheraSchool->recordId())->create();
 
         $this->dispatchSync(new CreateBillingProfile($koheraBillingProfile));
 
-        $billingProfile = BillingProfile::where('billing_profile_id', $koheraBillingProfile->billingProfileId())->first();
+        $billingProfile = BillingProfile::where('record_id', $koheraBillingProfile->recordId())->first();
 
         $this->assertInstanceOf(KoheraBillingProfile::class, $koheraBillingProfile);
         $this->assertInstanceOf(BillingProfile::class, $billingProfile);
 
-        $this->assertSame($koheraBillingProfile->billingProfileId(), $billingProfile->billing_profile_id);
+        $this->assertSame($koheraBillingProfile->recordId(), $billingProfile->record_id);
     }
 
     #[Test]
@@ -39,8 +39,8 @@ final class CreateBillingProfileTest extends TestCase
         $koheraSchool = KoheraSchoolFactory::new()->create();
         $koheraBillingProfile = new KoheraBillingProfile($koheraSchool);
 
-        AddressFactory::new()->withId('billing_profile-' . $koheraSchool->schoolId())->create();
-        SchoolFactory::new()->withId((string) $koheraSchool->schoolId())->create();
+        AddressFactory::new()->withId('billing_profile-' . $koheraSchool->recordId())->create();
+        SchoolFactory::new()->withId((string) $koheraSchool->recordId())->create();
         
         $this->dispatchSync(new CreateBillingProfile($koheraBillingProfile));
 
@@ -53,8 +53,8 @@ final class CreateBillingProfileTest extends TestCase
         $koheraSchool = KoheraSchoolFactory::new()->create();
         $koheraBillingProfile = new KoheraBillingProfile($koheraSchool);
 
-        AddressFactory::new()->withId('billing_profile-' . $koheraSchool->schoolId())->create();
-        SchoolFactory::new()->withId((string) $koheraSchool->schoolId())->create();
+        AddressFactory::new()->withId('billing_profile-' . $koheraSchool->recordId())->create();
+        SchoolFactory::new()->withId((string) $koheraSchool->recordId())->create();
         
         $this->dispatchSync(new CreateBillingProfile($koheraBillingProfile));
 
@@ -71,6 +71,6 @@ final class CreateBillingProfileTest extends TestCase
         $this->assertSoftDeleted($oldBillingProfile);
 
         $this->assertEquals($updatedBillingProfile->name, $koheraBillingProfile->name());
-        $this->assertEquals($oldBillingProfile->billing_profile_id, $updatedBillingProfile->billing_profile_id);
+        $this->assertEquals($oldBillingProfile->record_id, $updatedBillingProfile->record_id);
     }
 }

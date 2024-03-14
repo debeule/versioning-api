@@ -31,7 +31,7 @@ final class AllBillingProfiles
 
             /** @var School $school */
             $billingProfile = new BillingProfile($school);
-            $billingProfile->billing_profile_id = $school->id;
+            $billingProfile->record_id = $school->id;
             $billingProfiles ->push($billingProfile);
         }
 

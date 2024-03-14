@@ -35,16 +35,16 @@ final class CreateBillingProfile
 
     private function recordExists(KoheraBillingProfile $koheraBillingProfile): bool
     {
-        return BillingProfile::where('billing_profile_id', $koheraBillingProfile->billingProfileId())->exists();
+        return BillingProfile::where('record_id', $koheraBillingProfile->recordId())->exists();
     }
 
     private function recordHasChanged(KoheraBillingProfile $koheraBillingProfile): bool
     {
-        $billingProfile = BillingProfile::where('billing_profile_id', $koheraBillingProfile->billingProfileId())->first();
+        $billingProfile = BillingProfile::where('record_id', $koheraBillingProfile->recordId())->first();
 
         $recordHasChanged = false;
 
-        $recordHasChanged = $billingProfile->billing_profile_id !== $koheraBillingProfile->billingProfileId();
+        $recordHasChanged = $billingProfile->record_id !== $koheraBillingProfile->recordId();
         $recordHasChanged = $recordHasChanged || $billingProfile->name !== $koheraBillingProfile->name();
         $recordHasChanged = $recordHasChanged || $billingProfile->email !== $koheraBillingProfile->email();
         $recordHasChanged = $recordHasChanged || $billingProfile->vat_number !== $koheraBillingProfile->vatNumber();
@@ -60,7 +60,7 @@ final class CreateBillingProfile
         $newbillingProfile = new BillingProfile();
 
 
-        $newbillingProfile->billing_profile_id = $koheraBillingProfile->billingProfileId();
+        $newbillingProfile->record_id = $koheraBillingProfile->recordId();
         $newbillingProfile->name = $koheraBillingProfile->name();
         $newbillingProfile->email = $koheraBillingProfile->email();
         $newbillingProfile->vat_number = $koheraBillingProfile->vatNumber();
@@ -73,7 +73,7 @@ final class CreateBillingProfile
 
     private function createNewRecordVersion(KoheraBillingProfile $koheraBillingProfile): bool
     {
-        BillingProfile::where('billing_profile_id', $koheraBillingProfile->billingProfileId())->delete();
+        BillingProfile::where('record_id', $koheraBillingProfile->recordId())->delete();
 
         return $this->buildRecord($koheraBillingProfile);
     }

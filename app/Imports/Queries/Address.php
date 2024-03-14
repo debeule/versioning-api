@@ -8,7 +8,7 @@ use App\Location\Municipality;
 
 interface Address
 {
-    public function addressId(): string;
+    public function recordId(): string;
     public function streetName(): string;
     public function streetIdentifier(): string;
 

@@ -23,12 +23,12 @@ final class CreateAddressTest extends TestCase
         
         $this->dispatchSync(new CreateAddress($koheraAddress));
         
-        $address = Address::where('address_id', $koheraAddress->addressId())->first();
+        $address = Address::where('record_id', $koheraAddress->recordId())->first();
 
         $this->assertInstanceOf(KoheraAddress::class, $koheraAddress);
         $this->assertInstanceOf(Address::class, $address);
 
-        $this->assertSame($koheraAddress->addressId(), $address->address_id);
+        $this->assertSame($koheraAddress->recordId(), $address->record_id);
     }
 
     #[Test]
@@ -67,6 +67,6 @@ final class CreateAddressTest extends TestCase
         $this->assertSoftDeleted($oldAddress);
 
         $this->assertEquals($updatedAddress->street_name, $koheraAddress->streetName());
-        $this->assertEquals($oldAddress->address_id, $updatedAddress->address_id);
+        $this->assertEquals($oldAddress->record_id, $updatedAddress->record_id);
     }
 }

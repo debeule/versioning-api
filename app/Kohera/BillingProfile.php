@@ -17,7 +17,7 @@ final class BillingProfile extends Model implements BillingProfileContract
         private KoheraSchool $school
     ) {}
     
-    public function billingProfileId(): int
+    public function recordId(): int
     {
         return Sanitizer::input($this->school->id)->intValue();
     }
@@ -44,11 +44,11 @@ final class BillingProfile extends Model implements BillingProfileContract
 
     public function address(): Address
     {
-        return Address::where('address_id', 'billing_profile-' . $this->billingProfileId())->first();
+        return Address::where('address_id', 'billing_profile-' . $this->recordId())->first();
     }
     
     public function school(): School
     {
-        return School::where('school_id', $this->billingProfileId())->first();
+        return School::where('record_id', $this->recordId())->first();
     }
 }

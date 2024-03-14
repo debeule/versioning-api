@@ -56,7 +56,7 @@ final class School extends Model
 
     public function addAddressAttributes(DbSchool $dbSchool): void
     {
-        $address = Address::where('id', $dbSchool->address_id)->first();
+        $address = Address::where('id', $dbSchool->record_id)->first();
 
         $this->street_name = $address->street_name;
         $this->street_identifier = $address->street_identifier;
@@ -80,7 +80,7 @@ final class School extends Model
 
     public function addBillingProfileAddressAttributes(DbSchool $dbSchool): void
     {
-        $address = Address::where('id', $dbSchool->address_id)->first();
+        $address = Address::where('id', $dbSchool->record_id)->first();
 
         $this->billing_street_name = $address->street_name;
         $this->billing_street_identifier = $address->street_identifier;

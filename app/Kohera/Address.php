@@ -11,13 +11,15 @@ use Illuminate\Database\Eloquent\Model;
 
 final class Address extends Model implements AddressContract
 {
+    #TODO: add fillables to all eloquent models
+
     public function __construct(
         private School $school
     ) {}
 
-    public function addressId(): string
+    public function recordId(): string
     {
-        return Sanitizer::input($this->address_id)->stringToLower()->value();
+        return Sanitizer::input($this->record_id)->stringToLower()->value();
     }
 
     public function streetName(): string

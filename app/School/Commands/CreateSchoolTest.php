@@ -17,11 +17,11 @@ final class CreateSchoolTest extends TestCase
     public function itCanCreateSchoolFromKoheraSchool(): void
     {
         $koheraSchool = KoheraSchoolFactory::new()->create();
-        AddressFactory::new()->withId('school-' . $koheraSchool->schoolId())->create();
+        AddressFactory::new()->withId('school-' . $koheraSchool->recordId())->create();
 
         $this->dispatchSync(new CreateSchool($koheraSchool));
 
-        $school = School::where('school_id', $koheraSchool->schoolId())->first();
+        $school = School::where('record_id', $koheraSchool->recordId())->first();
 
         $this->assertInstanceOf(KoheraSchool::class, $koheraSchool);
         $this->assertInstanceOf(School::class, $school);
@@ -33,7 +33,7 @@ final class CreateSchoolTest extends TestCase
     public function ItReturnsFalseWhenExactRecordExists(): void
     {
         $koheraSchool = KoheraSchoolFactory::new()->create();
-        AddressFactory::new()->withId('school-' . $koheraSchool->schoolId())->create();
+        AddressFactory::new()->withId('school-' . $koheraSchool->recordId())->create();
 
         $this->dispatchSync(new CreateSchool($koheraSchool));
 
@@ -44,7 +44,7 @@ final class CreateSchoolTest extends TestCase
     public function ItCreatesNewRecordVersionIfExists(): void
     {
         $koheraSchool = KoheraSchoolFactory::new()->create();
-        AddressFactory::new()->withId('school-' . $koheraSchool->schoolId())->create();
+        AddressFactory::new()->withId('school-' . $koheraSchool->recordId())->create();
 
         $this->dispatchSync(new CreateSchool($koheraSchool));
         $school = School::where('name', $koheraSchool->name())->first();
@@ -58,6 +58,6 @@ final class CreateSchoolTest extends TestCase
         $this->assertSoftDeleted($school);
 
         $this->assertEquals($updatedSchool->name, $koheraSchool->name());
-        $this->assertEquals($school->school_id, $updatedSchool->school_id);
+        $this->assertEquals($school->record_id, $updatedSchool->record_id);
     }
 }

@@ -26,7 +26,7 @@ final class AllAddresses
         {
             /** @var School $school */
             $address = new Address($school);
-            $address->address_id = 'school-' . $school->id;
+            $address->record_id = 'school-' . $school->id;
             $addresses ->push($address);
 
             //billing_profile address
@@ -42,7 +42,7 @@ final class AllAddresses
             $schoolClone->Postcode = $school->Facturatie_Postcode;
 
             $billingProfileAddress = new Address($schoolClone);
-            $billingProfileAddress->address_id = 'billing_profile-' . $schoolClone->id;
+            $billingProfileAddress->record_id = 'billing_profile-' . $schoolClone->id;
 
             $addresses->push($billingProfileAddress);
         }

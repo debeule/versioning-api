@@ -40,7 +40,7 @@ final class School extends Model implements SchoolContract
         'type' => 'string',
     ];
 
-    public function schoolId(): int
+    public function recordId(): int
     {
         return Sanitizer::input($this->id)->intValue();
     }
@@ -85,6 +85,6 @@ final class School extends Model implements SchoolContract
 
     public function address(): Address
     {
-        return Address::where('address_id', 'school-' . $this->schoolId())->first();
+        return Address::where('address_id', 'school-' . $this->recordId())->first();
     }
 }

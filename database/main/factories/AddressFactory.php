@@ -19,7 +19,7 @@ final class AddressFactory extends Factory
     public function definition()
     {
         return [
-            'address_id' => $this->faker->randomNumber(3),
+            'record_id' => $this->faker->randomNumber(3),
             'street_name' => $this->faker->name(),
             'street_identifier' => $this->faker->randomNumber(3) . ' ' . $this->faker->text(5),
             'municipality_id' => MunicipalityFactory::new()->withRegion()->create()->id,
@@ -28,6 +28,6 @@ final class AddressFactory extends Factory
 
     public function withId(string $idString): self
     {
-        return $this->state(['address_id' => $idString]);
+        return $this->state(['record_id' => $idString]);
     }
 }
