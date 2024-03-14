@@ -7,7 +7,7 @@ namespace App\Extensions\Eloquent\Scopes;
 use App\Imports\Values\Version;
 use Illuminate\Database\Eloquent\Builder;
 
-final readonly class FromVersion
+final class FromVersion
 {
     public function __construct(
         private Version $version = new Version,

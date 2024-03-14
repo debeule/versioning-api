@@ -17,9 +17,9 @@ final class Address extends Model implements AddressContract
         private School $school
     ) {}
 
-    public function recordId(): string
+    public function recordId(): int
     {
-        return Sanitizer::input($this->record_id)->stringToLower()->value();
+        return Sanitizer::input($this->record_id)->stringToLower()->intValue();
     }
 
     public function streetName(): string
