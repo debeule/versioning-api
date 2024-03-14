@@ -25,7 +25,7 @@ return new class extends Migration
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             $table->softDeletes();
 
-            $table->foreignId('profile_id')->references('id')->on('addresses');
+            $table->foreignId('address_id')->references('id')->on('addresses');
             $table->foreignId('school_id')->references('id')->on('schools');
         });
     }

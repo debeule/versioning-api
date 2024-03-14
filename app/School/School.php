@@ -7,6 +7,7 @@ namespace App\School;
 use App\Extensions\Eloquent\SoftDeletes\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use App\Kohera\School as KoheraSchool;
 
 final class School extends Model
 {
@@ -40,7 +41,7 @@ final class School extends Model
         return $this->hasOne(Address::class);
     }
 
-    public function hasChanged(KoheraSport $koheraSport): bool
+    public function hasChanged(KoheraSchool $koheraSchool): bool
     {
         $recordhasChanged = false;
 

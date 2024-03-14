@@ -23,7 +23,7 @@ final class CreateSchool
         return $this->buildRecord($this->koheraSchool)->save();
     }    
 
-    private function buildRecord(KoheraSchool $koheraSchool): bool
+    private function buildRecord(KoheraSchool $koheraSchool): School
     {        
         $newSchool = new School();
         

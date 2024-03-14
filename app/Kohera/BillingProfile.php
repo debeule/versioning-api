@@ -44,7 +44,7 @@ final class BillingProfile extends Model implements BillingProfileContract
 
     public function address(): Address
     {
-        return Address::where('address_id', 'billing_profile-' . $this->recordId())->first();
+        return Address::where('record_id', 'billing_profile-' . $this->recordId())->first();
     }
     
     public function school(): School

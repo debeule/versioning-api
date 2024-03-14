@@ -47,6 +47,7 @@ final class CreateMunicipality
 
         $headMunicipality = $bpostMunicipality->headMunicipality() !== null ? strtolower($bpostMunicipality->headMunicipality()) : null;
         $newMunicipality->head_municipality = $headMunicipality;
+        $newMunicipality->record_id = $bpostMunicipality->recordId();
         
         return $newMunicipality->save();
     }

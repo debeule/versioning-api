@@ -54,7 +54,7 @@ final class CreateAddress
     private function buildRecord(KoheraAddress $koheraAddress): bool
     {
         $newAdress = new Address();
-
+        
         $newAdress->record_id = $koheraAddress->recordId();
         $newAdress->street_name = $koheraAddress->streetName();
         $newAdress->street_identifier = $koheraAddress->streetIdentifier();
