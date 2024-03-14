@@ -4,52 +4,47 @@ declare(strict_types=1);
 
 namespace App\Kohera\Commands;
 
-use App\Kohera\Queries\AllRegions as AllKoheraRegions;
 use App\Location\Commands\CreateRegion;
-
+use App\Location\Commands\SoftDeleteRegion;
 use App\Location\Commands\LinkRegion;
 use App\Location\Region;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+
+use App\Kohera\Queries\AllRegions as AllKoheraRegions;
+use App\Location\Queries\AllRegions;
+
+use App\Services\ProcessImportedRecords;
 
 final class SyncRegions
 {
     use DispatchesJobs;
 
+    public function __construct(
+        private AllKoheraRegions $allKoheraRegions = new AllKoheraRegions(),
+        private AllRegions $allRegions = new AllRegions()
+    ) {}
+        
+
     public function __invoke(): void
     {
-        $existingRegions = Region::all();
-        $processedSports = [];
+        $result = ProcessImportedRecords::setup($this->allKoheraRegions->get(), $this->allRegions->get())->pipe();
         
-        $allKoheraRegions = new AllKoheraRegions();
-
-        foreach ($allKoheraRegions->get() as $koheraRegion) 
+        foreach ($result['update'] as $Region) 
         {
-            if (in_array($koheraRegion->name(), $processedSports)) 
-            {
-                continue;
-            }
-
-            $regionExists = $existingRegions->where('name', $koheraRegion->name())->isNotEmpty();
-            
-            if ($regionExists)
-            {
-                $existingRegions = $existingRegions->where('name', "!=", $koheraRegion->name());
-
-                array_push($processedSports, $koheraRegion->name());
-                
-                continue;
-            }
-
-            $this->dispatchSync(new CreateRegion($koheraRegion));
+            $this->dispatchSync(new SoftDeleteRegion(Region::where('record_id', $koheraRegion->recordId())->first()));
+            $this->dispatchSync(new CreateRegion($Region));
             $this->dispatchSync(new LinkRegion($koheraRegion));
-
-            array_push($processedSports, $koheraRegion->name());
         }
 
-        //region found in regions but not in koheraregions
-        foreach ($existingRegions as $existingRegion) 
+        foreach ($result['create'] as $koheraRegion) 
         {
-            $existingRegion->delete();
+            $this->dispatchSync(new CreateRegion($koheraRegion));
+            $this->dispatchSync(new LinkRegion($koheraRegion));
+        }
+
+        foreach ($result['delete'] as $koheraRegion) 
+        {
+            $this->dispatchSync(new SoftDeleteRegion($koheraRegion));
         }
     }
 }

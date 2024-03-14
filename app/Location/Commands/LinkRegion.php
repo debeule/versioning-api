@@ -9,46 +9,32 @@ use App\Kohera\Region as KoheraRegion;
 use App\Location\Municipality;
 use App\Location\Region;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use App\Extensions\Eloquent\Scopes\FromVersion;
 
 final class LinkRegion
 {
     use DispatchesJobs;
 
     public function __construct(
-        public KoheraRegion $koheraRegion
+        public KoheraRegion $koheraRegion,
+        private FromVersion $fromVersion = new FromVersion,
     ) {}
 
     public function handle(): bool
     {
-        if ($this->regionExists($this->koheraRegion) && $this->municipalityExists($this->koheraRegion)) 
-        {
-            return $this->linkMunicipalitiesToRegion($this->koheraRegion);
-        }
-        
-        return false;
+        return $this->linkRegion($this->koheraRegion);
     }
 
-    private function regionExists(KoheraRegion $koheraRegion): bool
+    public function linkRegion(KoheraRegion $koheraRegion): bool
     {
-        return Region::where('record_id', $koheraRegion->recordId())->exists();
-    }
+        $municipality = Municipality::where('postal_code', $koheraRegion->postalCode())
+        ->tap($this->fromVersion)
+        ->first();
 
-    private function municipalityExists(KoheraRegion $koheraRegion): bool
-    {
-        return Municipality::where('postal_code', $koheraRegion->postalCode())->exists();
-    }
+        if(empty($municipality)) return false;
 
-    public function linkMunicipalitiesToRegion(KoheraRegion $koheraRegion): bool
-    {
-        $municipalities = Municipality::where('postal_code', $koheraRegion->postalCode())->get();
-        $region = Region::where('record_id', $koheraRegion->recordId())->first();
-    
-        foreach ($municipalities as $municipality) 
-        {
-            $municipality->record_id = $region->id;
-            $municipality->save();
-        }
-        
-        return true;
+        $municipality->record_id = $koheraRegion->recordId();
+
+        return $municipality->save();
     }
 }

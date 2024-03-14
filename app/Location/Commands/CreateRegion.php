@@ -19,51 +19,17 @@ final class CreateRegion
 
     public function handle(): bool
     {
-        if (! $this->recordExists($this->koheraRegion)) 
-        {
-            return $this->buildRecord($this->koheraRegion);
-        }
-
-        if ($this->recordHasChanged($this->koheraRegion)) 
-        {
-            return $this->createNewRecordVersion($this->koheraRegion);
-        }
-
-        return false;
+        return $this->buildRecord($this->koheraRegion)->save();
     }
 
-    private function recordExists(KoheraRegion $koheraRegion): bool
-    {
-        return Region::where('record_id', $koheraRegion->recordId())->exists();
-    }
-
-    public function buildRecord(KoheraRegion $koheraRegion): bool
+    public function buildRecord(KoheraRegion $koheraRegion): Region
     {
         $newRegion = new Region();
 
         $newRegion->name = $koheraRegion->name();
-        $newRegion->recordId = $koheraRegion->recordId();
+        $newRegion->record_id = $koheraRegion->recordId();
         $newRegion->region_number = $koheraRegion->regionNumber();
         
-        return $newRegion->save();
-    }
-
-    public function recordHasChanged(KoheraRegion $koheraRegion): bool
-    {
-        $region = Region::where('record_id', $koheraRegion->recordId())->first();
-
-        $recordhasChanged = false;
-
-        $recordhasChanged = $region->name !== $koheraRegion->name();
-        $recordhasChanged = $recordhasChanged || $region->region_number !== $koheraRegion->regionNumber();
-
-        return $recordhasChanged;
-    }
-
-    public function createNewRecordVersion(KoheraRegion $koheraRegion): bool
-    {
-        Region::where('record_id', $koheraRegion->recordId())->delete();
-
-        return $this->buildRecord($koheraRegion);
+        return $newRegion;
     }
 }
