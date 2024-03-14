@@ -19,25 +19,10 @@ final class CreateMunicipality
 
     public function handle(): bool
     {
-        if (! $this->recordExists($this->bpostMunicipality)) 
-        {
-            return $this->buildRecord($this->bpostMunicipality);
-        }
-
-        if ($this->recordHasChanged($this->bpostMunicipality)) 
-        {
-            return $this->createNewRecordVersion($this->bpostMunicipality);
-        }
-
-        return false;
-    }
-
-    private function recordExists(BpostMunicipality $bpostMunicipality): bool
-    {
-        return Municipality::where('postal_code', $bpostMunicipality->Postalcode())->exists();
+        return $this->buildRecord($this->bpostMunicipality)->save();
     }
     
-    private function buildRecord(BpostMunicipality $bpostMunicipality): bool
+    private function buildRecord(BpostMunicipality $bpostMunicipality): Municipality
     {
         $newMunicipality = new Municipality();
 
@@ -49,30 +34,6 @@ final class CreateMunicipality
         $newMunicipality->head_municipality = $headMunicipality;
         $newMunicipality->record_id = $bpostMunicipality->recordId();
         
-        return $newMunicipality->save();
-    }
-
-    private function recordHasChanged(BpostMunicipality $bpostMunicipality): bool
-    {
-        $municipality = Municipality::where('postal_code', $bpostMunicipality->postalCode())->first();
-
-        $recordhasChanged = false;
-        
-        $recordhasChanged = $municipality->name !== strtolower($bpostMunicipality->name());
-        $recordhasChanged = $recordhasChanged || $municipality->province !== strtolower($bpostMunicipality->province());
-
-        if (! is_null($bpostMunicipality->headMunicipality())) 
-        {
-            $recordhasChanged = $recordhasChanged || $municipality->head_municipality !== strtolower($bpostMunicipality->headMunicipality());
-        }
-
-        return $recordhasChanged;
-    }
-
-    public function createNewRecordVersion(BpostMunicipality $bpostMunicipality): bool
-    {
-        $municipality = Municipality::where('postal_code', $bpostMunicipality->postalCode())->delete();
-
-        return $this->buildRecord($bpostMunicipality);
+        return $newMunicipality;
     }
 }

@@ -8,36 +8,37 @@ use App\Bpost\Queries\AllMunicipalities as allBpostMunicipalities;
 use App\Location\Commands\CreateMunicipality;
 use App\Location\Municipality;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use App\Location\Queries\AllMunicipalities;
 
 
 final class SyncMunicipalities
 {
     use DispatchesJobs;
 
+    public function __construct(
+        private AllBpostMunicipalities $allBpostMunicipalities = new AllBpostMunicipalities(),
+        private AllMunicipalities $allMunicipalities = new AllMunicipalities()
+    ) {}
+        
+
     public function __invoke(): void
     {
-        $existingMunicipalities = Municipality::get();
-        $processedMunicipalities = [];
+        $result = ProcessImportedRecords::setup($this->allBpostMunicipalities->get(), $this->allMunicipalities->get())->pipe();
         
-        $bpostMunicipalities = new allBpostMunicipalities();
-        
-        foreach ($bpostMunicipalities->get() as $bpostMunicipality) 
+        foreach ($result['update'] as $Municipality) 
         {
-            if (in_array($bpostMunicipality->postalCode(), $processedMunicipalities)) 
-            {
-                continue;
-            }
-
-            $this->dispatchSync(new CreateMunicipality($bpostMunicipality));
-
-            $existingMunicipalities = $existingMunicipalities->where('postal_code', "!=", $bpostMunicipality->postalCode());
-
-            array_push($processedMunicipalities, $bpostMunicipality->postalCode());
+            $this->dispatchSync(new SoftDeleteMunicipality(Municipality::where('record_id', $koheraMunicipality->recordId())->first()));
+            $this->dispatchSync(new CreateMunicipality($Municipality));
         }
 
-        foreach ($existingMunicipalities as $existingMunicipality) 
+        foreach ($result['create'] as $koheraMunicipality) 
         {
-            $existingMunicipality->delete();
+            $this->dispatchSync(new CreateMunicipality($koheraMunicipality));
+        }
+
+        foreach ($result['delete'] as $koheraMunicipality) 
+        {
+            $this->dispatchSync(new SoftDeleteMunicipality($koheraMunicipality));
         }
     }
 }
