@@ -4,41 +4,44 @@ declare(strict_types=1);
 
 namespace App\Kohera\Commands;
 
-use App\Kohera\Queries\AllSchools as AllKoheraSchools;
 use App\School\Commands\CreateSchool;
+use App\School\Commands\SoftDeleteSchool;
 use App\School\School;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
+use App\Kohera\Queries\AllSchools as AllKoheraSchools;
+use App\School\Queries\AllSchools;
+
+use App\Services\ProcessImportedRecords;
 
 final class SyncSchools
 {
     use DispatchesJobs;
 
+    public function __construct(
+        private AllKoheraSchools $allKoheraSchools = new AllKoheraSchools(),
+        private AllSchools $allSchools = new AllSchools()
+    ) {}
+        
+
     public function __invoke(): void
     {
-        $existingSchools = School::all();
-        $processedSchools = [];
-
-        $allkoheraSchools = new AllKoheraSchools();
+        $result = ProcessImportedRecords::setup($this->allKoheraSchools->get(), $this->allSchools->get())->pipe();
         
-        foreach ($allkoheraSchools->get() as $koheraSchool) 
+        foreach ($result['update'] as $School) 
         {
-            if (in_array($koheraSchool->recordId(), $processedSchools)) 
-            {
-                continue;
-            }
-
-            $this->dispatchSync(new CreateSchool($koheraSchool));
-
-            $existingSchools = $existingSchools->where('record_id', "!=", $koheraSchool->recordId());
-
-            array_push($processedSchools, $koheraSchool->recordId());
+            $this->dispatchSync(new SoftDeleteSchool(School::where('record_id', $koheraSchool->recordId())->first()));
+            $this->dispatchSync(new CreateSchool($School));
         }
 
-        //school found in sports table but not in koheraschools
-        foreach ($existingSchools as $existingSchool) 
+        foreach ($result['create'] as $koheraSchool) 
         {
-            $existingSchool->delete();
+            $this->dispatchSync(new CreateSchool($koheraSchool));
+        }
+
+        foreach ($result['delete'] as $koheraSchool) 
+        {
+            $this->dispatchSync(new SoftDeleteSchool($koheraSchool));
         }
     }
 }

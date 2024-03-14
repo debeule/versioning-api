@@ -39,4 +39,19 @@ final class School extends Model
     {
         return $this->hasOne(Address::class);
     }
+
+    public function hasChanged(KoheraSport $koheraSport): bool
+    {
+        $recordhasChanged = false;
+
+        $recordhasChanged = $recordhasChanged || $this->name !== $koheraSchool->name();
+        $recordhasChanged = $recordhasChanged || $this->email !== $koheraSchool->email();
+        $recordhasChanged = $recordhasChanged || $this->contact_email !== $koheraSchool->contactEmail();
+        $recordhasChanged = $recordhasChanged || $this->type !== $koheraSchool->type();
+        $recordhasChanged = $recordhasChanged || $this->school_number !== $koheraSchool->schoolNumber();
+        $recordhasChanged = $recordhasChanged || $this->institution_id !== $koheraSchool->institutionId();
+        $recordhasChanged = $recordhasChanged || $this->student_count !== $koheraSchool->studentCount();
+
+        return $recordhasChanged;
+    }
 }
