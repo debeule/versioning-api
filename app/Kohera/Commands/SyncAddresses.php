@@ -9,8 +9,7 @@ use App\School\Commands\SoftDeleteAddress;
 use App\School\Address;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
-use App\Kohera\Queries\AllAddresss as AllKoheraAddresss;
-use App\School\Queries\AllAddresss;
+use App\Kohera\Queries\AllAddresses as AllKoheraAddresses;
 
 use App\Services\ProcessImportedRecords;
 
@@ -19,14 +18,14 @@ final class SyncAddresses
     use DispatchesJobs;
 
     public function __construct(
-        private AllKoheraAddresss $allKoheraAddresss = new AllKoheraAddresss(),
+        private AllKoheraAddresses $allKoheraAddresses = new AllKoheraAddresses(),
     ) {}
         
 
     public function __invoke(): void
     {
-        $allAddresss = Address::get();
-        $result = ProcessImportedRecords::setup($this->allKoheraAddresss->get(), $allAddresss)->pipe();
+        $allAddresses = Address::get();
+        $result = ProcessImportedRecords::setup($this->allKoheraAddresses->get(), $allAddresses)->pipe();
         
         foreach ($result['update'] as $Address)
         {
