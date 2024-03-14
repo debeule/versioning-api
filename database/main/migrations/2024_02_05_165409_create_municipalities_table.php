@@ -17,6 +17,7 @@ return new class extends Migration
         Schema::create('municipalities', function (Blueprint $table): void {
             $table->id();
 
+            $table->integer('municipality_id');   
             $table->string('name');
             $table->integer('postal_code');
             $table->enum('province', ProvinceGroup::allProvinces()->get()); 
