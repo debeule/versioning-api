@@ -4,41 +4,46 @@ declare(strict_types=1);
 
 namespace App\Kohera\Commands;
 
-use App\Kohera\Queries\AllBillingProfiles as AllKoheraBillingProfiles;
-use App\School\BillingProfile;
 use App\School\Commands\CreateBillingProfile;
+use App\School\Commands\SoftDeleteBillingProfile;
+use App\School\BillingProfile;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+
+use App\Kohera\Queries\AllBillingProfiles as AllKoheraBillingProfiles;
+use App\School\Queries\AllBillingProfiles;
+
+use App\Services\ProcessImportedRecords;
 
 
 final class SyncBillingProfiles
 {
     use DispatchesJobs;
 
+    public function __construct(
+        private AllKoheraBillingProfiles $allKoheraBillingProfiles = new AllKoheraBillingProfiles(),
+    ) {}
+        
+
     public function __invoke(): void
     {
-        $existingBillingProfiles = BillingProfile::all();
-        $processedBillingProfiles = [];
+        $allBillingProfiles = BillingProfile::get();
 
-        $allkoheraBillingProfiles = new AllKoheraBillingProfiles();
+        $result = ProcessImportedRecords::setup($this->allKoheraBillingProfiles->get(), $allBillingProfiles)->pipe();
         
-        foreach ($allkoheraBillingProfiles->get() as $koheraBillingProfile) 
+        foreach ($result['update'] as $BillingProfile)
         {
-            if (in_array($koheraBillingProfile->recordId(), $processedBillingProfiles)) 
-            {
-                continue;
-            }
-
-            $this->dispatchSync(new CreateBillingProfile($koheraBillingProfile));
-
-            $existingBillingProfiles = $existingBillingProfiles->where('record_id', "!=", $koheraBillingProfile->recordId());
-
-            array_push($processedBillingProfiles, $koheraBillingProfile->recordId());
+            $this->dispatchSync(new SoftDeleteBillingProfile(BillingProfile::where('record_id', $koheraBillingProfile->recordId())->first()));
+            $this->dispatchSync(new CreateBillingProfile($BillingProfile));
         }
 
-        //billingProfile found in billing_profiles table but not in koheraBillingProfiles
-        foreach ($existingBillingProfiles as $existingBillingProfile) 
+        foreach ($result['create'] as $koheraBillingProfile) 
         {
-            $existingBillingProfile->delete();
+            $this->dispatchSync(new CreateBillingProfile($koheraBillingProfile));
+        }
+
+        foreach ($result['delete'] as $koheraBillingProfile) 
+        {
+            $this->dispatchSync(new SoftDeleteBillingProfile($koheraBillingProfile));
         }
     }
 }
