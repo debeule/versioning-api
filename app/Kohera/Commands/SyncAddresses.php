@@ -14,8 +14,7 @@ use App\School\Queries\AllAddresss;
 
 use App\Services\ProcessImportedRecords;
 
-
-final class SyncAddresss
+final class SyncAddresses
 {
     use DispatchesJobs;
 
@@ -27,7 +26,6 @@ final class SyncAddresss
     public function __invoke(): void
     {
         $allAddresss = Address::get();
-
         $result = ProcessImportedRecords::setup($this->allKoheraAddresss->get(), $allAddresss)->pipe();
         
         foreach ($result['update'] as $Address)

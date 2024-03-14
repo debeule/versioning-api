@@ -9,7 +9,8 @@ use App\Location\Commands\CreateMunicipality;
 use App\Location\Municipality;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use App\Location\Queries\AllMunicipalities;
-
+use App\Location\Commands\SoftDeleteMunicipality;
+use App\Services\ProcessImportedRecords;
 
 final class SyncMunicipalities
 {
@@ -17,13 +18,14 @@ final class SyncMunicipalities
 
     public function __construct(
         private AllBpostMunicipalities $allBpostMunicipalities = new AllBpostMunicipalities(),
-        private AllMunicipalities $allMunicipalities = new AllMunicipalities()
     ) {}
         
 
     public function __invoke(): void
     {
-        $result = ProcessImportedRecords::setup($this->allBpostMunicipalities->get(), $this->allMunicipalities->get())->pipe();
+        $allMunicipalities = Municipality::get();
+
+        $result = ProcessImportedRecords::setup($this->allBpostMunicipalities->get(), $allMunicipalities)->pipe();
         
         foreach ($result['update'] as $Municipality) 
         {
