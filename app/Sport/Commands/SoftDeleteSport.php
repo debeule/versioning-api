@@ -19,16 +19,6 @@ final class CreateSport
 
     public function handle(): bool
     {
-        $this->buildRecord($this->koheraSport)->sve();
-    }
-
-    public function buildRecord(KoheraSport $koheraSport): bool
-    {
-        $newSport = new Sport();
-
-        $newSport->record_id = $koheraSport->recordId();
-        $newSport->name = $this->koheraSport->name();
-
-        return $newSport;
+        return Sport::where('record_id', $koheraSport->recordId())->first()->delete();
     }
 }

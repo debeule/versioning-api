@@ -4,49 +4,44 @@ declare(strict_types=1);
 
 namespace App\Kohera\Commands;
 
-use App\Kohera\Queries\AllSports as AllKoheraSports;
 use App\Sport\Commands\CreateSport;
+use App\Sport\Commands\SoftDeleteSport;
 use App\Sport\Sport;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+
+use App\Kohera\Queries\AllSports as AllKoheraSports;
+use App\Sport\Queries\AllSports;
+
+use App\Services\ProcessImportedRecords;
 
 final class SyncSports
 {
     use DispatchesJobs;
 
+    public function __construct(
+        private AllKoheraSports $allKoheraSports = new AllKoheraSports(),
+        private AllSports $allSports = new AllSports()
+    ) {}
+        
+
     public function __invoke(): void
     {
-        $existingSports = Sport::all();
-        $processedSports = [];
+        $result = ProcessImportedRecords::setup($this->allKoheraSports->get(), $this->allSports->get())->pipe();
 
-        $AllkoheraSports = new AllKoheraSports();
-
-        foreach ($AllkoheraSports->get() as $koheraSport) 
+        foreach ($result['recordsToUpdate'] as $koheraSport) 
         {
-            if (in_array($koheraSport->name(), $processedSports)) 
-            {
-                continue;
-            }
-
-            $sportExists = $existingSports->where('name', $koheraSport->name())->isNotEmpty();
-
-            if ($sportExists)
-            {
-                $existingSports = $existingSports->where('name', "!=", $koheraSport->name());
-
-                array_push($processedSports, $koheraSport->name());
-
-                continue;
-            }
-
+            $this->dispatchSync(new SoftDeleteSport($koheraSport));
             $this->dispatchSync(new CreateSport($koheraSport));
-
-            array_push($processedSports, $koheraSport->name());
         }
 
-        //sport found in sports table but not in koheraSports
-        foreach ($existingSports as $existingSport) 
+        foreach ($result['recordsToCreate'] as $koheraSport) 
         {
-            $existingSport->delete();
+            $this->dispatchSync(new CreateSport($koheraSport));
+        }
+
+        foreach ($result['recordsToDelete'] as $koheraSport) 
+        {
+            $this->dispatchSync(new SoftDeleteSport($koheraSport));
         }
     }
 }
