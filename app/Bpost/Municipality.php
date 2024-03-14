@@ -19,6 +19,11 @@ final class Municipality implements MunicipalityContract
         $this->Provincie = $row[4];
     }
 
+    public function recordId(): int
+    {
+        return Sanitizer::input($this->Postcode)->intValue();
+    }
+
     public function name(): string
     {
         return Sanitizer::input($this->Plaatsnaam)->stringToLower()->value();
