@@ -5,11 +5,10 @@ declare(strict_types=1);
 
 namespace App\Location\Commands;
 
+use App\Extensions\Eloquent\Scopes\FromVersion;
 use App\Kohera\Region as KoheraRegion;
 use App\Location\Municipality;
-use App\Location\Region;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use App\Extensions\Eloquent\Scopes\FromVersion;
 
 final class LinkRegion
 {

@@ -5,7 +5,6 @@ declare(strict_types=1);
 
 namespace App\School\Commands;
 
-use App\Kohera\School as KoheraSchool;
 use App\School\School;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 

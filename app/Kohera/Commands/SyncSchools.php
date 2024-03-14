@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Kohera\Commands;
 
+use App\Kohera\Queries\AllSchools as AllKoheraSchools;
 use App\School\Commands\CreateSchool;
 use App\School\Commands\SoftDeleteSchool;
-use App\School\School;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-
-use App\Kohera\Queries\AllSchools as AllKoheraSchools;
 use App\School\Queries\AllSchools;
 
+use App\School\School;
 use App\Services\ProcessImportedRecords;
+
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 final class SyncSchools
 {

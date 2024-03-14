@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace App\Kohera\Commands;
 
+use App\Kohera\Queries\AllBillingProfiles as AllKoheraBillingProfiles;
+use App\School\BillingProfile;
 use App\School\Commands\CreateBillingProfile;
 use App\School\Commands\SoftDeleteBillingProfile;
-use App\School\BillingProfile;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-
-use App\Kohera\Queries\AllBillingProfiles as AllKoheraBillingProfiles;
-use App\School\Queries\AllBillingProfiles;
 
 use App\Services\ProcessImportedRecords;
+
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 
 final class SyncBillingProfiles

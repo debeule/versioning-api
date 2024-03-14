@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Kohera\Commands;
 
-use App\Location\Commands\CreateRegion;
-use App\Location\Commands\SoftDeleteRegion;
-use App\Location\Commands\LinkRegion;
-use App\Location\Region;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-
 use App\Kohera\Queries\AllRegions as AllKoheraRegions;
+use App\Location\Commands\CreateRegion;
+use App\Location\Commands\LinkRegion;
+use App\Location\Commands\SoftDeleteRegion;
 use App\Location\Queries\AllRegions;
 
+use App\Location\Region;
 use App\Services\ProcessImportedRecords;
+
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 final class SyncRegions
 {

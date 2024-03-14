@@ -6,11 +6,10 @@ namespace App\Bpost\Commands;
 
 use App\Bpost\Queries\AllMunicipalities as allBpostMunicipalities;
 use App\Location\Commands\CreateMunicipality;
-use App\Location\Municipality;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use App\Location\Queries\AllMunicipalities;
 use App\Location\Commands\SoftDeleteMunicipality;
+use App\Location\Municipality;
 use App\Services\ProcessImportedRecords;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 final class SyncMunicipalities
 {

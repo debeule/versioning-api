@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Services\Pipes;
 
-use App\Extensions\Eloquent\Scopes\HasRecordId;
 
 final class FilterNewRecords
 {
@@ -19,7 +18,7 @@ final class FilterNewRecords
             ->where('record_id', $record->recordId())
             ->isNotEmpty();
 
-            if (!$recordExists) $newRecords->push($record);
+            if (! $recordExists) $newRecords->push($record);
         }
 
         $content['create'] = $newRecords;

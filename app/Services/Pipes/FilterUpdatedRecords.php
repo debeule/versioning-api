@@ -17,7 +17,7 @@ final class FilterUpdatedRecords
             ->first();
             
             if (empty($existingRecord)) continue;
-            if(!$existingRecord->hasChanged($record)) continue;
+            if(! $existingRecord->hasChanged($record)) continue;
 
             $updatedRecords->push($record);
         }

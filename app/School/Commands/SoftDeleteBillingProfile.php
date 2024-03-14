@@ -5,7 +5,6 @@ declare(strict_types=1);
 
 namespace App\School\Commands;
 
-use App\Kohera\BillingProfile as KoheraBillingProfile;
 use App\School\BillingProfile;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 

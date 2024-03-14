@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Services\Pipes;
 
-use App\Extensions\Eloquent\Scopes\HasRecordId;
-use App\Sport\Sport;
 
 final class FilterDeletedRecords
 {

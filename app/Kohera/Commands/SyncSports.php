@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Kohera\Commands;
 
+use App\Kohera\Queries\AllSports as AllKoheraSports;
+use App\Services\ProcessImportedRecords;
 use App\Sport\Commands\CreateSport;
 use App\Sport\Commands\SoftDeleteSport;
-use App\Sport\Sport;
-use Illuminate\Foundation\Bus\DispatchesJobs;
 
-use App\Kohera\Queries\AllSports as AllKoheraSports;
 use App\Sport\Queries\AllSports;
+use App\Sport\Sport;
 
-use App\Services\ProcessImportedRecords;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 final class SyncSports
 {

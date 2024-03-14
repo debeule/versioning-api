@@ -45,7 +45,7 @@ final class MunicipalityFactory
 
     public function count(int $times): self
     {
-        for ($i = 0; $i < $times -1; $i++) 
+        for ($i = 0; $i < $times - 1; $i++) 
         {
             $this->municipalities->push($this->create());
         }

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Sport;
 
 use App\Extensions\Eloquent\SoftDeletes\SoftDeletes;
-use Illuminate\Database\Eloquent\Model;
 use App\Kohera\Sport as KoheraSport;
+use Illuminate\Database\Eloquent\Model;
 
 final class Sport extends Model
 {

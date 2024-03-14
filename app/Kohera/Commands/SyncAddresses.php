@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Kohera\Commands;
 
+use App\Kohera\Queries\AllAddresses as AllKoheraAddresses;
+use App\School\Address;
 use App\School\Commands\CreateAddress;
 use App\School\Commands\SoftDeleteAddress;
-use App\School\Address;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-
-use App\Kohera\Queries\AllAddresses as AllKoheraAddresses;
 
 use App\Services\ProcessImportedRecords;
+
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 final class SyncAddresses
 {
