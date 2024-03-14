@@ -51,19 +51,4 @@ final class BillingProfile extends Model implements BillingProfileContract
     {
         return School::where('record_id', $this->recordId())->first();
     }
-
-    public function hasChanged(Mixed $importedBillingProfile): bool
-    {
-        $recordHasChanged = false;
-
-        $recordHasChanged = $recordHasChanged || $billingProfile->record_id !== $importedBillingProfile->recordId();
-        $recordHasChanged = $recordHasChanged || $billingProfile->name !== $importedBillingProfile->name();
-        $recordHasChanged = $recordHasChanged || $billingProfile->email !== $importedBillingProfile->email();
-        $recordHasChanged = $recordHasChanged || $billingProfile->vat_number !== $importedBillingProfile->vatNumber();
-        $recordHasChanged = $recordHasChanged || $billingProfile->tav !== $importedBillingProfile->tav();
-        $recordHasChanged = $recordHasChanged || $billingProfile->address_id !== $importedBillingProfile->address()->id;
-        $recordHasChanged = $recordHasChanged || $billingProfile->school_id !== $importedBillingProfile->school()->id;
-        
-        return $recordHasChanged;
-    }
 }

@@ -37,4 +37,14 @@ final class Address extends Model
     {
         return $this->hasOne(School::class);
     }
+
+    public function hasChanged(Mixed $importedAddress)
+    {
+        $recordhasChanged = false;
+
+        $recordhasChanged = $recordhasChanged || $address->street_name !== $importedAddress->streetName();
+        $recordhasChanged = $recordhasChanged || $address->street_identifier !== $importedAddress->streetIdentifier();
+
+        return $recordhasChanged;
+    }
 }

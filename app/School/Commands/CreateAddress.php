@@ -6,7 +6,6 @@ declare(strict_types=1);
 namespace App\School\Commands;
 
 use App\Kohera\Address as KoheraAddress;
-use App\Location\Municipality;
 use App\School\Address;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
@@ -21,37 +20,10 @@ final class CreateAddress
 
     public function handle(): bool
     {
-        if (! $this->recordExists($this->koheraAddress)) 
-        {
-            return $this->buildRecord($this->koheraAddress);
-        }
-        
-        if ($this->recordHasChanged($this->koheraAddress)) 
-        {
-            return $this->createNewRecordVersion($this->koheraAddress);
-        }
+        return $this->buildRecord($this->koheraAddress)->save();
+    }   
 
-        return false;
-    }
-
-    private function recordExists(KoheraAddress $koheraAddress): bool
-    {
-        return Address::where('record_id', $koheraAddress->recordId())->exists();
-    }
-
-    private function recordHasChanged(KoheraAddress $koheraAddress): bool
-    {
-        $address = Address::where('record_id', $koheraAddress->recordId())->first();
-
-        $recordhasChanged = false;
-
-        $recordhasChanged = $address->street_name !== $koheraAddress->streetName();
-        $recordhasChanged = $recordhasChanged || $address->street_identifier !== $koheraAddress->streetIdentifier();
-
-        return $recordhasChanged;
-    }
-
-    private function buildRecord(KoheraAddress $koheraAddress): bool
+    private function buildRecord(KoheraAddress $koheraAddress): Address
     {
         $newAdress = new Address();
         
@@ -61,13 +33,6 @@ final class CreateAddress
         
         $newAdress->municipality_id = Municipality::where('postal_code', $koheraAddress->municipality()->postal_code)->first()->id;
 
-        return $newAdress->save();
-    }
-
-    private function createNewRecordVersion(KoheraAddress $koheraAddress): bool
-    {
-        $address = Address::where('record_id', $koheraAddress->recordId())->delete();
-
-        return $this->buildRecord($koheraAddress);
+        return $newAdress;
     }
 }

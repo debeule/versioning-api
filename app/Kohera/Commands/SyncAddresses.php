@@ -4,41 +4,46 @@ declare(strict_types=1);
 
 namespace App\Kohera\Commands;
 
-use App\Kohera\Queries\AllAddresses as AllKoheraAddresses;
-use App\School\Address;
 use App\School\Commands\CreateAddress;
+use App\School\Commands\SoftDeleteAddress;
+use App\School\Address;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
+use App\Kohera\Queries\AllAddresss as AllKoheraAddresss;
+use App\School\Queries\AllAddresss;
 
-final class SyncAddresses
+use App\Services\ProcessImportedRecords;
+
+
+final class SyncAddresss
 {
     use DispatchesJobs;
 
+    public function __construct(
+        private AllKoheraAddresss $allKoheraAddresss = new AllKoheraAddresss(),
+    ) {}
+        
+
     public function __invoke(): void
     {
-        $existingAddresses = Address::all();
-        $processedAddresses = [];
+        $allAddresss = Address::get();
 
-        $allkoheraAddresses = new AllKoheraAddresses();
+        $result = ProcessImportedRecords::setup($this->allKoheraAddresss->get(), $allAddresss)->pipe();
         
-        foreach ($allkoheraAddresses->get() as $koheraAddress) 
+        foreach ($result['update'] as $Address)
         {
-            if (in_array($koheraAddress->recordId(), $processedAddresses)) 
-            {
-                continue;
-            }
-            
-            $this->dispatchSync(new CreateAddress($koheraAddress));
-            
-            $existingAddresses = $existingAddresses->where('record_id', "!=", $koheraAddress->recordId());
-
-            array_push($processedAddresses, $koheraAddress->recordId());
+            $this->dispatchSync(new SoftDeleteAddress(Address::where('record_id', $koheraAddress->recordId())->first()));
+            $this->dispatchSync(new CreateAddress($Address));
         }
 
-        //Address found in addresses but not in koheraAddresses
-        foreach ($existingAddresses as $existingAddress) 
+        foreach ($result['create'] as $koheraAddress) 
         {
-            $existingAddress->delete();
+            $this->dispatchSync(new CreateAddress($koheraAddress));
+        }
+
+        foreach ($result['delete'] as $koheraAddress) 
+        {
+            $this->dispatchSync(new SoftDeleteAddress($koheraAddress));
         }
     }
 }

@@ -35,7 +35,7 @@ final class Address extends Model implements AddressContract
     public function municipality(): Municipality
     {
         $postalCode = Sanitizer::input($this->school->Postcode)->value();
-
+        
         return Municipality::where('postal_code', $postalCode)->first();
     }
 }
