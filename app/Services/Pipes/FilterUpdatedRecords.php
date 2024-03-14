@@ -19,7 +19,7 @@ final class FilterUpdatedRecords
             if (empty($existingRecord)) continue;
             if(!$existingRecord->hasChanged($record)) continue;
 
-            $updatedRecords->push($existingRecord);
+            $updatedRecords->push($record);
         }
 
         $content['update'] = $updatedRecords;

@@ -30,7 +30,7 @@ final class SyncSports
 
         foreach ($result['update'] as $koheraSport) 
         {
-            $this->dispatchSync(new SoftDeleteSport($koheraSport));
+            $this->dispatchSync(new SoftDeleteSport(Sport::where('record_id', $koheraSport->recordId())->first()));
             $this->dispatchSync(new CreateSport($koheraSport));
         }
 

@@ -6,7 +6,7 @@ namespace App\Imports\Queries;
 
 interface Region
 {
-    public function regionId(): int;
+    public function recordId(): int;
     public function name(): string;
     public function regionNumber(): int;
 }
