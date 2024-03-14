@@ -19,10 +19,10 @@ final class CreateSport
 
     public function handle(): bool
     {
-        $this->buildRecord($this->koheraSport)->sve();
+        return $this->buildRecord($this->koheraSport)->save();
     }
 
-    public function buildRecord(KoheraSport $koheraSport): bool
+    public function buildRecord(KoheraSport $koheraSport): Sport
     {
         $newSport = new Sport();
 

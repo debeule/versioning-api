@@ -4,34 +4,26 @@ declare(strict_types=1);
 
 namespace App\Services\Pipes;
 
-
 final class FilterUpdatedRecords
 {
     public function handle(mixed $content, \Closure $next)
     {
-        $collection = collect();
-        $existingRecords = $content['objectType']::all();
-        
+        $updatedRecords = collect();
+         
         foreach ($content['records'] as $record) 
         {
-            $sportExists = $existingSports->where('record_id', $koheraSport->recordId())->isNotEmpty();
+            $existingRecord = $content['existingRecords']
+            ->where('record_id', $record->recordId())
+            ->first();
+            
+            if (empty($existingRecord)) continue;
+            if(!$existingRecord->hasChanged($record)) continue;
 
-            if ($sportExists) $collection->push($record);
+            $updatedRecords->push($existingRecord);
         }
 
-        return $next($collection);
-    }
-
-    #TODO: mixed ok?
-    public function isUpdated(Mixed $record, Mixed $existingRecord)
-    {
-        $isUpdated = false;
-
-        foreach ($record->getFillables() as $value) 
-        {
-            //check fields updated
-        }
-
-        return $isUpdated;
+        $content['update'] = $updatedRecords;
+        
+        return $next($content);
     }
 }

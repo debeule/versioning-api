@@ -6,6 +6,7 @@ namespace App\Sport;
 
 use App\Extensions\Eloquent\SoftDeletes\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
+use App\Kohera\Sport as KoheraSport;
 
 final class Sport extends Model
 {
@@ -21,4 +22,9 @@ final class Sport extends Model
         'record_id',
         'name',
     ];
+
+    public function hasChanged(KoheraSport $koheraSport): bool
+    {
+        return $this->name !== $koheraSport->name();
+    }
 }

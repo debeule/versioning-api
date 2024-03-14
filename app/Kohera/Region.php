@@ -21,7 +21,7 @@ final class Region extends Model implements RegionContract
         'RegioDetailId',
     ];
 
-    public function regionId(): int
+    public function recordId(): int
     {
         return Sanitizer::input($this->id)->intValue();
     }

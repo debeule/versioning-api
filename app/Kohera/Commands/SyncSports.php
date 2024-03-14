@@ -28,18 +28,18 @@ final class SyncSports
     {
         $result = ProcessImportedRecords::setup($this->allKoheraSports->get(), $this->allSports->get())->pipe();
 
-        foreach ($result['recordsToUpdate'] as $koheraSport) 
+        foreach ($result['update'] as $koheraSport) 
         {
             $this->dispatchSync(new SoftDeleteSport($koheraSport));
             $this->dispatchSync(new CreateSport($koheraSport));
         }
 
-        foreach ($result['recordsToCreate'] as $koheraSport) 
+        foreach ($result['create'] as $koheraSport) 
         {
             $this->dispatchSync(new CreateSport($koheraSport));
         }
 
-        foreach ($result['recordsToDelete'] as $koheraSport) 
+        foreach ($result['delete'] as $koheraSport) 
         {
             $this->dispatchSync(new SoftDeleteSport($koheraSport));
         }

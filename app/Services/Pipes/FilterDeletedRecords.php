@@ -5,26 +5,22 @@ declare(strict_types=1);
 namespace App\Services\Pipes;
 
 use App\Extensions\Eloquent\Scopes\HasRecordId;
+use App\Sport\Sport;
 
 final class FilterDeletedRecords
 {
     public function handle(mixed $content, \Closure $next)
     {
-        $collection = collect();
+        $deletedRecords = $content['existingRecords'];
          
+        //delete existing records
         foreach ($content['records'] as $record) 
         {
-            $hasRecordId = new HasRecordId($record->record_id);
-
-            $recordDeleted = $content['existingRecords']->$hasRecordId->isNotEmpty();
-
-            if ($recordDeleted) $collection->push($collection);
+            $deletedRecords = $deletedRecords->where('record_id', '!=', $record->recordId());
         }
-
-        dd($collection);
         
-        $content['deleted'] = $collection;
+        $content['delete'] = $deletedRecords;
         
-        return $next($collection);
+        return $next($content);
     }
 }

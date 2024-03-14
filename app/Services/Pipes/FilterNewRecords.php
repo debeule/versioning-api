@@ -6,24 +6,24 @@ namespace App\Services\Pipes;
 
 use App\Extensions\Eloquent\Scopes\HasRecordId;
 
-final class FilterDeletedRecords
+final class FilterNewRecords
 {
     public function handle(mixed $content, \Closure $next)
     {
-        $collection = collect();
+        $newRecords = collect();
          
         foreach ($content['records'] as $record) 
         {
-            $hasRecordId = new HasRecordId($record->record_id);
+            #TODO: make into scope (with seperate method for 'scoping' collections?)
+            $recordExists = $content['existingRecords']
+            ->where('record_id', $record->recordId())
+            ->isNotEmpty();
 
-            $recordDeleted = $content['existingRecords']->$hasRecordId->isNotEmpty();
-
-            if ($recordDeleted) $collection->push($collection);
+            if (!$recordExists) $newRecords->push($record);
         }
 
-        $content['deleted'] = $collection;
+        $content['create'] = $newRecords;
         
-        dd($collection);
-        return $next($collection);
+        return $next($content);
     }
 }

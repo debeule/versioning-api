@@ -9,16 +9,16 @@ use App\Kohera\Sport as KoheraSport;
 use App\Sport\Sport;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
-final class CreateSport
+final class SoftDeleteSport
 {
     use DispatchesJobs;
 
     public function __construct(
-        public KoheraSport $koheraSport
+        public Sport $sport
     ) {}
 
     public function handle(): bool
     {
-        return Sport::where('record_id', $koheraSport->recordId())->first()->delete();
+        return $this->sport->delete();
     }
 }

@@ -27,9 +27,9 @@ final class ProcessImportedRecords
                 'existingRecords' => $this->existingRecords,
             ])
             ->through([
-                Pipes\FilterDeletedRecords::class,
-                Pipes\FilterUpdatedRecords::class,
                 Pipes\FilterNewRecords::class,
+                Pipes\FilterUpdatedRecords::class,
+                Pipes\FilterDeletedRecords::class,
             ])
             ->thenReturn();
     }
