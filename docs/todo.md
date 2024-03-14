@@ -1,1 +1,1 @@
-# TODO: rearange sync tests to comply with AAA
+# TODO: Records are identified by their id in kohera, .. db / order they are imported. Is this ok?
