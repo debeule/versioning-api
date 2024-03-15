@@ -17,26 +17,29 @@ final class MunicipalityFactory
 
     public static function new()
     {
+        return new self(
+            collect([self::build()])
+        );
+    }
+
+    public static function build(): Municipality
+    {
         $faker = FakerFactory::create();
 
-        return new self(
-            collect([
-                new Municipality([
-                    $faker->randomNumber(4),
-                    $faker->city,
-                    $faker->city,
-                    'Ja',
-                    $faker->randomElement(ProvinceGroup::allProvinces()->get()),
-                ]),
-            ])
-        );
+        return new Municipality([
+            $faker->randomNumber(4),
+            $faker->city,
+            $faker->city,
+            'Ja',
+            $faker->randomElement(ProvinceGroup::allProvinces()->get()),
+        ]);
     }
 
     public function count(int $times): self
     {
         for ($i = 0; $i < $times - 1; $i++) 
         {
-            $this->municipalities->push($this->create());
+            $this->municipalities->push($this->build());
         }
 
         return new self($this->municipalities);
