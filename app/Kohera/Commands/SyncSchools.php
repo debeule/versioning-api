@@ -28,10 +28,10 @@ final class SyncSchools
     {
         $result = ProcessImportedRecords::setup($this->allKoheraSchools->get(), $this->allSchools->get())->pipe();
         
-        foreach ($result['update'] as $School) 
+        foreach ($result['update'] as $koheraSchool) 
         {
             $this->dispatchSync(new SoftDeleteSchool(School::where('record_id', $koheraSchool->recordId())->first()));
-            $this->dispatchSync(new CreateSchool($School));
+            $this->dispatchSync(new CreateSchool($koheraSchool));
         }
 
         foreach ($result['create'] as $koheraSchool) 

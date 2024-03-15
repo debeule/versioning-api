@@ -8,7 +8,7 @@ use App\Kohera\Sport;
 use App\Testing\TestCase;
 use Database\Kohera\Factories\SportFactory as KoheraSportFactory;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use PHPUnit\Framework\Attributes\Test;
 
 final class AllSportsTest extends TestCase

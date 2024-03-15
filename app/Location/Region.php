@@ -31,7 +31,7 @@ final class Region extends Model
     {
         $recordhasChanged = false;
 
-        $recordhasChanged = $recordhasChanged || $this->name !== $koheraRegion->name();
+        $recordhasChanged = $this->name !== $koheraRegion->name();
         $recordhasChanged = $recordhasChanged || $this->region_number !== $koheraRegion->regionNumber();
 
         return $recordhasChanged;

@@ -42,13 +42,13 @@ final class BillingProfile extends Model
     {
         $recordHasChanged = false;
 
-        $recordHasChanged = $recordHasChanged || $billingProfile->record_id !== $importedBillingProfile->recordId();
-        $recordHasChanged = $recordHasChanged || $billingProfile->name !== $importedBillingProfile->name();
-        $recordHasChanged = $recordHasChanged || $billingProfile->email !== $importedBillingProfile->email();
-        $recordHasChanged = $recordHasChanged || $billingProfile->vat_number !== $importedBillingProfile->vatNumber();
-        $recordHasChanged = $recordHasChanged || $billingProfile->tav !== $importedBillingProfile->tav();
-        $recordHasChanged = $recordHasChanged || $billingProfile->address_id !== $importedBillingProfile->address()->id;
-        $recordHasChanged = $recordHasChanged || $billingProfile->school_id !== $importedBillingProfile->school()->id;
+        $recordHasChanged = $this->record_id !== $importedBillingProfile->recordId();
+        $recordHasChanged = $recordHasChanged || $this->name !== $importedBillingProfile->name();
+        $recordHasChanged = $recordHasChanged || $this->email !== $importedBillingProfile->email();
+        $recordHasChanged = $recordHasChanged || $this->vat_number !== $importedBillingProfile->vatNumber();
+        $recordHasChanged = $recordHasChanged || $this->tav !== $importedBillingProfile->tav();
+        $recordHasChanged = $recordHasChanged || $this->address_id !== $importedBillingProfile->address()->id;
+        $recordHasChanged = $recordHasChanged || $this->school_id !== $importedBillingProfile->school()->id;
         
         return $recordHasChanged;
     }

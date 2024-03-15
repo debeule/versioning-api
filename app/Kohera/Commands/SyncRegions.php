@@ -29,10 +29,10 @@ final class SyncRegions
     {
         $result = ProcessImportedRecords::setup($this->allKoheraRegions->get(), $this->allRegions->get())->pipe();
         
-        foreach ($result['update'] as $Region) 
+        foreach ($result['update'] as $koheraRegion) 
         {
             $this->dispatchSync(new SoftDeleteRegion(Region::where('record_id', $koheraRegion->recordId())->first()));
-            $this->dispatchSync(new CreateRegion($Region));
+            $this->dispatchSync(new CreateRegion($koheraRegion));
             $this->dispatchSync(new LinkRegion($koheraRegion));
         }
 

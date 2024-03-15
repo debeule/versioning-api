@@ -10,9 +10,16 @@ use App\Location\Region;
 
 final class Municipality implements MunicipalityContract
 {
+    public int $Postcode;
+    public string $Plaatsnaam;
+    public string $Deelgemeente;
+    public string $Hoofdgemeente;
+    public string $Provincie;
+
+    /** @param array<int,string> $row   */
     public function __construct(Array $row) 
     {
-        $this->Postcode = $row[0];
+        $this->Postcode = (int) $row[0];
         $this->Plaatsnaam = $row[1];
         $this->Deelgemeente = $row[2];
         $this->Hoofdgemeente = $row[3];
@@ -47,10 +54,5 @@ final class Municipality implements MunicipalityContract
         }
 
         return null;
-    }
-
-    public function region(): Region
-    {
-        return Region::where('region_number', $this->school->RegioDetailId)->first();
     }
 }

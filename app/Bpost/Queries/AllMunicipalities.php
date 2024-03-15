@@ -9,6 +9,7 @@ use App\Imports\Values\BpostUri;
 use App\Imports\Values\MunicipalitiesUri;
 use App\Services\ImportFileToStorage;
 use App\Services\SpreadsheetToCollection;
+use Illuminate\Support\Collection;
 
 final class AllMunicipalities
 {
@@ -20,7 +21,7 @@ final class AllMunicipalities
         $this->storagePath = (string) new MunicipalitiesUri;
     }
 
-    public function query()
+    public function query(): Collection
     {
         if (config('tatooine.should_import')) 
         {
@@ -30,7 +31,7 @@ final class AllMunicipalities
         return SpreadsheetToCollection::setup($this->storagePath, Municipality::class)->pipe();
     }
 
-    public function get()
+    public function get(): Collection
     {
         try 
         {

@@ -7,7 +7,7 @@ namespace App\School\Queries;
 use App\School\School;
 use App\Testing\TestCase;
 use Database\Main\Factories\SchoolFactory;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use PHPUnit\Framework\Attributes\Test;
 
 final class AllSchoolsTest extends TestCase

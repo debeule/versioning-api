@@ -45,7 +45,7 @@ final class School extends Model
     {
         $recordhasChanged = false;
 
-        $recordhasChanged = $recordhasChanged || $this->name !== $koheraSchool->name();
+        $recordhasChanged = $this->name !== $koheraSchool->name();
         $recordhasChanged = $recordhasChanged || $this->email !== $koheraSchool->email();
         $recordhasChanged = $recordhasChanged || $this->contact_email !== $koheraSchool->contactEmail();
         $recordhasChanged = $recordhasChanged || $this->type !== $koheraSchool->type();

@@ -27,10 +27,10 @@ final class SyncAddresses
         $allAddresses = Address::get();
         $result = ProcessImportedRecords::setup($this->allKoheraAddresses->get(), $allAddresses)->pipe();
         
-        foreach ($result['update'] as $Address)
+        foreach ($result['update'] as $koheraAddress)
         {
             $this->dispatchSync(new SoftDeleteAddress(Address::where('record_id', $koheraAddress->recordId())->first()));
-            $this->dispatchSync(new CreateAddress($Address));
+            $this->dispatchSync(new CreateAddress($koheraAddress));
         }
 
         foreach ($result['create'] as $koheraAddress) 

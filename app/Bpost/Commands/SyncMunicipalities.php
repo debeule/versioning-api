@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Bpost\Commands;
 
-use App\Bpost\Queries\AllMunicipalities as allBpostMunicipalities;
+use App\Bpost\Queries\AllMunicipalities as AllBpostMunicipalities;
 use App\Location\Commands\CreateMunicipality;
 use App\Location\Commands\SoftDeleteMunicipality;
 use App\Location\Municipality;
@@ -26,10 +26,10 @@ final class SyncMunicipalities
 
         $result = ProcessImportedRecords::setup($this->allBpostMunicipalities->get(), $allMunicipalities)->pipe();
         
-        foreach ($result['update'] as $Municipality) 
+        foreach ($result['update'] as $koheraMunicipality) 
         {
             $this->dispatchSync(new SoftDeleteMunicipality(Municipality::where('record_id', $koheraMunicipality->recordId())->first()));
-            $this->dispatchSync(new CreateMunicipality($Municipality));
+            $this->dispatchSync(new CreateMunicipality($koheraMunicipality));
         }
 
         foreach ($result['create'] as $koheraMunicipality) 

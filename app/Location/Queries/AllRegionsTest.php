@@ -7,7 +7,7 @@ namespace App\Location\Queries;
 use App\Location\Region;
 use App\Testing\TestCase;
 use Database\Main\Factories\RegionFactory;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use PHPUnit\Framework\Attributes\Test;
 
 

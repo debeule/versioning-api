@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace App\Services\Pipes;
 
+use Illuminate\Support\Collection;
+
 final class FilterUpdatedRecords
 {
-    public function handle(mixed $content, \Closure $next)
+    /** @param array<Mixed> $content */
+    public function handle(Array $content, \Closure $next): Collection
     {
         $updatedRecords = collect();
          

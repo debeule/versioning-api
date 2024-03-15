@@ -29,10 +29,10 @@ final class SyncBillingProfiles
 
         $result = ProcessImportedRecords::setup($this->allKoheraBillingProfiles->get(), $allBillingProfiles)->pipe();
         
-        foreach ($result['update'] as $BillingProfile)
+        foreach ($result['update'] as $koheraBillingProfile)
         {
             $this->dispatchSync(new SoftDeleteBillingProfile(BillingProfile::where('record_id', $koheraBillingProfile->recordId())->first()));
-            $this->dispatchSync(new CreateBillingProfile($BillingProfile));
+            $this->dispatchSync(new CreateBillingProfile($koheraBillingProfile));
         }
 
         foreach ($result['create'] as $koheraBillingProfile) 

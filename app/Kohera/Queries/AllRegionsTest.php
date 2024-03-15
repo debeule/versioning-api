@@ -8,7 +8,7 @@ use App\Kohera\Region;
 use App\Testing\TestCase;
 use Database\Kohera\Factories\RegionFactory as KoheraRegionFactory;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use PHPUnit\Framework\Attributes\Test;
 
 final class AllRegionsTest extends TestCase

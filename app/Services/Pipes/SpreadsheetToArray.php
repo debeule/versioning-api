@@ -6,10 +6,12 @@ namespace App\Services\Pipes;
 
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Collection;
 
 final class SpreadsheetToArray
 {
-    public function handle(mixed $content, \Closure $next)
+    /** @param array<Mixed> $content */
+    public function handle(Array $content, \Closure $next): Collection
     {
         $content['spreadsheetArray'] = Excel::toArray(new Request(), $content['source'], null, \Maatwebsite\Excel\Excel::XLS)[0];
 
