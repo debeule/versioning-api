@@ -19,6 +19,7 @@ final class MunicipalityFactory extends Factory
     public function definition()
     {
         return [
+            'record_id' => $this->faker->unique()->randomNumber(5),
             'name' => $this->faker->name(),
             'postal_code' => '2000',
             'province' => 'Antwerpen',

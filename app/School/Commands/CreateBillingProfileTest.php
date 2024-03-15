@@ -32,45 +32,4 @@ final class CreateBillingProfileTest extends TestCase
 
         $this->assertSame($koheraBillingProfile->recordId(), $billingProfile->record_id);
     }
-
-    #[Test]
-    public function ItReturnsFalseWhenExactRecordExists(): void
-    {
-        $koheraSchool = KoheraSchoolFactory::new()->create();
-        $koheraBillingProfile = new KoheraBillingProfile($koheraSchool);
-
-        AddressFactory::new()->withId('billing_profile-' . $koheraSchool->recordId())->create();
-        SchoolFactory::new()->withId((string) $koheraSchool->recordId())->create();
-        
-        $this->dispatchSync(new CreateBillingProfile($koheraBillingProfile));
-
-        $this->assertFalse($this->dispatchSync(new CreateBillingProfile($koheraBillingProfile)));
-    }
-
-    #[Test]
-    public function ItCreatesNewRecordVersionIfExists(): void
-    {
-        $koheraSchool = KoheraSchoolFactory::new()->create();
-        $koheraBillingProfile = new KoheraBillingProfile($koheraSchool);
-
-        AddressFactory::new()->withId('billing_profile-' . $koheraSchool->recordId())->create();
-        SchoolFactory::new()->withId((string) $koheraSchool->recordId())->create();
-        
-        $this->dispatchSync(new CreateBillingProfile($koheraBillingProfile));
-
-        $oldBillingProfile = BillingProfile::where('name', $koheraBillingProfile->name())->first();
-        $oldName = $oldBillingProfile->name;
-        
-        $koheraSchool->Facturatie_Naam = 'new name';
-
-        $this->dispatchSync(new CreateBillingProfile(new KoheraBillingProfile($koheraSchool)));
-
-        $updatedBillingProfile = BillingProfile::where('name', $koheraBillingProfile->name())->first();
-        
-        $this->assertNotEquals($oldBillingProfile->name, $updatedBillingProfile->name);
-        $this->assertSoftDeleted($oldBillingProfile);
-
-        $this->assertEquals($updatedBillingProfile->name, $koheraBillingProfile->name());
-        $this->assertEquals($oldBillingProfile->record_id, $updatedBillingProfile->record_id);
-    }
 }

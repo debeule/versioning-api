@@ -13,7 +13,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class SyncSportsTest extends TestCase
 {
     #[Test]
-    public function itDispatchesCreateSportsWhenNotExists(): void
+    public function itCreatesSportWhenNotExists(): void
     {
         KoheraSportFactory::new()->count(3)->create();
         $syncSports = new SyncSports();
@@ -55,4 +55,27 @@ final class SyncSportsTest extends TestCase
 
         $this->assertGreaterThan($koheraSports->count(), $existingSports->count());
     }
+
+    #[Test]
+    public function ItCreatesNewRecordVersionIfChangedAndExists(): void
+    {
+        $bpostMunicipality = BpostMunicipalityFactory::new()->make();
+
+        $this->dispatchSync(new CreateMunicipality($bpostMunicipality));
+
+        $oldMunicipalityRecord = Municipality::where('name', $bpostMunicipality->name())->first();
+        
+        $bpostMunicipality->Plaatsnaam = 'new name';
+        
+        $this->dispatchSync(new CreateMunicipality($bpostMunicipality));
+
+        $updatedMunicipalityRecord = Municipality::where('name', $bpostMunicipality->name())->first();
+
+        $this->assertNotEquals($oldMunicipalityRecord->name, $updatedMunicipalityRecord->name);
+        $this->assertSoftDeleted($oldMunicipalityRecord);
+
+        $this->assertEquals($updatedMunicipalityRecord->name, $bpostMunicipality->name());
+        $this->assertEquals($oldMunicipalityRecord->record_id, $updatedMunicipalityRecord->record_id);
+    }
+    
 }

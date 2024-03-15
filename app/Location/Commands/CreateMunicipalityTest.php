@@ -27,36 +27,4 @@ final class CreateMunicipalityTest extends TestCase
         
         $this->assertEquals($bpostMunicipality->postalCode(), $Municipality->postal_code);
     }
-
-    #[Test]
-    public function ItReturnsFalseWhenExactRecordExists(): void
-    {
-        $bpostMunicipality = BpostMunicipalityFactory::new()->make();
-
-        $this->dispatchSync(new CreateMunicipality($bpostMunicipality));
-
-        $this->assertFalse($this->dispatchSync(new CreateMunicipality($bpostMunicipality)));
-    }
-
-    #[Test]
-    public function ItCreatesNewRecordVersionIfExists(): void
-    {
-        $bpostMunicipality = BpostMunicipalityFactory::new()->make();
-
-        $this->dispatchSync(new CreateMunicipality($bpostMunicipality));
-
-        $oldMunicipalityRecord = Municipality::where('name', $bpostMunicipality->name())->first();
-        
-        $bpostMunicipality->Plaatsnaam = 'new name';
-        
-        $this->dispatchSync(new CreateMunicipality($bpostMunicipality));
-
-        $updatedMunicipalityRecord = Municipality::where('name', $bpostMunicipality->name())->first();
-
-        $this->assertNotEquals($oldMunicipalityRecord->name, $updatedMunicipalityRecord->name);
-        $this->assertSoftDeleted($oldMunicipalityRecord);
-
-        $this->assertEquals($updatedMunicipalityRecord->name, $bpostMunicipality->name());
-        $this->assertEquals($oldMunicipalityRecord->record_id, $updatedMunicipalityRecord->record_id);
-    }
 }

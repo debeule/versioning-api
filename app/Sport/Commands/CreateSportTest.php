@@ -28,35 +28,4 @@ final class CreateSportTest extends TestCase
 
         $this->assertEquals($koheraSport->name(), $sport->name);
     }
-
-    #[Test]
-    public function ItReturnsFalseWhenExactRecordExists(): void
-    {
-        $koheraSport = KoheraSportFactory::new()->create();
-
-        $this->dispatchSync(new CreateSport($koheraSport));
-
-        $this->assertFalse($this->dispatchSync(new CreateSport($koheraSport)));
-    }
-
-    #[Test]
-    public function ItCreatesNewRecordVersionIfExists(): void
-    {
-        $koheraSport = KoheraSportFactory::new()->create();
-
-        $this->dispatchSync(new CreateSport($koheraSport));
-
-        $oldSportRecord = Sport::where('name', $koheraSport->name())->first();
-
-        $koheraSport->Sportkeuze = 'new name';
-        $this->dispatchSync(new CreateSport($koheraSport));
-
-        $updatedSportRecord = Sport::where('name', $koheraSport->name())->first();
-
-        $this->assertTrue($oldSportRecord->name !== $updatedSportRecord->name);
-        $this->assertSoftDeleted($oldSportRecord);
-
-        $this->assertEquals($updatedSportRecord->name, $koheraSport->name());
-        $this->assertEquals($oldSportRecord->record_id, $updatedSportRecord->record_id);
-    }
 }

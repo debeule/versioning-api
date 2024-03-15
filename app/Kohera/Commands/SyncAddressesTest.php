@@ -65,4 +65,30 @@ final class SyncAddressesTest extends TestCase
 
         $this->assertGreaterThan($koheraAddresses->count(), $existingAddresses->count());
     }
+
+    #[Test]
+    public function ItCreatesNewRecordVersionIfChangedAndExists(): void
+    {
+        $koheraSchool = KoheraSchoolFactory::new()->create();
+        $koheraAddress = new KoheraAddress($koheraSchool);
+        
+        MunicipalityFactory::new()->withRegion()->withPostalCode($koheraSchool->Postcode)->create();
+        
+        $this->dispatchSync(new CreateAddress($koheraAddress));
+
+        $oldAddress = Address::where('street_name', $koheraAddress->streetName())->first();
+        $oldName = $oldAddress->name;
+        
+        $koheraSchool->address = 'new name';
+
+        $this->dispatchSync(new CreateAddress(new KoheraAddress($koheraSchool)));
+
+        $updatedAddress = Address::where('street_name', $koheraAddress->streetName())->first();
+        
+        $this->assertNotEquals($oldAddress->street_name, $updatedAddress->street_name);
+        $this->assertSoftDeleted($oldAddress);
+
+        $this->assertEquals($updatedAddress->street_name, $koheraAddress->streetName());
+        $this->assertEquals($oldAddress->record_id, $updatedAddress->record_id);
+    }
 }

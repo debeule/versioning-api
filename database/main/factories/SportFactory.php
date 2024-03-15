@@ -19,8 +19,8 @@ final class SportFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name(),
             'record_id' => $this->faker->unique()->randomNumber(),
+            'name' => $this->faker->name(),
         ];
     }
 
