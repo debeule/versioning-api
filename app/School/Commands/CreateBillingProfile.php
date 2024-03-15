@@ -9,7 +9,6 @@ use App\Kohera\BillingProfile as KoheraBillingProfile;
 use App\School\BillingProfile;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
-
 final class CreateBillingProfile
 {
     use DispatchesJobs;
@@ -24,7 +23,7 @@ final class CreateBillingProfile
     }    
 
     private function buildRecord(KoheraBillingProfile $koheraBillingProfile): BillingProfile
-    {        
+    {
         $newBillingProfile = new BillingProfile();
 
         $newBillingProfile->record_id = $koheraBillingProfile->recordId();

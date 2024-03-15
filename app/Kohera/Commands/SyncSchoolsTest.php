@@ -14,65 +14,38 @@ use PHPUnit\Framework\Attributes\Test;
 final class SyncSchoolsTest extends TestCase
 {
     #[Test]
-    public function itDispatchesCreateSchoolsWhenNotExists(): void
+    public function itCreatesSchoolRecordsWhenNotExists(): void
     {
-        $schoolRecords = KoheraSchoolFactory::new()->count(3)->create();
-
-        foreach ($schoolRecords as $schoolRecord) 
-        {
-            AddressFactory::new()->withId('school-' . $schoolRecord->id)->create();
-        }
+        $koheraSchool = KoheraSchoolFactory::new()->create();
+        AddressFactory::new()->withId('school-' . $koheraSchool->id)->create();
 
         $syncSchools = new SyncSchools();
         $syncSchools();
-
-        $schoolRecords = KoheraSchoolFactory::new()->count(3)->create();
-
-        foreach ($schoolRecords as $schoolRecord) 
-        {
-            AddressFactory::new()->withId('school-' . $schoolRecord->id)->create();
-        }
-
-        $existingSchools = School::get();
-        $koheraSchools = KoheraSchool::get();
-
-        $this->assertGreaterThan($existingSchools->count(), $koheraSchools->count());
-
-        $syncSchools = new SyncSchools();
-        $syncSchools();
-
-        $existingSchools = School::get();
-        $koheraSchools = KoheraSchool::get();
-        $this->assertEquals($existingSchools->count(), $koheraSchools->count());
+        
+        $this->assertEquals(School::count(), KoheraSchool::count());
     }
 
     #[Test]
-    public function itSoftDeletesDeletedRecords(): void
+    public function itSoftDeletesSchoolRecordWhenDeleted(): void
     {
-        $schoolRecords = KoheraSchoolFactory::new()->count(3)->create();
+        $koheraSchools = KoheraSchoolFactory::new()->count(2)->create();
 
-        foreach ($schoolRecords as $schoolRecord) 
+        foreach ($koheraSchools as $koheraSchool) 
         {
-            AddressFactory::new()->withId('school-' . $schoolRecord->id)->create();
+            AddressFactory::new()->withId('school-' . $koheraSchool->id)->create();
         }
 
         $syncSchools = new SyncSchools();
         $syncSchools();
         
-        $koheraSchool = KoheraSchool::first();
-        $koheraSchoolName = $koheraSchool->name();
-        $koheraSchool->delete();
+        $koheraSchoolRecordId = $koheraSchools->first()->recordId();
+        $koheraSchools->first()->delete();
 
-        
         $syncSchools = new SyncSchools();
         $syncSchools();
-            
-        $this->assertSoftDeleted(School::where('name', $koheraSchoolName)->first());
 
-        $existingSchools = School::get();
-        $koheraSchools = KoheraSchool::get();
-
-        $this->assertGreaterThan($koheraSchools->count(), $existingSchools->count());
+        $this->assertSoftDeleted(School::where('record_id', $koheraSchoolRecordId)->first());
+        $this->assertGreaterThan(KoheraSchool::count(), School::count());
     }
 
     #[Test]
@@ -81,11 +54,16 @@ final class SyncSchoolsTest extends TestCase
         $koheraSchool = KoheraSchoolFactory::new()->create();
         AddressFactory::new()->withId('school-' . $koheraSchool->recordId())->create();
 
-        $this->dispatchSync(new CreateSchool($koheraSchool));
+        $syncSchools = new SyncSchools();
+        $syncSchools();
+
         $school = School::where('name', $koheraSchool->name())->first();
 
         $koheraSchool->Name = 'new name';
-        $this->dispatchSync(new CreateSchool($koheraSchool));
+        $koheraSchool->save();
+
+        $syncSchools = new SyncSchools();
+        $syncSchools();
 
         $updatedSchool = School::where('name', $koheraSchool->name())->first();
 

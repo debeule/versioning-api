@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Model;
 
 final class Address extends Model implements AddressContract
 {
-    #TODO: add fillables to all eloquent models
 
     public function __construct(
         private School $school

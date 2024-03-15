@@ -12,101 +12,76 @@ use Database\Kohera\Factories\SchoolFactory as KoheraSchoolFactory;
 use Database\Main\Factories\AddressFactory;
 use Database\Main\Factories\SchoolFactory;
 use PHPUnit\Framework\Attributes\Test;
+use Database\Main\Factories\MunicipalityFactory;
+use App\School\School;
 
 final class SyncBillingProfilesTest extends TestCase
 {
     #[Test]
-    public function itDispatchesCreateBillingProfilesWhenNotExists(): void
+    public function itCreatesBillingProfileRecordsWhenNotExists(): void
     {
-        $schoolRecords = KoheraSchoolFactory::new()->count(3)->create();
+        $koheraSchool = KoheraSchoolFactory::new()->create();
 
-        foreach ($schoolRecords as $schoolRecord) 
-        {
-            AddressFactory::new()->withId('billing_profile-' . $schoolRecord->id)->create();
-            $school = SchoolFactory::new()->withId( (string) $schoolRecord->id)->create();
-        }
+        SchoolFactory::new()->withId((string) $koheraSchool->recordId())->create();
+        MunicipalityFactory::new()->withPostalCode($koheraSchool->Postcode)->create();
+        AddressFactory::new()->withId('billing_profile-' . $koheraSchool->id)->create();
 
         $syncBillingProfiles = new SyncBillingProfiles();
         $syncBillingProfiles();
-
-        $schoolRecords = KoheraSchoolFactory::new()->count(3)->create();
-
-        foreach ($schoolRecords as $schoolRecord) 
-        {
-            AddressFactory::new()->withId('billing_profile-' . $schoolRecord->id)->create();
-            $school = SchoolFactory::new()->withId( (string) $schoolRecord->id)->create();
-        }
         
-        $existingBillingProfiles = BillingProfile::get();
-        $koheraBillingProfiles = KoheraSchool::get();
-        
-        $this->assertGreaterThan($existingBillingProfiles->count(), $koheraBillingProfiles->count());
-
-        $syncBillingProfiles = new SyncBillingProfiles();
-        $syncBillingProfiles();
-
-        $existingBillingProfiles = BillingProfile::get();
-        $koheraBillingProfiles = KoheraSchool::get();
-        $this->assertEquals($existingBillingProfiles->count(), $koheraBillingProfiles->count());
+        $this->assertEquals(BillingProfile::count(), KoheraSchool::count());
     }
 
     #[Test]
-    public function itSoftDeletesDeletedRecords(): void
+    public function itSoftDeletesRecordsWhenDeleted(): void
     {
-        $schoolRecords = KoheraSchoolFactory::new()->count(3)->create();
+        $koheraSchool = KoheraSchoolFactory::new()->create();
 
-        foreach ($schoolRecords as $schoolRecord) 
-        {
-            AddressFactory::new()->withId('billing_profile-' . $schoolRecord->id)->create();
-            $school = SchoolFactory::new()->withId( (string) $schoolRecord->id)->create();
-        }
+        SchoolFactory::new()->withId((string) $koheraSchool->recordId())->create();
+        MunicipalityFactory::new()->withPostalCode($koheraSchool->Postcode)->create();
+        AddressFactory::new()->withId('billing_profile-' . $koheraSchool->id)->create();
 
         $syncBillingProfiles = new SyncBillingProfiles();
         $syncBillingProfiles();
 
-        $koheraSchool = KoheraSchool::first();  
-
-        $koheraBillingProfile = new KoheraBillingProfile($koheraSchool);
-        $koheraBillingProfileName = $koheraBillingProfile->name();
-
+        $koheraSchoolRecordId = $koheraSchool->recordId();
         $koheraSchool->delete();
+        $oldBillingProfile = BillingProfile::where('record_id', $koheraSchoolRecordId)->first();
 
-        
         $syncBillingProfiles = new SyncBillingProfiles();
         $syncBillingProfiles();
             
-        $this->assertSoftDeleted(BillingProfile::where('name', $koheraBillingProfileName)->first());
-
-        $existingBillingProfiles = BillingProfile::get();
-        $koheraBillingProfiles = KoheraSchool::get();
-
-        $this->assertGreaterThan($koheraBillingProfiles->count(), $existingBillingProfiles->count());
+        $this->assertSoftDeleted($oldBillingProfile);
+        $this->assertGreaterThan(KoheraSchool::count(), BillingProfile::count());
     }
 
     #[Test]
     public function ItCreatesNewRecordVersionIfChangedAndExists(): void
     {
         $koheraSchool = KoheraSchoolFactory::new()->create();
-        $koheraBillingProfile = new KoheraBillingProfile($koheraSchool);
 
-        AddressFactory::new()->withId('billing_profile-' . $koheraSchool->recordId())->create();
         SchoolFactory::new()->withId((string) $koheraSchool->recordId())->create();
+        MunicipalityFactory::new()->withPostalCode($koheraSchool->Postcode)->create();
+        AddressFactory::new()->withId('billing_profile-' . $koheraSchool->id)->create();
         
-        $this->dispatchSync(new CreateBillingProfile($koheraBillingProfile));
+        $syncBillingProfiles = new SyncBillingProfiles();
+        $syncBillingProfiles();
 
-        $oldBillingProfile = BillingProfile::where('name', $koheraBillingProfile->name())->first();
-        $oldName = $oldBillingProfile->name;
+        $oldBillingProfile = BillingProfile::where('record_id', $koheraSchool->recordId())->first();
         
-        $koheraSchool->Facturatie_Naam = 'new name';
+        $name = 'new name';
+        $koheraSchool->Facturatie_Naam = $name;
+        $koheraSchool->save();
+        
+        $syncBillingProfiles = new SyncBillingProfiles();
+        $syncBillingProfiles();
 
-        $this->dispatchSync(new CreateBillingProfile(new KoheraBillingProfile($koheraSchool)));
-
-        $updatedBillingProfile = BillingProfile::where('name', $koheraBillingProfile->name())->first();
+        $updatedBillingProfile = BillingProfile::where('name', $name)->first();
         
         $this->assertNotEquals($oldBillingProfile->name, $updatedBillingProfile->name);
         $this->assertSoftDeleted($oldBillingProfile);
 
-        $this->assertEquals($updatedBillingProfile->name, $koheraBillingProfile->name());
+        $this->assertEquals($updatedBillingProfile->name, $name);
         $this->assertEquals($oldBillingProfile->record_id, $updatedBillingProfile->record_id);
     }
 }

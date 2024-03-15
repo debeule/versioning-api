@@ -26,6 +26,7 @@ final class LinkRegion
 
     public function linkRegion(KoheraRegion $koheraRegion): bool
     {
+        # TODO: make into / use scope
         $municipality = Municipality::where('postal_code', $koheraRegion->postalCode())
         ->tap($this->fromVersion)
         ->first();

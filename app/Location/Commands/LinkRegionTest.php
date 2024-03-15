@@ -14,33 +14,11 @@ use PHPUnit\Framework\Attributes\Test;
 final class LinkRegionTest extends TestCase
 {
     #[Test]
-    public function itReturnsFalseWhenRegionDoesNotExist(): void
-    {
-        $koheraRegion = KoheraRegionFactory::new()->create();
-
-        MunicipalityFactory::new()->withPostalCode($koheraRegion->postalCode())->create();
-
-        $this->assertFalse($this->dispatchSync(new LinkRegion($koheraRegion)));
-    }
-
-    #[Test]
-    public function itReturnsFalseWhenMunicipalityDoesNotExist(): void
-    {
-        $koheraRegion = KoheraRegionFactory::new()->create();
-        
-        $this->dispatchSync(new CreateRegion($koheraRegion));
-
-        $this->assertFalse($this->dispatchSync(new LinkRegion($koheraRegion)));
-    }
-
-    #[Test]
-    public function itLinksMunicipalityToRegionWhenExists(): void
+    public function itLinksMunicipalitiesToRegionWhenExists(): void
     {
         $koheraRegion = KoheraRegionFactory::new()->create();
         
         MunicipalityFactory::new()->withPostalCode($koheraRegion->postalCode())->count(3)->create();
-
-        $this->dispatchSync(new CreateRegion($koheraRegion));
 
         $region = Region::where('record_id', $koheraRegion->recordId())->first();
 

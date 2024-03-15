@@ -11,6 +11,7 @@ use Database\Main\Factories\SchoolFactory;
 use DateInterval;
 use DateTimeImmutable;
 use PHPUnit\Framework\Attributes\Test;
+use Illuminate\Support\Facades\Http;
 
 final class AllSchoolsHandlerTest extends TestCase
 {
@@ -22,7 +23,7 @@ final class AllSchoolsHandlerTest extends TestCase
         $schools = SchoolFactory::new()->create();
         BillingProfileFactory::new()->withrecordId($schools->id)->create();
 
-        $response = $this->get($this->endpoint);
+        $response = Http::get($this->endpoint);
 
         $result = json_decode($response->content(), true)[0];
 

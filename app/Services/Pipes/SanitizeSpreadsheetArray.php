@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 final class SanitizeSpreadsheetArray
 {
     /** @param array<Mixed> $content */
-    public function handle(array $content, \Closure $next): Collection
+    public function handle(array $content, \Closure $next): Mixed
     {
         $resultArray = [];
  

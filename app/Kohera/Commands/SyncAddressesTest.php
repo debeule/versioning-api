@@ -11,84 +11,65 @@ use App\Testing\TestCase;
 use Database\Kohera\Factories\SchoolFactory as KoheraSchoolFactory;
 use Database\Main\Factories\MunicipalityFactory;
 use PHPUnit\Framework\Attributes\Test;
+use App\Kohera\Queries\AllAddresses;
 
 final class SyncAddressesTest extends TestCase
 {
     #[Test]
-    public function itDispatchesCreateAddressesWhenNotExists(): void
+    public function itCreatesAddressRecordsWhenNotExists(): void
     {
-        KoheraSchoolFactory::new()->count(3)->create();
-        MunicipalityFactory::new()->create();
+        $koheraSchool = KoheraSchoolFactory::new()->create();
+        MunicipalityFactory::new()->withPostalCode($koheraSchool->Postcode)->create();
 
         $syncAddresses = new SyncAddresses();
         $syncAddresses();
-
-        KoheraSchoolFactory::new()->count(3)->create();
-
-        $existingAddresses = Address::get();
-        $koheraAddresses = KoheraSchool::get();
         
-        $this->assertGreaterThan($koheraAddresses->count() / 2, $existingAddresses->count());
-
-        $syncAddresses = new SyncAddresses();
-        $syncAddresses();
-
-        $existingAddresses = Address::get();
-        $koheraAddresses = KoheraSchool::get();
-        $this->assertEquals($existingAddresses->count() / 2, $koheraAddresses->count());
+        $this->assertEquals(Address::count(), KoheraSchool::count() * 2);
     }
 
     #[Test]
-    public function itSoftDeletesDeletedRecords(): void
+    public function itSoftDeletesRecordsWhenDeleted(): void
     {
-        KoheraSchoolFactory::new()->count(3)->create();
-        MunicipalityFactory::new()->create();
+        $koheraSchool = KoheraSchoolFactory::new()->create();
+        MunicipalityFactory::new()->withPostalCode($koheraSchool->Postcode)->create();
 
         $syncAddresses = new SyncAddresses();
         $syncAddresses();
         
-        $koheraSchool = KoheraSchool::first();  
-
-        $koheraAddress = new KoheraAddress($koheraSchool);
-        $koheraStreetName = $koheraAddress->streetName();
-
+        $koheraSchoolRecordId = $koheraSchool->recordId();
         $koheraSchool->delete();
 
-        
         $syncAddresses = new SyncAddresses();
         $syncAddresses();
-            
-        $this->assertSoftDeleted(Address::where('street_name', $koheraStreetName)->first());
-
-        $existingAddresses = Address::get();
-        $koheraAddresses = KoheraSchool::get();
-
-        $this->assertGreaterThan($koheraAddresses->count(), $existingAddresses->count());
+        
+        $this->assertSoftDeleted(Address::where('record_id', 'school-' . $koheraSchoolRecordId)->first());
+        $this->assertSoftDeleted(Address::where('record_id', 'billing_profile-' . $koheraSchoolRecordId)->first());
     }
 
     #[Test]
     public function ItCreatesNewRecordVersionIfChangedAndExists(): void
     {
         $koheraSchool = KoheraSchoolFactory::new()->create();
-        $koheraAddress = new KoheraAddress($koheraSchool);
+        MunicipalityFactory::new()->withPostalCode($koheraSchool->Postcode)->create();
         
-        MunicipalityFactory::new()->withRegion()->withPostalCode($koheraSchool->Postcode)->create();
+        $syncAddresses = new SyncAddresses();
+        $syncAddresses();
+
+        $oldAddress = Address::where('record_id', 'school-' . $koheraSchool->recordId())->first();
         
-        $this->dispatchSync(new CreateAddress($koheraAddress));
+        $streetName = 'streetname';
+        $koheraSchool->address = $streetName . ' 1';
+        $koheraSchool->save();
 
-        $oldAddress = Address::where('street_name', $koheraAddress->streetName())->first();
-        $oldName = $oldAddress->name;
-        
-        $koheraSchool->address = 'new name';
+        $syncAddresses = new SyncAddresses();
+        $syncAddresses();
 
-        $this->dispatchSync(new CreateAddress(new KoheraAddress($koheraSchool)));
-
-        $updatedAddress = Address::where('street_name', $koheraAddress->streetName())->first();
+        $updatedAddress = Address::where('street_name', $streetName)->first();
         
         $this->assertNotEquals($oldAddress->street_name, $updatedAddress->street_name);
         $this->assertSoftDeleted($oldAddress);
 
-        $this->assertEquals($updatedAddress->street_name, $koheraAddress->streetName());
+        $this->assertEquals($updatedAddress->street_name, $streetName);
         $this->assertEquals($oldAddress->record_id, $updatedAddress->record_id);
     }
 }

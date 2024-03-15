@@ -11,7 +11,7 @@ use Illuminate\Support\Collection;
 final class SpreadsheetToArray
 {
     /** @param array<Mixed> $content */
-    public function handle(Array $content, \Closure $next): Collection
+    public function handle(Array $content, \Closure $next): Mixed
     {
         $content['spreadsheetArray'] = Excel::toArray(new Request(), $content['source'], null, \Maatwebsite\Excel\Excel::XLS)[0];
 

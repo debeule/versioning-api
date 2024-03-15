@@ -6,7 +6,8 @@ namespace App\Bpost\Commands;
 
 use App\Location\Municipality;
 use App\Testing\TestCase;
-use Database\Bpost\Factories\MunicipalityFactory as BpostMunicipalityFactory;use Illuminate\Support\Facades\File;
+use Database\Bpost\Factories\MunicipalityFactory as BpostMunicipalityFactory;
+use Illuminate\Support\Facades\File;
 use PHPUnit\Framework\Attributes\Test;
 
 final class SyncMunicipalitiesTest extends TestCase
@@ -20,12 +21,11 @@ final class SyncMunicipalitiesTest extends TestCase
     }
 
     #[Test]
-    public function itDispatchesCreateMunicipalitiesWhenNotExists(): void
+    public function itCreatesMunicipalityRecordsWhenNotExists(): void
     {
-        $bpostMunicipalities = BpostMunicipalityFactory::new()->count(4)->create();
+        $bpostMunicipalities = BpostMunicipalityFactory::new()->count(2)->create();
         
         $bpostMunicipalities->storeExcel($this->filePath);
-        dd("a");
 
         $syncMunicipalities = new SyncMunicipalities();
         $syncMunicipalities();
@@ -49,9 +49,9 @@ final class SyncMunicipalitiesTest extends TestCase
     }
 
     #[Test]
-    public function itSoftDeletesDeletedRecords(): void
+    public function itSoftDeletesRecordsWhenDeleted(): void
     {
-        $bpostMunicipalities = BpostMunicipalityFactory::new()->count(4)->create();
+        $bpostMunicipalities = BpostMunicipalityFactory::new()->count(3)->create();
 
         $bpostMunicipalities->storeExcel($this->filePath);
 
@@ -67,31 +67,35 @@ final class SyncMunicipalitiesTest extends TestCase
         $syncMunicipalities();
         
         $this->assertSoftDeleted(Municipality::onlyTrashed()->where('postal_code', $deletedMunicipality->postalCode())->first());
-
-        $existingMunicipalities = Municipality::get();
-        
-        $this->assertGreaterThan($bpostMunicipalities->count() - 1, $existingMunicipalities->count());
+        $this->assertGreaterThan($bpostMunicipalities->count() - 1, Municipality::get()->count());
     }
 
     #[Test]
     public function ItCreatesNewRecordVersionIfChangedAndExists(): void
     {
-        $bpostMunicipality = BpostMunicipalityFactory::new()->create();
+        $bpostMunicipalities = BpostMunicipalityFactory::new()->count(2)->create();
+        $bpostMunicipality = $bpostMunicipalities->first();
 
-        $this->dispatchSync(new CreateMunicipality($bpostMunicipality));
+        $bpostMunicipalities->storeExcel($this->filePath);
 
-        $oldMunicipalityRecord = Municipality::where('name', $bpostMunicipality->name())->first();
+        $syncMunicipalities = new SyncMunicipalities();
+        $syncMunicipalities();
+
+        $originalMunicipalityRecord = Municipality::where('name', $bpostMunicipality->name())->first();
         
         $bpostMunicipality->Plaatsnaam = 'new name';
-        
-        $this->dispatchSync(new CreateMunicipality($bpostMunicipality));
+
+        $bpostMunicipalities->storeExcel($this->filePath);
+
+        $syncMunicipalities = new SyncMunicipalities();
+        $syncMunicipalities();
 
         $updatedMunicipalityRecord = Municipality::where('name', $bpostMunicipality->name())->first();
 
-        $this->assertNotEquals($oldMunicipalityRecord->name, $updatedMunicipalityRecord->name);
-        $this->assertSoftDeleted($oldMunicipalityRecord);
+        $this->assertNotEquals($originalMunicipalityRecord->name, $updatedMunicipalityRecord->name);
+        $this->assertSoftDeleted($originalMunicipalityRecord);
 
         $this->assertEquals($updatedMunicipalityRecord->name, $bpostMunicipality->name());
-        $this->assertEquals($oldMunicipalityRecord->record_id, $updatedMunicipalityRecord->record_id);
+        $this->assertEquals($originalMunicipalityRecord->record_id, $updatedMunicipalityRecord->record_id);
     }
 }

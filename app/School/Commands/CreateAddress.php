@@ -31,7 +31,7 @@ final class CreateAddress
         $newAdress->street_name = $koheraAddress->streetName();
         $newAdress->street_identifier = $koheraAddress->streetIdentifier();
         
-        $newAdress->municipality_id = Municipality::where('postal_code', $koheraAddress->municipality()->postal_code)->first()->id;
+        $newAdress->municipality_id = $koheraAddress->municipality()->id;
 
         return $newAdress;
     }

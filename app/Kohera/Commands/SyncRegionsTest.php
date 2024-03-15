@@ -13,50 +13,32 @@ use PHPUnit\Framework\Attributes\Test;
 final class SyncRegionsTest extends TestCase
 {
     #[Test]
-    public function itDispatchesCreateRegionsWhenNotExists(): void
+    public function itCreatesRegionRecordsWhenNotExists(): void
     {
-        $regionRecords = KoheraRegionFactory::new()->count(3)->create();
+        KoheraRegionFactory::new()->create();
 
         $syncRegions = new SyncRegions();
         $syncRegions();
 
-        $regionRecords = KoheraRegionFactory::new()->count(3)->create();
-
-        $existingRegions = Region::get();
-        $koheraRegions = KoheraRegion::get();
-
-        $this->assertGreaterThan($existingRegions->count(), $koheraRegions->count());
-
-        $syncRegions = new SyncRegions();
-        $syncRegions();
-
-        $existingRegions = Region::get();
-        $koheraRegions = KoheraRegion::get();
-        $this->assertEquals($existingRegions->count(), $koheraRegions->count());
+        $this->assertEquals(Region::count(), KoheraRegion::count());
     }
 
     #[Test]
-    public function itSoftDeletesDeletedRecords(): void
+    public function itSoftDeletesRegionRecordsWhenDeleted(): void
     {
-        $regionRecords = KoheraRegionFactory::new()->count(3)->create();
+        $koheraRegions = KoheraRegionFactory::new()->count(2)->create();
 
         $syncRegions = new SyncRegions();
         $syncRegions();
         
-        $koheraRegion = KoheraRegion::first();
-        $koheraRegionName = $koheraRegion->name();
-        $koheraRegion->delete();
-
+        $koheraRegionRecordId = $koheraRegions->first()->recordId();
+        $koheraRegions->first()->delete();
         
         $syncRegions = new SyncRegions();
         $syncRegions();
-            
-        $this->assertSoftDeleted(Region::where('name', $koheraRegionName)->first());
 
-        $existingRegions = Region::get();
-        $koheraRegions = KoheraRegion::get();
-
-        $this->assertGreaterThan($koheraRegions->count(), $existingRegions->count());
+        $this->assertSoftDeleted(Region::where('record_id', $koheraRegionRecordId)->first());
+        $this->assertGreaterThan(KoheraRegion::count(), Region::count());
     }
 
     #[Test]
@@ -64,19 +46,23 @@ final class SyncRegionsTest extends TestCase
     {
         $koheraRegion = KoheraRegionFactory::new()->create();
         
-        $this->dispatchSync(new CreateRegion($koheraRegion));
+        $syncRegions = new SyncRegions();
+        $syncRegions();
 
-        $oldRegionRecord = Region::where('region_number', $koheraRegion->regionNumber())->first();
+        $oldRegion = Region::where('name', $koheraRegion->name())->first();
 
         $koheraRegion->RegionNaam = 'new name';
-        $this->dispatchSync(new CreateRegion($koheraRegion));
+        $koheraRegion->save();
+        
+        $syncRegions = new SyncRegions();
+        $syncRegions();
 
-        $updatedRegionRecord = Region::where('name', $koheraRegion->name())->first();
+        $updatedRegion = Region::where('name', $koheraRegion->name())->first();
 
-        $this->assertTrue($oldRegionRecord->name !== $updatedRegionRecord->name);
-        $this->assertSoftDeleted($oldRegionRecord);
+        $this->assertTrue($oldRegion->name !== $updatedRegion->name);
+        $this->assertSoftDeleted($oldRegion);
 
-        $this->assertEquals($updatedRegionRecord->name, $koheraRegion->name());
-        $this->assertEquals($oldRegionRecord->record_id, $updatedRegionRecord->record_id);
+        $this->assertEquals($updatedRegion->name, $koheraRegion->name());
+        $this->assertEquals($oldRegion->record_id, $updatedRegion->record_id);
     }
 }

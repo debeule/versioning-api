@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Testing\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
+use App\Kohera\Sport as KoheraSport;
+use App\Sport\Sport;
+use Database\Kohera\Factories\SportFactory as KoheraSportFactory;
 
 final class ProcessImportedRecordsTest
 {
@@ -18,7 +22,7 @@ final class ProcessImportedRecordsTest
 
         $result = ProcessImportedRecords::setup($KoheraSports, $Sports)->pipe();
 
-        $createSport = new CreateSport($koheraSports);
+        // $createSport = new CreateSport($koheraSports);
         
         $processedResult = ProcessImportedRecords::setup($KoheraSports, $Sports)->pipe();
 

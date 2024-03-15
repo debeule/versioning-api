@@ -85,13 +85,6 @@ final class School extends Model implements SchoolContract
 
     public function address(): Address
     {
-        try 
-        {
-            return Address::where('record_id', 'school-' . $this->recordId())->first();
-        } 
-        catch (\Throwable $th) 
-        {
-            dd($this);
-        }
+        return Address::where('record_id', 'school-' . $this->recordId())->first();
     }
 }

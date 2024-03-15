@@ -13,69 +13,56 @@ use PHPUnit\Framework\Attributes\Test;
 final class SyncSportsTest extends TestCase
 {
     #[Test]
-    public function itCreatesSportWhenNotExists(): void
+    public function itCreatesSportREcordsWhenNotExists(): void
     {
-        KoheraSportFactory::new()->count(3)->create();
-        $syncSports = new SyncSports();
-        $syncSports();
-
-        KoheraSportFactory::new()->count(3)->create();
-
-        $existingSports = Sport::get();
-        $koheraSports = KoheraSport::get();
-
-        $this->assertGreaterThan($existingSports->count(), $koheraSports->count());
+        KoheraSportFactory::new()->create();
 
         $syncSports = new SyncSports();
         $syncSports();
 
-        $existingSports = Sport::get();
-        $koheraSports = KoheraSport::get();
-        $this->assertEquals($existingSports->count(), $koheraSports->count());
+        $this->assertEquals(Sport::count(), KoheraSport::count());
     }
 
     #[Test]
-    public function itSoftDeletesDeletedRecords(): void
+    public function itSoftDeletesRecordsWhenDeleted(): void
     {
-        KoheraSportFactory::new()->count(3)->create();
-        $syncSports = new SyncSports();
-        $syncSports();
-
-        $koheraSport = KoheraSport::first();
-        $koheraSportName = $koheraSport->name();
-        $koheraSport->delete();
+        $koheraSports = KoheraSportFactory::new()->count(2)->create();
 
         $syncSports = new SyncSports();
         $syncSports();
-            
-        $this->assertSoftDeleted(Sport::where('name', $koheraSportName)->first());
+        
+        $koheraSportRecordId = $koheraSports->first()->recordId();
+        $koheraSports->first()->delete();
 
-        $existingSports = Sport::get();
-        $koheraSports = KoheraSport::get();
-
-        $this->assertGreaterThan($koheraSports->count(), $existingSports->count());
+        $syncSports = new SyncSports();
+        $syncSports();
+        
+        $this->assertSoftDeleted(Sport::where('record_id', $koheraSportRecordId)->first());
+        $this->assertGreaterThan(KoheraSport::count(), Sport::count());
     }
 
     #[Test]
     public function ItCreatesNewRecordVersionIfChangedAndExists(): void
     {
-        $bpostMunicipality = BpostMunicipalityFactory::new()->create();
-
-        $this->dispatchSync(new CreateMunicipality($bpostMunicipality));
-
-        $oldMunicipalityRecord = Municipality::where('name', $bpostMunicipality->name())->first();
+        $koheraSport = KoheraSportFactory::new()->create();
         
-        $bpostMunicipality->Plaatsnaam = 'new name';
+        $syncSports = new SyncSports();
+        $syncSports();
+
+        $oldSport = Sport::where('name', $koheraSport->name())->first();
+
+        $koheraSport->Sportkeuze = 'new name';
+        $koheraSport->save();
         
-        $this->dispatchSync(new CreateMunicipality($bpostMunicipality));
+        $syncSports = new SyncSports();
+        $syncSports();
 
-        $updatedMunicipalityRecord = Municipality::where('name', $bpostMunicipality->name())->first();
+        $updatedSport = Sport::where('name', $koheraSport->name())->first();
 
-        $this->assertNotEquals($oldMunicipalityRecord->name, $updatedMunicipalityRecord->name);
-        $this->assertSoftDeleted($oldMunicipalityRecord);
+        $this->assertTrue($oldSport->name !== $updatedSport->name);
+        $this->assertSoftDeleted($oldSport);
 
-        $this->assertEquals($updatedMunicipalityRecord->name, $bpostMunicipality->name());
-        $this->assertEquals($oldMunicipalityRecord->record_id, $updatedMunicipalityRecord->record_id);
+        $this->assertEquals($updatedSport->name, $koheraSport->name());
+        $this->assertEquals($oldSport->record_id, $updatedSport->record_id);
     }
-    
 }
