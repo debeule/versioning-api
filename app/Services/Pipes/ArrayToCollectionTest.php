@@ -16,7 +16,7 @@ final class ArrayToCollectionTest extends TestCase
     #[Test]
     public function returnsCollectionOfobjectType(): void
     {
-        $municiaplity = BpostMunicipalityFactory::new()->makeArray();
+        $municiaplity = BpostMunicipalityFactory::new()->createArray();
 
         $data = [
             'spreadsheetArray' => $municiaplity,

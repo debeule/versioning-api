@@ -23,6 +23,6 @@ final class ProcessImportedRecordsTest
         
         $processedResult = ProcessImportedRecords::setup($KoheraSports, $Sports)->pipe();
 
-        dd($result);
+        $this->assertEquals("a", "b");
     }
 }

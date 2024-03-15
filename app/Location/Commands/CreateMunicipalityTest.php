@@ -16,7 +16,7 @@ final class CreateMunicipalityTest extends TestCase
     #[Test]
     public function itCanCreateMunicipalityFromBpostMunicipality(): void
     {
-        $bpostMunicipality = BpostMunicipalityFactory::new()->make();
+        $bpostMunicipality = BpostMunicipalityFactory::new()->create();
 
         $this->dispatchSync(new CreateMunicipality($bpostMunicipality));
         

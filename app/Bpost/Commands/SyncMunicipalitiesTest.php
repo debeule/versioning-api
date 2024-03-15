@@ -22,7 +22,7 @@ final class SyncMunicipalitiesTest extends TestCase
     #[Test]
     public function itDispatchesCreateMunicipalitiesWhenNotExists(): void
     {
-        $bpostMunicipalities = BpostMunicipalityFactory::new()->count(4)->make();
+        $bpostMunicipalities = BpostMunicipalityFactory::new()->count(4)->create();
         
         $bpostMunicipalities->storeExcel($this->filePath);
 
@@ -34,7 +34,7 @@ final class SyncMunicipalitiesTest extends TestCase
 
         if (File::exists($this->filePath)) File::delete($this->filePath);
 
-        $bpostMunicipalities->push(BpostMunicipalityFactory::new()->make());
+        $bpostMunicipalities->push(BpostMunicipalityFactory::new()->create());
         $bpostMunicipalities->storeExcel($this->filePath);
 
         $syncMunicipalities = new SyncMunicipalities();
@@ -50,7 +50,7 @@ final class SyncMunicipalitiesTest extends TestCase
     #[Test]
     public function itSoftDeletesDeletedRecords(): void
     {
-        $bpostMunicipalities = BpostMunicipalityFactory::new()->count(4)->make();
+        $bpostMunicipalities = BpostMunicipalityFactory::new()->count(4)->create();
 
         $bpostMunicipalities->storeExcel($this->filePath);
 
@@ -75,7 +75,7 @@ final class SyncMunicipalitiesTest extends TestCase
     #[Test]
     public function ItCreatesNewRecordVersionIfChangedAndExists(): void
     {
-        $bpostMunicipality = BpostMunicipalityFactory::new()->make();
+        $bpostMunicipality = BpostMunicipalityFactory::new()->create();
 
         $this->dispatchSync(new CreateMunicipality($bpostMunicipality));
 

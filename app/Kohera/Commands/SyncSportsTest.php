@@ -59,7 +59,7 @@ final class SyncSportsTest extends TestCase
     #[Test]
     public function ItCreatesNewRecordVersionIfChangedAndExists(): void
     {
-        $bpostMunicipality = BpostMunicipalityFactory::new()->make();
+        $bpostMunicipality = BpostMunicipalityFactory::new()->create();
 
         $this->dispatchSync(new CreateMunicipality($bpostMunicipality));
 

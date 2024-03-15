@@ -18,7 +18,7 @@ final class SpreadsheetToArrayTest extends TestCase
     #[Test]
     public function returnsCollectionOfobjectType(): void
     {
-        $bpostMunicipalities = BpostMunicipalityFactory::new()->count(2)->make();
+        $bpostMunicipalities = BpostMunicipalityFactory::new()->count(2)->create();
         
         if (File::exists($this->filePath)) File::delete($this->filePath);
 
