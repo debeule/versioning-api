@@ -10,8 +10,9 @@ use Illuminate\Support\Collection;
 
 final class StoreFileToDestination
 {
-    /** @param array<Mixed> $content */
-    public function handle(Array $content, \Closure $next): Collection
+    /** @param array<mixed> $content */
+    /** @return array<mixed> */
+    public function handle(Array $content, \Closure $next): Array
     {
         if (File::exists($content['destination'])) File::delete($content['destination']);
 

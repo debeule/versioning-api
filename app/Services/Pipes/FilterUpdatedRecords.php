@@ -8,8 +8,9 @@ use Illuminate\Support\Collection;
 
 final class FilterUpdatedRecords
 {
-    /** @param array<Mixed> $content */
-    public function handle(Array $content, \Closure $next): Collection
+    /** @param array<mixed> $content */
+    /** @return array<mixed> */
+    public function handle(Array $content, \Closure $next): Array
     {
         $updatedRecords = collect();
          

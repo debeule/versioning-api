@@ -25,6 +25,7 @@ final class SyncMunicipalitiesTest extends TestCase
         $bpostMunicipalities = BpostMunicipalityFactory::new()->count(4)->create();
         
         $bpostMunicipalities->storeExcel($this->filePath);
+        dd("a");
 
         $syncMunicipalities = new SyncMunicipalities();
         $syncMunicipalities();
