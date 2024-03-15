@@ -27,7 +27,7 @@ final class MunicipalityFactory
                     $faker->city,
                     'Ja',
                     $faker->randomElement(ProvinceGroup::allProvinces()->get()),
-                ])
+                ]),
             ])
         );
     }
