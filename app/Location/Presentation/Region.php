@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Exports;
+namespace App\Location\Presentation;
 
 use App\Location\Municipality;
 use App\Location\Region as DbRegion;
@@ -15,10 +15,10 @@ final class Region extends Model
         return new self();
     }
 
-    public function build(DbSport $dbSport): self
+    public function build(DbRegion $dbRegion): self
     {
-        $region->addRegionAttributes($dbRegion);
-        $region->addLinkedMunicipalitiesAttribute($dbRegion);
+        $this->addRegionAttributes($dbRegion);
+        $this->addLinkedMunicipalitiesAttribute($dbRegion);
 
         return $this;
     }

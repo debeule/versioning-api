@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Http\Endpoints\Sport;
 
-use App\Exports\Sport as SportExport;
+use App\Sport\Presentation\Sport as SportExport;
 use App\Sport\Queries\AllSports;
 use App\Sport\Sport;
 use Illuminate\Http\JsonResponse;
@@ -26,7 +26,7 @@ final class AllSportsHandler
         foreach ($responseModels as $responseModel) 
         {
             /** @var Sport $responseModel */
-            $response->push(SportExport::build($responseModel));
+            $response->push(SportExport::new()->build($responseModel));
         }
 
         return response()->json($response);

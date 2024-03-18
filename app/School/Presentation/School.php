@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Exports;
+namespace App\School\Presentation;
 
 use App\Location\Municipality;
 use App\School\Address;
@@ -12,11 +12,16 @@ use Illuminate\Database\Eloquent\Model;
 
 final class School extends Model
 {
-    public static function build(DbSchool $dbSchool): self
+    public static function new(): self
     {
-        $school->addSchoolAttributes($dbSchool);
-        $school->addAddressAttributes($dbSchool);
-        $school->addBillingProfileAttributes($dbSchool);
+        return new self();
+    }
+
+    public function build(DbSchool $dbSchool): self
+    {
+        $this->addSchoolAttributes($dbSchool);
+        $this->addAddressAttributes($dbSchool);
+        $this->addBillingProfileAttributes($dbSchool);
 
         return $this;
     }
