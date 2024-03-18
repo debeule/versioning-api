@@ -5,8 +5,8 @@ declare(strict_types=1);
 
 namespace App\School\Commands;
 
-use Illuminate\Foundation\Bus\DispatchesJobs;
 use App\School\Address;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 final class SoftDeleteAddress
 {

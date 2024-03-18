@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\School\Commands;
 
-use App\School\School;
-use Database\Main\Factories\SchoolFactory;
 use App\Testing\TestCase;
+use Database\Main\Factories\SchoolFactory;
 use PHPUnit\Framework\Attributes\Test;
 
 

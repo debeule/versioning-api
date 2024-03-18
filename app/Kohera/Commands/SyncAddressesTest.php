@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace App\Kohera\Commands;
 
-use App\Kohera\Address as KoheraAddress;
 use App\Kohera\School as KoheraSchool;
 use App\School\Address;
 use App\Testing\TestCase;
 use Database\Kohera\Factories\SchoolFactory as KoheraSchoolFactory;
 use Database\Main\Factories\MunicipalityFactory;
 use PHPUnit\Framework\Attributes\Test;
-use App\Kohera\Queries\AllAddresses;
 
 final class SyncAddressesTest extends TestCase
 {

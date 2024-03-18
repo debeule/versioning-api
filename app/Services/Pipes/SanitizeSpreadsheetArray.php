@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Services\Pipes;
 
 use App\Imports\Values\ProvinceGroup;
-use Illuminate\Support\Collection;
 
 final class SanitizeSpreadsheetArray
 {

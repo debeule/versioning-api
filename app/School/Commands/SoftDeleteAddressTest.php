@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\School\Commands;
 
-use App\school\Address;
-use Database\Main\Factories\AddressFactory;
 use App\Testing\TestCase;
+use Database\Main\Factories\AddressFactory;
 use PHPUnit\Framework\Attributes\Test;
 
 

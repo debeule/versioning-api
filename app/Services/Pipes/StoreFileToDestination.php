@@ -6,7 +6,6 @@ namespace App\Services\Pipes;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Collection;
 
 final class StoreFileToDestination
 {

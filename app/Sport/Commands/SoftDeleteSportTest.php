@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace App\Sport\Commands;
 
-use App\Sport\Sport;
 use App\Testing\TestCase;
-use PHPUnit\Framework\Attributes\Test;
 use Database\Main\Factories\SportFactory;
+use PHPUnit\Framework\Attributes\Test;
 
 final class SoftDeleteSportTest extends TestCase
 {

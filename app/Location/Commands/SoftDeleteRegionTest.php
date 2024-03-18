@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\Location\Commands;
 
-use App\Location\Region;
-use Database\Main\Factories\RegionFactory;
 use App\Testing\TestCase;
+use Database\Main\Factories\RegionFactory;
 use PHPUnit\Framework\Attributes\Test;
 
 

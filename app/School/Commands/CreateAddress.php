@@ -6,7 +6,6 @@ declare(strict_types=1);
 namespace App\School\Commands;
 
 use App\Kohera\Address as KoheraAddress;
-use App\Location\Municipality;
 use App\School\Address;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 

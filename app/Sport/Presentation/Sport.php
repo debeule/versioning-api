@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Sport\Presentation;
 
 use App\Sport\Sport as DbSport;
-use Illuminate\Database\Eloquent\Model;
 
 final class Sport
 {

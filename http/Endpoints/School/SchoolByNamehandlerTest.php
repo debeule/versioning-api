@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Http\Endpoints\School;
 
-use App\School\Presentation\School as ExportSchool;
 use App\Testing\TestCase;
-use Database\Main\Factories\BillingProfileFactory;
 use Database\Main\Factories\SchoolFactory;
 use DateInterval;
 use DateTimeImmutable;

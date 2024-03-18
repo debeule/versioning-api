@@ -7,13 +7,13 @@ namespace App\Imports\Values;
 
 final class ProvinceGroup
 {
-    /** @var array<string> $flemishProvinces */
+    /** @var array<string> */
     private static array $flemishProvinces = ['antwerpen', 'limburg', 'oost-vlaanderen', 'vlaams-brabant', 'west-vlaanderen'];
     
-    /** @var array<string> $walloonProvinces */
+    /** @var array<string> */
     private static array $walloonProvinces = ['waals-brabant', 'henegouwen', 'luik', 'luxemburg', 'namen'];
 
-    /** @var array<string> $brussels */
+    /** @var array<string> */
     private static array $brussels = ['brussel'];
 
     /** @param array<string> $value */

@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace App\Kohera\Commands;
 
-use App\Kohera\BillingProfile as KoheraBillingProfile;
 use App\Kohera\School as KoheraSchool;
 use App\School\BillingProfile;
 use App\Testing\TestCase;
 use Database\Kohera\Factories\SchoolFactory as KoheraSchoolFactory;
 use Database\Main\Factories\AddressFactory;
+use Database\Main\Factories\MunicipalityFactory;
 use Database\Main\Factories\SchoolFactory;
 use PHPUnit\Framework\Attributes\Test;
-use Database\Main\Factories\MunicipalityFactory;
-use App\School\School;
 
 final class SyncBillingProfilesTest extends TestCase
 {

@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\Location\Commands;
 
-use App\Location\Municipality;
-use Database\Main\Factories\MunicipalityFactory;
 use App\Testing\TestCase;
+use Database\Main\Factories\MunicipalityFactory;
 use PHPUnit\Framework\Attributes\Test;
 
 final class SoftDeleteMunicipalityTest extends TestCase

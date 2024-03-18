@@ -6,7 +6,6 @@ namespace App\Bpost;
 
 use App\Imports\Queries\Municipality as MunicipalityContract;
 use App\Imports\Sanitizer\Sanitizer;
-use App\Location\Region;
 
 final class Municipality implements MunicipalityContract
 {

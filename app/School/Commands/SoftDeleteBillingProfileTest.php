@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\School\Commands;
 
-use App\School\BillingProfile;
-use Database\Main\Factories\BillingProfileFactory;
 use App\Testing\TestCase;
+use Database\Main\Factories\BillingProfileFactory;
 use PHPUnit\Framework\Attributes\Test;
 
 

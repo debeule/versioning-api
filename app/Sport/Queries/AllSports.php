@@ -8,8 +8,8 @@ use App\Extensions\Eloquent\Scopes\FromVersion;
 use App\Imports\Values\Version;
 use App\Sport\Sport;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Collection;
 
 final class AllSports
 {

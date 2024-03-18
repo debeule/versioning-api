@@ -6,7 +6,6 @@ namespace App\Services\Pipes;
 
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Collection;
 
 final class SpreadsheetToArray
 {

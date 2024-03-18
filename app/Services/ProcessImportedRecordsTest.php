@@ -4,19 +4,16 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Testing\TestCase;
-use PHPUnit\Framework\Attributes\Test;
-
-use App\Kohera\Sport as KoheraSport;
 use App\Sport\Sport;
+use App\Testing\TestCase;
+
 use Database\Kohera\Factories\SportFactory as KoheraSportFactory;
-use Database\Main\Factories\SportFactory;
-use App\Sport\Commands\CreateSport;
+use PHPUnit\Framework\Attributes\Test;
 
 final class ProcessImportedRecordsTest extends TestCase
 {
     #[Test]
-    public function testPipelineExecution()
+    public function testPipelineExecution(): void
     {
         $koheraSports = KoheraSportFactory::new()->count(2)->create();
         

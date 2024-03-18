@@ -4,14 +4,11 @@ declare(strict_types=1);
 
 namespace Http\Endpoints\School;
 
-use App\School\Presentation\School as ExportSchool;
 use App\Testing\TestCase;
-use Database\Main\Factories\BillingProfileFactory;
 use Database\Main\Factories\SchoolFactory;
 use DateInterval;
 use DateTimeImmutable;
 use PHPUnit\Framework\Attributes\Test;
-use Illuminate\Support\Facades\Http;
 
 final class AllSchoolsHandlerTest extends TestCase
 {
