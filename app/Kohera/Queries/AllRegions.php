@@ -16,7 +16,7 @@ final class AllRegions
 
     public function get(): Object
     {
-        $records = $this->query()->unique('RegioDetailId')->get();
+        return $this->query()->get()->unique('RegioDetailId');
     }
 
     public function getWithDoubles()

@@ -10,22 +10,19 @@ use PHPUnit\Framework\Attributes\Test;
 use App\Kohera\Sport as KoheraSport;
 use App\Sport\Sport;
 use Database\Kohera\Factories\SportFactory as KoheraSportFactory;
+use Database\Main\Factories\SportFactory;
+use App\Sport\Commands\CreateSport;
 
-final class ProcessImportedRecordsTest
+final class ProcessImportedRecordsTest extends TestCase
 {
     #[Test]
-    public function FiltersOutExistingRecords(): void
+    public function testPipelineExecution()
     {
-        $allSports = Sport::factory()->count(3)->create();
-
-        $koheraSports = KoheraSportFactory::new()->create();
-
-        $result = ProcessImportedRecords::setup($KoheraSports, $Sports)->pipe();
-
-        // $createSport = new CreateSport($koheraSports);
+        $koheraSports = KoheraSportFactory::new()->count(2)->create();
         
-        $processedResult = ProcessImportedRecords::setup($KoheraSports, $Sports)->pipe();
-
-        $this->assertEquals("a", "b");
+        $result = ProcessImportedRecords::setup(collect($koheraSports), Sport::get())->pipe();
+        
+        $this->assertNotNull($result['records']->first());
+        $this->assertEquals(2, $result['records']->count());
     }
 }

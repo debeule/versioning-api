@@ -21,13 +21,15 @@ final class AllSchoolsHandlerTest extends TestCase
     public function itReturnsValidSchoolRecord(): void
     {
         $schools = SchoolFactory::new()->create();
+        
         BillingProfileFactory::new()->withrecordId($schools->id)->create();
-
-        $response = Http::get($this->endpoint);
+        
+        $response = $this->get($this->endpoint);
 
         $result = json_decode($response->content(), true)[0];
 
         $school = new ExportSchool;
+
         foreach ($school->getFillable() as $fillable) 
         {
             $this->assertArrayHasKey($fillable, $result);
