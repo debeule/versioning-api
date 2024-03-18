@@ -19,7 +19,7 @@ final class AllRegions
         return $this->query()->get()->unique('RegioDetailId');
     }
 
-    public function getWithDoubles()
+    public function getWithDoubles(): Object
     {
         return $this->query()->get();
     }
