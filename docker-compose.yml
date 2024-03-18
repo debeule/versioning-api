@@ -85,7 +85,7 @@ services:
   worker:
     build: *app-build
     container_name: worker
-    entrypoint: php artisan queue:work
+    entrypoint: php artisan queue:work --timeout=300
     restart: unless-stopped
     tty: true
     volumes: *app-volumes
