@@ -1,6 +1,6 @@
 # TODO: Records are identified by their id in kohera, .. db / order they are imported. Is this ok?
 
-# TODO: Rework exports / give non export tables seperate alltable query object + implement this in sync objects
+# TODO: Rework exports / give non api route tables seperate alltable query object + implement this in sync objects
 
 # TODO: When creating records in main database dont specify source (Kohera / Bpost) => make it general Mixed, ..
 
