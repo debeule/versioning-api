@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('record_id');   
 
             $table->string('name');
-            $table->integer('region_number');
+            $table->integer('region_number')->unique();
 
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             $table->softDeletes();
