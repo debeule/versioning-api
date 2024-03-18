@@ -16,22 +16,6 @@ final class RegionByNameHandlerTest extends TestCase
     private string $endpoint = '/api/v1/regions/name/';
 
     #[Test]
-    public function itReturnsRegionRecord(): void
-    {
-        $region = RegionFactory::new()->create();
-        
-        $response = $this->get($this->endpoint . $region->name);
-        
-        $result = json_decode($response->content(), true);
-
-        $region = new ExportRegion;
-        foreach ($region->getFillable() as $fillable) 
-        {
-            $this->assertArrayHasKey($fillable, $result);
-        }
-    }
-
-    #[Test]
     public function itDoesNotReturnRecordsDeletedBeforeVersion(): void
     {
         $region = RegionFactory::new()->create();

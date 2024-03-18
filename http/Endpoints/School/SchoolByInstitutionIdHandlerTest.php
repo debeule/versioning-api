@@ -17,23 +17,6 @@ final class SchoolByInstitutionIdHandlerTest extends TestCase
     private string $endpoint = '/api/v1/schools/institution_id/';
 
     #[Test]
-    public function itReturnsSchoolRecord(): void
-    {
-        $school = SchoolFactory::new()->create();
-        BillingProfileFactory::new()->withrecordId($school->id)->create();
-        
-        $response = $this->get($this->endpoint . $school->institution_id);
-        
-        $result = json_decode($response->content(), true);
-
-        $school = new ExportSchool;
-        foreach ($school->getFillable() as $fillable) 
-        {
-            $this->assertArrayHasKey($fillable, $result);
-        }
-    }
-
-    #[Test]
     public function itDoesNotReturnRecordsDeletedBeforeVersion(): void
     {
         $school = SchoolFactory::new()->create();

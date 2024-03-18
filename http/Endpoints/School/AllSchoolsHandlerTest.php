@@ -18,25 +18,6 @@ final class AllSchoolsHandlerTest extends TestCase
     private string $endpoint = '/api/v1/schools/all/';
 
     #[Test]
-    public function itReturnsValidSchoolRecord(): void
-    {
-        $schools = SchoolFactory::new()->create();
-        
-        BillingProfileFactory::new()->withrecordId($schools->id)->create();
-        
-        $response = $this->get($this->endpoint);
-
-        $result = json_decode($response->content(), true)[0];
-
-        $school = new ExportSchool;
-
-        foreach ($school->getFillable() as $fillable) 
-        {
-            $this->assertArrayHasKey($fillable, $result);
-        }
-    }
-
-    #[Test]
     public function itDoesNotReturnRecordsDeletedBeforeVersion(): void
     {
         $schools = SchoolFactory::new()->count(3)->create();

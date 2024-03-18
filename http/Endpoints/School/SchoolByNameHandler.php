@@ -21,6 +21,6 @@ final class SchoolByNameHandler
         
         if (is_null($school)) return response()->json(config('reporting.404'), 404);
         
-        return response()->json(School::build($school));
+        return response()->json(School::new()->build($school));
     }
 }

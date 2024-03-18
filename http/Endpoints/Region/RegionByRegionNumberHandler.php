@@ -22,6 +22,6 @@ final class RegionByRegionNumberHandler
         
         if (is_null($region)) return response()->json(config('reporting.404'), 404);
         
-        return response()->json(Region::build($region));
+        return response()->json(Region::new()->build($region));
     }
 }

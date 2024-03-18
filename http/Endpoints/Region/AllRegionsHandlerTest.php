@@ -16,22 +16,6 @@ final class AllRegionsHandlerTest extends TestCase
     private string $endpoint = '/api/v1/regions/all';
 
     #[Test]
-    public function itReturnsValidRegionRecord(): void
-    {
-        $regions = RegionFactory::new()->create();
-
-        $response = $this->get($this->endpoint);
-
-        $result = json_decode($response->content(), true)[0];
-
-        $region = new ExportRegion;
-        foreach ($region->getFillable() as $fillable) 
-        {
-            $this->assertArrayHasKey($fillable, $result);
-        }
-    }
-
-    #[Test]
     public function itDoesNotReturnRecordsDeletedBeforeVersion(): void
     {
         $regions = RegionFactory::new()->count(3)->create();

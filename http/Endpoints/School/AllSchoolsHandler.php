@@ -26,7 +26,7 @@ final class AllSchoolsHandler
         foreach ($responseModels as $responseModel) 
         {
             /** @var School $responseModel */
-            $response->push(SchoolExport::build($responseModel));
+            $response->push(SchoolExport::new()->build($responseModel));
         }
 
         return response()->json($response);

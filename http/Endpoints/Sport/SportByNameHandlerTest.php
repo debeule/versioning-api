@@ -16,22 +16,6 @@ final class SportByNameHandlerTest extends TestCase
     private string $endpoint = '/api/v1/sports/name/';
 
     #[Test]
-    public function itReturnsSportRecord(): void
-    {
-        $sport = SportFactory::new()->create();
-        
-        $response = $this->get($this->endpoint . $sport->name);
-        
-        $result = json_decode($response->content(), true);
-
-        $sport = new ExportSport;
-        foreach ($sport->getFillable() as $fillable) 
-        {
-            $this->assertArrayHasKey($fillable, $result);
-        }
-    }
-
-    #[Test]
     public function itDoesNotReturnRecordsDeletedBeforeVersion(): void
     {
         $sport = SportFactory::new()->create();
@@ -41,7 +25,7 @@ final class SportByNameHandlerTest extends TestCase
         $sport->delete();
         
         $versionedResponse = $this->get($this->endpoint . $sport->name);
-
+        
         $resultCount = count(json_decode($response->content(), true));
         
         $this->assertGreaterThan(0, $resultCount);

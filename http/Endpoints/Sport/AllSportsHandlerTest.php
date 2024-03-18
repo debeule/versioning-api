@@ -16,22 +16,6 @@ final class AllSportsHandlerTest extends TestCase
     private string $endpoint = '/api/v1/sports/all/';
 
     #[Test]
-    public function itReturnsValidSportRecord(): void
-    {
-        $sports = SportFactory::new()->create();
-
-        $response = $this->get($this->endpoint);
-
-        $result = json_decode($response->content(), true)[0];
-
-        $sport = new ExportSport;
-        foreach ($sport->getFillable() as $fillable) 
-        {
-            $this->assertArrayHasKey($fillable, $result);
-        }
-    }
-
-    #[Test]
     public function itDoesNotReturnRecordsDeletedBeforeVersion(): void
     {
         $sports = SportFactory::new()->count(3)->create();

@@ -21,6 +21,6 @@ final class SportByNameHandler
         
         if (is_null($sport)) return response()->json(config('reporting.404'), 404);
         
-        return response()->json(Sport::build($sport));
+        return response()->json(Sport::new()->build($sport));
     }
 }

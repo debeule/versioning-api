@@ -26,7 +26,7 @@ final class AllRegionsHandler
         foreach ($responseModels as $responseModel) 
         {
             /** @var Region $responseModel */
-            $response->push(RegionExport::build($responseModel));
+            $response->push(RegionExport::new()->build($responseModel));
         }
 
         return response()->json($response);
