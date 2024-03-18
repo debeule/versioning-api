@@ -4,9 +4,6 @@
 
 # TODO: When creating records in main database dont specify source (Kohera / Bpost) => make it general Mixed, ..
 
-
-
-
-# TODO: sync pipeline: double records in imported records = double create ?? 
-
 # TODO: LinkRegion only happens on create of regionrecord = only 1 municipality can link??
+
+# TODO: municipality record_id / id ==> postal_code + same for region_number in regions
