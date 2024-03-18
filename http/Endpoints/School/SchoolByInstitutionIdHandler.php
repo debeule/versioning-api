@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Http\Endpoints\School;
 
-use App\Exports\School;
+use App\School\Presentation\School;
 use App\School\Queries\SchoolByInstitutionId;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

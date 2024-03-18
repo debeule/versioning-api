@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Http\Endpoints\School;
 
-use App\Exports\School as SchoolExport;
+use App\School\Presentation\School as SchoolExport;
 use App\School\Queries\AllSchools;
 use App\School\School;
 use Illuminate\Http\JsonResponse;
