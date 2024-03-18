@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Http\Endpoints\Sport;
 
-use App\Exports\Sport;
+use App\Sport\Presentation\Sport;
 use App\Sport\Queries\SportByName;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

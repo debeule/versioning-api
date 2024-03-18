@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Http\Endpoints\Sport;
 
-use App\Exports\Sport as ExportSport;
+use App\Sport\Presentation\Sport as ExportSport;
 use App\Testing\TestCase;
 use Database\Main\Factories\SportFactory;
 use DateInterval;
