@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Http\Endpoints\Region;
 
-use App\Exports\Region;
+use App\Location\Presentation\Region;
 use App\Location\Queries\RegionByName;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Http\Endpoints\Region;
 
-use App\Exports\Region as ExportRegion;
+use App\Location\Presentation\Region as RegionExport;
 use App\Testing\TestCase;
 use Database\Main\Factories\RegionFactory;
 use DateInterval;
