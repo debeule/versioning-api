@@ -8,15 +8,15 @@ namespace App\Location\Commands;
 use App\Extensions\Eloquent\Scopes\FromVersion;
 use App\Kohera\Region as KoheraRegion;
 use App\Location\Municipality;
-use Illuminate\Foundation\Bus\DispatchesJobs;
 use App\Location\Region;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 final class LinkRegion
 {
     use DispatchesJobs;
 
     public function __construct(
-            public KoheraRegion $koheraRegion,
+        public KoheraRegion $koheraRegion,
         private FromVersion $fromVersion = new FromVersion,
     ) {}
 
@@ -33,7 +33,8 @@ final class LinkRegion
         
         if(empty($municipality)) return false;
 
-        $municipality->region_id = Region::where('region_number', $koheraRegion->regionNumber())->first()->id;    
+        $municipality->region_id = Region::where('region_number', $koheraRegion->regionNumber())->first()->id;
+    
         return $municipality->save();
     }
 }

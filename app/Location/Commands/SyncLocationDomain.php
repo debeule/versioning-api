@@ -6,7 +6,6 @@ namespace App\Location\Commands;
 
 use App\Bpost\Commands\SyncMunicipalities;
 use App\Kohera\Commands\SyncRegions;
-use App\Kohera\Commands\SyncRegionLinks;
 
 final class SyncLocationDomain
 {

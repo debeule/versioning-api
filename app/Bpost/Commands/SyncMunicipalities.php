@@ -8,9 +8,9 @@ use App\Bpost\Queries\AllMunicipalities as AllBpostMunicipalities;
 use App\Location\Commands\CreateMunicipality;
 use App\Location\Commands\SoftDeleteMunicipality;
 use App\Location\Municipality;
+use App\Location\Queries\AllMunicipalities;
 use App\Services\ProcessImportedRecords;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use App\Location\Queries\AllMunicipalities;
 
 final class SyncMunicipalities
 {
