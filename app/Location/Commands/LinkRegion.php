@@ -9,13 +9,14 @@ use App\Extensions\Eloquent\Scopes\FromVersion;
 use App\Kohera\Region as KoheraRegion;
 use App\Location\Municipality;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use App\Location\Region;
 
 final class LinkRegion
 {
     use DispatchesJobs;
 
     public function __construct(
-        public KoheraRegion $koheraRegion,
+            public KoheraRegion $koheraRegion,
         private FromVersion $fromVersion = new FromVersion,
     ) {}
 
@@ -30,11 +31,10 @@ final class LinkRegion
         $municipality = Municipality::where('postal_code', $koheraRegion->postalCode())
         ->tap($this->fromVersion)
         ->first();
-
+        
         if(empty($municipality)) return false;
 
-        $municipality->record_id = $koheraRegion->recordId();
-
+        $municipality->region_id = Region::where('region_number', $koheraRegion->regionNumber())->first()->id;    
         return $municipality->save();
     }
 }
