@@ -22,9 +22,9 @@ final class Region extends Model
     ];
 
     #TODO: check / redo all relations between models
-    public function subregions(): HasMany
+    public function municipalities(): HasMany
     {
-        return $this->hasMany(Region::class, 'record_id');
+        return $this->hasMany(Municipality::class);
     }
 
     public function hasChanged(KoheraRegion $koheraRegion): bool
