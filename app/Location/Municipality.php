@@ -42,16 +42,16 @@ final class Municipality extends Model
 
     public function hasChanged(Mixed $importedMunicipality): bool
     {
-        $recordhasChanged = false;
+        $recordHasChanged = false;
         
-        $recordhasChanged = $this->name !== strtolower($importedMunicipality->name());
-        $recordhasChanged = $recordhasChanged || $this->province !== strtolower($importedMunicipality->province());
+        $recorHhasChanged = $this->name !== $importedMunicipality->name();
+        $recordHasChanged = $recordHasChanged || $this->province !== $importedMunicipality->province();
 
         if (! is_null($importedMunicipality->headMunicipality())) 
         {
-            $recordhasChanged = $recordhasChanged || $this->head_municipality !== strtolower($importedMunicipality->headMunicipality());
+            $recordHasChanged = $recordHasChanged || $this->head_municipality !== $importedMunicipality->headMunicipality();
         }
-
-        return $recordhasChanged;
+        
+        return $recordHasChanged;
     }
 }

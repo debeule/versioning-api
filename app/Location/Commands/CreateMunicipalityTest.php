@@ -20,11 +20,11 @@ final class CreateMunicipalityTest extends TestCase
 
         $this->dispatchSync(new CreateMunicipality($bpostMunicipality));
         
-        $Municipality = Municipality::where('postal_code', $bpostMunicipality->postalCode())->first();
+        $Municipality = Municipality::where('record_id', $bpostMunicipality->recordId())->first();
         
         $this->assertInstanceOf(BpostMunicipality::class, $bpostMunicipality);
         $this->assertInstanceOf(Municipality::class, $Municipality);
         
-        $this->assertEquals($bpostMunicipality->postalCode(), $Municipality->postal_code);
+        $this->assertEquals($bpostMunicipality->recordId(), $Municipality->postal_code);
     }
 }

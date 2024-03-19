@@ -25,9 +25,10 @@ final class Municipality implements MunicipalityContract
         $this->Provincie = $row[4];
     }
 
-    public function recordId(): int
+    public function recordId(): string
     {
-        return Sanitizer::input($this->Postcode)->intValue();
+        // dd(Sanitizer::input($this->Postcode . '-' . $this->Plaatsnaam)->value());
+        return Sanitizer::input($this->Postcode . '-' . $this->Plaatsnaam)->value();
     }
 
     public function name(): string

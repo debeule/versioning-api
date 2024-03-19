@@ -22,7 +22,7 @@ final class RegionByPostalCodeTest extends TestCase
         $regionByPostalCode = new RegionByPostalCode;
         $result = $regionByPostalCode->hasPostalCode($municipality->postal_code)->find();
 
-        $municipality = Municipality::where('postal_code', $municipality->postal_code)->first();
+        $municipality = Municipality::where('record_id', $municipality->record_id)->first();
         $region = Region::where('id', $municipality->region_id)->first();
         
         $this->assertEquals($region->count(), $result->count());

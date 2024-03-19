@@ -19,6 +19,8 @@ use Illuminate\Support\Collection;
 use App\Location\Municipality;
 use App\Extensions\Eloquent\Scopes\FromVersion;
 use App\Kohera\Region as KoheraRegion;
+use App\Location\Queries\RegionByRegionNumber;
+use App\Location\Queries\MunicipalityByPostalCode;
 
 use App\Location\Commands\SoftDeleteMunicipality;
 
@@ -28,13 +30,15 @@ final class SyncRegionLinks
 
     public function __construct(
         private AllKoheraRegions $allKoheraRegions = new AllKoheraRegions,
+        private RegionByRegionNumber $regionByRegionNumber = new RegionByRegionNumber,
+        private MunicipalityByPostalCode $municipalityByPostalCode = new MunicipalityByPostalCode,
     ) {}
         
 
     public function __invoke(): void
     {
         $result = $this->regionsToLink();
-
+        
         foreach ($result['link'] as $koheraRegion) 
         {
             $this->dispatchSync(new LinkRegion($koheraRegion));
@@ -42,7 +46,7 @@ final class SyncRegionLinks
 
         foreach ($result['update'] as $koheraRegion) 
         {
-            $this->dispatchSync(new SoftDeleteRegion(Region::where('region_number', $koheraRegion->regionNumber())->first()));
+            $this->dispatchSync(new SoftDeleteMunicipality(Region::where('region_number', $koheraRegion->regionNumber())->first()));
             $this->dispatchSync(new CreateRegion($koheraRegion));
             $this->dispatchSync(new LinkRegion($koheraRegion));
         }
@@ -55,20 +59,25 @@ final class SyncRegionLinks
 
         foreach ($this->allKoheraRegions->getWithDoubles() as $koheraRegion)
         {
-            $municipality = Municipality::where('postal_code', $koheraRegion->postalCode())->first();
+            $municipality = $this->municipalityByPostalCode->hasPostalCode((string) $koheraRegion->postalCode())->find();
 
             if(is_null($municipality)) continue;
 
             if(!is_null($municipality->region_id))
             {
-                if($municipality->region_id === Region::where('region_number', $koheraRegion->recordId())->first()->id) continue;
+                if($municipality->region_id === $koheraRegion->regionId()) continue;
 
-                if($municipality->region_id !== Region::where('region_number', $koheraRegion->recordId())->first()->id) 
+                $region = $this->regionByRegionNumber->hasRegionNumber((string) $koheraRegion->regionNumber())->find();
+
+                if($municipality->region_id === $region->region_number) continue;
+
+                if($municipality->region_id !== $region->region_number) 
                 {
                     $update->push($koheraRegion);
                     continue;
                 }
             }
+
             $link->push($koheraRegion);
         }
 

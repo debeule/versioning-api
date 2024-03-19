@@ -28,6 +28,7 @@ final class LinkRegion
     public function linkRegion(KoheraRegion $koheraRegion): bool
     {
         # TODO: make into / use scope
+        # TODO: municipalities with same postal code exist so this query is not precise
         $municipality = Municipality::where('postal_code', $koheraRegion->postalCode())
         ->tap($this->fromVersion)
         ->first();

@@ -16,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('municipalities', function (Blueprint $table): void {
             $table->id();
-            $table->integer('record_id'); 
+            $table->string('record_id'); 
 
             $table->string('name');
             $table->integer('postal_code');

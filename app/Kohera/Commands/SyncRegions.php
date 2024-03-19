@@ -33,13 +33,11 @@ final class SyncRegions
         {
             $this->dispatchSync(new SoftDeleteRegion(Region::where('record_id', $koheraRegion->recordId())->first()));
             $this->dispatchSync(new CreateRegion($koheraRegion));
-            $this->dispatchSync(new LinkRegion($koheraRegion));
         }
 
         foreach ($result['create'] as $koheraRegion) 
         {
             $this->dispatchSync(new CreateRegion($koheraRegion));
-            $this->dispatchSync(new LinkRegion($koheraRegion));
         }
 
         foreach ($result['delete'] as $koheraRegion) 
