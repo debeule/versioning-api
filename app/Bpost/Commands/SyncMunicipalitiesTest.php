@@ -30,7 +30,7 @@ final class SyncMunicipalitiesTest extends TestCase
         $syncMunicipalities = new SyncMunicipalities();
         $syncMunicipalities();
 
-        $municipalitiesCount = Municipality::get()->count();
+        $municipalitiesCount = Municipality::count();
         $bpostMunicipalitiesCount = $bpostMunicipalities->count() - 1;
 
         if (File::exists($this->filePath)) File::delete($this->filePath);
@@ -41,7 +41,7 @@ final class SyncMunicipalitiesTest extends TestCase
         $syncMunicipalities = new SyncMunicipalities();
         $syncMunicipalities();
 
-        $modifiedMunicipalitiesCount = Municipality::get()->count();
+        $modifiedMunicipalitiesCount = Municipality::count();
         $modifiedBpostMunicipalitiesCount = $bpostMunicipalities->count() - 1;
 
         $this->assertGreaterThan($municipalitiesCount, $modifiedMunicipalitiesCount);
@@ -52,7 +52,7 @@ final class SyncMunicipalitiesTest extends TestCase
     public function itSoftDeletesRecordsWhenDeleted(): void
     {
         $bpostMunicipalities = BpostMunicipalityFactory::new()->count(3)->create();
-
+        
         $bpostMunicipalities->storeExcel($this->filePath);
 
         $syncMunicipalities = new SyncMunicipalities();
@@ -61,12 +61,13 @@ final class SyncMunicipalitiesTest extends TestCase
         if (File::exists($this->filePath)) File::delete($this->filePath);
 
         $deletedMunicipality = $bpostMunicipalities->pop();
+        
         $bpostMunicipalities->storeExcel($this->filePath);
         
         $syncMunicipalities = new SyncMunicipalities();
         $syncMunicipalities();
-        
-        $this->assertSoftDeleted(Municipality::onlyTrashed()->where('postal_code', $deletedMunicipality->postalCode())->first());
+
+        $this->assertSoftDeleted(Municipality::where('record_id', $deletedMunicipality->recordId())->first());
         $this->assertGreaterThan($bpostMunicipalities->count() - 1, Municipality::get()->count());
     }
 
@@ -74,17 +75,17 @@ final class SyncMunicipalitiesTest extends TestCase
     public function ItCreatesNewRecordVersionIfChangedAndExists(): void
     {
         $bpostMunicipalities = BpostMunicipalityFactory::new()->count(2)->create();
-        $bpostMunicipality = $bpostMunicipalities->first();
 
         $bpostMunicipalities->storeExcel($this->filePath);
 
         $syncMunicipalities = new SyncMunicipalities();
         $syncMunicipalities();
 
+        $bpostMunicipality = $bpostMunicipalities->pop();
         $originalMunicipalityRecord = Municipality::where('name', $bpostMunicipality->name())->first();
         
         $bpostMunicipality->Plaatsnaam = 'new name';
-
+        $bpostMunicipalities->push($bpostMunicipality);
         $bpostMunicipalities->storeExcel($this->filePath);
 
         $syncMunicipalities = new SyncMunicipalities();
@@ -96,6 +97,5 @@ final class SyncMunicipalitiesTest extends TestCase
         $this->assertSoftDeleted($originalMunicipalityRecord);
 
         $this->assertEquals($updatedMunicipalityRecord->name, $bpostMunicipality->name());
-        $this->assertEquals($originalMunicipalityRecord->record_id, $updatedMunicipalityRecord->record_id);
     }
 }

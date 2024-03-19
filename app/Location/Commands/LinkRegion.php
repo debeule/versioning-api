@@ -27,7 +27,7 @@ final class LinkRegion
 
     public function linkRegion(KoheraRegion $koheraRegion): bool
     {
-        $municipality = Municipality::where('record_id', $koheraRegion->recordId())
+        $municipality = Municipality::where('postal_code', $koheraRegion->postalCode())
         ->tap($this->fromVersion)
         ->first();
         

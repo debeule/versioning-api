@@ -25,6 +25,6 @@ final class CreateMunicipalityTest extends TestCase
         $this->assertInstanceOf(BpostMunicipality::class, $bpostMunicipality);
         $this->assertInstanceOf(Municipality::class, $Municipality);
         
-        $this->assertEquals($bpostMunicipality->recordId(), $Municipality->postal_code);
+        $this->assertEquals($bpostMunicipality->recordId(), $Municipality->record_id);
     }
 }
