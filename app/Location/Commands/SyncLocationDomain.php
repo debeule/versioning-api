@@ -17,8 +17,5 @@ final class SyncLocationDomain
 
         $syncRegions = new SyncRegions();
         $syncRegions();
-
-        $syncRegionLinks = new SyncRegionLinks();
-        $syncRegionLinks();
     }
 }

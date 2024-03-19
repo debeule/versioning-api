@@ -21,23 +21,28 @@ final class SyncRegions
 
     public function __construct(
         private AllKoheraRegions $allKoheraRegions = new AllKoheraRegions(),
-        private AllRegions $allRegions = new AllRegions()
+        private AllRegions $allRegions = new AllRegions(),
+        private RegionByRegionNumber $regionByRegionNumber = new RegionByRegionNumber,
     ) {}
         
 
     public function __invoke(): void
     {
-        $result = ProcessImportedRecords::setup($this->allKoheraRegions->get(), $this->allRegions->get())->pipe();
+        $result = ProcessImportedRecords::setup($this->allKoheraRegions->getWithDoubles(), $this->allRegions->get())->pipe();
         
         foreach ($result['update'] as $koheraRegion) 
         {
-            $this->dispatchSync(new SoftDeleteRegion(Region::where('record_id', $koheraRegion->recordId())->first()));
-            $this->dispatchSync(new CreateRegion($koheraRegion));
+            $this->dispatchSync(new LinkRegion($koheraRegion));
         }
 
         foreach ($result['create'] as $koheraRegion) 
         {
-            $this->dispatchSync(new CreateRegion($koheraRegion));
+            if (!is_null($this->regionByRegionNumber->hasRegionNumber((string) $koheraRegion->regionNumber())->find())) 
+            {
+                $this->dispatchSync(new CreateRegion($koheraRegion));
+            }
+
+            $this->dispatchSync(new LinkRegion($koheraRegion));
         }
 
         foreach ($result['delete'] as $koheraRegion) 
