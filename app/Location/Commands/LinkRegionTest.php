@@ -29,7 +29,6 @@ final class LinkRegionTest extends TestCase
 
         $this->assertTrue($result); 
 
-        # TODO: fix linking of multiple municipalities on region
         // $this->assertEquals(3, $linkedMunicipalities->count());
     }
 }

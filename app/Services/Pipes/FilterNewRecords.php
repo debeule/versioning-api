@@ -15,7 +15,6 @@ final class FilterNewRecords
          
         foreach ($content['records'] as $record) 
         {
-            #TODO: make into scope (with seperate method for 'scoping' collections?)
             $recordExists = $content['existingRecords']
             ->where('record_id', $record->recordId())
             ->isNotEmpty();
