@@ -9,7 +9,7 @@ use App\Location\Commands\CreateRegion;
 use App\Location\Commands\LinkRegion;
 use App\Location\Commands\SoftDeleteRegion;
 use App\Location\Queries\AllRegions;
-
+use App\Location\Queries\RegionByRegionNumber;
 use App\Location\Region;
 use App\Services\ProcessImportedRecords;
 
@@ -32,12 +32,14 @@ final class SyncRegions
         
         foreach ($result['update'] as $koheraRegion) 
         {
+            $this->dispatchSync(new SoftDeleteRegion(Region::where('region_number', $koheraRegion->regionNumber())->first()));
+            $this->dispatchSync(new CreateRegion($koheraRegion));
             $this->dispatchSync(new LinkRegion($koheraRegion));
         }
 
         foreach ($result['create'] as $koheraRegion) 
         {
-            if (!is_null($this->regionByRegionNumber->hasRegionNumber((string) $koheraRegion->regionNumber())->find())) 
+            if (is_null($this->regionByRegionNumber->hasRegionNumber((string) $koheraRegion->regionNumber())->find())) 
             {
                 $this->dispatchSync(new CreateRegion($koheraRegion));
             }
