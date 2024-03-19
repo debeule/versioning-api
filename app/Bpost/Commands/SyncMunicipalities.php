@@ -10,6 +10,7 @@ use App\Location\Commands\SoftDeleteMunicipality;
 use App\Location\Municipality;
 use App\Services\ProcessImportedRecords;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use App\Location\Queries\AllMunicipalities;
 
 final class SyncMunicipalities
 {
@@ -17,14 +18,13 @@ final class SyncMunicipalities
 
     public function __construct(
         private AllBpostMunicipalities $allBpostMunicipalities = new AllBpostMunicipalities(),
+        private AllMunicipalities $allMunicipalities = new AllMunicipalities(),
     ) {}
         
 
     public function __invoke(): void
     {
-        $allMunicipalities = Municipality::get();
-
-        $result = ProcessImportedRecords::setup($this->allBpostMunicipalities->get(), $allMunicipalities)->pipe();
+        $result = ProcessImportedRecords::setup($this->allBpostMunicipalities->get(), $this->allMunicipalities->get())->pipe();
         
         foreach ($result['update'] as $koheraMunicipality) 
         {
