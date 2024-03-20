@@ -9,12 +9,12 @@ final class Sanitizer
     use StringSanitizationTrait, IntSanitizationTrait;
 
     public function __construct(
-        private string $input = 'a'
+        private string $value
     ) {}
 
     public static function input(mixed $input): self
     {
-        return new self((string) $input);
+        return (new self((string) $input))->defaultSanitising();
     }
 
     public function defaultSanitising(): self
@@ -24,11 +24,11 @@ final class Sanitizer
 
     public function value(): string
     {
-        return $this->input;
+        return $this->value;
     }
 
-    public function intValue(): int
+    public function numericValue(): int
     {
-        return (int) $this->input;
+        return (int) $this->value;
     }
 }

@@ -19,7 +19,7 @@ final class BillingProfile extends Model implements BillingProfileContract
     
     public function recordId(): int
     {
-        return Sanitizer::input($this->school->id)->intValue();
+        return Sanitizer::input($this->school->id)->numericValue();
     }
 
     public function name(): string

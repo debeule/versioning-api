@@ -23,7 +23,7 @@ final class Region extends Model implements RegionContract
 
     public function recordId(): int
     {
-        return Sanitizer::input($this->RegioDetailId)->intValue();
+        return Sanitizer::input($this->RegioDetailId)->numericValue();
     }
 
     public function name(): string
@@ -33,11 +33,11 @@ final class Region extends Model implements RegionContract
 
     public function regionNumber(): int
     {
-        return Sanitizer::input($this->RegioDetailId)->intValue();
+        return Sanitizer::input($this->RegioDetailId)->numericValue();
     }
 
     public function postalCode(): int
     {
-        return Sanitizer::input($this->Postcode)->intValue();
+        return Sanitizer::input($this->Postcode)->numericValue();
     }   
 }

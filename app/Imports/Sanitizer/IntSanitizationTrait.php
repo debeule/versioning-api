@@ -8,6 +8,6 @@ trait IntSanitizationTrait
 {
     public function extractInt(): self
     {
-        return new self(preg_replace('/[^0-9]/', '', $this->input));
+        return new self(preg_replace('/[^0-9]/', '', $this->value));
     }
 }

@@ -42,7 +42,7 @@ final class Municipality implements MunicipalityContract
 
     public function postalCode(): int
     {
-        return Sanitizer::input($this->Postcode)->intValue();
+        return Sanitizer::input($this->Postcode)->numericValue();
     }
 
     public function headMunicipality(): ?string

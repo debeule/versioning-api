@@ -42,7 +42,7 @@ final class School extends Model implements SchoolContract
 
     public function recordId(): int
     {
-        return Sanitizer::input($this->id)->intValue();
+        return Sanitizer::input($this->id)->numericValue();
     }
     
     public function sourceId(): string
@@ -75,12 +75,12 @@ final class School extends Model implements SchoolContract
 
     public function institutionId(): int
     {
-        return Sanitizer::input($this->Instellingsnummer)->intValue();
+        return Sanitizer::input($this->Instellingsnummer)->numericValue();
     }
 
     public function studentCount(): int
     {
-        return  Sanitizer::input($this->Student_Count)->intValue();
+        return  Sanitizer::input($this->Student_Count)->numericValue();
     }
 
     public function address(): Address
