@@ -12,7 +12,9 @@ final class MunicipalitiesUriTest extends TestCase
     #[Test]
     public function itReturnsString(): void
     {
-        $this->assertTrue(false);
+        $municipalitiesUri = new MunicipalitiesUri();
+
+        $this->assertIsString((string) $municipalitiesUri);
     }
 
     #[Test]

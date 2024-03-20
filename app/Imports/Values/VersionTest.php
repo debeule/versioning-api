@@ -6,12 +6,27 @@ namespace App\Imports\Values;
 
 use App\Testing\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use Carbon\CarbonImmutable;
+use DateTimeInterface;
 
 final class VersionTest extends TestCase
 {
     #[Test]
-    public function itReturnsString(): void
+    public function itReturnsStringOnDefaultTime(): void
     {
-        $this->assertTrue(false);
+        $version = new Version();
+
+        $this->assertIsString((string) $version);
+    }
+    
+    #[Test]
+    public function itReturnsCorrectDateFromInput(): void
+    {
+        $date = CarbonImmutable::create(2021, 1, 1);
+
+
+        $version = new Version($date);
+
+        $this->assertEquals('2021-01-01', (string) $version);
     }
 }

@@ -19,16 +19,7 @@ final class Version
 
     public static function fromString(?string $input): self
     {
-        
         return new self(CarbonImmutable::parse($input ?? ''));
-    }
-
-    public static function fromDateTimeInterface(DateTimeInterface $dateTime): self
-    {
-        /** @var CarbonImmutable $immutable */
-        $immutable = CarbonImmutable::createFromInterface($dateTime);
-
-        return new self($immutable);
     }
 
     public function __toString(): string
