@@ -10,8 +10,16 @@ use PHPUnit\Framework\Attributes\Test;
 final class SanitizerTest extends TestCase
 {
     #[Test]
-    public function HasRegionNumberQueryReturnsCorrectRecord(): void
+    public function testStringSanitization(): void
     {
-        $this->assertTrue(false);
+        $sanitizer = Sanitizer::input("   Test Value   ");
+        $this->assertSame("Test Value", $sanitizer->value());
+    }
+
+    #[Test]
+    public function testIntSanitization(): void
+    {
+        $sanitizer = Sanitizer::input("123");
+        $this->assertSame(123, $sanitizer->numericValue());
     }
 }
