@@ -47,9 +47,9 @@ final class SyncRegions
             $this->dispatchSync(new LinkRegion($koheraRegion));
         }
 
-        foreach ($result['delete'] as $koheraRegion) 
+        foreach ($result['delete'] as $region) 
         {
-            $this->dispatchSync(new SoftDeleteRegion($koheraRegion));
+            $this->dispatchSync(new SoftDeleteRegion($region));
         }
     }
 }

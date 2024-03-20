@@ -38,9 +38,9 @@ final class SyncAddresses
             $this->dispatchSync(new CreateAddress($koheraAddress));
         }
 
-        foreach ($result['delete'] as $koheraAddress) 
+        foreach ($result['delete'] as $address) 
         {
-            $this->dispatchSync(new SoftDeleteAddress($koheraAddress));
+            $this->dispatchSync(new SoftDeleteAddress($address));
         }
     }
 }

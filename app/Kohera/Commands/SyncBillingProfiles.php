@@ -40,9 +40,9 @@ final class SyncBillingProfiles
             $this->dispatchSync(new CreateBillingProfile($koheraBillingProfile));
         }
 
-        foreach ($result['delete'] as $koheraBillingProfile) 
+        foreach ($result['delete'] as $billingProfile) 
         {
-            $this->dispatchSync(new SoftDeleteBillingProfile($koheraBillingProfile));
+            $this->dispatchSync(new SoftDeleteBillingProfile($billingProfile));
         }
     }
 }

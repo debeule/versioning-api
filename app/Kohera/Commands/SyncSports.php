@@ -39,9 +39,9 @@ final class SyncSports
             $this->dispatchSync(new CreateSport($koheraSport));
         }
 
-        foreach ($result['delete'] as $koheraSport) 
+        foreach ($result['delete'] as $sport) 
         {
-            $this->dispatchSync(new SoftDeleteSport($koheraSport));
+            $this->dispatchSync(new SoftDeleteSport($sport));
         }
     }
 }

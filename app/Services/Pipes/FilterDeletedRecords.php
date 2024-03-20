@@ -11,15 +11,15 @@ final class FilterDeletedRecords
     /** @return array<mixed> */
     public function handle(Array $content, \Closure $next): Array
     {
-        $deletedRecords = $content['existingRecords'];
+        $recordsToDelete = $content['existingRecords'];
          
         //delete existing records
         foreach ($content['records'] as $record) 
         {
-            $deletedRecords = $deletedRecords->where('record_id', '!=', $record->recordId());
+            $recordsToDelete = $recordsToDelete->where('record_id', '!=', $record->recordId());
         }
         
-        $content['delete'] = $deletedRecords;
+        $content['delete'] = $recordsToDelete;
         
         return $next($content);
     }

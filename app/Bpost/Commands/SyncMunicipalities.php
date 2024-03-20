@@ -37,9 +37,9 @@ final class SyncMunicipalities
             $this->dispatchSync(new CreateMunicipality($koheraMunicipality));
         }
 
-        foreach ($result['delete'] as $koheraMunicipality) 
+        foreach ($result['delete'] as $municipality) 
         {
-            $this->dispatchSync(new SoftDeleteMunicipality($koheraMunicipality));
+            $this->dispatchSync(new SoftDeleteMunicipality($municipality));
         }
     }
 }

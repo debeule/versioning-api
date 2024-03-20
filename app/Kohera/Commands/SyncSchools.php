@@ -39,9 +39,9 @@ final class SyncSchools
             $this->dispatchSync(new CreateSchool($koheraSchool));
         }
 
-        foreach ($result['delete'] as $koheraSchool) 
+        foreach ($result['delete'] as $school) 
         {
-            $this->dispatchSync(new SoftDeleteSchool($koheraSchool));
+            $this->dispatchSync(new SoftDeleteSchool($school));
         }
     }
 }
