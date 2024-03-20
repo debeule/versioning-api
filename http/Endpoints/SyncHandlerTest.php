@@ -6,13 +6,20 @@ namespace Http\Endpoints;
 
 use App\Testing\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use App\Imports\SyncAllDomains;
+use Illuminate\Support\Facades\Queue;
 
 final class SyncHandlerTest extends TestCase
 {
     #[Test]
-    public function itReturnsString(): void
+    public function itDispatchesSyncAllDomains(): void
     {
-        $this->assertTrue(false);
+        Queue::fake();
+
+        $syncHandler = new SyncHandler;
+        $syncHandler();
+
+        Queue::assertPushed(SyncAllDomains::class);
     }
 
 }
