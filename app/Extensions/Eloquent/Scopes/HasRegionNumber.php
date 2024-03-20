@@ -6,7 +6,7 @@ namespace App\Extensions\Eloquent\Scopes;
 
 use Illuminate\Database\Eloquent\Builder;
 
-final readonly class HasRegionNumber
+final class HasRegionNumber
 {
     public function __construct(
         private string $value = '',

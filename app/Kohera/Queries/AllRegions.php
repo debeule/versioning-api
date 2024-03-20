@@ -14,6 +14,7 @@ final class AllRegions
         return Region::query();
     }
 
+    # TODO: not used anywhere?
     public function get(): Object
     {
         return $this->query()->get()->unique('RegioDetailId');
