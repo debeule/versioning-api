@@ -12,7 +12,7 @@ use App\School\School;
 final class FromVersionTest extends TestCase
 {
     #[Test]
-    public function fromVersionQueryReturnsCorrectRecordVersion(): void
+    public function fromVersionScopeQueryReturnsCorrectRecordVersion(): void
     {
         $school = SchoolFactory::new()->create();
 
