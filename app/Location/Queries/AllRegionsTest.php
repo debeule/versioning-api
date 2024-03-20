@@ -29,7 +29,7 @@ final class AllRegionsTest extends TestCase
     #[Test]
     public function ItReturnsCollectionOfRegions(): void
     {
-        $region = RegionFactory::new()->count(3)->create();
+        RegionFactory::new()->count(3)->create();
 
         $allRegions = new AllRegions;
         $result = $allRegions->find();

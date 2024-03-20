@@ -18,7 +18,6 @@ final class AllMunicipalitiesTest extends TestCase
     #[Before]
     public function ensureNoFilePresent(): void
     {
-        
         if (File::exists($this->filePath)) File::delete($this->filePath);
     }
 
