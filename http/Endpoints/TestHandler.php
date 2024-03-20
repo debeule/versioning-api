@@ -7,7 +7,6 @@ namespace Http\Endpoints;
 use App\Bpost\Commands\SyncMunicipalities;
 use App\Kohera\Commands\SyncAddresses;
 use App\Kohera\Commands\SyncBillingProfiles;
-use App\Kohera\Commands\SyncRegionLinks;
 use App\Kohera\Commands\SyncRegions;
 use App\Kohera\Commands\SyncSchools;
 use App\Kohera\Commands\SyncSports;
