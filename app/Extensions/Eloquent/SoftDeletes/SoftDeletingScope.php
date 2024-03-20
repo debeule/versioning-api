@@ -12,5 +12,6 @@ final class SoftDeletingScope extends BaseSoftDeletingScope
 {
     public function apply(Builder $builder, Model $model): void
     {
+        // override the default no trashed scope
     }
 }
