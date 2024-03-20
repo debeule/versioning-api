@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Bpost\Queries;
+namespace App\Extensions\Eloquent\Scopes;
 
 use App\Bpost\Municipality;
 use App\Testing\TestCase;

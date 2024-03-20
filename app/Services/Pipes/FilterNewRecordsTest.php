@@ -11,7 +11,7 @@ use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Collection;
 use PHPUnit\Framework\Attributes\Test;
 
-final class ArrayToCollectionTest extends TestCase
+final class FilterNewRecordsTest extends TestCase
 {
     #[Test]
     public function itReturnsString(): void
