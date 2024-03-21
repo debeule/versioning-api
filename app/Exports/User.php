@@ -7,14 +7,9 @@ use Laravel\Sanctum\HasApiTokens;
 use Laravel\Sanctum\PersonalAccessToken;
 use Laravel\Sanctum\Sanctum;
 
-final class Token extends PersonalAccessToken
+final class User extends PersonalAccessToken
 {
     use hasApiTokens;
 
     public $timestamps = false;
-
-    public function boot(): void
-    {
-        Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
-    }
 }

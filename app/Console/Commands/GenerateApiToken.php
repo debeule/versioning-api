@@ -3,7 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Exports\Token;
+use App\Exports\User;
+use Illuminate\Support\Facades\Auth;
 
 class GenerateApiToken extends Command
 {
@@ -27,10 +28,10 @@ class GenerateApiToken extends Command
     
     public function handle()
     {
-        Token::create();
-        
-        $token = Token::first()->api_token;
-        
+        $user = User::create();
+        $token = $user->createToken('token-name');
+        $token = $token->plainTextToken;
+
         $this->info("API token generated successfully: $token");
     }
 }
