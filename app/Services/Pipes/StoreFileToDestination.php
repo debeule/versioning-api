@@ -9,8 +9,10 @@ use Illuminate\Support\Facades\Storage;
 
 final class StoreFileToDestination
 {
-    /** @param array<mixed> $content */
-    /** @return array<mixed> */
+    /** 
+     * @return array<mixed> 
+     * @param array<mixed> $content
+    */
     public function handle(Array $content, \Closure $next): Array
     {
         if (File::exists($content['destination'])) File::delete($content['destination']);

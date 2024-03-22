@@ -8,7 +8,9 @@ use Illuminate\Support\Collection;
 
 final class ArrayToCollection
 {
-    /** @param array<Mixed> $content */
+    /**  
+     * @param array<mixed> $content
+    */
     public function handle(Array $content, \Closure $next): Collection
     {
         $collection = collect();

@@ -8,8 +8,10 @@ use Illuminate\Support\Facades\Http;
 
 final class RetrieveFromSource
 {
-    /** @param array<mixed> $content */
-    /** @return array<mixed> */
+    /** 
+     * @return array<mixed> 
+     * @param array<mixed> $content
+    */
     public function handle(Array $content, \Closure $next): Array
     {
         $content['file'] = Http::withOptions(['verify' => false])->get((string) $content['source'])->body();

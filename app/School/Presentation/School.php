@@ -12,7 +12,23 @@ use Illuminate\Database\Eloquent\Model;
 
 final class School
 {
-    
+    public string $name;
+    public string $email;
+    public string $contact_email;
+    public string $type;
+    public string $school_number;
+    public string $institution_id;
+    public int $student_count;
+    public string $street_name;
+    public string $street_identifier;
+    public string $postal_code;
+    public string $billing_name;
+    public string $billing_email;
+    public string $billing_vat;
+    public string $billing_tav;
+    public string $billing_street_name;
+    public string $billing_street_identifier;
+    public string $billing_postal_code;
 
     public static function new(): self
     {

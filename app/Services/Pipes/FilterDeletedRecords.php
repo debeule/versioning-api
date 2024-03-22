@@ -7,8 +7,10 @@ namespace App\Services\Pipes;
 
 final class FilterDeletedRecords
 {
-    /** @param array<mixed> $content */
-    /** @return array<mixed> */
+    /** 
+     * @return array<mixed> 
+     * @param array<mixed> $content
+    */
     public function handle(Array $content, \Closure $next): Array
     {
         $recordsToDelete = $content['existingRecords'];

@@ -10,6 +10,12 @@ use Illuminate\Database\Eloquent\Model;
 
 final class Region
 {
+    public string $name;
+    public int $region_number;
+
+    /** @var array<int> $linked_municipalities */
+    public array $linked_municipalities;
+
     public static function new(): self
     {
         return new self();
@@ -20,7 +26,7 @@ final class Region
         $this->addRegionAttributes($dbRegion);
         $this->addLinkedMunicipalitiesAttribute($dbRegion);
 
-        return $this;
+            return $this;
     }
 
     public function addRegionAttributes(DbRegion $dbRegion): void
