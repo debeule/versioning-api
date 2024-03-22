@@ -6,6 +6,7 @@ namespace App\Testing;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use App\Users\User;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -32,5 +33,12 @@ abstract class TestCase extends BaseTestCase
     public function setUp(): void
     {
         parent::setUp();
+    }
+
+    public function getApiToken(): string
+    {
+        $user = User::create();
+        $token = $user->createToken('token-name');
+        return $token->plainTextToken;
     }
 }

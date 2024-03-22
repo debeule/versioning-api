@@ -19,11 +19,17 @@ final class SchoolByInstitutionIdHandlerTest extends TestCase
     {
         $school = SchoolFactory::new()->create();
 
-        $response = $this->get($this->endpoint . $school->institution_id);
+        $response = $this->withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer ' . $this->getApiToken(),
+        ])->get($this->endpoint . $school->institution_id);
 
         $school->delete();
         
-        $versionedResponse = $this->get($this->endpoint . $school->institution_id);
+        $versionedResponse = $this->withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer ' . $this->getApiToken(),
+        ])->get($this->endpoint . $school->institution_id);
 
         $resultCount = count(json_decode($response->content(), true));
         
@@ -36,7 +42,10 @@ final class SchoolByInstitutionIdHandlerTest extends TestCase
     {
         $school = SchoolFactory::new()->create();
 
-        $response = $this->get($this->endpoint . $school->institution_id);
+        $response = $this->withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer ' . $this->getApiToken(),
+        ])->get($this->endpoint . $school->institution_id);
         
         $version = new DateTimeImmutable();
         $version = $version->sub(new DateInterval('P1D'));

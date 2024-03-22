@@ -19,11 +19,17 @@ final class AllSportsHandlerTest extends TestCase
     {
         $sports = SportFactory::new()->count(3)->create();
 
-        $response = $this->get($this->endpoint);
+        $response = $this->withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer ' . $this->getApiToken(),
+        ])->get($this->endpoint);
 
         $sports->first()->delete();
         
-        $versionedResponse = $this->get($this->endpoint);
+        $versionedResponse = $this->withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer ' . $this->getApiToken(),
+        ])->get($this->endpoint);
 
         $resultCount = count(json_decode($response->content(), true));
         $versionedResultCount = count(json_decode($versionedResponse->content(), true));
@@ -36,7 +42,10 @@ final class AllSportsHandlerTest extends TestCase
     {
         $sports = SportFactory::new()->count(3)->create();
 
-        $response = $this->get($this->endpoint);
+        $response = $this->withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer ' . $this->getApiToken(),
+        ])->get($this->endpoint);
         
         $version = new DateTimeImmutable();
         $version = $version->sub(new DateInterval('P1D'));

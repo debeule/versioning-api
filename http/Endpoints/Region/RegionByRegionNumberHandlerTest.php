@@ -19,11 +19,17 @@ final class RegionByRegionNumberHandlerTest extends TestCase
     {
         $region = RegionFactory::new()->create();
 
-        $response = $this->get($this->endpoint . $region->region_number);
+        $response = $this->withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer ' . $this->getApiToken(),
+        ])->get($this->endpoint . $region->region_number);
 
         $region->delete();
         
-        $versionedResponse = $this->get($this->endpoint . $region->region_number);
+        $versionedResponse = $this->withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer ' . $this->getApiToken(),
+        ])->get($this->endpoint . $region->region_number);
 
         $resultCount = count(json_decode($response->content(), true));
         
@@ -36,7 +42,10 @@ final class RegionByRegionNumberHandlerTest extends TestCase
     {
         $region = RegionFactory::new()->create();
         
-        $response = $this->get($this->endpoint . $region->region_number);
+        $response = $this->withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer ' . $this->getApiToken(),
+        ])->get($this->endpoint . $region->region_number);
         
         $version = new DateTimeImmutable();
         $version = $version->sub(new DateInterval('P1D'));

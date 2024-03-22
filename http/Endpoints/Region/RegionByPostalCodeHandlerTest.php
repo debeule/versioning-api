@@ -21,11 +21,17 @@ final class RegionByPostalCodeHandlerTest extends TestCase
         $region = RegionFactory::new()->create();
         $municipality = MunicipalityFactory::new()->withRegionId($region->id)->create();
 
-        $response = $this->get($this->endpoint . $municipality->postal_code);
+        $response = $this->withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer ' . $this->getApiToken(),
+        ])->get($this->endpoint . $municipality->postal_code);
 
         $municipality->delete();
         
-        $versionedResponse = $this->get($this->endpoint . $municipality->postal_code);
+        $versionedResponse = $this->withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer ' . $this->getApiToken(),
+        ])->get($this->endpoint . $municipality->postal_code);
 
         $resultCount = count(json_decode($response->content(), true));
         
@@ -39,7 +45,10 @@ final class RegionByPostalCodeHandlerTest extends TestCase
         $region = RegionFactory::new()->create();
         $municipality = MunicipalityFactory::new()->withRegionId($region->id)->create();
 
-        $response = $this->get($this->endpoint . $municipality->postal_code);
+        $response = $this->withHeaders([
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer ' . $this->getApiToken(),
+        ])->get($this->endpoint . $municipality->postal_code);
         
         $version = new DateTimeImmutable();
         $version = $version->sub(new DateInterval('P1D'));
