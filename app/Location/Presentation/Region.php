@@ -6,14 +6,13 @@ namespace App\Location\Presentation;
 
 use App\Location\Municipality;
 use App\Location\Region as DbRegion;
-use Illuminate\Database\Eloquent\Model;
 
 final class Region
 {
     public string $name;
     public int $region_number;
 
-    /** @var array<int> $linked_municipalities */
+    /** @var array<int> */
     public array $linked_municipalities;
 
     public static function new(): self

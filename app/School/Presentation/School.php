@@ -8,7 +8,6 @@ use App\Location\Municipality;
 use App\School\Address;
 use App\School\BillingProfile;
 use App\School\School as DbSchool;
-use Illuminate\Database\Eloquent\Model;
 
 final class School
 {

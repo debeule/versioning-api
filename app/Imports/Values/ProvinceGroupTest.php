@@ -42,7 +42,7 @@ final class ProvinceGroupTest extends TestCase
             'luik', 
             'luxemburg', 
             'namen', 
-            'brussel'
+            'brussel',
         ];
 
         $allProvinces = ProvinceGroup::allProvinces()->get();

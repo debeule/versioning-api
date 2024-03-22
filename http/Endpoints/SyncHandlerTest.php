@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Http\Endpoints;
 
-use App\Testing\TestCase;
-use PHPUnit\Framework\Attributes\Test;
 use App\Imports\SyncAllDomains;
+use App\Testing\TestCase;
 use Illuminate\Support\Facades\Queue;
+use PHPUnit\Framework\Attributes\Test;
 
 final class SyncHandlerTest extends TestCase
 {

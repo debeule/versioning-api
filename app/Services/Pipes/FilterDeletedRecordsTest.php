@@ -4,16 +4,13 @@ declare(strict_types=1);
 
 namespace App\Services\Pipes;
 
-use App\Testing\TestCase;
-use PHPUnit\Framework\Attributes\Test;
-use App\School\School;
 use App\Kohera\School as KoheraSchool;
-use App\School\Commands\CreateSchool;
-use Database\Kohera\Factories\SchoolFactory as KoheraSchoolFactory;
-use Database\Main\Factories\AddressFactory;
+use App\School\School;
+use App\Testing\TestCase;
+use Database\Main\Factories\SchoolFactory;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Collection;
-use Database\Main\Factories\SchoolFactory;
+use PHPUnit\Framework\Attributes\Test;
 
 final class FilterDeletedRecordsTest extends TestCase
 {

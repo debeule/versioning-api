@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace App\Imports\Values;
 
 use App\Testing\TestCase;
-use PHPUnit\Framework\Attributes\Test;
 use Carbon\CarbonImmutable;
-use DateTimeInterface;
+use PHPUnit\Framework\Attributes\Test;
 
 final class VersionTest extends TestCase
 {

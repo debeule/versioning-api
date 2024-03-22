@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Location\Queries;
 
-use App\Testing\TestCase;
-use PHPUnit\Framework\Attributes\Test;
-use Database\Main\Factories\RegionFactory;
 use App\Location\Region;
+use App\Testing\TestCase;
+use Database\Main\Factories\RegionFactory;
+use PHPUnit\Framework\Attributes\Test;
 
 final class RegionByRegionNumberTest extends TestCase
 {

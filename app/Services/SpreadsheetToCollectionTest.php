@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Testing\TestCase;
-use PHPUnit\Framework\Attributes\Test;
-use Illuminate\Support\Collection;
 use App\Location\Municipality;
+use App\Testing\TestCase;
+use Illuminate\Support\Collection;
+use PHPUnit\Framework\Attributes\Test;
 
 final class SpreadsheetToCollectionTest extends TestCase
 {

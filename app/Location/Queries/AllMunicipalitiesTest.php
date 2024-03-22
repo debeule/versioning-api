@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Location\Queries;
 
-use App\Testing\TestCase;
-use PHPUnit\Framework\Attributes\Test;
-use Database\Main\Factories\MunicipalityFactory;
 use App\Location\Municipality;
+use App\Testing\TestCase;
+use Database\Main\Factories\MunicipalityFactory;
 use Illuminate\Support\Collection;
+use PHPUnit\Framework\Attributes\Test;
 
 final class AllMunicipalitiesTest extends TestCase
 {

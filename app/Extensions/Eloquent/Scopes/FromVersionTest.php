@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Extensions\Eloquent\Scopes;
 
-use App\Testing\TestCase;
-use PHPUnit\Framework\Attributes\Test;
-use Database\Main\Factories\SchoolFactory;
 use App\School\School;
+use App\Testing\TestCase;
+use Database\Main\Factories\SchoolFactory;
+use PHPUnit\Framework\Attributes\Test;
 
 final class FromVersionTest extends TestCase
 {

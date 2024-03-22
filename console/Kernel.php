@@ -21,7 +21,7 @@ class Kernel extends ConsoleKernel
     /**
      * Register the commands for the application.
      */
-    /** @var array<mixed> $commands */
+    /** @var array<mixed> */
     protected $commands = [
         \App\Console\Commands\GenerateApiToken::class,
     ];

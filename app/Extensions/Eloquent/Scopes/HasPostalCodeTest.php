@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Extensions\Eloquent\Scopes;
 
-use App\Testing\TestCase;
-use PHPUnit\Framework\Attributes\Test;
-use Database\Main\Factories\MunicipalityFactory;
 use App\Location\Municipality;
+use App\Testing\TestCase;
+use Database\Main\Factories\MunicipalityFactory;
+use PHPUnit\Framework\Attributes\Test;
 
 final class HasPostalCodeTest extends TestCase
 {
