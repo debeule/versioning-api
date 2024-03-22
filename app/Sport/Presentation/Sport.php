@@ -8,6 +8,8 @@ use App\Sport\Sport as DbSport;
 
 final class Sport
 {
+    public string $name;
+
     public static function new(): self
     {
         return new self();
