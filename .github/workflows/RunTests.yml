@@ -1,0 +1,39 @@
+name: run phpunit tests
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Login to GHCR
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GHCR_TOKEN }}
+
+    - name: pull app image
+      run: docker pull ghcr.io/matthiasdebeule2/sport-na-school-tatooine/app:latest
+    - name: pull cron image
+      run: docker pull ghcr.io/matthiasdebeule2/sport-na-school-tatooine/cron:latest
+      
+    - name: setup containers
+      run: sudo docker compose up --no-build --wait
+
+    - name: setup databases
+      run: |
+        sudo docker exec -u 0 app composer start
+        sudo docker exec -u 0 app composer testing
+
+    - name: add permissions to phpunit executable
+      run: sudo docker exec -u 0 app chmod 777 vendor/bin/phpunit
+        
+    - name: Execute tests - PHPUnit
+      run: sudo docker exec -u 0 app vendor/bin/phpunit
