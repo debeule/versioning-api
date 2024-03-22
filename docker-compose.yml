@@ -1,6 +1,7 @@
 version: '3.7'
 services:
   app:
+    image: &app-image ghcr.io/matthiasdebeule2/sport-na-school-tatooine/app:latest
     build: &app-build
       context: .
       dockerfile: deploy/components/app/workspace.Dockerfile
@@ -64,6 +65,7 @@ services:
       - backend
 
   cron:
+    image: ghcr.io/matthiasdebeule2/sport-na-school-tatooine/cron:latest
     build:
       context: .
       dockerfile: deploy/components/cron/workspace.Dockerfile
@@ -83,6 +85,7 @@ services:
       - backend
 
   worker:
+    image: *app-image
     build: *app-build
     container_name: worker
     entrypoint: php artisan queue:work --timeout=300
