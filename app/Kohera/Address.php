@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Model;
 
 final class Address extends Model implements AddressContract
 {
-
     public function __construct(
         private School $school
     ) {}
