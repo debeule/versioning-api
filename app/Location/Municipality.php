@@ -44,7 +44,7 @@ final class Municipality extends Model
     {
         $recordHasChanged = false;
         
-        $recorHhasChanged = $this->name !== $importedMunicipality->name();
+        $recordHasChanged = $this->name !== $importedMunicipality->name();
         $recordHasChanged = $recordHasChanged || $this->province !== $importedMunicipality->province();
 
         if (! is_null($importedMunicipality->headMunicipality())) 
