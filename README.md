@@ -20,3 +20,7 @@ ____/_]_[_\___________________[_]_[_]_[_]
 
  # setup testing environment: 
 docker exec app composer testing
+docker exec app composer testing:seed
+
+# generate api bearer token
+docker exec app api-token:generate
