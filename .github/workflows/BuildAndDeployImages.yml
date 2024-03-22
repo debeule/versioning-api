@@ -31,7 +31,4 @@ jobs:
 
       - name: Push images to GHCR
         run: docker compose push
-
-      - name: Logout of GHCR
-        run: docker logout ghcr.io
       
