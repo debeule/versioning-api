@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Exports;
+namespace App\Users;
 
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Sanctum\PersonalAccessToken;

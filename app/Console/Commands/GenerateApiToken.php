@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use App\Exports\User;
+use App\Users\User;
 use Illuminate\Console\Command;
 
 class GenerateApiToken extends Command
