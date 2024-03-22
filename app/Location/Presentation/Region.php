@@ -8,7 +8,7 @@ use App\Location\Municipality;
 use App\Location\Region as DbRegion;
 use Illuminate\Database\Eloquent\Model;
 
-final class Region extends Model
+final class Region
 {
     public static function new(): self
     {

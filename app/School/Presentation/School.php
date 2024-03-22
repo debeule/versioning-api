@@ -10,8 +10,10 @@ use App\School\BillingProfile;
 use App\School\School as DbSchool;
 use Illuminate\Database\Eloquent\Model;
 
-final class School extends Model
+final class School
 {
+    
+
     public static function new(): self
     {
         return new self();
