@@ -32,6 +32,9 @@ jobs:
         sudo docker exec -u 0 app composer start
         sudo docker exec -u 0 app composer testing
 
+    - name: wait
+      run: sleep 10
+
     - name: add permissions to phpunit executable
       run: sudo docker exec -u 0 app chmod 777 vendor/bin/phpunit
         
