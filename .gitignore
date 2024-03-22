@@ -5,6 +5,7 @@
 /public/storage
 /storage/*.key
 /storage/
+!/storage/app/excel/TestFile.xls
 /vendor
 .env
 .env.backup
