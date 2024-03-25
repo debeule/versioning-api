@@ -1,4 +1,4 @@
-name: Build and deploy all container images
+name: Build and deploy images
 
 on:
   push:
@@ -7,10 +7,13 @@ on:
       - 'deploy/**'
     branches: [ main ]
   pull_request:
+    paths:
+      - 'docker-compose.yml'
+      - 'deploy/**'
     branches: [ "main" ]
 
 jobs:
-  build-and-deploy:
+  build-deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
