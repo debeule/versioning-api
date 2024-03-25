@@ -27,6 +27,9 @@ jobs:
     - name: setup containers
       run: sudo docker compose up --no-build --wait
 
+    - name: install project
+      run: sudo docker exec -u 0 app composer setup
+
     - name: setup databases
       run: |
         sudo docker exec -u 0 app composer main
