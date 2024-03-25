@@ -76,41 +76,37 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "scripts": {
-        "start": [
+        "start": "composer setup && composer main",
+        "start:testing": "composer setup && composer main && composer testing && composer testing:seed",
+        
+        "setup": [
             "php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
-
             "composer install --prefer-dist --no-ansi --no-interaction --no-progress",
-            "php artisan key:generate --ansi",
+            "php artisan key:generate --ansi"
+        ],
+
+        "main": [
             "php artisan migrate:fresh --path=database/main/migrations/ --database=db"
         ],
-        
-        "main:migrate": "php artisan migrate:fresh --path=database/main/migrations/ --database=db",
 
         "testing": [
             "php -r \"file_exists('database/kohera') || mkdir('database/kohera', 0777, true); touch('database/kohera/database.sqlite');\"",
             "php artisan migrate:fresh --path=database/main/migrations/ --database=db-testing",
             "php artisan migrate:fresh --path=database/kohera/migrations/ --database=kohera-testing"
         ],
-        "testing-seed": "php artisan db:seed --database=kohera-testing",
-
-        "kohera:migrate": "php artisan migrate:fresh --path=database/kohera/migrations/ --database=kohera-testing",
-        "testing:clean": [
-            "php artisan migrate:fresh --path=database/main/migrations/ --database=db-testing",
-            "php artisan migrate:fresh --path=database/kohera/migrations/ --database=kohera-testing"
-        ],
         "testing:seed": "php artisan db:seed --database=kohera-testing",
-
-        "cs:check": "vendor/bin/phpcs --standard=PSR12 app",
-        "cs:fix": "vendor/bin/php-cs-fixer fix --verbose",
-        "phpstan": "vendor/bin/phpstan analyse --memory-limit=2G",
         
-        "phpunit2": [
-            "vendor/bin/phpunit --colors=always,'Feature','Integration'"
-        ],
         "phpunit": [
             "php artisan migrate:fresh --path=database/main/migrations/ --database=db-testing",
             "php artisan migrate:fresh --path=database/kohera/migrations/ --database=kohera-testing",
             "vendor/bin/phpunit --colors=always,'Feature','Integration'"
-        ]
+        ],
+        "phpunit2": [
+            "vendor/bin/phpunit --colors=always,'Feature','Integration'"
+        ],
+
+        "cs:check": "vendor/bin/phpcs --standard=PSR12 app",
+        "cs:fix": "vendor/bin/php-cs-fixer fix --verbose",
+        "phpstan": "vendor/bin/phpstan analyse --memory-limit=2G"
     }
 }
