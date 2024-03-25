@@ -25,16 +25,11 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_TOKEN }}
 
-      - name: Build app image
-        run: docker compose build app
-
-      
-      - name: Build cron image
-        run: docker compose build cron
+      - name: Build images
+        run: docker compose up -d --build
 
       - name: Install composer dependencies in app image
         run: sudo docker exec -u 0 app composer install
 
       - name: Push images to GHCR
         run: docker compose push
-      
