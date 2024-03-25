@@ -32,6 +32,9 @@ jobs:
       - name: Build cron image
         run: docker compose build cron
 
+      - name: Install composer dependencies in app image
+        run: sudo docker exec -u 0 app composer install
+
       - name: Push images to GHCR
         run: docker compose push
       
