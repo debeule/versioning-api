@@ -1,5 +1,14 @@
 # Feedback
 
+## 2024-03-27
+
+### Speed up tests
+
+Tests that do not require the framework to be fully loaded should extend `\PHPUnit\Framework\TestCase`
+instead of `\App\Testing\TestCase`. This will also make it apparent which classes should be reworked
+to not depend on the framework, e.g. every use of `app()`, `config()` or Facades should be replaced
+with dependency injection.
+
 ## 2024-03-06
 
 ### Organising code
