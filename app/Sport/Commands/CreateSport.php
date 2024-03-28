@@ -5,8 +5,8 @@ declare(strict_types=1);
 
 namespace App\Sport\Commands;
 
-use App\Kohera\Sport as KoheraSport;
-use App\Sport\Sport;
+use App\Imports\Queries\Sport;
+use App\Sport\Sport as DbSport;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 final class CreateSport
@@ -14,20 +14,20 @@ final class CreateSport
     use DispatchesJobs;
 
     public function __construct(
-        public KoheraSport $koheraSport
+        public Sport $sport
     ) {}
 
     public function handle(): bool
     {
-        return $this->buildRecord($this->koheraSport)->save();
+        return $this->buildRecord($this->sport)->save();
     }
 
-    public function buildRecord(KoheraSport $koheraSport): Sport
+    public function buildRecord(Sport $sport): DbSport
     {
-        $newSport = new Sport();
+        $newSport = new DbSport();
 
-        $newSport->record_id = $koheraSport->recordId();
-        $newSport->name = $this->koheraSport->name();
+        $newSport->record_id = $sport->recordId();
+        $newSport->name = $this->sport->name();
 
         return $newSport;
     }
