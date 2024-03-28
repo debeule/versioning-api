@@ -168,7 +168,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\HorizonServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-    Laravel\Horizon\HorizonServiceProvider::class,
+        Laravel\Horizon\HorizonServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         
         App\Providers\MunicipalityServiceProvider::class,
