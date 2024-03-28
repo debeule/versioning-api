@@ -6,8 +6,9 @@ namespace App\Kohera\Queries;
 
 use App\Kohera\Sport;
 use Illuminate\Database\Eloquent\Builder;
+use App\Kohera\Queries\ExternalSports;
 
-final class AllSports
+final class AllSports implements ExternalSports
 {
     public function query(): Builder
     {

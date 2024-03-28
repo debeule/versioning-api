@@ -6,8 +6,9 @@ namespace App\Kohera\Queries;
 
 use App\Kohera\Region;
 use Illuminate\Database\Eloquent\Builder;
+use App\Kohera\Queries\ExternalRegions;
 
-final class AllRegions
+final class AllRegions implements ExternalRegions
 {
     public function query(): Builder
     {

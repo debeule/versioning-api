@@ -7,9 +7,9 @@ namespace App\Kohera\Queries;
 use App\Kohera\BillingProfile;
 use App\Kohera\School;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Collection;
+use App\Imports\Queries\ExternalBillingProfiles;
 
-final class AllBillingProfiles
+final class AllBillingProfiles implements ExternalBillingProfiles
 {
     public function query(): Builder
     {

@@ -6,8 +6,9 @@ namespace App\Kohera\Queries;
 
 use App\Kohera\School;
 use Illuminate\Database\Eloquent\Builder;
+use App\Kohera\Queries\ExternalSchools;
 
-final class AllSchools
+final class AllSchools implements ExternalSchools
 {
     public function query(): Builder
     {

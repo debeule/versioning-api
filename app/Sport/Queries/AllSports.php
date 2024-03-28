@@ -10,8 +10,9 @@ use App\Sport\Sport;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
+use App\Imports\Queries\ExternalSports;
 
-final class AllSports
+final class AllSports implements ExternalSports
 {
     public function __construct(
         public FromVersion $fromVersion = new FromVersion,

@@ -8,8 +8,9 @@ use App\Kohera\Address;
 use App\Kohera\School;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
+use App\Imports\Queries\ExternalAddresses;
 
-final class AllAddresses
+final class AllAddresses implements ExternalAddresses
 {
     public function query(): Builder
     {
