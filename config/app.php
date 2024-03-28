@@ -168,9 +168,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\HorizonServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\MunicipalityServiceProvider::class,
-        Laravel\Horizon\HorizonServiceProvider::class,
+    Laravel\Horizon\HorizonServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        
+        App\Providers\MunicipalityServiceProvider::class,
+        App\Providers\RegionServiceProvider::class,
         
     ])->toArray(),
 
