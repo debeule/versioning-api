@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace App\School\Commands;
 
-use App\Kohera\Commands\SyncAddresses;
-use App\Kohera\Commands\SyncBillingProfiles;
-use App\Kohera\Commands\SyncSchools;
+use App\School\Commands\SyncAddresses;
+use App\School\Commands\SyncBillingProfiles;
+use App\School\Commands\SyncSchools;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 final class SyncSchoolDomain
 {
+    use DispatchesJobs;
+
     public function __invoke(): void
     {
-        $syncaddresses = new SyncAddresses();
-        $syncaddresses();
-        
-        $syncSchools = new SyncSchools();
-        $syncSchools();
+        $this->DispatchSync(new SyncAddresses);
 
-        $syncBillingProfiles = new SyncBillingProfiles();
-        $syncBillingProfiles();
+        $this->DispatchSync(new SyncSchools);
+
+        $this->DispatchSync(new SyncBillingProfiles);
     }
 }

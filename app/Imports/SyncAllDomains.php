@@ -9,6 +9,7 @@ use App\School\Commands\SyncSchoolDomain;
 use App\Sport\Commands\SyncSportDomain;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -16,17 +17,14 @@ use Illuminate\Queue\SerializesModels;
 
 final class SyncAllDomains implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use DispatchesJobs;
 
     public function handle(): void
     {
-        $syncLocations = new SyncLocationDomain();
-        $syncLocations();
+        $this->DispatchSync(new SyncLocationDomain());
 
-        $syncSchools = new SyncSchoolDomain();
-        $syncSchools();
+        $this->DispatchSync(new SyncSchoolDomain());
 
-        $syncSports = new SyncSportDomain();
-        $syncSports();
+        $this->DispatchSync(new SyncSportDomain());
     }
 }
