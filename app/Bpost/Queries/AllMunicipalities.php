@@ -10,8 +10,9 @@ use App\Imports\Values\MunicipalitiesUri;
 use App\Services\ImportFileToStorage;
 use App\Services\SpreadsheetToCollection;
 use Illuminate\Support\Collection;
+use App\Imports\Queries\ExternalMunicipalities;
 
-final class AllMunicipalities
+final class AllMunicipalities implements ExternalMunicipalities
 {
     private string $source, $storagePath;
 
