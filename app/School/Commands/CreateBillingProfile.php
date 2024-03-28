@@ -5,8 +5,8 @@ declare(strict_types=1);
 
 namespace App\School\Commands;
 
-use App\Kohera\BillingProfile as KoheraBillingProfile;
-use App\School\BillingProfile;
+use App\Imports\Queries\BillingProfile;
+use App\School\BillingProfile as DbBillingProfile;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 final class CreateBillingProfile
@@ -14,25 +14,25 @@ final class CreateBillingProfile
     use DispatchesJobs;
 
     public function __construct(
-        public KoheraBillingProfile $koheraBillingProfile
+        public BillingProfile $billingProfile
     ) {}
 
     public function handle(): bool
     {
-        return $this->buildRecord($this->koheraBillingProfile)->save();
+        return $this->buildRecord($this->billingProfile)->save();
     }    
 
-    private function buildRecord(KoheraBillingProfile $koheraBillingProfile): BillingProfile
+    private function buildRecord(BillingProfile $billingProfile): DbBillingProfile
     {
-        $newBillingProfile = new BillingProfile();
+        $newBillingProfile = new DbBillingProfile();
 
-        $newBillingProfile->record_id = $koheraBillingProfile->recordId();
-        $newBillingProfile->name = $koheraBillingProfile->name();
-        $newBillingProfile->email = $koheraBillingProfile->email();
-        $newBillingProfile->vat_number = $koheraBillingProfile->vatNumber();
-        $newBillingProfile->tav = $koheraBillingProfile->tav();
-        $newBillingProfile->address_id = $koheraBillingProfile->address()->id;
-        $newBillingProfile->school_id = $koheraBillingProfile->school()->id;
+        $newBillingProfile->record_id = $billingProfile->recordId();
+        $newBillingProfile->name = $billingProfile->name();
+        $newBillingProfile->email = $billingProfile->email();
+        $newBillingProfile->vat_number = $billingProfile->vatNumber();
+        $newBillingProfile->tav = $billingProfile->tav();
+        $newBillingProfile->address_id = $billingProfile->address()->id;
+        $newBillingProfile->school_id = $billingProfile->school()->id;
         
         return $newBillingProfile;
     }

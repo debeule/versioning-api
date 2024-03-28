@@ -5,8 +5,8 @@ declare(strict_types=1);
 
 namespace App\School\Commands;
 
-use App\Kohera\School as KoheraSchool;
-use App\School\School;
+use App\Imports\Queries\School;
+use App\School\School as DbSchool;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 
@@ -15,27 +15,27 @@ final class CreateSchool
     use DispatchesJobs;
 
     public function __construct(
-        public KoheraSchool $koheraSchool
+        public School $school
     ) {}
 
     public function handle(): bool
     {
-        return $this->buildRecord($this->koheraSchool)->save();
+        return $this->buildRecord($this->school)->save();
     }    
 
-    private function buildRecord(KoheraSchool $koheraSchool): School
+    private function buildRecord(School $school): DbSchool
     {        
-        $newSchool = new School();
+        $newSchool = new DbSchool();
         
-        $newSchool->record_id = $koheraSchool->recordId();
-        $newSchool->name = $koheraSchool->name();
-        $newSchool->email = $koheraSchool->email();
-        $newSchool->contact_email = $koheraSchool->contactEmail();
-        $newSchool->type = $koheraSchool->type();
-        $newSchool->school_number = $koheraSchool->schoolNumber();
-        $newSchool->institution_id = $koheraSchool->institutionId();
-        $newSchool->student_count = $koheraSchool->studentCount();
-        $newSchool->address_id = $koheraSchool->address()->id;
+        $newSchool->record_id = $school->recordId();
+        $newSchool->name = $school->name();
+        $newSchool->email = $school->email();
+        $newSchool->contact_email = $school->contactEmail();
+        $newSchool->type = $school->type();
+        $newSchool->school_number = $school->schoolNumber();
+        $newSchool->institution_id = $school->institutionId();
+        $newSchool->student_count = $school->studentCount();
+        $newSchool->address_id = $school->address()->id;
         
         return $newSchool;
     }
