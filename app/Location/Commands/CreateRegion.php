@@ -5,8 +5,8 @@ declare(strict_types=1);
 
 namespace App\Location\Commands;
 
-use App\Imports\Queries\Region
-use App\Location\Region;
+use App\Imports\Queries\Region;
+use App\Location\Region as DbRegion;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 final class CreateRegion
@@ -22,9 +22,9 @@ final class CreateRegion
         return $this->buildRecord($this->region)->save();
     }
 
-    public function buildRecord(Region $region): Region
+    public function buildRecord(Region $region): DbRegion
     {
-        $newRegion = new Region();
+        $newRegion = new DbRegion();
 
         $newRegion->name = $region->name();
         $newRegion->record_id = $region->recordId();
