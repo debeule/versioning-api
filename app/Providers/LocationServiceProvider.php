@@ -3,8 +3,12 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Bpost\Queries\AllMunicipalities;
+
 use App\Imports\Queries\ExternalMunicipalities;
+use App\Bpost\Queries\AllMunicipalities;
+
+use App\Imports\Queries\ExternalRegions;
+use App\Kohera\Queries\AllRegions;
  
 class LocationServiceProvider extends ServiceProvider 
 {

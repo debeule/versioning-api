@@ -171,8 +171,9 @@ return [
         Laravel\Horizon\HorizonServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         
-        App\Providers\MunicipalityServiceProvider::class,
-        App\Providers\RegionServiceProvider::class,
+        App\Providers\SportServiceProvider::class,
+        App\Providers\SchoolServiceProvider::class,
+        App\Providers\LocationServiceProvider::class,
         
     ])->toArray(),
 

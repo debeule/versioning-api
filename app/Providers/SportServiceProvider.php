@@ -5,9 +5,9 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 
 use App\Imports\Queries\ExternalSports;
-use App\Bpost\Queries\AllSports;
+use App\Sport\Queries\AllSports;
  
-class LocationServiceProvider extends ServiceProvider 
+class SportServiceProvider extends ServiceProvider 
 {
     public function register()
     {

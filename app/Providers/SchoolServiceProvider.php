@@ -13,9 +13,7 @@ use App\Kohera\Queries\AllSchools;
 use App\Imports\Queries\ExternalBillingProfiles;
 use App\Kohera\Queries\AllBillingProfiles;
 
-
- 
-class LocationServiceProvider extends ServiceProvider 
+class SchoolServiceProvider extends ServiceProvider 
 {
     public function register()
     {
