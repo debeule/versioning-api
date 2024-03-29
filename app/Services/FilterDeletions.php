@@ -20,6 +20,6 @@ final class FilterDeletions
             $existingRecords = $this->existingRecords->where('record_id', '!=', $externalRecord->recordId());
         }
         
-        return $existingRecords;
+        return $existingRecords ?? collect();
     }
 }
