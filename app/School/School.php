@@ -41,6 +41,7 @@ final class School extends Model
         return $this->hasOne(Address::class);
     }
 
+    # TODO: remove coupling / move to diff class && repeat for all models
     public function hasChanged(KoheraSchool $koheraSchool): bool
     {
         $recordhasChanged = false;
