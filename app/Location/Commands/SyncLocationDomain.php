@@ -14,8 +14,8 @@ final class SyncLocationDomain
 
     public function __invoke(): void
     {
-        $this->DispatchSync(new SyncMunicipalities());
+        $this->DispatchSync(new SyncMunicipalities);
 
-        $this->DispatchSync(new SyncRegions());
+        $this->DispatchSync(new SyncRegions);
     }
 }
