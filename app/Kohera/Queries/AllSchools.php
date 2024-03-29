@@ -6,7 +6,8 @@ namespace App\Kohera\Queries;
 
 use App\Kohera\School;
 use Illuminate\Database\Eloquent\Builder;
-use App\Kohera\Queries\ExternalSchools;
+use App\Imports\Queries\ExternalSchools;
+use Illuminate\Support\Collection;
 
 final class AllSchools implements ExternalSchools
 {
@@ -15,7 +16,7 @@ final class AllSchools implements ExternalSchools
         return School::query();
     }
 
-    public function get(): Object
+    public function get(): Collection
     {
         return $this->query()->get();
     }

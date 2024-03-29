@@ -8,6 +8,7 @@ use App\Kohera\BillingProfile;
 use App\Kohera\School;
 use Illuminate\Database\Eloquent\Builder;
 use App\Imports\Queries\ExternalBillingProfiles;
+use Illuminate\Support\Collection;
 
 final class AllBillingProfiles implements ExternalBillingProfiles
 {

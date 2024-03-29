@@ -6,7 +6,8 @@ namespace App\Kohera\Queries;
 
 use App\Kohera\Region;
 use Illuminate\Database\Eloquent\Builder;
-use App\Kohera\Queries\ExternalRegions;
+use App\Imports\Queries\ExternalRegions;
+use Illuminate\Support\Collection;
 
 final class AllRegions implements ExternalRegions
 {
@@ -16,12 +17,12 @@ final class AllRegions implements ExternalRegions
     }
 
     # TODO: not used anywhere?
-    public function get(): Object
+    public function get(): Collection
     {
         return $this->query()->get()->unique('RegioDetailId');
     }
 
-    public function getWithDoubles(): Object
+    public function getWithDoubles(): Collection
     {
         return $this->query()->get();
     }
