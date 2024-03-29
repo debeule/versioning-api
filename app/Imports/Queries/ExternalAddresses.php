@@ -6,7 +6,7 @@ namespace App\Imports\Queries;
 
 use Illuminate\Support\Collection;
 
-interface ExternalBillingProfiles
+interface ExternalAddresses
 {
     public function get(): Collection;
 }
