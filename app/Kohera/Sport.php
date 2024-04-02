@@ -30,4 +30,9 @@ final class Sport extends Model implements SportContract
     {
         return Sanitizer::input($this->Sportkeuze)->stringToLower()->value();
     }
+
+    public function hasChanged(DbSport $dbSport): bool
+    {
+        return $dbSport->name !== $this->name();
+    }
 }

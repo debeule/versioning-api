@@ -17,27 +17,30 @@ final class SportDiff
     use DispatchesJobs;
 
     public function __construct(
-        private AllSports $allSports = new AllSports,
-        private ExternalSports $externalSports,
-    ) {}
+        private AllSports $allSportsQuery = new AllSports,
+        private ExternalSports $externalSportsQuery,
+    ) {
+        $this->allSports = $this->allSportsQuery->get();
+        $this->externalSports = $this->externalSportsQuery->get();
+    }
 
-    public function externalSports(ExternalSports $externalSports): self
+    public function externalSports(ExternalSports $externalSportsQuery): self
     {
-        return new self($this->allSports, $externalSports);
+        return new self($this->allSportsQuery, $externalSportsQuery);
     }
 
     public function additions(): Collection
     {
-        return $this->DispatchSync(new FilterAdditions($this->allSports->get(), $this->externalSports->get()));
+        return $this->DispatchSync(new FilterAdditions($this->allSports, $this->externalSports));
     }
 
     public function deletions(): Collection
     {
-        return $this->DispatchSync(new FilterDeletions($this->allSports->get(), $this->externalSports->get()));
+        return $this->DispatchSync(new FilterDeletions($this->allSports, $this->externalSports));
     }
 
     public function updates(): Collection
     {
-        return $this->DispatchSync(new FilterUpdates($this->allSports->get(), $this->externalSports->get()));
+        return $this->DispatchSync(new FilterUpdates($this->allSports, $this->externalSports));
     }
 }

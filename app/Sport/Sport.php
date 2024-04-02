@@ -22,9 +22,4 @@ final class Sport extends Model
         'record_id',
         'name',
     ];
-
-    public function hasChanged(KoheraSport $koheraSport): bool
-    {
-        return $this->name !== $koheraSport->name();
-    }
 }
