@@ -15,11 +15,13 @@ final class FilterDeletions
 
     public function handle(): Collection
     {
+        $deletedRecords = $this->existingRecords;
+
         foreach ($this->externalRecords as $externalRecord) 
         {
-            $existingRecords = $this->existingRecords->where('record_id', '!=', $externalRecord->recordId());
+            $deletedRecords = $deletedRecords->where('record_id', '!=', $externalRecord->recordId());
         }
         
-        return $existingRecords ?? collect();
+        return $deletedRecords;
     }
 }

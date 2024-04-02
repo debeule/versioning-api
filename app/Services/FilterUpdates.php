@@ -24,7 +24,7 @@ final class FilterUpdates
             ->first();
             
             if (empty($existingRecord)) continue;
-            if(! $existingRecord->hasChanged($externalRecord)) continue;
+            if(! $externalRecord->hasChanged($existingRecord)) continue;
 
             $updatedRecords->push($externalRecord);
         }
