@@ -17,7 +17,7 @@ use Illuminate\Queue\SerializesModels;
 
 final class SyncAllDomains implements ShouldQueue
 {
-    use DispatchesJobs;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public function handle(): void
     {
