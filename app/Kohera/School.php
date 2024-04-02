@@ -8,6 +8,7 @@ use App\Imports\Queries\School as SchoolContract;
 use App\Imports\Sanitizer\Sanitizer;
 use App\School\Address;
 use Illuminate\Database\Eloquent\Model;
+use App\School\School as DbSchool;
 
 final class School extends Model implements SchoolContract
 {
@@ -86,5 +87,20 @@ final class School extends Model implements SchoolContract
     public function address(): Address
     {
         return Address::where('record_id', 'school-' . $this->recordId())->first();
+    }
+    
+    public function hasChanged(DbSchool $dbSchool): bool
+    {
+        $recordhasChanged = false;
+
+        $recordhasChanged = $dbSchool->name !== $this->name();
+        $recordhasChanged = $recordhasChanged || $dbSchool->email !== $this->email();
+        $recordhasChanged = $recordhasChanged || $dbSchool->contact_email !== $this->contactEmail();
+        $recordhasChanged = $recordhasChanged || $dbSchool->type !== $this->type();
+        $recordhasChanged = $recordhasChanged || $dbSchool->school_number !== $this->schoolNumber();
+        $recordhasChanged = $recordhasChanged || $dbSchool->institution_id !== $this->institutionId();
+        $recordhasChanged = $recordhasChanged || $dbSchool->student_count !== $this->studentCount();
+
+        return $recordhasChanged;
     }
 }

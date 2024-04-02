@@ -40,20 +40,4 @@ final class School extends Model
     {
         return $this->hasOne(Address::class);
     }
-
-    # TODO: remove coupling / move to diff class && repeat for all models
-    public function hasChanged(KoheraSchool $koheraSchool): bool
-    {
-        $recordhasChanged = false;
-
-        $recordhasChanged = $this->name !== $koheraSchool->name();
-        $recordhasChanged = $recordhasChanged || $this->email !== $koheraSchool->email();
-        $recordhasChanged = $recordhasChanged || $this->contact_email !== $koheraSchool->contactEmail();
-        $recordhasChanged = $recordhasChanged || $this->type !== $koheraSchool->type();
-        $recordhasChanged = $recordhasChanged || $this->school_number !== $koheraSchool->schoolNumber();
-        $recordhasChanged = $recordhasChanged || $this->institution_id !== $koheraSchool->institutionId();
-        $recordhasChanged = $recordhasChanged || $this->student_count !== $koheraSchool->studentCount();
-
-        return $recordhasChanged;
-    }
 }
