@@ -26,14 +26,4 @@ final class Region extends Model
     {
         return $this->hasMany(Municipality::class);
     }
-
-    public function hasChanged(KoheraRegion $koheraRegion): bool
-    {
-        $recordhasChanged = false;
-
-        $recordhasChanged = $this->name !== $koheraRegion->name();
-        $recordhasChanged = $recordhasChanged || $this->region_number !== $koheraRegion->regionNumber();
-
-        return $recordhasChanged;
-    }
 }

@@ -17,27 +17,30 @@ final class RegionDiff
     use DispatchesJobs;
 
     public function __construct(
-        private AllRegions $allRegions = new AllRegions,
-        private ExternalRegions $externalRegions,
-    ) {}
+        private AllRegions $allRegionsQuery = new AllRegions,
+        private ExternalRegions $externalRegionsQuery,
+    ) {
+        $this->allRegions = $this->allRegionsQuery->get();
+        $this->externalRegions = $this->externalRegionsQuery->get();
+    }
 
-    public function externalRegions(ExternalRegions $externalRegions): self
+    public function externalRegions(ExternalRegions $externalRegionsQuery): self
     {
-        return new self($this->allRegions, $externalRegions);
+        return new self($this->allRegionsQuery, $externalRegionsQuery);
     }
 
     public function additions(): Collection
     {
-        return $this->DispatchSync(new FilterAdditions($this->allRegions->get(), $this->externalRegions->get()));
+        return $this->DispatchSync(new FilterAdditions($this->allRegions, $this->externalRegions));
     }
 
     public function deletions(): Collection
     {
-        return $this->DispatchSync(new FilterDeletions($this->allRegions->get(), $this->externalRegions->get()));
+        return $this->DispatchSync(new FilterDeletions($this->allRegions, $this->externalRegions));
     }
 
     public function updates(): Collection
     {
-        return $this->DispatchSync(new FilterUpdates($this->allRegions->get(), $this->externalRegions->get()));
+        return $this->DispatchSync(new FilterUpdates($this->allRegions, $this->externalRegions));
     }
 }

@@ -7,6 +7,7 @@ namespace App\Kohera;
 use App\Imports\Queries\Region as RegionContract;
 use App\Imports\Sanitizer\Sanitizer;
 use Illuminate\Database\Eloquent\Model;
+use App\Location\Region as DbRegion;
 
 final class Region extends Model implements RegionContract
 {
@@ -39,5 +40,15 @@ final class Region extends Model implements RegionContract
     public function postalCode(): int
     {
         return Sanitizer::input($this->Postcode)->numericValue();
-    }   
+    }
+
+    public function hasChanged(DbRegion $dbRegion): bool
+    {
+        $recordhasChanged = false;
+
+        $recordhasChanged = $dbRegion->name !== $this->name();
+        $recordhasChanged = $recordhasChanged || $dbRegion->region_number !== $this->regionNumber();
+
+        return $recordhasChanged;
+    }
 }
