@@ -37,19 +37,4 @@ final class BillingProfile extends Model
     {
         return $this->belongsTo(School::class);
     }
-
-    public function hasChanged(Mixed $importedBillingProfile): bool
-    {
-        $recordHasChanged = false;
-
-        $recordHasChanged = $this->record_id !== $importedBillingProfile->recordId();
-        $recordHasChanged = $recordHasChanged || $this->name !== $importedBillingProfile->name();
-        $recordHasChanged = $recordHasChanged || $this->email !== $importedBillingProfile->email();
-        $recordHasChanged = $recordHasChanged || $this->vat_number !== $importedBillingProfile->vatNumber();
-        $recordHasChanged = $recordHasChanged || $this->tav !== $importedBillingProfile->tav();
-        $recordHasChanged = $recordHasChanged || $this->address_id !== $importedBillingProfile->address()->id;
-        $recordHasChanged = $recordHasChanged || $this->school_id !== $importedBillingProfile->school()->id;
-        
-        return $recordHasChanged;
-    }
 }

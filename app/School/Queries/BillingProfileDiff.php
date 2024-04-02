@@ -17,27 +17,30 @@ final class BillingProfileDiff
     use DispatchesJobs;
 
     public function __construct(
-        private AllBillingProfiles $allBillingProfiles = new AllBillingProfiles,
-        private ExternalBillingProfiles $externalBillingProfiles,
-    ) {}
+        private AllBillingProfiles $allBillingProfilesQuery = new AllBillingProfiles,
+        private ExternalBillingProfiles $externalBillingProfilesQuery,
+    ) {
+        $this->allBillingProfiles = $this->allBillingProfilesQuery->get();
+        $this->externalBillingProfiles = $this->externalBillingProfilesQuery->get();
+    }
 
-    public function externalBillingProfiles(ExternalBillingProfiles $externalBillingProfiles): self
+    public function externalBillingProfiles(ExternalBillingProfiles $externalBillingProfilesQuery): self
     {
-        return new self($this->allBillingProfiles, $externalBillingProfiles);
+        return new self($this->allBillingProfilesQuery, $externalBillingProfilesQuery);
     }
 
     public function additions(): Collection
     {
-        return $this->DispatchSync(new FilterAdditions($this->allBillingProfiles->get(), $this->externalBillingProfiles->get()));
+        return $this->DispatchSync(new FilterAdditions($this->allBillingProfiles, $this->externalBillingProfiles));
     }
 
     public function deletions(): Collection
     {
-        return $this->DispatchSync(new FilterDeletions($this->allBillingProfiles->get(), $this->externalBillingProfiles->get()));
+        return $this->DispatchSync(new FilterDeletions($this->allBillingProfiles, $this->externalBillingProfiles));
     }
 
     public function updates(): Collection
     {
-        return $this->DispatchSync(new FilterUpdates($this->allBillingProfiles->get(), $this->externalBillingProfiles->get()));
+        return $this->DispatchSync(new FilterUpdates($this->allBillingProfiles, $this->externalBillingProfiles));
     }
 }
