@@ -17,27 +17,30 @@ final class MunicipalityDiff
     use DispatchesJobs;
 
     public function __construct(
-        private AllMunicipalities $allMunicipalities = new AllMunicipalities,
-        private ExternalMunicipalities $externalMunicipalities,
-    ) {}
+        private AllMunicipalities $allMunicipalitiesQuery = new AllMunicipalities,
+        private ExternalMunicipalities $externalMunicipalitiesQuery,
+    ) {
+        $this->allMunicipalities = $this->allMunicipalitiesQuery->get();
+        $this->externalMunicipalities = $this->externalMunicipalitiesQuery->get();
+    }
 
-    public function externalMunicipalities(ExternalMunicipalities $externalMunicipalities): self
+    public function externalMunicipalities(ExternalMunicipalities $externalMunicipalitiesQuery): self
     {
-        return new self($this->allMunicipalities, $externalMunicipalities);
+        return new self($this->allMunicipalitiesQuery, $externalMunicipalitiesQuery);
     }
 
     public function additions(): Collection
     {
-        return $this->DispatchSync(new FilterAdditions($this->allMunicipalities->get(), $this->externalMunicipalities->get()));
+        return $this->DispatchSync(new FilterAdditions($this->allMunicipalities, $this->externalMunicipalities));
     }
 
     public function deletions(): Collection
     {
-        return $this->DispatchSync(new FilterDeletions($this->allMunicipalities->get(), $this->externalMunicipalities->get()));
+        return $this->DispatchSync(new FilterDeletions($this->allMunicipalities, $this->externalMunicipalities));
     }
 
     public function updates(): Collection
     {
-        return $this->DispatchSync(new FilterUpdates($this->allMunicipalities->get(), $this->externalMunicipalities->get()));
+        return $this->DispatchSync(new FilterUpdates($this->allMunicipalities, $this->externalMunicipalities));
     }
 }

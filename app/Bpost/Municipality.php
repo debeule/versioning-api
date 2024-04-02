@@ -6,6 +6,7 @@ namespace App\Bpost;
 
 use App\Imports\Queries\Municipality as MunicipalityContract;
 use App\Imports\Sanitizer\Sanitizer;
+use App\Location\Municipality as DbMunicipality;
 
 final class Municipality implements MunicipalityContract
 {
@@ -53,5 +54,20 @@ final class Municipality implements MunicipalityContract
         }
 
         return null;
+    }
+
+    public function hasChanged(DbMunicipality $dbMunicipality): bool
+    {
+        $recordHasChanged = false;
+        
+        $recordHasChanged = $dbMunicipality->name !== $this->name();
+        $recordHasChanged = $recordHasChanged || $dbMunicipality->province !== $this->province();
+
+        if (! is_null($this->headMunicipality())) 
+        {
+            $recordHasChanged = $recordHasChanged || $dbMunicipality->head_municipality !== $this->headMunicipality();
+        }
+        
+        return $recordHasChanged;
     }
 }

@@ -39,19 +39,4 @@ final class Municipality extends Model
     {
         return $this->belongsTo(Region::class);
     }
-
-    public function hasChanged(Mixed $importedMunicipality): bool
-    {
-        $recordHasChanged = false;
-        
-        $recordHasChanged = $this->name !== $importedMunicipality->name();
-        $recordHasChanged = $recordHasChanged || $this->province !== $importedMunicipality->province();
-
-        if (! is_null($importedMunicipality->headMunicipality())) 
-        {
-            $recordHasChanged = $recordHasChanged || $this->head_municipality !== $importedMunicipality->headMunicipality();
-        }
-        
-        return $recordHasChanged;
-    }
 }
