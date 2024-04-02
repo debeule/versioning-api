@@ -8,6 +8,7 @@ use App\Imports\Queries\Address as AddressContract;
 use App\Imports\Sanitizer\Sanitizer;
 use App\Location\Municipality;
 use Illuminate\Database\Eloquent\Model;
+use App\School\Address as DbAddress;
 
 final class Address extends Model implements AddressContract
 {
@@ -35,5 +36,15 @@ final class Address extends Model implements AddressContract
         $postalCode = Sanitizer::input($this->school->Postcode)->value();
         
         return Municipality::where('postal_code', $postalCode)->first();
+    }
+
+    public function hasChanged(DbAddress $dbAddress): bool
+    {
+        $recordhasChanged = false;
+
+        $recordhasChanged = $dbAddress->street_name !== $this->streetName();
+        $recordhasChanged = $recordhasChanged || $dbAddress->street_identifier !== $this->streetIdentifier();
+
+        return $recordhasChanged;
     }
 }

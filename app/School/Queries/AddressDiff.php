@@ -17,27 +17,30 @@ final class AddressDiff
     use DispatchesJobs;
 
     public function __construct(
-        private AllAddresses $allAddresses = new AllAddresses,
-        private ExternalAddresses $externalAddresses,
-    ) {}
+        private AllAddresses $allAddressesQuery = new AllAddresses,
+        private ExternalAddresses $externalAddressesQuery,
+    ) {
+        $this->allAddresses = $this->allAddressesQuery->get();
+        $this->externalAddresses = $this->externalAddressesQuery->get();
+    }
 
-    public function externalAddresses(ExternalAddresses $externalAddresses): self
+    public function externalAddresses(ExternalAddresses $externalAddressesQuery): self
     {
-        return new self($this->allAddresses, $externalAddresses);
+        return new self($this->allAddressesQuery, $externalAddressesQuery);
     }
 
     public function additions(): Collection
     {
-        return $this->DispatchSync(new FilterAdditions($this->allAddresses->get(), $this->externalAddresses->get()));
+        return $this->DispatchSync(new FilterAdditions($this->allAddresses, $this->externalAddresses));
     }
 
     public function deletions(): Collection
     {
-        return $this->DispatchSync(new FilterDeletions($this->allAddresses->get(), $this->externalAddresses->get()));
+        return $this->DispatchSync(new FilterDeletions($this->allAddresses, $this->externalAddresses));
     }
 
     public function updates(): Collection
     {
-        return $this->DispatchSync(new FilterUpdates($this->allAddresses->get(), $this->externalAddresses->get()));
+        return $this->DispatchSync(new FilterUpdates($this->allAddresses, $this->externalAddresses));
     }
 }

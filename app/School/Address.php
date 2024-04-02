@@ -37,14 +37,4 @@ final class Address extends Model
     {
         return $this->hasOne(School::class);
     }
-
-    public function hasChanged(Mixed $importedAddress): bool
-    {
-        $recordhasChanged = false;
-
-        $recordhasChanged = $this->street_name !== $importedAddress->streetName();
-        $recordhasChanged = $recordhasChanged || $this->street_identifier !== $importedAddress->streetIdentifier();
-
-        return $recordhasChanged;
-    }
 }
