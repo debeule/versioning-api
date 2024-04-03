@@ -19,19 +19,14 @@ final class FilterAdditionsTest extends TestCase
     #[Test]
     public function createContainsNewRecords(): void
     {
-        $data = [
-            'records' => KoheraSchoolFactory::new()->count(3)->create(),
-            'existingRecords' => School::get(),
-        ];
-
-        $result = app(Pipeline::class)
-            ->send($data)
-            ->through([FilterNewRecords::class])
-            ->thenReturn();
+        $result = $this->DispatchSync(new FilterAdditions(
+            School::get(), 
+            KoheraSchoolFactory::new()->count(3)->create()
+        ));
             
-        $this->assertInstanceOf(Collection::class, $result['create']);
-        $this->assertInstanceOf(KoheraSchool::class, $result['create']->first());
-        $this->assertEquals(3, $result['create']->count());
+        $this->assertInstanceOf(Collection::class, $result);
+        $this->assertInstanceOf(KoheraSchool::class, $result->first());
+        $this->assertEquals(3, $result->count());
     }
 
     #[Test]
@@ -44,16 +39,11 @@ final class FilterAdditionsTest extends TestCase
 
         $this->DispatchSync(new CreateSchool($koheraSchools->first()));
 
-        $data = [
-            'records' => $koheraSchools,
-            'existingRecords' => School::get(),
-        ];  
-
-        $result = app(Pipeline::class)
-            ->send($data)
-            ->through([FilterNewRecords::class])
-            ->thenReturn();
+        $result = $this->DispatchSync(new FilterAdditions(
+            School::get(), 
+            $koheraSchools
+        ));
         
-        $this->assertEquals(2, $result['create']->count());
+        $this->assertEquals(2, $result->count());
     }
 }

@@ -19,7 +19,7 @@ final class LinkRegionTest extends TestCase
         $koheraRegion = KoheraRegionFactory::new()->create();
         $this->dispatchSync(new CreateRegion($koheraRegion));
         
-        MunicipalityFactory::new()->withPostalCode($koheraRegion->postalCode())->count(3)->create();
+        MunicipalityFactory::new()->withPostalCode($koheraRegion->postalCode())->create();
 
         $region = Region::where('record_id', $koheraRegion->recordId())->first();
 
@@ -28,7 +28,6 @@ final class LinkRegionTest extends TestCase
         $linkedMunicipalities = Municipality::where('region_id', $region->id)->get();
 
         $this->assertTrue($result); 
-
         $this->assertEquals(1, $linkedMunicipalities->count());
     }
 }

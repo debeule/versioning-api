@@ -24,11 +24,12 @@ final class FilterUpdates
             ->first();
             
             if (empty($existingRecord)) continue;
+            
             if(! $externalRecord->hasChanged($existingRecord)) continue;
 
             $updatedRecords->push($externalRecord);
         }
-
+        
         return $updatedRecords;
     }
 }

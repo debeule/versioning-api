@@ -32,39 +32,35 @@ final class FilterUpdatesTest extends TestCase
             $koheraSchool->update(['Name' => 'Updated Name']);
         }
 
-        $result = app(Pipeline::class)
-            ->send([
-                'records' => $koheraSchools,
-                'existingRecords' => School::get(),
-            ])
-            ->through([FilterUpdatedRecords::class])
-            ->thenReturn();
+        $result = $this->DispatchSync(new FilterUpdates(
+            School::get(),
+            $koheraSchools
+        ));
             
-        $this->assertInstanceOf(Collection::class, $result['update']);
-        $this->assertInstanceOf(KoheraSchool::class, $result['update']->first());
-        $this->assertEquals(3, $result['update']->count());
+        $this->assertInstanceOf(Collection::class, $result);
+        $this->assertInstanceOf(KoheraSchool::class, $result->first());
+        $this->assertEquals(3, $result->count());
     }
 
     #[Test]
-    public function updateDoesNotContainNewOrDeletedRecords(): void
+    public function updateDoesNotContainNewRecords(): void
     {
         $koheraSchools = KoheraSchoolFactory::new()->count(3)->create();
+        $koheraSchool = $koheraSchools->first();
 
-        $koheraSchoolRecordId = 'school-' . (string) $koheraSchools->first()->recordId();
+        $koheraSchoolRecordId = 'school-' . (string) $koheraSchool->recordId();
         AddressFactory::new()->withId($koheraSchoolRecordId)->create();
+        $this->DispatchSync(new CreateSchool($koheraSchool));
 
-        $this->DispatchSync(new CreateSchool($koheraSchools->first()));
+        $koheraSchool->name = 'Updated Name';
+        $koheraSchool->save();
 
-        $data = [
-            'records' => $koheraSchools,
-            'existingRecords' => School::get(),
-        ];  
-
-        $result = app(Pipeline::class)
-            ->send($data)
-            ->through([FilterNewRecords::class])
-            ->thenReturn();
+        $result = $this->DispatchSync(new FilterUpdates(
+            School::get(),
+            KoheraSchool::get()
+        ));
         
-        $this->assertEquals(2, $result['create']->count());
+        $this->assertEquals(1, $result->count());
+        $this->assertEquals($koheraSchool->recordId(), $result->first()->recordId());
     }
 }

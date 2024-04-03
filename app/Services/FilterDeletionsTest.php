@@ -19,17 +19,14 @@ final class FilterDeletionsTest extends TestCase
     {
         SchoolFactory::new()->create();
 
-        $result = app(Pipeline::class)
-            ->send([
-                'records' => KoheraSchool::get(),
-                'existingRecords' => School::get(),
-            ])
-            ->through([FilterDeletedRecords::class])
-            ->thenReturn();
+        $result = $this->DispatchSync(new FilterDeletions(
+            School::get(),
+            KoheraSchool::get()
+        ));
             
-        $this->assertInstanceOf(Collection::class, $result['delete']);
-        $this->assertInstanceOf(School::class, $result['delete']->first());
-        $this->assertEquals(1, $result['delete']->count());
+        $this->assertInstanceOf(Collection::class, $result);
+        $this->assertInstanceOf(School::class, $result->first());
+        $this->assertEquals(1, $result->count());
     }
 
     #[Test]
@@ -38,14 +35,11 @@ final class FilterDeletionsTest extends TestCase
         $schools = SchoolFactory::new()->count(3)->create();
         $schools->first()->delete();
 
-        $result = app(Pipeline::class)
-            ->send([
-                'records' => KoheraSchool::get(),
-                'existingRecords' => School::whereNull('deleted_at')->get(),
-            ])
-            ->through([FilterDeletedRecords::class])
-            ->thenReturn();
+        $result = $this->DispatchSync(new FilterDeletions(
+            School::whereNull('deleted_at')->get(),
+            KoheraSchool::get()
+        ));
         
-        $this->assertEquals(2, $result['delete']->count());
+        $this->assertEquals(2, $result->count());
     }
 }
