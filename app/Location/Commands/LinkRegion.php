@@ -26,14 +26,14 @@ final class LinkRegion
 
     public function linkRegion(Region $region): bool
     {
-        $municipality = Municipality::where('postal_code', $region->postal_code)
+        $municipality = Municipality::where('region_id', $region->region_id)
         ->tap($this->fromVersion)
         ->first();
         
         if(empty($municipality)) return false;
 
         $municipality->region_id = $region->id;
-    
+        
         return $municipality->save();
     }
 }
