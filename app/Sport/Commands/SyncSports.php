@@ -14,9 +14,9 @@ final class SyncSports
 
     public function __invoke(SportDiff $sportDiff): void
     {
-        foreach ($sportDiff->additions() as $koheraSport) 
+        foreach ($sportDiff->additions() as $externalSport) 
         {
-            $this->dispatchSync(new CreateSport($koheraSport));
+            $this->dispatchSync(new CreateSport($externalSport));
         }
 
         foreach ($sportDiff->deletions() as $sport) 
@@ -24,10 +24,10 @@ final class SyncSports
             $this->dispatchSync(new SoftDeleteSport($sport));
         }
 
-        foreach ($sportDiff->updates() as $koheraSport) 
+        foreach ($sportDiff->updates() as $externalSport) 
         {
-            $this->dispatchSync(new SoftDeleteSport(Sport::where('record_id', $koheraSport->recordId())->first()));
-            $this->dispatchSync(new CreateSport($koheraSport));
+            $this->dispatchSync(new SoftDeleteSport(Sport::where('record_id', $externalSport->recordId())->first()));
+            $this->dispatchSync(new CreateSport($externalSport));
         }
     }
 }

@@ -14,9 +14,9 @@ final class SyncMunicipalities
 
     public function __invoke(MunicipalityDiff $municipalityDiff): void
     {
-        foreach ($municipalityDiff->additions() as $koheraMunicipality) 
+        foreach ($municipalityDiff->additions() as $externalMunicipality) 
         {
-            $this->dispatchSync(new CreateMunicipality($koheraMunicipality));
+            $this->dispatchSync(new CreateMunicipality($externalMunicipality));
         }
 
         foreach ($municipalityDiff->deletions() as $municipality) 
@@ -24,10 +24,10 @@ final class SyncMunicipalities
             $this->dispatchSync(new SoftDeleteMunicipality($municipality));
         }
 
-        foreach ($municipalityDiff->updates() as $koheraMunicipality) 
+        foreach ($municipalityDiff->updates() as $externalMunicipality) 
         {
-            $this->dispatchSync(new SoftDeleteMunicipality(Municipality::where('record_id', $koheraMunicipality->recordId())->first()));
-            $this->dispatchSync(new CreateMunicipality($koheraMunicipality));
+            $this->dispatchSync(new SoftDeleteMunicipality(Municipality::where('record_id', $externalMunicipality->recordId())->first()));
+            $this->dispatchSync(new CreateMunicipality($externalMunicipality));
         }
     }
 }

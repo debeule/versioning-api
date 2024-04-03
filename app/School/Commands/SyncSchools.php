@@ -14,9 +14,9 @@ final class SyncSchools
 
     public function __invoke(SchoolDiff $schoolDiff): void
     {
-        foreach ($schoolDiff->additions() as $koheraSchool) 
+        foreach ($schoolDiff->additions() as $externalSchool) 
         {
-            $this->dispatchSync(new CreateSchool($koheraSchool));
+            $this->dispatchSync(new CreateSchool($externalSchool));
         }
 
         foreach ($schoolDiff->deletions() as $school) 
@@ -24,10 +24,10 @@ final class SyncSchools
             $this->dispatchSync(new SoftDeleteSchool($school));
         }
 
-        foreach ($schoolDiff->updates() as $koheraSchool) 
+        foreach ($schoolDiff->updates() as $externalSchool) 
         {
-            $this->dispatchSync(new SoftDeleteSchool(School::where('record_id', $koheraSchool->recordId())->first()));
-            $this->dispatchSync(new CreateSchool($koheraSchool));
+            $this->dispatchSync(new SoftDeleteSchool(School::where('record_id', $externalSchool->recordId())->first()));
+            $this->dispatchSync(new CreateSchool($externalSchool));
         }
     }
 }

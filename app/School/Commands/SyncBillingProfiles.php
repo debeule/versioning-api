@@ -14,9 +14,9 @@ final class SyncBillingProfiles
 
     public function __invoke(BillingProfileDiff $billingProfileDiff): void
     {
-        foreach ($billingProfileDiff->additions() as $koheraBillingProfile) 
+        foreach ($billingProfileDiff->additions() as $externalBillingProfile) 
         {
-            $this->dispatchSync(new CreateBillingProfile($koheraBillingProfile));
+            $this->dispatchSync(new CreateBillingProfile($externalBillingProfile));
         }
 
         foreach ($billingProfileDiff->deletions() as $billingProfile) 
@@ -24,10 +24,10 @@ final class SyncBillingProfiles
             $this->dispatchSync(new SoftDeleteBillingProfile($billingProfile));
         }
 
-        foreach ($billingProfileDiff->updates() as $koheraBillingProfile) 
+        foreach ($billingProfileDiff->updates() as $externalBillingProfile) 
         {
-            $this->dispatchSync(new SoftDeleteBillingProfile(BillingProfile::where('record_id', $koheraBillingProfile->recordId())->first()));
-            $this->dispatchSync(new CreateBillingProfile($koheraBillingProfile));
+            $this->dispatchSync(new SoftDeleteBillingProfile(BillingProfile::where('record_id', $externalBillingProfile->recordId())->first()));
+            $this->dispatchSync(new CreateBillingProfile($externalBillingProfile));
         }
     }
 }

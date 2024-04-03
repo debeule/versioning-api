@@ -14,9 +14,9 @@ final class SyncAddresses
 
     public function __invoke(AddressDiff $addressDiff): void
     {
-        foreach ($addressDiff->additions() as $koheraAddress) 
+        foreach ($addressDiff->additions() as $externalAddress) 
         {
-            $this->dispatchSync(new CreateAddress($koheraAddress));
+            $this->dispatchSync(new CreateAddress($externalAddress));
         }
 
         foreach ($addressDiff->deletions() as $address) 
@@ -24,10 +24,10 @@ final class SyncAddresses
             $this->dispatchSync(new SoftDeleteAddress($address));
         }
 
-        foreach ($addressDiff->updates() as $koheraAddress) 
+        foreach ($addressDiff->updates() as $externalAddress) 
         {
-            $this->dispatchSync(new SoftDeleteAddress(Address::where('record_id', $koheraAddress->recordId())->first()));
-            $this->dispatchSync(new CreateAddress($koheraAddress));
+            $this->dispatchSync(new SoftDeleteAddress(Address::where('record_id', $externalAddress->recordId())->first()));
+            $this->dispatchSync(new CreateAddress($externalAddress));
         }
     }
 }

@@ -14,9 +14,9 @@ final class SyncRegions
 
     public function __invoke(RegionDiff $regionDiff): void
     {
-        foreach ($regionDiff->additions() as $koheraRegion) 
+        foreach ($regionDiff->additions() as $externalRegion) 
         {
-            $this->dispatchSync(new CreateRegion($koheraRegion));
+            $this->dispatchSync(new CreateRegion($externalRegion));
         }
 
         foreach ($regionDiff->deletions() as $region) 
@@ -24,10 +24,10 @@ final class SyncRegions
             $this->dispatchSync(new SoftDeleteRegion($region));
         }
 
-        foreach ($regionDiff->updates() as $koheraRegion) 
+        foreach ($regionDiff->updates() as $externalRegion) 
         {
-            $this->dispatchSync(new SoftDeleteRegion(Region::where('record_id', $koheraRegion->recordId())->first()));
-            $this->dispatchSync(new CreateRegion($koheraRegion));
+            $this->dispatchSync(new SoftDeleteRegion(Region::where('record_id', $externalRegion->recordId())->first()));
+            $this->dispatchSync(new CreateRegion($externalRegion));
         }
     }
 }
