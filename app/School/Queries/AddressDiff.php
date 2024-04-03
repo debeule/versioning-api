@@ -15,9 +15,12 @@ final class AddressDiff
 {
     use DispatchesJobs;
 
+    private Collection $allAddresses;
+    private Collection $externalAddresses;
+
     public function __construct(
         private AllAddresses $allAddressesQuery = new AllAddresses,
-        private ExternalAddresses $externalAddressesQuery,
+        private ?ExternalAddresses $externalAddressesQuery = null,
     ) {
         $this->allAddresses = $this->allAddressesQuery->get();
         $this->externalAddresses = $this->externalAddressesQuery->get();

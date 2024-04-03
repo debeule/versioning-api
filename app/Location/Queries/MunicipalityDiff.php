@@ -15,9 +15,12 @@ final class MunicipalityDiff
 {
     use DispatchesJobs;
 
+    private Collection $allMunicipalities;
+    private Collection $externalMunicipalities;
+
     public function __construct(
         private AllMunicipalities $allMunicipalitiesQuery = new AllMunicipalities,
-        private ExternalMunicipalities $externalMunicipalitiesQuery,
+        private ?ExternalMunicipalities $externalMunicipalitiesQuery = null,
     ) {
         $this->allMunicipalities = $this->allMunicipalitiesQuery->get();
         $this->externalMunicipalities = $this->externalMunicipalitiesQuery->get();

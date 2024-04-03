@@ -6,6 +6,7 @@ namespace App\School\Commands;
 
 use App\School\Queries\BillingProfileDiff;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use App\School\BillingProfile;
 
 final class SyncBillingProfiles
 {

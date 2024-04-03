@@ -15,9 +15,12 @@ final class BillingProfileDiff
 {
     use DispatchesJobs;
 
+    private Collection $allBillingProfiles;
+    private Collection $externalBillingProfiles;
+
     public function __construct(
         private AllBillingProfiles $allBillingProfilesQuery = new AllBillingProfiles,
-        private ExternalBillingProfiles $externalBillingProfilesQuery,
+        private ?ExternalBillingProfiles $externalBillingProfilesQuery = null,
     ) {
         $this->allBillingProfiles = $this->allBillingProfilesQuery->get();
         $this->externalBillingProfiles = $this->externalBillingProfilesQuery->get();

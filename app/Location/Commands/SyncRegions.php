@@ -6,6 +6,7 @@ namespace App\Location\Commands;
 
 use App\Location\Queries\RegionDiff;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use App\Location\Region;
 
 final class SyncRegions
 {

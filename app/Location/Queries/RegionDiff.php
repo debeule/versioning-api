@@ -15,9 +15,12 @@ final class RegionDiff
 {
     use DispatchesJobs;
 
+    private Collection $allRegions;
+    private Collection $externalRegions;
+
     public function __construct(
         private AllRegions $allRegionsQuery = new AllRegions,
-        private ExternalRegions $externalRegionsQuery,
+        private ?ExternalRegions $externalRegionsQuery = null,
     ) {
         $this->allRegions = $this->allRegionsQuery->get();
         $this->externalRegions = $this->externalRegionsQuery->get();

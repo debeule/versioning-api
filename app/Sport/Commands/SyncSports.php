@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Sport\Commands;
 
 use App\Sport\Queries\SportDiff;
+use App\Sport\Sport;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 final class SyncSports

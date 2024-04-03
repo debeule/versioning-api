@@ -6,6 +6,7 @@ namespace App\Location\Commands;
 
 use App\Location\Queries\MunicipalityDiff;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use App\Location\Municipality;
 
 final class SyncMunicipalities
 {

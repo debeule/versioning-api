@@ -15,9 +15,12 @@ final class SportDiff
 {
     use DispatchesJobs;
 
+    private Collection $allSports;
+    private Collection $externalSports;
+
     public function __construct(
         private AllSports $allSportsQuery = new AllSports,
-        private ExternalSports $externalSportsQuery,
+        private ?ExternalSports $externalSportsQuery = null,
     ) {
         $this->allSports = $this->allSportsQuery->get();
         $this->externalSports = $this->externalSportsQuery->get();

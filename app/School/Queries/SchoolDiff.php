@@ -15,9 +15,12 @@ final class SchoolDiff
 {
     use DispatchesJobs;
 
+    private Collection $allSchools;
+    private Collection $externalSchools;
+
     public function __construct(
         private AllSchools $allSchoolsQuery = new AllSchools,
-        private ExternalSchools $externalSchoolsQuery,
+        private ?ExternalSchools $externalSchoolsQuery = null,
     ) {
         $this->allSchools = $this->allSchoolsQuery->get();
         $this->externalSchools = $this->externalSchoolsQuery->get();

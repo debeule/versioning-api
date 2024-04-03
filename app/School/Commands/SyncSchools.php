@@ -6,10 +6,11 @@ namespace App\School\Commands;
 
 use App\School\Queries\SchoolDiff;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use App\School\School;
 
 final class SyncSchools
 {
-    use DispatchesJobs;
+    use DispatchesJobs; 
 
     public function __invoke(SchoolDiff $schoolDiff): void
     {
