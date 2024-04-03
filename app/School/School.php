@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\School;
 
 use App\Extensions\Eloquent\SoftDeletes\SoftDeletes;
-use App\Kohera\School as KoheraSchool;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 

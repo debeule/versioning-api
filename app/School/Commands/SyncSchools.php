@@ -6,7 +6,6 @@ namespace App\School\Commands;
 
 use App\School\Queries\SchoolDiff;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use App\Imports\Queries\ExternalMunicipalities;
 
 final class SyncSchools
 {

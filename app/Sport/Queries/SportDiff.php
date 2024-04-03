@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\Sport\Queries;
 
+use App\Imports\Queries\ExternalSports;
 use App\Services\FilterAdditions;
 use App\Services\FilterDeletions;
 use App\Services\FilterUpdates;
-use App\Sport\Queries\AllSports;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use App\Imports\Queries\ExternalSports;
 use Illuminate\Support\Collection;
 
 final class SportDiff

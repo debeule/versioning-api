@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\Location\Queries;
 
+use App\Imports\Queries\ExternalMunicipalities;
 use App\Services\FilterAdditions;
 use App\Services\FilterDeletions;
 use App\Services\FilterUpdates;
-use App\Location\Queries\AllMunicipalities;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use App\Imports\Queries\ExternalMunicipalities;
 use Illuminate\Support\Collection;
 
 final class MunicipalityDiff

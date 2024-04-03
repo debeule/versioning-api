@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Location;
 
 use App\Extensions\Eloquent\SoftDeletes\SoftDeletes;
-use App\Kohera\Region as KoheraRegion;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 

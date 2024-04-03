@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Kohera\Queries;
 
+use App\Imports\Queries\ExternalAddresses;
 use App\Kohera\Address;
 use App\Kohera\School;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
-use App\Imports\Queries\ExternalAddresses;
 
 final class AllAddresses implements ExternalAddresses
 {

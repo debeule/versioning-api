@@ -7,8 +7,8 @@ namespace App\Kohera;
 use App\Imports\Queries\Address as AddressContract;
 use App\Imports\Sanitizer\Sanitizer;
 use App\Location\Municipality;
-use Illuminate\Database\Eloquent\Model;
 use App\School\Address as DbAddress;
+use Illuminate\Database\Eloquent\Model;
 
 final class Address extends Model implements AddressContract
 {

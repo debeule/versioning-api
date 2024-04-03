@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\School\Queries;
 
+use App\Imports\Queries\ExternalBillingProfiles;
 use App\Services\FilterAdditions;
 use App\Services\FilterDeletions;
 use App\Services\FilterUpdates;
-use App\School\Queries\AllBillingProfiles;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use App\Imports\Queries\ExternalBillingProfiles;
 use Illuminate\Support\Collection;
 
 final class BillingProfileDiff

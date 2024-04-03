@@ -9,7 +9,6 @@ use App\School\Commands\SyncSchoolDomain;
 use App\Sport\Commands\SyncSportDomain;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\DispatchesJobs;
 
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;

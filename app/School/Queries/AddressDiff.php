@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\School\Queries;
 
+use App\Imports\Queries\ExternalAddresses;
 use App\Services\FilterAdditions;
 use App\Services\FilterDeletions;
 use App\Services\FilterUpdates;
-use App\School\Queries\AllAddresses;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use App\Imports\Queries\ExternalAddresses;
 use Illuminate\Support\Collection;
 
 final class AddressDiff

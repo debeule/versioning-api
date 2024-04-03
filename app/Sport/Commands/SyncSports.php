@@ -6,7 +6,6 @@ namespace App\Sport\Commands;
 
 use App\Sport\Queries\SportDiff;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use App\Imports\Queries\ExternalMunicipalities;
 
 final class SyncSports
 {

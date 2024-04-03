@@ -6,8 +6,8 @@ namespace App\Kohera;
 
 use App\Imports\Queries\Region as RegionContract;
 use App\Imports\Sanitizer\Sanitizer;
-use Illuminate\Database\Eloquent\Model;
 use App\Location\Region as DbRegion;
+use Illuminate\Database\Eloquent\Model;
 
 final class Region extends Model implements RegionContract
 {

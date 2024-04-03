@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Bpost\Queries;
 
 use App\Bpost\Municipality;
+use App\Imports\Queries\ExternalMunicipalities;
 use App\Imports\Values\BpostUri;
 use App\Imports\Values\MunicipalitiesUri;
 use App\Services\ImportFileToStorage;
 use App\Services\SpreadsheetToCollection;
 use Illuminate\Support\Collection;
-use App\Imports\Queries\ExternalMunicipalities;
 
 final class AllMunicipalities implements ExternalMunicipalities
 {

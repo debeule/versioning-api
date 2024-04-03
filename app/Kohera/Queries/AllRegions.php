@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Kohera\Queries;
 
+use App\Imports\Queries\ExternalRegions;
 use App\Kohera\Region;
 use Illuminate\Database\Eloquent\Builder;
-use App\Imports\Queries\ExternalRegions;
 use Illuminate\Support\Collection;
 
 final class AllRegions implements ExternalRegions

@@ -7,8 +7,8 @@ namespace App\Kohera;
 use App\Imports\Queries\School as SchoolContract;
 use App\Imports\Sanitizer\Sanitizer;
 use App\School\Address;
-use Illuminate\Database\Eloquent\Model;
 use App\School\School as DbSchool;
+use Illuminate\Database\Eloquent\Model;
 
 final class School extends Model implements SchoolContract
 {

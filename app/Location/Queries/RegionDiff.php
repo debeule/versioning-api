@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\Location\Queries;
 
+use App\Imports\Queries\ExternalRegions;
 use App\Services\FilterAdditions;
 use App\Services\FilterDeletions;
 use App\Services\FilterUpdates;
-use App\Location\Queries\AllRegions;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use App\Imports\Queries\ExternalRegions;
 use Illuminate\Support\Collection;
 
 final class RegionDiff
