@@ -19,8 +19,7 @@ final class SyncSchoolsTest extends TestCase
         $koheraSchool = KoheraSchoolFactory::new()->create();
         AddressFactory::new()->withId('school-' . $koheraSchool->id)->create();
 
-        $syncSchools = new SyncSchools();
-        $syncSchools();
+        $this->dispatchSync(new SyncSchools);
         
         $this->assertEquals(School::count(), KoheraSchool::count());
     }
@@ -35,14 +34,12 @@ final class SyncSchoolsTest extends TestCase
             AddressFactory::new()->withId('school-' . $koheraSchool->id)->create();
         }
 
-        $syncSchools = new SyncSchools();
-        $syncSchools();
+        $this->dispatchSync(new SyncSchools);
         
         $koheraSchoolRecordId = $koheraSchools->first()->recordId();
         $koheraSchools->first()->delete();
 
-        $syncSchools = new SyncSchools();
-        $syncSchools();
+        $this->dispatchSync(new SyncSchools);
 
         $this->assertSoftDeleted(School::where('record_id', $koheraSchoolRecordId)->first());
         $this->assertGreaterThan(KoheraSchool::count(), School::count());
@@ -54,16 +51,14 @@ final class SyncSchoolsTest extends TestCase
         $koheraSchool = KoheraSchoolFactory::new()->create();
         AddressFactory::new()->withId('school-' . $koheraSchool->recordId())->create();
 
-        $syncSchools = new SyncSchools();
-        $syncSchools();
+        $this->dispatchSync(new SyncSchools);
 
         $school = School::where('name', $koheraSchool->name())->first();
 
         $koheraSchool->Name = 'new name';
         $koheraSchool->save();
 
-        $syncSchools = new SyncSchools();
-        $syncSchools();
+        $this->dispatchSync(new SyncSchools);
 
         $updatedSchool = School::where('name', $koheraSchool->name())->first();
 

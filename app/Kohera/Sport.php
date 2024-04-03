@@ -13,6 +13,7 @@ final class Sport extends Model implements SportContract
 {
     public $timestamps = false;
 
+    # TODO: dynamically pick database connection based on testing / not ??
     protected $connection = 'kohera-testing';
 
     protected $fillable = [

@@ -17,8 +17,7 @@ final class SyncRegionsTest extends TestCase
     {
         KoheraRegionFactory::new()->create();
 
-        $syncRegions = new SyncRegions();
-        $syncRegions();
+        $this->dispatchSync(new SyncRegions);
 
         $this->assertEquals(Region::count(), KoheraRegion::count());
     }
@@ -28,14 +27,12 @@ final class SyncRegionsTest extends TestCase
     {
         $koheraRegions = KoheraRegionFactory::new()->count(2)->create();
 
-        $syncRegions = new SyncRegions();
-        $syncRegions();
+        $this->dispatchSync(new SyncRegions);
         
         $koheraRegionRecordId = $koheraRegions->first()->recordId();
         $koheraRegions->first()->delete();
         
-        $syncRegions = new SyncRegions();
-        $syncRegions();
+        $this->dispatchSync(new SyncRegions);
 
         $this->assertSoftDeleted(Region::where('record_id', $koheraRegionRecordId)->first());
         $this->assertGreaterThan(KoheraRegion::count(), Region::count());
@@ -46,16 +43,14 @@ final class SyncRegionsTest extends TestCase
     {
         $koheraRegion = KoheraRegionFactory::new()->create();
         
-        $syncRegions = new SyncRegions();
-        $syncRegions();
+        $this->dispatchSync(new SyncRegions);
 
         $oldRegion = Region::where('name', $koheraRegion->name())->first();
 
         $koheraRegion->RegionNaam = 'new name';
         $koheraRegion->save();
         
-        $syncRegions = new SyncRegions();
-        $syncRegions();
+        $this->dispatchSync(new SyncRegions);
 
         $updatedRegion = Region::where('name', $koheraRegion->name())->first();
 

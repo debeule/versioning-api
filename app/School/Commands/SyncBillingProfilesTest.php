@@ -24,8 +24,7 @@ final class SyncBillingProfilesTest extends TestCase
         MunicipalityFactory::new()->withPostalCode($koheraSchool->Postcode)->create();
         AddressFactory::new()->withId('billing_profile-' . $koheraSchool->id)->create();
 
-        $syncBillingProfiles = new SyncBillingProfiles();
-        $syncBillingProfiles();
+        $this->dispatchSync(new SyncBillingProfiles);
         
         $this->assertEquals(BillingProfile::count(), KoheraSchool::count());
     }
@@ -39,15 +38,13 @@ final class SyncBillingProfilesTest extends TestCase
         MunicipalityFactory::new()->withPostalCode($koheraSchool->Postcode)->create();
         AddressFactory::new()->withId('billing_profile-' . $koheraSchool->id)->create();
 
-        $syncBillingProfiles = new SyncBillingProfiles();
-        $syncBillingProfiles();
+        $this->dispatchSync(new SyncBillingProfiles);
 
         $koheraSchoolRecordId = $koheraSchool->recordId();
         $koheraSchool->delete();
         $oldBillingProfile = BillingProfile::where('record_id', $koheraSchoolRecordId)->first();
 
-        $syncBillingProfiles = new SyncBillingProfiles();
-        $syncBillingProfiles();
+        $this->dispatchSync(new SyncBillingProfiles);
             
         $this->assertSoftDeleted($oldBillingProfile);
         $this->assertGreaterThan(KoheraSchool::count(), BillingProfile::count());
@@ -62,8 +59,7 @@ final class SyncBillingProfilesTest extends TestCase
         MunicipalityFactory::new()->withPostalCode($koheraSchool->Postcode)->create();
         AddressFactory::new()->withId('billing_profile-' . $koheraSchool->id)->create();
         
-        $syncBillingProfiles = new SyncBillingProfiles();
-        $syncBillingProfiles();
+        $this->dispatchSync(new SyncBillingProfiles);
 
         $oldBillingProfile = BillingProfile::where('record_id', $koheraSchool->recordId())->first();
         
@@ -71,8 +67,7 @@ final class SyncBillingProfilesTest extends TestCase
         $koheraSchool->Facturatie_Naam = $name;
         $koheraSchool->save();
         
-        $syncBillingProfiles = new SyncBillingProfiles();
-        $syncBillingProfiles();
+        $this->dispatchSync(new SyncBillingProfiles);
 
         $updatedBillingProfile = BillingProfile::where('name', $name)->first();
         

@@ -10,7 +10,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class MunicipalityFactoryTest extends TestCase
 {
     #[Test]
-    public function itReturnsString(): void
+    public function addTestsHere(): void
     {
         $this->assertTrue(false);
     }

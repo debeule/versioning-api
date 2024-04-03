@@ -16,7 +16,7 @@ final class SoftDeleteRegionTest extends TestCase
     {
         $Region = RegionFactory::new()->create();
 
-        $this->dispatchSync(new SoftDeleteregion($Region));
+        $this->dispatchSync(new SoftDeleteRegion($Region));
         
         $this->assertSoftDeleted($Region);
     }

@@ -13,12 +13,11 @@ use PHPUnit\Framework\Attributes\Test;
 final class SyncSportsTest extends TestCase
 {
     #[Test]
-    public function itCreatesSportREcordsWhenNotExists(): void
+    public function itCreatesSportRecordsWhenNotExists(): void
     {
         KoheraSportFactory::new()->create();
 
-        $syncSports = new SyncSports();
-        $syncSports();
+        $this->dispatchSync(new SyncSports);
 
         $this->assertEquals(Sport::count(), KoheraSport::count());
     }
@@ -28,14 +27,12 @@ final class SyncSportsTest extends TestCase
     {
         $koheraSports = KoheraSportFactory::new()->count(2)->create();
 
-        $syncSports = new SyncSports();
-        $syncSports();
+        $this->dispatchSync(new SyncSports);
         
         $koheraSportRecordId = $koheraSports->first()->recordId();
         $koheraSports->first()->delete();
 
-        $syncSports = new SyncSports();
-        $syncSports();
+        $this->dispatchSync(new SyncSports);
         
         $this->assertSoftDeleted(Sport::where('record_id', $koheraSportRecordId)->first());
         $this->assertGreaterThan(KoheraSport::count(), Sport::count());
@@ -46,16 +43,14 @@ final class SyncSportsTest extends TestCase
     {
         $koheraSport = KoheraSportFactory::new()->create();
         
-        $syncSports = new SyncSports();
-        $syncSports();
+        $this->dispatchSync(new SyncSports);
 
         $oldSport = Sport::where('name', $koheraSport->name())->first();
 
         $koheraSport->Sportkeuze = 'new name';
         $koheraSport->save();
         
-        $syncSports = new SyncSports();
-        $syncSports();
+        $this->dispatchSync(new SyncSports);
 
         $updatedSport = Sport::where('name', $koheraSport->name())->first();
 

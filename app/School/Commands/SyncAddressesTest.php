@@ -19,8 +19,7 @@ final class SyncAddressesTest extends TestCase
         $koheraSchool = KoheraSchoolFactory::new()->create();
         MunicipalityFactory::new()->withPostalCode($koheraSchool->Postcode)->create();
 
-        $syncAddresses = new SyncAddresses();
-        $syncAddresses();
+        $this->dispatchSync(new SyncAddresses);
         
         $this->assertEquals(Address::count(), KoheraSchool::count() * 2);
     }
@@ -31,14 +30,12 @@ final class SyncAddressesTest extends TestCase
         $koheraSchool = KoheraSchoolFactory::new()->create();
         MunicipalityFactory::new()->withPostalCode($koheraSchool->Postcode)->create();
 
-        $syncAddresses = new SyncAddresses();
-        $syncAddresses();
+        $this->dispatchSync(new SyncAddresses);
         
         $koheraSchoolRecordId = $koheraSchool->recordId();
         $koheraSchool->delete();
 
-        $syncAddresses = new SyncAddresses();
-        $syncAddresses();
+        $this->dispatchSync(new SyncAddresses);
         
         $this->assertSoftDeleted(Address::where('record_id', 'school-' . $koheraSchoolRecordId)->first());
         $this->assertSoftDeleted(Address::where('record_id', 'billing_profile-' . $koheraSchoolRecordId)->first());
@@ -50,8 +47,7 @@ final class SyncAddressesTest extends TestCase
         $koheraSchool = KoheraSchoolFactory::new()->create();
         MunicipalityFactory::new()->withPostalCode($koheraSchool->Postcode)->create();
         
-        $syncAddresses = new SyncAddresses();
-        $syncAddresses();
+        $this->dispatchSync(new SyncAddresses);
 
         $oldAddress = Address::where('record_id', 'school-' . $koheraSchool->recordId())->first();
         
@@ -59,8 +55,7 @@ final class SyncAddressesTest extends TestCase
         $koheraSchool->address = $streetName . ' 1';
         $koheraSchool->save();
 
-        $syncAddresses = new SyncAddresses();
-        $syncAddresses();
+        $this->dispatchSync(new SyncAddresses);
 
         $updatedAddress = Address::where('street_name', $streetName)->first();
         

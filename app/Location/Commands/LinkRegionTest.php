@@ -23,12 +23,12 @@ final class LinkRegionTest extends TestCase
 
         $region = Region::where('record_id', $koheraRegion->recordId())->first();
 
-        $result = $this->dispatchSync(new LinkRegion($koheraRegion));
+        $result = $this->dispatchSync(new LinkRegion($region));
 
         $linkedMunicipalities = Municipality::where('region_id', $region->id)->get();
 
         $this->assertTrue($result); 
 
-        // $this->assertEquals(3, $linkedMunicipalities->count());
+        $this->assertEquals(1, $linkedMunicipalities->count());
     }
 }

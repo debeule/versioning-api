@@ -32,7 +32,7 @@ final class LinkRegion
         
         if(empty($municipality)) return false;
 
-        $municipality->region_id = Region::where('region_number', $region->region_number)->first()->id;
+        $municipality->region_id = $region->id;
     
         return $municipality->save();
     }
