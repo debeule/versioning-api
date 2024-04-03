@@ -10,7 +10,7 @@ use App\Testing\TestCase;
 use Database\Kohera\Factories\RegionFactory as KoheraRegionFactory;
 use PHPUnit\Framework\Attributes\Test;
 
-final class SyncRegionsTest extends TestCase
+final class SyncMunicipalitiesTest extends TestCase
 {
     #[Test]
     public function itCreatesRegionRecordsWhenNotExists(): void

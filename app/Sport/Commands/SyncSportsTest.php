@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Kohera\Commands;
+namespace App\Sport\Commands;
 
 use App\Kohera\Sport as KoheraSport;
 use App\Sport\Sport;

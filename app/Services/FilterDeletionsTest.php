@@ -12,7 +12,7 @@ use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Collection;
 use PHPUnit\Framework\Attributes\Test;
 
-final class FilterDeletedRecordsTest extends TestCase
+final class FilterDeletionsTest extends TestCase
 {
     #[Test]
     public function deleteContainsDeletedRecords(): void

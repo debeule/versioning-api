@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 
 
-final class AllSports implements ExternalSports
+final class AllSports
 {
     public function __construct(
         public FromVersion $fromVersion = new FromVersion,
