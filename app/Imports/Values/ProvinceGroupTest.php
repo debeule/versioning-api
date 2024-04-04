@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Imports\Values;
 
-use App\Testing\TestCase;
+use PhpUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
 final class ProvinceGroupTest extends TestCase
