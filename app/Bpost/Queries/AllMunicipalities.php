@@ -6,20 +6,19 @@ namespace App\Bpost\Queries;
 
 use App\Bpost\Municipality;
 use App\Imports\Queries\ExternalMunicipalities;
-use App\Imports\Values\BpostUri;
-use App\Imports\Values\MunicipalitiesUri;
+use App\Imports\Values\MunicipalitiesUrl;
 use App\Services\ImportFileToStorage;
 use App\Services\SpreadsheetToCollection;
 use Illuminate\Support\Collection;
 
 final class AllMunicipalities implements ExternalMunicipalities
 {
-    private string $source, $storagePath;
+    private string $storagePath;
 
-    public function __construct()
-    {
-        $this->source = (string) new BpostUri;
-        $this->storagePath = (string) new MunicipalitiesUri;
+    public function __construct(
+        private string $source = 'www.bpost2.be/zipcodes/files/zipcodes_alpha_nl_new.xls',
+    ){
+        $this->storagePath = (string) new MunicipalitiesUrl;
     }
 
     public function query(): Collection
