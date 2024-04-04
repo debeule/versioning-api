@@ -6,7 +6,7 @@ namespace App\Imports\Values;
 
 use League\Uri\Uri;
 
-final class MunicipalitiesUri
+final class MunicipalitiesUrl
 {
     public string $value;
 
