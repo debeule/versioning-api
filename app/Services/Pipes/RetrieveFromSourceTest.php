@@ -16,7 +16,7 @@ final class RetrieveFromSourceTest extends TestCase
     {
         #TODO: fake
         $data = [
-            'source' => config('tatooine.test_file_url'),
+            'source' => 'https://freetestdata.com/wp-content/uploads/2021/09/Free_Test_Data_100KB_XLS.xls',
         ];
 
         $result = app(Pipeline::class)

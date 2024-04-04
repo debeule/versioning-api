@@ -13,7 +13,8 @@ final class ImportFileToStorageTest extends TestCase
     #[Test]
     public function itReturnsString(): void
     {
-        $source = config('tatooine.test_file_url');
+        # TODO: fake
+        $source = 'https://freetestdata.com/wp-content/uploads/2021/09/Free_Test_Data_100KB_XLS.xls';
         $destination = 'excel/TestFile.xls';
 
         $result = ImportFileToStorage::setup($source, $destination)->pipe();
