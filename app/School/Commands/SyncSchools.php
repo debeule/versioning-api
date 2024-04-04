@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\School\Commands;
 
 use App\School\Queries\SchoolDiff;
-use Illuminate\Foundation\Bus\DispatchesJobs;
 use App\School\School;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 final class SyncSchools
 {

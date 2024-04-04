@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace App\School\Queries;
 
-use App\Testing\TestCase;
-use PHPUnit\Framework\Attributes\Test;
-use App\Imports\Queries\ExternalSchools;
-use App\Kohera\Queries\AllSchools;
+use App\Kohera\School as KoheraSchool;
 use App\School\Commands\CreateSchool;
+use App\School\School;
+use App\Testing\TestCase;
 use Database\Kohera\Factories\SchoolFactory as KoheraSchoolFactory;
 use Database\Main\Factories\AddressFactory;
-use App\Kohera\School as KoheraSchool;
-use App\School\School;
+use PHPUnit\Framework\Attributes\Test;
 
 final class SchoolDiffTest extends TestCase
 {

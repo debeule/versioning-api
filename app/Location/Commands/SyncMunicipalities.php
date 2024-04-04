@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Location\Commands;
 
+use App\Location\Municipality;
 use App\Location\Queries\MunicipalityDiff;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use App\Location\Municipality;
 
 final class SyncMunicipalities
 {

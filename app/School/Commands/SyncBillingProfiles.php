@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\School\Commands;
 
+use App\School\BillingProfile;
 use App\School\Queries\BillingProfileDiff;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use App\School\BillingProfile;
 
 final class SyncBillingProfiles
 {

@@ -4,16 +4,13 @@ declare(strict_types=1);
 
 namespace App\School\Queries;
 
-use App\Testing\TestCase;
-use PHPUnit\Framework\Attributes\Test;
-use App\Imports\Queries\ExternalAddresss;
-use App\Kohera\Queries\AllAddresss;
-use App\School\Commands\CreateAddress;
-use Database\Kohera\Factories\SchoolFactory as KoheraSchoolFactory;
-use Database\Main\Factories\MunicipalityFactory;
-use Database\Main\Factories\AddressFactory;
 use App\Kohera\Address as KoheraAddress;
 use App\School\Address;
+use App\School\Commands\CreateAddress;
+use App\Testing\TestCase;
+use Database\Kohera\Factories\SchoolFactory as KoheraSchoolFactory;
+use Database\Main\Factories\MunicipalityFactory;
+use PHPUnit\Framework\Attributes\Test;
 
 final class AddressDiffTest extends TestCase
 {

@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace App\Location\Queries;
 
-use App\Testing\TestCase;
-use PHPUnit\Framework\Attributes\Test;
-use App\Imports\Queries\ExternalRegions;
-use App\Kohera\Queries\AllRegions;
-use App\Location\Commands\CreateRegion;
-use Database\Kohera\Factories\RegionFactory as KoheraRegionFactory;
 use App\Kohera\Region as KoheraRegion;
+use App\Location\Commands\CreateRegion;
 use App\Location\Region;
+use App\Testing\TestCase;
+use Database\Kohera\Factories\RegionFactory as KoheraRegionFactory;
+use PHPUnit\Framework\Attributes\Test;
 
 final class RegionDiffTest extends TestCase
 {

@@ -6,8 +6,8 @@ namespace App\Kohera;
 
 use App\Imports\Queries\Sport as SportContract;
 use App\Imports\Sanitizer\Sanitizer;
-use Illuminate\Database\Eloquent\Model;
 use App\Sport\Sport as DbSport;
+use Illuminate\Database\Eloquent\Model;
 
 final class Sport extends Model implements SportContract
 {

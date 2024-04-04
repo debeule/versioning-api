@@ -10,7 +10,6 @@ use App\School\School;
 use App\Testing\TestCase;
 use Database\Kohera\Factories\SchoolFactory as KoheraSchoolFactory;
 use Database\Main\Factories\AddressFactory;
-use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Collection;
 use PHPUnit\Framework\Attributes\Test;
 

@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace App\Sport\Queries;
 
-use App\Testing\TestCase;
-use PHPUnit\Framework\Attributes\Test;
-use App\Imports\Queries\ExternalSports;
-use App\Kohera\Queries\AllSports;
-use App\Sport\Commands\CreateSport;
-use Database\Kohera\Factories\SportFactory as KoheraSportFactory;
 use App\Kohera\Sport as KoheraSport;
+use App\Sport\Commands\CreateSport;
 use App\Sport\Sport;
+use App\Testing\TestCase;
+use Database\Kohera\Factories\SportFactory as KoheraSportFactory;
+use PHPUnit\Framework\Attributes\Test;
 
 final class SportDiffTest extends TestCase
 {

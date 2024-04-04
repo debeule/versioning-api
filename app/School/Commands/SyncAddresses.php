@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\School\Commands;
 
+use App\School\Address;
 use App\School\Queries\AddressDiff;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use App\School\Address;
 
 final class SyncAddresses
 {

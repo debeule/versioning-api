@@ -4,18 +4,15 @@ declare(strict_types=1);
 
 namespace App\School\Queries;
 
-use App\Testing\TestCase;
-use PHPUnit\Framework\Attributes\Test;
-use App\Imports\Queries\ExternalBillingProfiles;
-use App\Kohera\Queries\AllBillingProfiles;
-use App\School\Commands\CreateBillingProfile;
-use Database\Kohera\Factories\SchoolFactory as KoheraSchoolFactory;
-use Database\Main\Factories\MunicipalityFactory;
-use Database\Main\Factories\BillingProfileFactory;
-use Database\Main\Factories\SchoolFactory;
-use Database\Main\Factories\AddressFactory;
 use App\Kohera\BillingProfile as KoheraBillingProfile;
 use App\School\BillingProfile;
+use App\School\Commands\CreateBillingProfile;
+use App\Testing\TestCase;
+use Database\Kohera\Factories\SchoolFactory as KoheraSchoolFactory;
+use Database\Main\Factories\AddressFactory;
+use Database\Main\Factories\MunicipalityFactory;
+use Database\Main\Factories\SchoolFactory;
+use PHPUnit\Framework\Attributes\Test;
 
 
 final class BillingProfileDiffTest extends TestCase

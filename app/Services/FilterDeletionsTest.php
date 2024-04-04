@@ -8,7 +8,6 @@ use App\Kohera\School as KoheraSchool;
 use App\School\School;
 use App\Testing\TestCase;
 use Database\Main\Factories\SchoolFactory;
-use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Collection;
 use PHPUnit\Framework\Attributes\Test;
 

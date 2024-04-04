@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Sport\Queries;
 
 use App\Extensions\Eloquent\Scopes\FromVersion;
-use App\Imports\Queries\ExternalSports;
 use App\Imports\Values\Version;
 use App\Sport\Sport;
 use Illuminate\Database\Eloquent\Builder;

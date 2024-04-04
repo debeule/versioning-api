@@ -10,7 +10,6 @@ use App\School\School;
 use App\Testing\TestCase;
 use Database\Kohera\Factories\SchoolFactory as KoheraSchoolFactory;
 use Database\Main\Factories\AddressFactory;
-use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Collection;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -20,7 +19,7 @@ final class FilterAdditionsTest extends TestCase
     public function createContainsNewRecords(): void
     {
         $result = $this->DispatchSync(new FilterAdditions(
-            School::get(), 
+            School::get(),
             KoheraSchoolFactory::new()->count(3)->create()
         ));
             
@@ -40,7 +39,7 @@ final class FilterAdditionsTest extends TestCase
         $this->DispatchSync(new CreateSchool($koheraSchools->first()));
 
         $result = $this->DispatchSync(new FilterAdditions(
-            School::get(), 
+            School::get(),
             $koheraSchools
         ));
         

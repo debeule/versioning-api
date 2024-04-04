@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace App\Location\Queries;
 
-use App\Testing\TestCase;
-use PHPUnit\Framework\Attributes\Test;
-use App\Imports\Queries\ExternalMunicipalities;
-use App\Bpost\Queries\AllMunicipalities;
-use App\Location\Commands\CreateMunicipality;
-use Database\Bpost\Factories\MunicipalityFactory as BpostMunicipalityFactory;
 use App\Bpost\Municipality as BpostMunicipality;
+use App\Location\Commands\CreateMunicipality;
 use App\Location\Municipality;
+use App\Testing\TestCase;
+use Database\Bpost\Factories\MunicipalityFactory as BpostMunicipalityFactory;
+use PHPUnit\Framework\Attributes\Test;
 
 final class MunicipalityDiffTest extends TestCase
 {
