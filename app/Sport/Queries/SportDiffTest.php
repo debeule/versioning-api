@@ -34,8 +34,9 @@ final class SportDiffTest extends TestCase
     public function itReturnsCorrectDeletions(): void
     {
         $koheraSports = KoheraSportFactory::new()->count(3)->create();
+        $removedKoheraSport = $koheraSports->first();
 
-        $removedKoheraSport = $koheraSports->shift();
+        $removedKoheraSport->delete();
 
         $this->dispatchSync(new CreateSport($removedKoheraSport));
 
@@ -45,7 +46,7 @@ final class SportDiffTest extends TestCase
 
         $this->assertInstanceOf(Sport::class, $result->first());
         $this->assertEquals(1, $result->count());
-        $this->assertTrue($result->where('head_sport', $removedKoheraSport->headSport())->isNotEmpty());
+        $this->assertTrue($result->where('name', $removedKoheraSport->name())->isNotEmpty());
     }
     
     #[Test]
