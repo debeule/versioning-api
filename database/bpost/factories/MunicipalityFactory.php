@@ -29,8 +29,8 @@ final class MunicipalityFactory
         return new Municipality([
             $faker->randomNumber(4),
             $faker->city,
-            $faker->city,
             'Ja',
+            $faker->city,
             $faker->randomElement(ProvinceGroup::allProvinces()->get()),
         ]);
     }
