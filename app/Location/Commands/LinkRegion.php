@@ -7,7 +7,7 @@ namespace App\Location\Commands;
 
 use App\Extensions\Eloquent\Scopes\FromVersion;
 use App\Location\Municipality;
-use App\Location\Region;
+use App\Imports\Queries\Region;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 final class LinkRegion
@@ -26,13 +26,13 @@ final class LinkRegion
 
     public function linkRegion(Region $region): bool
     {
-        $municipality = Municipality::where('region_id', $region->region_id)
+        $municipality = Municipality::where('postal_code', $region->postalCode())
         ->tap($this->fromVersion)
         ->first();
         
         if(empty($municipality)) return false;
 
-        $municipality->region_id = $region->id;
+        $municipality->region_id = $region->recordId();
         
         return $municipality->save();
     }
