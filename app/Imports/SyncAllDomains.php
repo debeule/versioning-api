@@ -7,9 +7,9 @@ namespace App\Imports;
 use App\Location\Commands\SyncLocationDomain;
 use App\School\Commands\SyncSchoolDomain;
 use App\Sport\Commands\SyncSportDomain;
+
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
@@ -20,10 +20,14 @@ final class SyncAllDomains implements ShouldQueue
 
     public function handle(): void
     {
-        $this->DispatchSync(new SyncLocationDomain());
+        $syncLocationDomain = new SyncLocationDomain();
+        $syncLocationDomain();
+        
+        $syncSchoolDomain = new SyncSchoolDomain();
+        $syncSchoolDomain();
 
-        $this->DispatchSync(new SyncSchoolDomain());
-
-        $this->DispatchSync(new SyncSportDomain());
+        $syncSportDomain = new SyncSportDomain();
+        $syncSportDomain();
+        
     }
 }
