@@ -9,4 +9,5 @@ use Illuminate\Support\Collection;
 interface ExternalRegions
 {
     public function get(): Collection;
+    public function getWithDoubles(): Collection;
 }

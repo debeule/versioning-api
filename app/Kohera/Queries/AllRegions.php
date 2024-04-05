@@ -16,7 +16,6 @@ final class AllRegions implements ExternalRegions
         return Region::query();
     }
 
-    # TODO: not used anywhere?
     public function get(): Collection
     {
         return $this->query()->get()->unique('RegioDetailId');
