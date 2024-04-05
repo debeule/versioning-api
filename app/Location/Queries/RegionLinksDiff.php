@@ -42,8 +42,9 @@ final class RegionLinksDiff
             $municipality = Municipality::where('postal_code', $externalRegion->postalCode())->first();
 
             if ($municipality->region_id == $externalRegion->recordId()) continue;
+            if (!$this->allRegions->contains('record_id', $externalRegion->recordId())) continue;
 
-            $regionsToLink->push($this->allRegions->where('region_number', $externalRegion->RegioDetailId)->first());
+            $regionsToLink->push($externalRegion);
         }
 
         return $regionsToLink;
