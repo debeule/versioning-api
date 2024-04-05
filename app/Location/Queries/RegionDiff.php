@@ -33,6 +33,7 @@ final class RegionDiff
 
     public function additions(): Collection
     {
+        # TODO: filter services should be in the domain
         return $this->DispatchSync(new FilterAdditions($this->allRegions, $this->externalRegions));
     }
 
