@@ -20,7 +20,6 @@ final class Region extends Model
         'region_number',
     ];
 
-    #TODO: check / redo all relations between models
     public function municipalities(): HasMany
     {
         return $this->hasMany(Municipality::class);

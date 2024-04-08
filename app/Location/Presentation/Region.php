@@ -20,7 +20,6 @@ final class Region
         return new self();
     }
 
-    # TODO: passing through dbRegion not needed? 
     public function build(DbRegion $dbRegion): self
     {
         $this->addRegionAttributes($dbRegion);
