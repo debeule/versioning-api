@@ -8,6 +8,7 @@ namespace App\Location\Commands;
 use App\Extensions\Eloquent\Scopes\FromVersion;
 use App\Location\Municipality;
 use App\Imports\Queries\Region;
+use App\Location\Region as DbRegion;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 final class LinkRegion
@@ -32,7 +33,7 @@ final class LinkRegion
         
         if(empty($municipality)) return false;
 
-        $municipality->region_id = $region->recordId();
+        $municipality->region_id = DbRegion::where('record_id', $region->recordId())->first()->id;
         
         return $municipality->save();
     }
