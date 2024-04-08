@@ -21,11 +21,11 @@ final class LinkRegionTest extends TestCase
         
         MunicipalityFactory::new()->withPostalCode($koheraRegion->postalCode())->create();
 
-        $region = Region::where('record_id', $koheraRegion->recordId())->first();
 
-        $result = $this->dispatchSync(new LinkRegion($region));
+        $result = $this->dispatchSync(new LinkRegion($koheraRegion));
 
-        $linkedMunicipalities = Municipality::where('region_id', $region->id)->get();
+        $regionId = Region::where('record_id', $koheraRegion->recordId())->first()->id;
+        $linkedMunicipalities = Municipality::where('region_id', $regionId)->get();
 
         $this->assertTrue($result); 
         $this->assertEquals(1, $linkedMunicipalities->count());
