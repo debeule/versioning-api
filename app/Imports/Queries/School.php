@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Imports\Queries;
 
 use App\School\Address;
+use App\School\School as DbSchool;
 
 interface School
 {
@@ -20,5 +21,5 @@ interface School
 
     public function address(): Address;
     
-    public function hasChanged(): bool;
+    public function hasChanged(DbSchool $dbSchool): bool;
 }

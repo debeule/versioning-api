@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Imports\Queries;
 
 use App\School\Address;
+use App\School\BillingProfile as DbBillingProfile;
 use App\School\School;
 
 interface BillingProfile
@@ -18,7 +19,7 @@ interface BillingProfile
     public function address(): Address;
     public function school(): School;
     
-    public function hasChanged(): bool;
+    public function hasChanged(DbBillingProfile $dbBillingProfile): bool;
 
 
 }

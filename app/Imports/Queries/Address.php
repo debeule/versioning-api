@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Imports\Queries;
 
 use App\Location\Municipality;
+use App\School\Address as DbAdress;
 
 interface Address
 {
@@ -14,5 +15,5 @@ interface Address
 
     public function municipality(): Municipality;
     
-    public function hasChanged(): bool;
+    public function hasChanged(DbAdress $dbAdress): bool;
 }

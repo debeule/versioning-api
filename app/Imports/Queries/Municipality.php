@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Imports\Queries;
 
+use App\Location\Municipality as DbMunicipality;
 
 interface Municipality
 {
@@ -13,5 +14,5 @@ interface Municipality
     public function postalCode(): int;
     public function headMunicipality(): ?string;
     
-    public function hasChanged(): bool;
+    public function hasChanged(DbMunicipality $dbMunicipality): bool;
 }
