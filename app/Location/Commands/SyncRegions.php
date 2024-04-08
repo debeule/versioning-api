@@ -26,7 +26,7 @@ final class SyncRegions
 
         foreach ($regionDiff->updates() as $externalRegion) 
         {
-            $this->dispatchSync(new SoftDeleteRegion(Region::where('region_number', $koheraRegion->regionNumber())->first()));
+            $this->dispatchSync(new SoftDeleteRegion(Region::where('region_number', $externalRegion->regionNumber())->first()));
             $this->dispatchSync(new CreateRegion($externalRegion));
         }
     }
