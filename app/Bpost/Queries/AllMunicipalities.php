@@ -10,9 +10,12 @@ use App\Imports\Values\MunicipalitiesUrl;
 use App\Services\ImportFileToStorage;
 use App\Services\SpreadsheetToCollection;
 use Illuminate\Support\Collection;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 final class AllMunicipalities implements ExternalMunicipalities
 {
+    use DispatchesJobs;
+
     private string $storagePath;
 
     public function __construct(
@@ -25,7 +28,7 @@ final class AllMunicipalities implements ExternalMunicipalities
     {
         if (config('tatooine.should_import')) 
         {
-            ImportFileToStorage::setup($this->source, $this->storagePath)->pipe();
+            $this->dispatchSync(new ImportFileToStorage($this->source, $this->storagePath));
         }
         
         return SpreadsheetToCollection::setup($this->storagePath, Municipality::class)->pipe();
