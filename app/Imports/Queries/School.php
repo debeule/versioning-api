@@ -19,4 +19,6 @@ interface School
     public function studentCount(): int;
 
     public function address(): Address;
+    
+    public function hasChanged(): bool;
 }

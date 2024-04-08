@@ -9,4 +9,7 @@ interface Region
     public function recordId(): int;
     public function name(): string;
     public function regionNumber(): int;
+    public function postalCode(): int;
+    
+    public function hasChanged(): bool;
 }

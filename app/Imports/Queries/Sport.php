@@ -8,4 +8,6 @@ interface Sport
 {
     public function recordId(): int;
     public function name(): string;
+    
+    public function hasChanged(): bool;
 }

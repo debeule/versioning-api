@@ -12,4 +12,6 @@ interface Municipality
     public function province(): string;
     public function postalCode(): int;
     public function headMunicipality(): ?string;
+    
+    public function hasChanged(): bool;
 }

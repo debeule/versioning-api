@@ -17,6 +17,8 @@ interface BillingProfile
 
     public function address(): Address;
     public function school(): School;
+    
+    public function hasChanged(): bool;
 
 
 }

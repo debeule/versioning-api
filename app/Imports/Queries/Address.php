@@ -13,4 +13,6 @@ interface Address
     public function streetIdentifier(): string;
 
     public function municipality(): Municipality;
+    
+    public function hasChanged(): bool;
 }
