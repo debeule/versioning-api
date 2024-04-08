@@ -6,8 +6,8 @@ declare(strict_types=1);
 namespace App\Location\Commands;
 
 use App\Extensions\Eloquent\Scopes\FromVersion;
-use App\Location\Municipality;
 use App\Imports\Queries\Region;
+use App\Location\Municipality;
 use App\Location\Region as DbRegion;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 

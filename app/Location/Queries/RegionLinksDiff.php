@@ -5,13 +5,9 @@ declare(strict_types=1);
 namespace App\Location\Queries;
 
 use App\Imports\Queries\ExternalRegions;
-use App\Services\FilterAdditions;
-use App\Services\FilterDeletions;
-use App\Services\FilterUpdates;
+use App\Location\Municipality;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Support\Collection;
-use App\Location\Region;
-use App\Location\Municipality;
 
 final class RegionLinksDiff
 {
@@ -42,7 +38,7 @@ final class RegionLinksDiff
             $municipality = Municipality::where('postal_code', $externalRegion->postalCode())->first();
 
             if ($municipality->region_id == $externalRegion->recordId()) continue;
-            if (!$this->allRegions->contains('record_id', $externalRegion->recordId())) continue;
+            if (! $this->allRegions->contains('record_id', $externalRegion->recordId())) continue;
 
             $regionsToLink->push($externalRegion);
         }

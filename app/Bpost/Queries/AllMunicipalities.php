@@ -9,8 +9,8 @@ use App\Imports\Queries\ExternalMunicipalities;
 use App\Imports\Values\MunicipalitiesUrl;
 use App\Services\ImportFileToStorage;
 use App\Services\SpreadsheetToCollection;
-use Illuminate\Support\Collection;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Support\Collection;
 
 final class AllMunicipalities implements ExternalMunicipalities
 {

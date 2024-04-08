@@ -1,17 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Services;
 
 use App\Services\ImportFileToStorage;
-use Illuminate\Support\Facades\File;
+use App\Testing\TestCase;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
-use App\Testing\TestCase;
 
 class ImportFileToStorageTest extends TestCase
 {
     /** @test */
-    public function itCanImportFileToStorage()
+    public function itCanImportFileToStorage(): void
     {
         $source = 'http://example.com/source/file.txt';
         $destination = 'destination/file.txt';

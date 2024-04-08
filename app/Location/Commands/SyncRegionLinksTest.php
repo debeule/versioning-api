@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Location\Commands;
 
-use App\Testing\TestCase;
-use PHPUnit\Framework\Attributes\Test;
-use Database\Main\Factories\MunicipalityFactory;
-use Database\Kohera\Factories\RegionFactory as KoheraRegionFactory;
-use App\Location\Region;
 use App\Kohera\Region as KoheraRegion;
 use App\Location\Municipality;
+use App\Location\Region;
+use App\Testing\TestCase;
+use Database\Kohera\Factories\RegionFactory as KoheraRegionFactory;
+use Database\Main\Factories\MunicipalityFactory;
+use PHPUnit\Framework\Attributes\Test;
 
 final class SyncRegionLinksTest extends TestCase
 {

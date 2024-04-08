@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Imports\Values;
 
-use PhpUnit\Framework\TestCase;
 use Carbon\CarbonImmutable;
 use PHPUnit\Framework\Attributes\Test;
+use PhpUnit\Framework\TestCase;
 
 final class VersionTest extends TestCase
 {

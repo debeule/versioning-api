@@ -15,7 +15,7 @@ final class ImportFileToStorage
         private string $destination,
     ) {}
 
-    public function handle()
+    public function handle(): void
     {
         if (File::exists($this->destination)) File::delete($this->destination);
 
