@@ -66,6 +66,9 @@ services:
 
   cron:
     image: ghcr.io/matthiasdebeule2/sport-na-school-tatooine/cron:latest
+    build:
+      context: .
+      dockerfile: deploy/components/cron/workspace.Dockerfile
     container_name: cron
     restart: unless-stopped
     volumes: *app-volumes
@@ -83,7 +86,6 @@ services:
 
   worker:
     image: *app-image
-    build: *app-build
     container_name: worker
     entrypoint: php artisan queue:work --timeout=300
     restart: "no"
