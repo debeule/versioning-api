@@ -1,25 +1,31 @@
 <?php
 
-declare(strict_types=1);
+namespace Tests\Unit\Services;
 
-namespace App\Services;
-
-use PhpUnit\Framework\TestCase;
+use App\Services\ImportFileToStorage;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
-use PHPUnit\Framework\Attributes\Test;
+use App\Testing\TestCase;
 
-final class ImportFileToStorageTest extends TestCase
+class ImportFileToStorageTest extends TestCase
 {
-    #[Test]
-    public function itReturnsString(): void
+    /** @test */
+    public function itCanImportFileToStorage()
     {
-        # TODO: fake
-        $source = 'https://freetestdata.com/wp-content/uploads/2021/09/Free_Test_Data_100KB_XLS.xls';
-        $destination = 'excel/TestFile.xls';
+        $source = 'http://example.com/source/file.txt';
+        $destination = 'destination/file.txt';
 
-        $result = ImportFileToStorage::setup($source, $destination)->pipe();
-        
-        $this->assertTrue(Storage::exists($destination));
+        Http::fake([
+            $source => Http::response('File content from source', 200),
+        ]);
+
+        $importer = new ImportFileToStorage($source, $destination);
+        $importer->handle();
+
+        $this->assertTrue(Storage::disk('local')->exists($destination));
+        $this->assertEquals('File content from source', Storage::disk('local')->get($destination));
+
+        Storage::disk('local')->delete($destination);
     }
-
 }

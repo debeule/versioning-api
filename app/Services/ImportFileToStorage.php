@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use Illuminate\Pipeline\Pipeline;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 
 final class ImportFileToStorage
 {
@@ -13,22 +15,11 @@ final class ImportFileToStorage
         private string $destination,
     ) {}
 
-    public static function setup(string $source, string $destination): self
+    public function handle()
     {
-        return new self($source, $destination);
-    }
-    
-    public function pipe(): mixed
-    {
-        return app(Pipeline::class)
-            ->send([
-                'source' => $this->source,
-                'destination' => $this->destination,
-            ])
-            ->through([
-                Pipes\RetrieveFromSource::class,
-                Pipes\StoreFileToDestination::class,
-            ])
-            ->thenReturn();
+        if (File::exists($this->destination)) File::delete($this->destination);
+
+        $file = Http::withOptions(['verify' => false])->get((string) $this->source)->body();
+        Storage::disk('local')->put($this->destination, $file);
     }
 }
