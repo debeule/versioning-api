@@ -19,7 +19,6 @@ ____/_]_[_\___________________[_]_[_]_[_]
  docker exec app composer start
 
  # setup testing environment: 
-docker exec app composer testing
 docker exec app composer testing:seed
 
 # generate api bearer token

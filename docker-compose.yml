@@ -86,7 +86,6 @@ services:
 
   worker:
     image: *app-image
-    build: *app-build
     container_name: worker
     entrypoint: php artisan queue:work --timeout=300
     restart: "no"
