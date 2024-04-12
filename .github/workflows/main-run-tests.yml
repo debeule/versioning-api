@@ -19,10 +19,8 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GHCR_TOKEN }}
 
-    - name: pull app image
-      run: docker pull ghcr.io/matthiasdebeule2/sport-na-school-tatooine/app:latest
-    - name: pull cron image
-      run: docker pull ghcr.io/matthiasdebeule2/sport-na-school-tatooine/cron:latest
+    - name: test
+      run: docker compose pull
       
     - name: setup containers
       run: sudo docker compose up --no-build --wait

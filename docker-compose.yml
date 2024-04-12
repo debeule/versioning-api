@@ -2,7 +2,7 @@ version: '3.7'
 services:
   app:
     image: &app-image ghcr.io/matthiasdebeule2/sport-na-school-tatooine/app:latest
-    build: &app-build
+    build:
       context: .
       dockerfile: deploy/components/app/workspace.Dockerfile
     container_name: app
@@ -88,7 +88,7 @@ services:
     image: *app-image
     container_name: worker
     entrypoint: php artisan queue:work --timeout=300
-    restart: "no"
+    restart:  unless-stopped
     tty: true
     volumes: *app-volumes
     networks:
