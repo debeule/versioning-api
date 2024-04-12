@@ -97,11 +97,11 @@
         "testing:seed": "php artisan db:seed --database=kohera-testing",
         
         "phpunit": [
-            "php artisan migrate:fresh --path=database/main/migrations/ --database=db-testing",
-            "php artisan migrate:fresh --path=database/kohera/migrations/ --database=kohera-testing",
             "vendor/bin/phpunit --colors=always,'Feature','Integration'"
         ],
         "phpunit2": [
+            "php artisan migrate:fresh --path=database/main/migrations/ --database=db-testing",
+            "php artisan migrate:fresh --path=database/kohera/migrations/ --database=kohera-testing",
             "vendor/bin/phpunit --colors=always,'Feature','Integration'"
         ],
 
