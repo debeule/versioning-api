@@ -77,7 +77,7 @@
     "prefer-stable": true,
     "scripts": {
         "start": "composer setup && composer main",
-        "start:testing": "composer setup && composer main && composer testing && composer testing:seed",
+        "start:testing": "composer setup && composer main && composer testing",
         
         "setup": [
             "php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
@@ -92,9 +92,9 @@
         "testing": [
             "php -r \"file_exists('database/kohera') || mkdir('database/kohera', 0777, true); touch('database/kohera/database.sqlite');\"",
             "php artisan migrate:fresh --path=database/main/migrations/ --database=db-testing",
-            "php artisan migrate:fresh --path=database/kohera/migrations/ --database=kohera-testing"
+            "php artisan migrate:fresh --path=database/kohera/migrations/ --database=kohera-testing",
+            "php artisan db:seed --database=kohera-testing"
         ],
-        "testing:seed": "php artisan db:seed --database=kohera-testing",
         
         "phpunit": [
             "php artisan migrate:fresh --path=database/main/migrations/ --database=db-testing",
