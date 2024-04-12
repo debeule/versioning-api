@@ -31,7 +31,7 @@ jobs:
     - name: setup databases
       run: |
         sudo docker exec -u 0 app composer main
-        sudo docker exec -u 0 app composer testing
+        sudo docker exec -u 0 app composer testing:migrate
 
     - name: add permissions to phpunit executable
       run: sudo docker exec -u 0 app chmod 777 vendor/bin/phpunit
