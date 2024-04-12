@@ -33,4 +33,3 @@ jobs:
 
       - name: Push images to GHCR
         run: docker compose push
-      
