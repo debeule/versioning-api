@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   app:
-    image: &app-image ghcr.io/matthiasdebeule2/sport-na-school-tatooine/app:latest
+    image: &app-image ghcr.io/debeule/versioning-api/app:latest
     build:
       context: .
       dockerfile: deploy/components/app/workspace.Dockerfile
@@ -65,7 +65,7 @@ services:
       - backend
 
   cron:
-    image: ghcr.io/matthiasdebeule2/sport-na-school-tatooine/cron:latest
+    image: ghcr.io/debeule/versioning-api/cron:latest
     build:
       context: .
       dockerfile: deploy/components/cron/workspace.Dockerfile
